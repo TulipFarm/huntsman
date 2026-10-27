@@ -1,6 +1,6 @@
 # Benchmarks
 
-Everything used to measure Huntsman against other self-hosted scrapers lives here. The URL datasets and `eval.py`, which scores Markdown output with the same rules as [scrape-evals](https://github.com/firecrawl/scrape-evals), live in [`../dataset/`](../dataset/).
+Everything used to measure Huntsman against other self-hosted scrapers lives here. The URL datasets and `eval.py`, which scores Markdown output with the same rules as Firecrawl's scrape-evals (MIT), live in [`../dataset/`](../dataset/).
 
 | Path | What it is |
 |---|---|

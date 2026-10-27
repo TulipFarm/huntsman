@@ -88,7 +88,7 @@ configs:
 
 A benchmark for evaluating web scraping engines on content quality, balanced across language, script direction, rendering technology, page type, media format, difficulty, region and topic. It extends Firecrawl's [scrape-content-dataset-v1](https://huggingface.co/datasets/firecrawl/scrape-content-dataset-v1) and keeps its first five columns, so tooling for that dataset works unchanged.
 
-Built by [Huntsman](https://huntsman.tulipfarm.ai) ([source](https://github.com/tulipfarm/huntsman)). The pipeline, quotas and design spec are in [`dataset/huntsman-v1/`](https://github.com/tulipfarm/huntsman/tree/main/dataset/huntsman-v1).
+Built by [Huntsman](https://github.com/TulipFarm/huntsman) ([source](https://github.com/tulipfarm/huntsman)). The pipeline, quotas and design spec are in [`dataset/huntsman-v1/`](https://github.com/tulipfarm/huntsman/tree/main/dataset/huntsman-v1).
 
 ## Overview
 

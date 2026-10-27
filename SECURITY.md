@@ -1,7 +1,7 @@
 # Security policy
 
 Please don't report vulnerabilities in public issues. Use
-[GitHub private vulnerability reporting](https://github.com/tulipfarm/huntsman/security/advisories/new) instead.
+[GitHub private vulnerability reporting](https://github.com/TulipFarm/huntsman/security/advisories/new) instead.
 
 Include the affected version or commit, steps to reproduce, and the impact. We aim to reply within 7 days.
 

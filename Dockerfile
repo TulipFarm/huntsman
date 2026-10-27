@@ -27,6 +27,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates
     && mkdir /data && chown huntsman /data
 COPY --from=browser /bin/lightpanda /usr/local/bin/lightpanda
 COPY --from=build /out/ /usr/local/bin/
+COPY LICENSE NOTICE /usr/share/doc/huntsman/
 # Ad, tracker, and cookie-banner filters (EasyList project, GPLv3 / CC BY-SA 3.0), fetched at build time.
 ADD https://easylist.to/easylist/easylist.txt https://easylist.to/easylist/easyprivacy.txt \
     https://secure.fanboy.co.nz/fanboy-cookiemonster.txt /usr/share/huntsman/filters/

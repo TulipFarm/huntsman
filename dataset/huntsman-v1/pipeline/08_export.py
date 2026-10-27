@@ -90,7 +90,7 @@ def hf_card(rows):
         "direction, rendering technology, page type, media format, difficulty, region and topic. It extends "
         "Firecrawl's [scrape-content-dataset-v1](https://huggingface.co/datasets/firecrawl/scrape-content-dataset-v1) and keeps "
         "its first five columns, so tooling for that dataset works unchanged.", "",
-        f"Built by [Huntsman](https://huntsman.tulipfarm.ai) ([source]({REPO})). The pipeline, quotas and design "
+        f"Built by [Huntsman](https://github.com/TulipFarm/huntsman) ([source]({REPO})). The pipeline, quotas and design "
         f"spec are in [`dataset/huntsman-v1/`]({REPO}/tree/main/dataset/huntsman-v1).", "",
         "## Overview", "",
         f"{len(rows):,} rows, {len(langs)} languages, {len({r['country'] for r in rows if r['country']})} countries, "
