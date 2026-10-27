@@ -1,0 +1,23 @@
+services:
+  huntsman:
+    build: .
+    ports:
+      - "127.0.0.1:8080:8080"
+    environment:
+      HUNTSMAN_WORKERS: ${HUNTSMAN_WORKERS:-4}
+      HUNTSMAN_PER_HOST: ${HUNTSMAN_PER_HOST:-2}
+      HUNTSMAN_CACHE_TTL: ${HUNTSMAN_CACHE_TTL:-1h}
+      HUNTSMAN_TOKEN: ${HUNTSMAN_TOKEN:-}
+    cpus: 1.0
+    mem_limit: 6g
+    memswap_limit: 6g
+    pids_limit: 512
+    init: true
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+    volumes:
+      - huntsman-data:/data
+    restart: unless-stopped
+
+volumes:
+  huntsman-data:

@@ -1,0 +1,8 @@
+2026/10/26 04:33:04 INFO Huntsman ready address=0.0.0.0:8080 workers=3 perHost=3 cacheTTL=1h0m0s allowPrivate=false
+$time=1792989187999 $scope=note $level=note $msg="server running" address=127.0.0.1:9224 max_connections=848 max_browser_connections=16
+$time=1792989193158 $scope=note $level=note $msg="server running" address=127.0.0.1:9223 max_connections=848 max_browser_connections=16
+$time=1792989193178 $scope=note $level=note $msg="server running" address=127.0.0.1:9222 max_connections=848 max_browser_connections=16
+2026/10/26 04:33:23 WARN scrape failed job=1cbfbead698994a9ea23b48ddaa99000 error="page produced empty Markdown"
+2026/10/26 04:34:17 WARN scrape failed job=f2bdca55a4373937eceb4da68ade2181 error="page produced empty Markdown"
+2026/10/26 04:34:34 WARN scrape failed job=219ac820143db5ae1c95b3adf7d3ebd9 error="navigate: page load error CouldntResolveHost"
+2026/10/26 04:34:39 WARN scrape failed job=ef91d000a08b6b070034a1d141be646c error="navigate: page load error net::ERR_TIMED_OUT"

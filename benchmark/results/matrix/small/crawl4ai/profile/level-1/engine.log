@@ -1,0 +1,181 @@
+entrypoint: no REDIS_PASSWORD provided; generated an ephemeral one.
+2026-10-26 07:44:46,629 INFO supervisord started with pid 1
+2026-10-26 07:44:47,632 INFO spawned: 'redis' with pid 8
+2026-10-26 07:44:47,634 INFO spawned: 'gunicorn' with pid 9
+8:C 26 Oct 2026 07:44:47.652 # WARNING Memory overcommit must be enabled! Without it, a background save or replication may fail under low memory condition. Being disabled, it can also cause failures without low memory condition, see https://github.com/jemalloc/jemalloc/issues/1328. To fix this issue add 'vm.overcommit_memory = 1' to /etc/sysctl.conf and then reboot or run the command 'sysctl vm.overcommit_memory=1' for this to take effect.
+8:C 26 Oct 2026 07:44:47.654 * oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+8:C 26 Oct 2026 07:44:47.655 * Redis version=8.10.2, bits=64, commit=00000000, modified=1, pid=8, just started
+8:C 26 Oct 2026 07:44:47.655 * Configuration loaded
+8:M 26 Oct 2026 07:44:47.655 * Increased maximum number of open files to 10032 (it was originally set to 1024).
+8:M 26 Oct 2026 07:44:47.655 * monotonic clock: ARM CNTVCT @ 1050 ticks/us
+8:M 26 Oct 2026 07:44:47.658 * Running mode=standalone, port=6379.
+8:M 26 Oct 2026 07:44:47.659 * Server initialized
+8:M 26 Oct 2026 07:44:47.659 * Ready to accept connections tcp
+[2026-10-26 07:44:48 +0000] [9] [INFO] Starting gunicorn 26.2.0
+[2026-10-26 07:44:48 +0000] [9] [INFO] Listening at: http://[::]:11235 (9)
+[2026-10-26 07:44:48 +0000] [9] [INFO] Using worker: uvicorn.workers.UvicornWorker
+[2026-10-26 07:44:48 +0000] [16] [INFO] Booting worker with pid: 16
+[2026-10-26 07:44:48 +0000] [9] [INFO] Control socket listening at /home/appuser/.gunicorn/gunicorn.ctl
+2026-10-26 07:44:49,342 INFO success: redis entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-10-26 07:44:49,343 INFO success: gunicorn entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+No SECRET_KEY set. Auto-generated an ephemeral key (changes on restart, invalidating issued tokens). Set SECRET_KEY for any real deployment.
+/app/job.py:49: UserWarning: Field name "schema" in "LlmJobPayload" shadows an attribute in parent "BaseModel"
+  class LlmJobPayload(BaseModel):
+/app/server.py:1106: FastAPIDeprecationWarning: `regex` has been deprecated, please use `pattern` instead
+  context_type: str = Query("all", regex="^(code|doc|all)$"),
+MCP server running on 127.0.0.1:11235
+[2026-10-26 07:44:51 +0000] [16] [INFO] Started server process [16]
+[2026-10-26 07:44:51 +0000] [16] [INFO] Waiting for application startup.
+2026-10-26 07:44:51,078 - server - INFO - Auth gate active (credential configured).
+2026-10-26 07:44:51,086 - crawl4ai.egress - INFO - egress pinning proxy listening on http://127.0.0.1:46081
+2026-10-26 07:44:51,088 - crawl4ai.workqueue - INFO - work queue started (maxsize=1000, workers=4, per_principal=unlimited)
+2026-10-26 07:44:51,093 - monitor - INFO - Started persistence worker
+2026-10-26 07:44:51,130 - crawler_pool - INFO - 🔥 Creating permanent default browser
+[INIT].... → Crawl4AI 0.9.5 
+========================================================================
+  Crawl4AI Cloud is live: the same crawler, hosted.
+  Free credit to start, no card. Soft launch: prices can change, what you buy stays yours.
+  Get a key in 10 seconds:  https://crawl4ai.com/?ref=pip
+  The library stays open source, forever.   Hide this banner: CRAWL4AI_NO_CLOUD_NOTICE=1
+========================================================================
+[2026-10-26 07:44:51 +0000] [16] [INFO] Application startup complete.
+2026-10-26 07:44:51,893 - crawler_pool - INFO - 🆕 Creating new browser in cold pool (sig=ab2df7af, mem=13.0%)
+[INIT].... → Crawl4AI 0.9.5 
+[FETCH]... ↓ https://example.com/                                                                                 | ✓ | ⏱: 0.32s 
+[SCRAPE].. ◆ https://example.com/                                                                                 | ✓ | ⏱: 0.00s 
+[COMPLETE] ● https://example.com/                                                                                 | ✓ | ⏱: 0.33s 
+2026-10-26 07:44:52,615 - api - INFO - Memory usage: Start: 145.578125 MB, End: 148.91796875 MB, Delta: 3.33984375 MB, Peak: 148.91796875 MB
+2026-10-26 07:44:57,717 - crawler_pool - INFO - ❄️  Using cold pool browser (sig=ab2df7af)
+[FETCH]... ↓ https://www.edimark.fr/revues/la-lettre-du-rhuma...-une-etape-indispensable-trop-longtemps-negligee  | ✓ | ⏱: 1.87s 
+[SCRAPE].. ◆ https://www.edimark.fr/revues/la-lettre-du-rhuma...-une-etape-indispensable-trop-longtemps-negligee  | ✓ | ⏱: 0.09s 
+[COMPLETE] ● https://www.edimark.fr/revues/la-lettre-du-rhuma...-une-etape-indispensable-trop-longtemps-negligee  | ✓ | ⏱: 1.98s 
+2026-10-26 07:44:59,700 - api - INFO - Memory usage: Start: 148.91796875 MB, End: 152.59765625 MB, Delta: 3.6796875 MB, Peak: 152.59765625 MB
+2026-10-26 07:44:59,880 - crawler_pool - INFO - ⬆️  Promoting to hot pool (sig=ab2df7af, count=3)
+[FETCH]... ↓ https://www.raspberrypi.com/news/new-extended-temperature-range-for-compute-module-4/                | ✓ | ⏱: 1.04s 
+[SCRAPE].. ◆ https://www.raspberrypi.com/news/new-extended-temperature-range-for-compute-module-4/                | ✓ | ⏱: 0.09s 
+[COMPLETE] ● https://www.raspberrypi.com/news/new-extended-temperature-range-for-compute-module-4/                | ✓ | ⏱: 1.15s 
+2026-10-26 07:45:01,032 - api - INFO - Memory usage: Start: 153.01171875 MB, End: 153.23828125 MB, Delta: 0.2265625 MB, Peak: 153.23828125 MB
+2026-10-26 07:45:01,117 - crawler_pool - INFO - ♨️  Using hot pool browser (sig=ab2df7af, active=1)
+[FETCH]... ↓ https://developingeconomics.org/2024/06/24/post-conflict-recovery-and-trade-explainer/               | ✓ | ⏱: 0.62s 
+[SCRAPE].. ◆ https://developingeconomics.org/2024/06/24/post-conflict-recovery-and-trade-explainer/               | ✓ | ⏱: 0.11s 
+[COMPLETE] ● https://developingeconomics.org/2024/06/24/post-conflict-recovery-and-trade-explainer/               | ✓ | ⏱: 0.74s 
+2026-10-26 07:45:01,863 - api - INFO - Memory usage: Start: 153.70703125 MB, End: 156.96484375 MB, Delta: 3.2578125 MB, Peak: 156.96484375 MB
+2026-10-26 07:45:02,168 - crawler_pool - INFO - ♨️  Using hot pool browser (sig=ab2df7af, active=1)
+[FETCH]... ↓ https://goals.co.jp/company/                                                                         | ✓ | ⏱: 5.64s 
+[SCRAPE].. ◆ https://goals.co.jp/company/                                                                         | ✓ | ⏱: 0.14s 
+[COMPLETE] ● https://goals.co.jp/company/                                                                         | ✓ | ⏱: 5.82s 
+2026-10-26 07:45:07,990 - api - INFO - Memory usage: Start: 158.125 MB, End: 183.98828125 MB, Delta: 25.86328125 MB, Peak: 183.98828125 MB
+2026-10-26 07:45:08,123 - crawler_pool - INFO - ♨️  Using hot pool browser (sig=ab2df7af, active=1)
+[FETCH]... ↓ https://www.w3schools.com/sql/sql_in.asp                                                             | ✓ | ⏱: 1.33s 
+[SCRAPE].. ◆ https://www.w3schools.com/sql/sql_in.asp                                                             | ✓ | ⏱: 0.34s 
+[COMPLETE] ● https://www.w3schools.com/sql/sql_in.asp                                                             | ✓ | ⏱: 1.69s 
+2026-10-26 07:45:09,815 - api - INFO - Memory usage: Start: 183.98828125 MB, End: 186.90234375 MB, Delta: 2.9140625 MB, Peak: 186.90234375 MB
+2026-10-26 07:45:09,934 - crawler_pool - INFO - ♨️  Using hot pool browser (sig=ab2df7af, active=1)
+[FETCH]... ↓ https://lms.leanderisd.org/campus_information/fine-arts                                              | ✓ | ⏱: 0.79s 
+[SCRAPE].. ◆ https://lms.leanderisd.org/campus_information/fine-arts                                              | ✓ | ⏱: 0.08s 
+[COMPLETE] ● https://lms.leanderisd.org/campus_information/fine-arts                                              | ✓ | ⏱: 0.89s 
+2026-10-26 07:45:10,826 - api - INFO - Memory usage: Start: 186.90234375 MB, End: 187.13671875 MB, Delta: 0.234375 MB, Peak: 187.13671875 MB
+2026-10-26 07:45:10,913 - crawler_pool - INFO - ♨️  Using hot pool browser (sig=ab2df7af, active=1)
+2026-10-26 07:46:10,908 - crawler_pool - INFO - ♨️  Using hot pool browser (sig=ab2df7af, active=2)
+[ANTIBOT]. ℹ https://www.lexisveille...ary=PI et communication  | Error: Proxy direct failed: Failed on navigating ACS-GOTO:
+Page.goto: Timeout 60000ms exceeded.
+Call log:
+  - navigating to 
+"https://www.lexisveille.fr/search/m/PI%20et%20communication--Expropriation-921--Professions%20judiciaires-1170--Proc%C3%A9dure%20civile%20d%27ex%C3%A9cution-947/profession/Juristes%20d%27entreprise?c
+ustom_url=1&summary=PI%20et%20communication", waiting until "domcontentloaded"
+ 
+[ERROR]... × https://www.lexisveille...ary=PI et communication  | Error: Unexpected error in _crawl_web at line 779 in _crawl_web 
+(../usr/local/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: Timeout 60000ms exceeded.
+Call log:
+  - navigating to 
+"https://www.lexisveille.fr/search/m/PI%20et%20communication--Expropriation-921--Professions%20judiciaires-1170--Proc%C3%A9dure%20civile%20d%27ex%C3%A9cution-947/profession/Juristes%20d%27entreprise?c
+ustom_url=1&summary=PI%20et%20communication", waiting until "domcontentloaded"
+
+
+Code context:
+ 774                                   tag="GOTO",
+ 775                                   params={"url": url},
+ 776                               )
+ 777                               response = None
+ 778                           else:
+ 779 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 780   
+ 781                       # ──────────────────────────────────────────────────────────────
+ 782                       # Walk the redirect chain.  Playwright returns only the last
+ 783                       # hop, so we trace the `request.redirected_from` links until the
+ 784                       # first response that differs from the final one and surface its 
+2026-10-26 07:46:10,962 - api - INFO - Memory usage: Start: 187.13671875 MB, End: 190.21875 MB, Delta: 3.08203125 MB, Peak: 190.21875 MB
+[FETCH]... ↓ https://www.quora.com/What-is-the-placement-reco...on-systems-How-does-it-compare-to-other-colleges  | ✓ | ⏱: 0.46s 
+[SCRAPE].. ◆ https://www.quora.com/What-is-the-placement-reco...on-systems-How-does-it-compare-to-other-colleges  | ✓ | ⏱: 0.01s 
+========================================================================
+  Blocked? Crawl4AI Cloud gets through the hard sites, free credit to start.
+  https://crawl4ai.com/?ref=blocked   Hide this banner: CRAWL4AI_NO_CLOUD_NOTICE=1
+========================================================================
+[ERROR]... × https://www.quora.com/W...mpare-to-other-colleges  | Error: Blocked by anti-bot protection: Cloudflare JS challenge 
+[COMPLETE] ● https://www.quora.com/What-is-the-placement-reco...on-systems-How-does-it-compare-to-other-colleges  | ✗ | ⏱: 0.48s 
+2026-10-26 07:46:11,446 - api - INFO - Memory usage: Start: 189.1796875 MB, End: 190.28125 MB, Delta: 1.1015625 MB, Peak: 190.28125 MB
+2026-10-26 07:46:11,593 - crawler_pool - INFO - ♨️  Using hot pool browser (sig=ab2df7af, active=1)
+[FETCH]... ↓ https://www.dealcode.ai/blog/meet-the-team-alexander-weltzsch                                        | ✓ | ⏱: 0.45s 
+[SCRAPE].. ◆ https://www.dealcode.ai/blog/meet-the-team-alexander-weltzsch                                        | ✓ | ⏱: 0.00s 
+[ERROR]... × https://www.dealcode.ai...team-alexander-weltzsch  | Error: Blocked by anti-bot protection: Structural: minimal_text, no_content_elements, script_heavy_shell (10014 bytes, 0 chars 
+visible) 
+[COMPLETE] ● https://www.dealcode.ai/blog/meet-the-team-alexander-weltzsch                                        | ✗ | ⏱: 0.46s 
+2026-10-26 07:46:12,058 - api - INFO - Memory usage: Start: 190.28125 MB, End: 191.35546875 MB, Delta: 1.07421875 MB, Peak: 191.35546875 MB
+2026-10-26 07:46:12,158 - crawler_pool - INFO - ♨️  Using hot pool browser (sig=ab2df7af, active=1)
+[FETCH]... ↓ https://www.nisum.com/nisum-knows                                                                    | ✓ | ⏱: 1.20s 
+[SCRAPE].. ◆ https://www.nisum.com/nisum-knows                                                                    | ✓ | ⏱: 0.24s 
+[COMPLETE] ● https://www.nisum.com/nisum-knows                                                                    | ✓ | ⏱: 1.45s 
+2026-10-26 07:46:13,613 - api - INFO - Memory usage: Start: 191.35546875 MB, End: 191.97265625 MB, Delta: 0.6171875 MB, Peak: 191.97265625 MB
+2026-10-26 07:46:13,694 - crawler_pool - INFO - ♨️  Using hot pool browser (sig=ab2df7af, active=1)
+[FETCH]... ↓ https://www.eaa.org.hk/zh-hk/login?returnurl=/zh-hk/Information-Centre/Press-Releases                | ✓ | ⏱: 8.18s 
+[SCRAPE].. ◆ https://www.eaa.org.hk/zh-hk/login?returnurl=/zh-hk/Information-Centre/Press-Releases                | ✓ | ⏱: 0.09s 
+[COMPLETE] ● https://www.eaa.org.hk/zh-hk/login?returnurl=/zh-hk/Information-Centre/Press-Releases                | ✓ | ⏱: 8.29s 
+2026-10-26 07:46:21,984 - api - INFO - Memory usage: Start: 191.97265625 MB, End: 192.26171875 MB, Delta: 0.2890625 MB, Peak: 192.26171875 MB
+2026-10-26 07:46:22,068 - crawler_pool - INFO - ♨️  Using hot pool browser (sig=ab2df7af, active=1)
+[FETCH]... ↓ https://www.forbes.com/councils/forbestechcounci...8/the-missing-piece-in-ai-productivity-adoption/  | ✓ | ⏱: 1.16s 
+[SCRAPE].. ◆ https://www.forbes.com/councils/forbestechcounci...8/the-missing-piece-in-ai-productivity-adoption/  | ✓ | ⏱: 0.23s 
+[COMPLETE] ● https://www.forbes.com/councils/forbestechcounci...8/the-missing-piece-in-ai-productivity-adoption/  | ✓ | ⏱: 1.42s 
+2026-10-26 07:46:23,489 - api - INFO - Memory usage: Start: 192.26171875 MB, End: 192.9765625 MB, Delta: 0.71484375 MB, Peak: 192.9765625 MB
+2026-10-26 07:46:23,752 - crawler_pool - INFO - ♨️  Using hot pool browser (sig=ab2df7af, active=1)
+[FETCH]... ↓ http://workjournal.webbiz.tw                                                                         | ✓ | ⏱: 0.72s 
+[SCRAPE].. ◆ http://workjournal.webbiz.tw                                                                         | ✓ | ⏱: 0.04s 
+[COMPLETE] ● http://workjournal.webbiz.tw                                                                         | ✓ | ⏱: 0.78s 
+2026-10-26 07:46:24,538 - api - INFO - Memory usage: Start: 192.9765625 MB, End: 193.140625 MB, Delta: 0.1640625 MB, Peak: 193.140625 MB
+2026-10-26 07:46:24,623 - crawler_pool - INFO - ♨️  Using hot pool browser (sig=ab2df7af, active=1)
+[FETCH]... ↓ https://www.niche.com/k12/scotch-plains-fanwood-high-school-scotch-plains-nj/rankings/               | ✓ | ⏱: 0.85s 
+[SCRAPE].. ◆ https://www.niche.com/k12/scotch-plains-fanwood-high-school-scotch-plains-nj/rankings/               | ✓ | ⏱: 0.00s 
+[ERROR]... × https://www.niche.com/k...tch-plains-nj/rankings/  | Error: Blocked by anti-bot protection: PerimeterX block 
+[COMPLETE] ● https://www.niche.com/k12/scotch-plains-fanwood-high-school-scotch-plains-nj/rankings/               | ✗ | ⏱: 0.86s 
+2026-10-26 07:46:25,484 - api - INFO - Memory usage: Start: 193.140625 MB, End: 193.9765625 MB, Delta: 0.8359375 MB, Peak: 193.9765625 MB
+2026-10-26 07:46:25,569 - crawler_pool - INFO - ♨️  Using hot pool browser (sig=ab2df7af, active=1)
+[FETCH]... ↓ https://rotana.net/                                                                                  | ✓ | ⏱: 0.77s 
+[SCRAPE].. ◆ https://rotana.net/                                                                                  | ✓ | ⏱: 0.13s 
+[COMPLETE] ● https://rotana.net/                                                                                  | ✓ | ⏱: 0.92s 
+2026-10-26 07:46:26,490 - api - INFO - Memory usage: Start: 193.9765625 MB, End: 193.9765625 MB, Delta: 0.0 MB, Peak: 193.9765625 MB
+2026-10-26 07:46:26,620 - crawler_pool - INFO - ♨️  Using hot pool browser (sig=ab2df7af, active=1)
+[FETCH]... ↓ https://www.sttark.com/blog/what-is-die-cutting-in-custom-packaging                                  | ✓ | ⏱: 0.69s 
+[SCRAPE].. ◆ https://www.sttark.com/blog/what-is-die-cutting-in-custom-packaging                                  | ✓ | ⏱: 0.06s 
+[COMPLETE] ● https://www.sttark.com/blog/what-is-die-cutting-in-custom-packaging                                  | ✓ | ⏱: 0.76s 
+2026-10-26 07:46:27,385 - api - INFO - Memory usage: Start: 193.9765625 MB, End: 193.9765625 MB, Delta: 0.0 MB, Peak: 193.9765625 MB
+2026-10-26 07:46:27,467 - crawler_pool - INFO - ♨️  Using hot pool browser (sig=ab2df7af, active=1)
+[FETCH]... ↓ https://www.bonanza.org/magazine/archive/2017/october-2017/surly-bonds/                              | ✓ | ⏱: 1.05s 
+[SCRAPE].. ◆ https://www.bonanza.org/magazine/archive/2017/october-2017/surly-bonds/                              | ✓ | ⏱: 0.06s 
+[COMPLETE] ● https://www.bonanza.org/magazine/archive/2017/october-2017/surly-bonds/                              | ✓ | ⏱: 1.15s 
+2026-10-26 07:46:28,618 - api - INFO - Memory usage: Start: 193.9765625 MB, End: 193.9765625 MB, Delta: 0.0 MB, Peak: 193.9765625 MB
+2026-10-26 07:46:28,701 - crawler_pool - INFO - ♨️  Using hot pool browser (sig=ab2df7af, active=1)
+[FETCH]... ↓ https://github.com/replicate/cog-examples/blob/a4db315be6862210d6d8d2d0719c94bd6d39e6c6/hello-world  | ✓ | ⏱: 1.63s 
+[SCRAPE].. ◆ https://github.com/replicate/cog-examples/blob/a4db315be6862210d6d8d2d0719c94bd6d39e6c6/hello-world  | ✓ | ⏱: 0.13s 
+[COMPLETE] ● https://github.com/replicate/cog-examples/blob/a4db315be6862210d6d8d2d0719c94bd6d39e6c6/hello-world  | ✓ | ⏱: 1.78s 
+2026-10-26 07:46:30,477 - api - INFO - Memory usage: Start: 193.9765625 MB, End: 193.9765625 MB, Delta: 0.0 MB, Peak: 193.9765625 MB
+2026-10-26 07:46:30,557 - crawler_pool - INFO - ♨️  Using hot pool browser (sig=ab2df7af, active=1)
+[FETCH]... ↓ https://junipernetworks.zendesk.com/hc/ja/relate...Fua2kI--2ae9bf9eb746f37c03c86f302d7b6afde44079e4  | ✓ | ⏱: 1.33s 
+[SCRAPE].. ◆ https://junipernetworks.zendesk.com/hc/ja/relate...Fua2kI--2ae9bf9eb746f37c03c86f302d7b6afde44079e4  | ✓ | ⏱: 0.03s 
+[COMPLETE] ● https://junipernetworks.zendesk.com/hc/ja/relate...Fua2kI--2ae9bf9eb746f37c03c86f302d7b6afde44079e4  | ✓ | ⏱: 1.38s 
+2026-10-26 07:46:31,936 - api - INFO - Memory usage: Start: 193.9765625 MB, End: 193.9765625 MB, Delta: 0.0 MB, Peak: 193.9765625 MB
+2026-10-26 07:46:32,092 - crawler_pool - INFO - ♨️  Using hot pool browser (sig=ab2df7af, active=1)
+[FETCH]... ↓ https://proprintgroup.co.uk/packaging-print-quality-print-simplified/about-us/contact-us/            | ✓ | ⏱: 1.19s 
+[SCRAPE].. ◆ https://proprintgroup.co.uk/packaging-print-quality-print-simplified/about-us/contact-us/            | ✓ | ⏱: 0.06s 
+[COMPLETE] ● https://proprintgroup.co.uk/packaging-print-quality-print-simplified/about-us/contact-us/            | ✓ | ⏱: 1.26s 
+2026-10-26 07:46:33,351 - api - INFO - Memory usage: Start: 193.9765625 MB, End: 193.9765625 MB, Delta: 0.0 MB, Peak: 193.9765625 MB

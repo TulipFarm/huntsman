@@ -1,0 +1,33 @@
+ARG API_IMAGE=firecrawl-api:latest
+ARG BROWSER_IMAGE=firecrawl-playwright-service:latest
+ARG POSTGRES_IMAGE=firecrawl-nuq-postgres:latest
+FROM ${BROWSER_IMAGE} AS browser
+FROM ${POSTGRES_IMAGE} AS schema
+FROM ${API_IMAGE}
+USER root
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    postgresql-15 postgresql-15-cron redis-server rabbitmq-server \
+    libnss3 libnspr4 libatk1.0-0 libatk-bridge2.0-0 libcups2 libdrm2 \
+    libdbus-1-3 libxkbcommon0 libatspi2.0-0 libx11-6 libxcomposite1 \
+    libxdamage1 libxext6 libxfixes3 libxrandr2 libgbm1 libxcb1 \
+    libasound2 libpango-1.0-0 libcairo2 fonts-liberation \
+    && rm -rf /var/lib/apt/lists/*
+COPY --from=browser /usr/src/app /opt/playwright
+COPY --from=browser /usr/local/share/playwright /usr/local/share/playwright
+COPY --from=schema /docker-entrypoint-initdb.d/010-nuq.sql /opt/nuq.sql
+COPY benchmark/fixture/firecrawl-entrypoint.sh /opt/benchmark-entrypoint.sh
+ENV PLAYWRIGHT_BROWSERS_PATH=/usr/local/share/playwright \
+    USE_DB_AUTHENTICATION=false \
+    REDIS_URL=redis://127.0.0.1:6379 \
+    REDIS_RATE_LIMIT_URL=redis://127.0.0.1:6379 \
+    POSTGRES_USER=postgres POSTGRES_PASSWORD=benchmark POSTGRES_DB=postgres \
+    POSTGRES_HOST=127.0.0.1 POSTGRES_PORT=5432 \
+    NUQ_RABBITMQ_URL=amqp://guest:guest@127.0.0.1:5672 \
+    PLAYWRIGHT_MICROSERVICE_URL=http://127.0.0.1:3000/scrape \
+    HOST=0.0.0.0 PORT=3002 ENV=local \
+    NUQ_WORKER_COUNT=1 MAX_CONCURRENT_PAGES=8 \
+    ALLOW_LOCAL_WEBHOOKS=true TEST_SUITE_SELF_HOSTED=true BLOCK_MEDIA=true \
+    HARNESS_STARTUP_TIMEOUT_MS=180000 \
+    RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+S 1:1 +A 2" \
+    TELEMETRY_DISABLED=true
+ENTRYPOINT ["bash", "/opt/benchmark-entrypoint.sh"]

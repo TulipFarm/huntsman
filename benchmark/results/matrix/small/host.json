@@ -1,0 +1,9 @@
+{
+  "size": "small",
+  "vcpus": 2,
+  "mem_bytes": 3984646144,
+  "cpu": "Neoverse-V1",
+  "instance_type": "c7g.large",
+  "disk_gb": 29,
+  "docker": "29.1.3"
+}

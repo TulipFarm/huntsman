@@ -1,0 +1,118 @@
+== 2026-10-25T04:07:20Z huntsman: preparing
+== huntsman level 8
+huntsman c=8: 100/1000
+huntsman c=8: 200/1000
+huntsman c=8: 300/1000
+huntsman c=8: 400/1000
+huntsman c=8: 500/1000
+huntsman c=8: 600/1000
+huntsman c=8: 700/1000
+huntsman c=8: 800/1000
+huntsman c=8: 900/1000
+huntsman c=8: 1000/1000
+{"level": 8, "passed": true, "reason": null, "success_rate": 0.66, "pages_per_second_this_run": 2.9152736981059992, "latency_ms_p50_all": 1749.4580859999473, "latency_ms_p95_all": 7758.122142699979, "cpu_cores_avg": 1.728159090909091, "mem_bytes_peak": 1345212416}
+== huntsman level 16
+huntsman c=16: 100/1000
+huntsman c=16: 200/1000
+huntsman c=16: 300/1000
+huntsman c=16: 400/1000
+huntsman c=16: 500/1000
+huntsman c=16: 600/1000
+huntsman c=16: 700/1000
+huntsman c=16: 800/1000
+huntsman c=16: 900/1000
+huntsman c=16: 1000/1000
+{"level": 16, "passed": true, "reason": null, "success_rate": 0.645, "pages_per_second_this_run": 3.8431675528054443, "latency_ms_p50_all": 2818.9401759999555, "latency_ms_p95_all": 11624.996384549986, "cpu_cores_avg": 1.923944237918216, "mem_bytes_peak": 2034700288}
+== huntsman level 32
+huntsman c=32: 100/1000
+huntsman c=32: 200/1000
+huntsman c=32: 300/1000
+huntsman c=32: 400/1000
+huntsman c=32: 500/1000
+huntsman c=32: 600/1000
+huntsman c=32: 700/1000
+huntsman c=32: 800/1000
+huntsman c=32: 900/1000
+huntsman c=32: 1000/1000
+{"level": 32, "passed": true, "reason": null, "success_rate": 0.629, "pages_per_second_this_run": 4.5940458663315, "latency_ms_p50_all": 4923.600173000068, "latency_ms_p95_all": 18362.586071449936, "cpu_cores_avg": 1.9064185022026432, "mem_bytes_peak": 2991034368}
+== huntsman level 64
+huntsman c=64: 100/1000
+huntsman c=64: 200/1000
+huntsman c=64: 300/1000
+huntsman c=64: 400/1000
+huntsman c=64: 500/1000
+huntsman c=64: 600/1000
+huntsman c=64: 700/1000
+huntsman c=64: 800/1000
+huntsman c=64: 900/1000
+huntsman c=64: 1000/1000
+{"level": 64, "passed": false, "reason": "engine crashed or ran out of memory; median latency more than 3x the first level", "success_rate": 0.558, "pages_per_second_this_run": 4.901000113911515, "latency_ms_p50_all": 10946.013693499935, "latency_ms_p95_all": 23925.859141399924, "cpu_cores_avg": 1.9065258215962442, "mem_bytes_peak": 3178131456}
+{"engine": "huntsman", "urls": 1000, "max_sustainable_concurrency": 32, "best_throughput_level": 32, "best_pages_per_second": 4.5940458663315}
+== 2026-10-25T04:25:44Z spider: preparing
+== spider level 8
+spider c=8: 100/1000
+spider c=8: 200/1000
+spider c=8: 300/1000
+spider c=8: 400/1000
+spider c=8: 500/1000
+spider c=8: 600/1000
+spider c=8: 700/1000
+spider c=8: 800/1000
+spider c=8: 900/1000
+spider c=8: 1000/1000
+{"level": 8, "passed": true, "reason": null, "success_rate": 0.564, "pages_per_second_this_run": 0.38834938162394983, "latency_ms_p50_all": 19696.495199500307, "latency_ms_p95_all": 30007.917327099993, "cpu_cores_avg": 1.9853696241766758, "mem_bytes_peak": 2865922048}
+== spider level 16
+spider c=16: 100/1000
+spider c=16: 200/1000
+spider c=16: 300/1000
+spider c=16: 400/1000
+spider c=16: 500/1000
+spider c=16: 600/1000
+spider c=16: 700/1000
+spider c=16: 800/1000
+spider c=16: 900/1000
+spider c=16: 1000/1000
+{"level": 16, "passed": false, "reason": "engine crashed or ran out of memory; success fell more than 10 points below the best level", "success_rate": 0.027, "pages_per_second_this_run": 0.536145059122306, "latency_ms_p50_all": 30004.56091599972, "latency_ms_p95_all": 30017.814086750375, "cpu_cores_avg": 1.9813004291845495, "mem_bytes_peak": 3149082624}
+{"engine": "spider", "urls": 1000, "max_sustainable_concurrency": 8, "best_throughput_level": 8, "best_pages_per_second": 0.38834938162394983}
+== 2026-10-25T05:40:26Z crawl4ai: preparing
+== crawl4ai level 8
+crawl4ai c=8: 100/1000
+crawl4ai c=8: 200/1000
+crawl4ai c=8: 300/1000
+crawl4ai c=8: 400/1000
+crawl4ai c=8: 500/1000
+crawl4ai c=8: 600/1000
+crawl4ai c=8: 700/1000
+crawl4ai c=8: 800/1000
+crawl4ai c=8: 900/1000
+crawl4ai c=8: 1000/1000
+{"level": 8, "passed": true, "reason": null, "success_rate": 0.693, "pages_per_second_this_run": 1.241995899674842, "latency_ms_p50_all": 5468.750465500307, "latency_ms_p95_all": 12932.73880739989, "cpu_cores_avg": 1.7975190651906519, "mem_bytes_peak": 2170638336}
+== crawl4ai level 16
+crawl4ai c=16: 100/1000
+crawl4ai c=16: 200/1000
+crawl4ai c=16: 300/1000
+crawl4ai c=16: 400/1000
+crawl4ai c=16: 500/1000
+crawl4ai c=16: 600/1000
+crawl4ai c=16: 700/1000
+crawl4ai c=16: 800/1000
+crawl4ai c=16: 900/1000
+crawl4ai c=16: 1000/1000
+{"level": 16, "passed": true, "reason": null, "success_rate": 0.688, "pages_per_second_this_run": 1.0262038915720957, "latency_ms_p50_all": 14591.083338999852, "latency_ms_p95_all": 28299.591014799804, "cpu_cores_avg": 1.7882606924643585, "mem_bytes_peak": 2605666304}
+== crawl4ai level 32
+crawl4ai c=32: 100/1000
+crawl4ai c=32: 200/1000
+crawl4ai c=32: 300/1000
+crawl4ai c=32: 400/1000
+crawl4ai c=32: 500/1000
+crawl4ai c=32: 600/1000
+crawl4ai c=32: 700/1000
+crawl4ai c=32: 800/1000
+crawl4ai c=32: 900/1000
+crawl4ai c=32: 1000/1000
+{"level": 32, "passed": false, "reason": "engine crashed or ran out of memory; success fell more than 10 points below the best level; median latency more than 3x the first level", "success_rate": 0.584, "pages_per_second_this_run": 0.7272044785141627, "latency_ms_p50_all": 44832.09806299965, "latency_ms_p95_all": 60060.19803619938, "cpu_cores_avg": 1.929504341534009, "mem_bytes_peak": 3179245568}
+{"engine": "crawl4ai", "urls": 1000, "max_sustainable_concurrency": 16, "best_throughput_level": 8, "best_pages_per_second": 1.241995899674842}
+== 2026-10-25T06:35:52Z firecrawl: preparing
+== firecrawl level 8
+{"level": 8, "passed": false, "reason": "engine did not become ready", "success_rate": null, "pages_per_second_this_run": null, "latency_ms_p50_all": null, "latency_ms_p95_all": null, "cpu_cores_avg": null, "mem_bytes_peak": null}
+{"engine": "firecrawl", "urls": 1000, "max_sustainable_concurrency": null, "best_throughput_level": null, "best_pages_per_second": null}

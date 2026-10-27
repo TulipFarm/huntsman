@@ -1,0 +1,17 @@
+[package]
+name = "spider-scrape"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[dependencies]
+axum = "0.8"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+spider = { version = "=2.53.9", features = ["sync", "chrome"] }
+spider_transformations = "2"
+env_logger = "0.11"
+tokio = { version = "1", features = ["macros", "rt-multi-thread", "signal", "time", "sync"] }
+
+[profile.release]
+codegen-units = 4

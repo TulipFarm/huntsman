@@ -1,0 +1,16 @@
+{
+  "avg_f1": 0.4825667578423865,
+  "concurrency": 1,
+  "cpu_cores_avg": 0.2643857142857143,
+  "cpu_cores_peak": 2.369,
+  "engine": "crawl4ai",
+  "latency_ms_p50_all": 1072.1475,
+  "latency_ms_p95_all": 4775.2991999999995,
+  "mem_bytes_avg": 594159440.4571428,
+  "pages_per_second_this_run": 0.21428571428571427,
+  "steady_from_seconds": 20,
+  "steady_to_seconds": 90,
+  "success_rate": 0.8181818181818182,
+  "urls": 22,
+  "wall_seconds_this_run": 90.293135835
+}

@@ -1,0 +1,66 @@
+# Quotas read by 06_select.py. Bucket keys are "dimension:value" (see common.bucket_keys).
+# every count below is for `total` rows (preselect scales them linearly to the number of pages it picks)
+total: 10000
+dev_size: 1000
+max_per_domain: 3
+# languages are targets: the selector stops adding a language once it reaches its target
+language_targets:
+  en: 2000
+  major_ltr: {each: 300, langs: [zh, es, fr, de, ja, ru, pt, hi, ko, it, tr, id, vi]}
+  rtl: {ar: 500, he: 250, fa: 250, ur: 200}
+  mid_ltr: {each: 120, langs: [nl, pl, uk, sv, th, bn, ta, el, cs, ro, hu, ms, sw, te, mr]}
+  long_tail: {each: 35, langs: [ka, hy, am, km, my, si, ne, kk, uz, az, lo, mn, yo, ha, zu, ps, sd, ckb, yi, dv,
+                                fi, da, "no", bg, sr, hr, sk, lt, ml, kn, gu, pa]}
+max_share:
+  page_type: 0.15
+  country: 0.15
+  page_type:other: 0.03
+minimums:
+  direction:rtl: 1200
+  direction:mixed: 150
+  special:long_tail_rtl: 60
+  region:Europe: 2000
+  region:Asia: 2500
+  region:North America: 1800
+  region:MENA: 1000
+  region:Latin America: 1000
+  region:Sub-Saharan Africa: 600
+  region:Oceania: 300
+  render_mode:static: 3000
+  render_mode:ssr: 2500
+  render_mode:csr: 1500
+  media:pdf: 600
+  media:office: 200
+  media:tables: 600
+  media:code: 600
+  media:math: 150
+  media:video: 400
+  media:audio: 150
+  media:image_heavy: 500
+  media:long_form: 500
+  media:iframe_content: 150
+  special:pdf_non_english: 150
+  special:pdf_rtl: 50
+  difficulty:clean: 3000
+  difficulty:cookie_banner: 1500
+  difficulty:lazy_load: 500
+  difficulty:anti_bot: 400
+  difficulty:paywall: 300
+  difficulty:login_wall: 200
+  difficulty:geo_redirect: 200
+  difficulty:shadow_dom: 200
+  difficulty:non_utf8: 200
+  difficulty:huge_dom: 150
+  difficulty:redirect_chain: 150
+# every value of these dimensions gets this minimum
+each_minimum:
+  page_type: 200
+  topic: 200
+  platform: 150
+# joint constraints
+joint_minimum:
+  tier_x_page_type: 5
+  render_x_region: 50
+platforms: [wordpress, shopify, wix, squarespace, webflow, drupal, ghost, nextjs, nuxt, gatsby_astro, angular,
+            react_vue_spa, docs_generator, amp, mediawiki, forum_software]
+min_countries: 80

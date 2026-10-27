@@ -1,0 +1,17 @@
+2026/10/26 04:36:25 INFO Huntsman ready address=0.0.0.0:8080 workers=5 perHost=5 cacheTTL=1h0m0s allowPrivate=false
+$time=1792989388683 $scope=note $level=note $msg="server running" address=127.0.0.1:9223 max_connections=848 max_browser_connections=16
+$time=1792989393897 $scope=note $level=note $msg="server running" address=127.0.0.1:9226 max_connections=848 max_browser_connections=16
+$time=1792989393935 $scope=note $level=note $msg="server running" address=127.0.0.1:9222 max_connections=848 max_browser_connections=16
+$time=1792989393950 $scope=note $level=note $msg="server running" address=127.0.0.1:9224 max_connections=848 max_browser_connections=16
+$time=1792989393967 $scope=note $level=note $msg="server running" address=127.0.0.1:9225 max_connections=848 max_browser_connections=16
+2026/10/26 04:36:45 WARN scrape failed job=831f13d2cd048c7e2ebbd09c882efd34 error="page produced empty Markdown"
+2026/10/26 04:37:05 WARN scrape failed job=97f450ff98e8334d1823c0f8326482e2 error="page produced empty Markdown"
+2026/10/26 04:37:14 WARN scrape failed job=d9f26a82f56fce74abfcd1bc93fe25db error="page produced empty Markdown"
+2026/10/26 04:37:16 WARN scrape failed job=b2c6903fb9f761b6398303587deff23e error="page produced empty Markdown"
+2026/10/26 04:37:16 WARN scrape failed job=1802d3ab4b3ad61be5a8ae166cc066ed error="navigate: page load error CouldntResolveHost"
+2026/10/26 04:37:22 WARN scrape failed job=33789de24c2abae2547d549390cee0d0 error="page produced empty Markdown"
+2026/10/26 04:37:37 WARN scrape failed job=388fd026850ba7d51b3a7fe6f4f4d65a error="navigate: page load error net::ERR_TIMED_OUT"
+2026/10/26 04:37:43 WARN scrape failed job=bf31f6b76538779c7d90f5ed3c83aba8 error="page produced empty Markdown"
+2026/10/26 04:37:53 WARN scrape failed job=95a928c1a35acf86608c3cb7f70d50dc error="page produced empty Markdown"
+2026/10/26 04:37:57 WARN scrape failed job=84dd414f4b4735fb4f0c79c8703a06d3 error="navigate: page load error CouldntResolveHost"
+2026/10/26 04:38:14 WARN scrape failed job=c61c7a99ff7f7cab681a84c1fb31584f error="navigate: page load error net::ERR_TIMED_OUT"

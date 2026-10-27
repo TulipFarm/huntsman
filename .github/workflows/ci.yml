@@ -1,0 +1,48 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  go:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+      - name: gofmt
+        run: test -z "$(gofmt -l .)" || (gofmt -l . && exit 1)
+      - run: go vet ./...
+      - run: go test -race -count=1 ./...
+
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-buildx-action@v3
+      - name: Tests with Lightpanda
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          target: test
+      - name: Runtime image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          tags: huntsman:ci
+
+  dataset:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m py_compile dataset/eval.py dataset/huntsman-v1/pipeline/*.py
+      - run: bash -n dataset/huntsman-v1/pipeline/run.sh

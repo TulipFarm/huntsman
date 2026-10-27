@@ -1,0 +1,20 @@
+2026/10/26 04:38:28 INFO Huntsman ready address=0.0.0.0:8080 workers=8 perHost=8 cacheTTL=1h0m0s allowPrivate=false
+$time=1792989511765 $scope=note $level=note $msg="server running" address=127.0.0.1:9224 max_connections=848 max_browser_connections=16
+$time=1792989516924 $scope=note $level=note $msg="server running" address=127.0.0.1:9227 max_connections=848 max_browser_connections=16
+$time=1792989516924 $scope=note $level=note $msg="server running" address=127.0.0.1:9226 max_connections=848 max_browser_connections=16
+$time=1792989516930 $scope=note $level=note $msg="server running" address=127.0.0.1:9223 max_connections=848 max_browser_connections=16
+$time=1792989516949 $scope=note $level=note $msg="server running" address=127.0.0.1:9225 max_connections=848 max_browser_connections=16
+$time=1792989516951 $scope=note $level=note $msg="server running" address=127.0.0.1:9228 max_connections=848 max_browser_connections=16
+$time=1792989516953 $scope=note $level=note $msg="server running" address=127.0.0.1:9229 max_connections=848 max_browser_connections=16
+$time=1792989516958 $scope=note $level=note $msg="server running" address=127.0.0.1:9222 max_connections=848 max_browser_connections=16
+2026/10/26 04:39:01 WARN scrape failed job=3492a3022352e5d65d080a82e86a8512 error="page produced empty Markdown"
+2026/10/26 04:39:01 WARN scrape failed job=2979ea6d291cdc534eb583cf270def97 error="navigate: page load error CouldntResolveHost"
+2026/10/26 04:39:15 WARN scrape failed job=d3e584358319c4f24fce6cab9ad00904 error="page produced empty Markdown"
+2026/10/26 04:39:22 WARN scrape failed job=28e1167104fc85d922163f8875d7a370 error="page produced empty Markdown"
+2026/10/26 04:39:25 WARN scrape failed job=066fda5987c9e6a8baaa6332ff84946d error="navigate: page load error CouldntResolveHost"
+2026/10/26 04:39:25 WARN scrape failed job=9df09f6e9a81dc2802aa88e604d87175 error="navigate: page load error net::ERR_TIMED_OUT"
+2026/10/26 04:39:36 WARN scrape failed job=89678d395b83584cf2b3bc19d9106bcc error="page produced empty Markdown"
+2026/10/26 04:39:42 WARN scrape failed job=0cbbad9b612618a831731ca6ace7badf error="page produced empty Markdown"
+2026/10/26 04:39:46 WARN scrape failed job=61b6bcc2b1e96f88e2941f346091eb44 error="navigate: page load error net::ERR_TIMED_OUT"
+2026/10/26 04:40:06 WARN scrape failed job=486104fa75f857fd97c60dd0ad753adf error="navigate: page load error SslConnectError"
+2026/10/26 04:40:14 WARN scrape failed job=ffb91156ca6528203c55d3e50b0fb483 error="navigate: page load error net::ERR_TIMED_OUT"

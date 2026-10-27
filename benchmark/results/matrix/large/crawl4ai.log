@@ -1,0 +1,391 @@
+07:09:57 == crawl4ai CAPACITY: 1000 URLs per level, levels 8,16,32,64,128,256,512, container memory 15.62 GB, 8 vCPU
+07:09:57 == crawl4ai capacity level 8: starting a fresh container
+07:10:09    ready after 4s
+07:10:14    scraping 1000 URLs, 8 at a time
+07:10:24      27/1000 done  answered 20 (74%)  2.70 pages/s  cpu 2.86 cores  mem 1.01 GB (peak 1.19 GB)  10s
+07:10:34      42/1000 done  answered 29 (69%)  2.10 pages/s  cpu 2.84 cores  mem 1.41 GB (peak 1.52 GB)  20s
+07:10:44      59/1000 done  answered 41 (69%)  1.97 pages/s  cpu 2.69 cores  mem 1.00 GB (peak 1.52 GB)  30s
+07:10:54      85/1000 done  answered 58 (68%)  2.12 pages/s  cpu 5.98 cores  mem 1.49 GB (peak 1.52 GB)  40s
+07:11:04     111/1000 done  answered 78 (70%)  2.22 pages/s  cpu 4.98 cores  mem 1.40 GB (peak 1.53 GB)  50s
+07:11:14     135/1000 done  answered 97 (72%)  2.25 pages/s  cpu 2.69 cores  mem 1.46 GB (peak 1.74 GB)  1m0s
+07:11:24     155/1000 done  answered 110 (71%)  2.21 pages/s  cpu 2.58 cores  mem 1.30 GB (peak 1.74 GB)  1m10s
+07:11:34     171/1000 done  answered 125 (73%)  2.14 pages/s  cpu 4.23 cores  mem 1.46 GB (peak 1.74 GB)  1m20s
+07:11:44     190/1000 done  answered 140 (74%)  2.11 pages/s  cpu 3.22 cores  mem 1.49 GB (peak 1.74 GB)  1m30s
+07:11:54     207/1000 done  answered 151 (73%)  2.07 pages/s  cpu 1.96 cores  mem 1.47 GB (peak 1.74 GB)  1m40s
+07:12:04     223/1000 done  answered 163 (73%)  2.03 pages/s  cpu 2.10 cores  mem 1.78 GB (peak 1.78 GB)  1m50s
+07:12:14     231/1000 done  answered 169 (73%)  1.92 pages/s  cpu 0.64 cores  mem 1.56 GB (peak 2.03 GB)  2m0s
+07:12:24     245/1000 done  answered 179 (73%)  1.88 pages/s  cpu 1.77 cores  mem 1.21 GB (peak 2.03 GB)  2m10s
+07:12:34     262/1000 done  answered 194 (74%)  1.87 pages/s  cpu 4.08 cores  mem 1.21 GB (peak 2.03 GB)  2m20s
+07:12:44     273/1000 done  answered 203 (74%)  1.82 pages/s  cpu 1.76 cores  mem 1.04 GB (peak 2.03 GB)  2m30s
+07:12:54     300/1000 done  answered 220 (73%)  1.87 pages/s  cpu 2.40 cores  mem 1.13 GB (peak 2.03 GB)  2m40s
+07:13:04     324/1000 done  answered 240 (74%)  1.91 pages/s  cpu 1.70 cores  mem 1.30 GB (peak 2.03 GB)  2m50s
+07:13:14     340/1000 done  answered 251 (74%)  1.89 pages/s  cpu 0.48 cores  mem 1.36 GB (peak 2.03 GB)  3m0s
+07:13:24     351/1000 done  answered 258 (74%)  1.85 pages/s  cpu 0.08 cores  mem 1.17 GB (peak 2.03 GB)  3m10s
+07:13:34     373/1000 done  answered 273 (73%)  1.86 pages/s  cpu 4.95 cores  mem 1.32 GB (peak 2.03 GB)  3m20s
+07:13:44     395/1000 done  answered 287 (73%)  1.88 pages/s  cpu 3.82 cores  mem 1.24 GB (peak 2.03 GB)  3m30s
+07:13:54     406/1000 done  answered 297 (73%)  1.85 pages/s  cpu 0.01 cores  mem 1.16 GB (peak 2.03 GB)  3m40s
+07:14:04     429/1000 done  answered 313 (73%)  1.87 pages/s  cpu 2.62 cores  mem 1.35 GB (peak 2.03 GB)  3m50s
+07:14:14     444/1000 done  answered 325 (73%)  1.85 pages/s  cpu 1.08 cores  mem 1.45 GB (peak 2.03 GB)  4m0s
+07:14:24     453/1000 done  answered 333 (74%)  1.81 pages/s  cpu 3.65 cores  mem 1.63 GB (peak 2.03 GB)  4m10s
+07:14:34     474/1000 done  answered 346 (73%)  1.82 pages/s  cpu 3.44 cores  mem 1.60 GB (peak 2.03 GB)  4m20s
+07:14:44     496/1000 done  answered 361 (73%)  1.84 pages/s  cpu 3.36 cores  mem 1.38 GB (peak 2.03 GB)  4m30s
+07:14:54     521/1000 done  answered 378 (73%)  1.86 pages/s  cpu 3.29 cores  mem 1.65 GB (peak 2.03 GB)  4m40s
+07:15:04     548/1000 done  answered 395 (72%)  1.89 pages/s  cpu 2.33 cores  mem 1.61 GB (peak 2.03 GB)  4m50s
+07:15:14     567/1000 done  answered 403 (71%)  1.89 pages/s  cpu 1.80 cores  mem 1.74 GB (peak 2.03 GB)  5m0s
+07:15:24     589/1000 done  answered 419 (71%)  1.90 pages/s  cpu 4.03 cores  mem 1.94 GB (peak 2.03 GB)  5m10s
+07:15:34     611/1000 done  answered 436 (71%)  1.91 pages/s  cpu 3.63 cores  mem 1.73 GB (peak 2.03 GB)  5m20s
+07:15:44     635/1000 done  answered 455 (72%)  1.92 pages/s  cpu 4.28 cores  mem 1.38 GB (peak 2.03 GB)  5m30s
+07:15:54     657/1000 done  answered 471 (72%)  1.93 pages/s  cpu 1.69 cores  mem 1.34 GB (peak 2.03 GB)  5m40s
+07:16:04     678/1000 done  answered 487 (72%)  1.94 pages/s  cpu 1.56 cores  mem 1.28 GB (peak 2.03 GB)  5m50s
+07:16:14     691/1000 done  answered 495 (72%)  1.92 pages/s  cpu 1.02 cores  mem 1.69 GB (peak 2.03 GB)  6m0s
+07:16:24     707/1000 done  answered 506 (72%)  1.91 pages/s  cpu 1.89 cores  mem 1.36 GB (peak 2.03 GB)  6m10s
+07:16:34     716/1000 done  answered 514 (72%)  1.88 pages/s  cpu 2.76 cores  mem 1.29 GB (peak 2.03 GB)  6m20s
+07:16:44     738/1000 done  answered 532 (72%)  1.89 pages/s  cpu 3.40 cores  mem 1.46 GB (peak 2.03 GB)  6m30s
+07:16:54     760/1000 done  answered 544 (72%)  1.90 pages/s  cpu 1.91 cores  mem 1.17 GB (peak 2.03 GB)  6m40s
+07:17:04     768/1000 done  answered 550 (72%)  1.87 pages/s  cpu 4.08 cores  mem 1.58 GB (peak 2.03 GB)  6m50s
+07:17:14     799/1000 done  answered 570 (71%)  1.90 pages/s  cpu 4.95 cores  mem 2.14 GB (peak 2.14 GB)  7m0s
+07:17:24     824/1000 done  answered 585 (71%)  1.92 pages/s  cpu 3.20 cores  mem 1.15 GB (peak 2.65 GB)  7m10s
+07:17:34     835/1000 done  answered 595 (71%)  1.90 pages/s  cpu 1.42 cores  mem 1.35 GB (peak 2.65 GB)  7m20s
+07:17:44     854/1000 done  answered 608 (71%)  1.90 pages/s  cpu 0.82 cores  mem 1.44 GB (peak 2.65 GB)  7m30s
+07:17:54     875/1000 done  answered 626 (72%)  1.90 pages/s  cpu 2.97 cores  mem 1.27 GB (peak 2.65 GB)  7m40s
+07:18:04     892/1000 done  answered 640 (72%)  1.90 pages/s  cpu 2.32 cores  mem 1.51 GB (peak 2.65 GB)  7m50s
+07:18:14     919/1000 done  answered 662 (72%)  1.91 pages/s  cpu 3.02 cores  mem 1.69 GB (peak 2.65 GB)  8m0s
+07:18:24     935/1000 done  answered 675 (72%)  1.91 pages/s  cpu 2.54 cores  mem 1.60 GB (peak 2.65 GB)  8m10s
+07:18:34     953/1000 done  answered 689 (72%)  1.91 pages/s  cpu 1.62 cores  mem 1.70 GB (peak 2.65 GB)  8m20s
+07:18:44     979/1000 done  answered 703 (72%)  1.92 pages/s  cpu 2.73 cores  mem 1.71 GB (peak 2.65 GB)  8m30s
+07:18:54    PASSED level 8: success 65.2%, 1.93 pages/s, p50 2.9s, cpu avg 3.03 cores, mem peak 2.65 GB
+07:18:54 == crawl4ai capacity level 16: starting a fresh container
+07:18:59    ready after 4s
+07:19:04    scraping 1000 URLs, 16 at a time
+07:19:14      21/1000 done  answered 19 (90%)  2.10 pages/s  cpu 5.19 cores  mem 1.64 GB (peak 1.64 GB)  10s
+07:19:24      36/1000 done  answered 27 (75%)  1.80 pages/s  cpu 4.27 cores  mem 2.27 GB (peak 2.27 GB)  20s
+07:19:34      56/1000 done  answered 40 (71%)  1.87 pages/s  cpu 4.91 cores  mem 2.07 GB (peak 2.42 GB)  30s
+07:19:44      79/1000 done  answered 56 (71%)  1.97 pages/s  cpu 5.64 cores  mem 2.20 GB (peak 2.42 GB)  40s
+07:19:54     103/1000 done  answered 74 (72%)  2.06 pages/s  cpu 6.69 cores  mem 2.17 GB (peak 2.42 GB)  50s
+07:20:04     116/1000 done  answered 84 (72%)  1.93 pages/s  cpu 4.68 cores  mem 2.46 GB (peak 2.55 GB)  1m0s
+07:20:14     138/1000 done  answered 102 (74%)  1.97 pages/s  cpu 4.51 cores  mem 2.14 GB (peak 2.55 GB)  1m10s
+07:20:24     148/1000 done  answered 109 (74%)  1.85 pages/s  cpu 5.01 cores  mem 2.43 GB (peak 2.65 GB)  1m20s
+07:20:34     164/1000 done  answered 122 (74%)  1.82 pages/s  cpu 4.80 cores  mem 1.94 GB (peak 2.68 GB)  1m30s
+07:20:44     181/1000 done  answered 136 (75%)  1.81 pages/s  cpu 4.18 cores  mem 2.00 GB (peak 2.68 GB)  1m40s
+07:20:54     202/1000 done  answered 151 (75%)  1.84 pages/s  cpu 4.65 cores  mem 2.06 GB (peak 2.68 GB)  1m50s
+07:21:04     217/1000 done  answered 161 (74%)  1.81 pages/s  cpu 1.53 cores  mem 2.25 GB (peak 2.68 GB)  2m0s
+07:21:14     229/1000 done  answered 171 (75%)  1.76 pages/s  cpu 3.13 cores  mem 2.38 GB (peak 2.86 GB)  2m10s
+07:21:24     248/1000 done  answered 185 (75%)  1.77 pages/s  cpu 4.50 cores  mem 1.95 GB (peak 2.89 GB)  2m20s
+07:21:34     259/1000 done  answered 195 (75%)  1.73 pages/s  cpu 2.68 cores  mem 2.18 GB (peak 2.89 GB)  2m30s
+07:21:44     278/1000 done  answered 209 (75%)  1.74 pages/s  cpu 3.32 cores  mem 1.55 GB (peak 2.89 GB)  2m40s
+07:21:54     306/1000 done  answered 228 (75%)  1.80 pages/s  cpu 4.45 cores  mem 1.88 GB (peak 2.89 GB)  2m50s
+07:22:04     329/1000 done  answered 247 (75%)  1.83 pages/s  cpu 2.08 cores  mem 1.77 GB (peak 2.89 GB)  3m0s
+07:22:14     340/1000 done  answered 254 (75%)  1.79 pages/s  cpu 0.66 cores  mem 1.96 GB (peak 2.89 GB)  3m10s
+07:22:24     351/1000 done  answered 262 (75%)  1.75 pages/s  cpu 3.82 cores  mem 2.15 GB (peak 2.89 GB)  3m20s
+07:22:34     382/1000 done  answered 283 (74%)  1.82 pages/s  cpu 6.04 cores  mem 1.63 GB (peak 2.89 GB)  3m30s
+07:22:44     395/1000 done  answered 294 (74%)  1.80 pages/s  cpu 1.84 cores  mem 2.06 GB (peak 2.89 GB)  3m40s
+07:22:54     420/1000 done  answered 314 (75%)  1.83 pages/s  cpu 1.40 cores  mem 2.00 GB (peak 2.89 GB)  3m50s
+07:23:04     439/1000 done  answered 328 (75%)  1.83 pages/s  cpu 0.44 cores  mem 2.17 GB (peak 2.89 GB)  4m0s
+07:23:14     449/1000 done  answered 336 (75%)  1.80 pages/s  cpu 3.19 cores  mem 2.55 GB (peak 2.89 GB)  4m10s
+07:23:24     458/1000 done  answered 342 (75%)  1.76 pages/s  cpu 3.17 cores  mem 2.45 GB (peak 2.89 GB)  4m20s
+07:23:34     487/1000 done  answered 364 (75%)  1.80 pages/s  cpu 5.66 cores  mem 2.05 GB (peak 2.89 GB)  4m30s
+07:23:44     511/1000 done  answered 380 (74%)  1.82 pages/s  cpu 5.33 cores  mem 2.65 GB (peak 2.89 GB)  4m40s
+07:23:54     539/1000 done  answered 399 (74%)  1.86 pages/s  cpu 4.26 cores  mem 2.32 GB (peak 2.90 GB)  4m50s
+07:24:04     571/1000 done  answered 414 (73%)  1.90 pages/s  cpu 2.58 cores  mem 2.53 GB (peak 2.90 GB)  5m0s
+07:24:14     591/1000 done  answered 428 (72%)  1.91 pages/s  cpu 7.50 cores  mem 3.01 GB (peak 3.01 GB)  5m10s
+07:24:24     614/1000 done  answered 445 (72%)  1.92 pages/s  cpu 5.95 cores  mem 2.88 GB (peak 3.20 GB)  5m20s
+07:24:34     636/1000 done  answered 463 (73%)  1.93 pages/s  cpu 7.79 cores  mem 2.32 GB (peak 3.20 GB)  5m30s
+07:24:44     660/1000 done  answered 481 (73%)  1.94 pages/s  cpu 3.60 cores  mem 1.85 GB (peak 3.20 GB)  5m40s
+07:24:54     681/1000 done  answered 496 (73%)  1.95 pages/s  cpu 3.61 cores  mem 1.61 GB (peak 3.20 GB)  5m50s
+07:25:04     694/1000 done  answered 505 (73%)  1.93 pages/s  cpu 2.88 cores  mem 2.26 GB (peak 3.20 GB)  6m0s
+07:25:14     708/1000 done  answered 515 (73%)  1.91 pages/s  cpu 0.24 cores  mem 1.74 GB (peak 3.20 GB)  6m10s
+07:25:24     730/1000 done  answered 532 (73%)  1.92 pages/s  cpu 6.87 cores  mem 2.09 GB (peak 3.20 GB)  6m20s
+07:25:34     747/1000 done  answered 545 (73%)  1.92 pages/s  cpu 5.07 cores  mem 1.65 GB (peak 3.20 GB)  6m30s
+07:25:44     762/1000 done  answered 554 (73%)  1.90 pages/s  cpu 2.02 cores  mem 1.95 GB (peak 3.20 GB)  6m40s
+07:25:54     786/1000 done  answered 570 (73%)  1.92 pages/s  cpu 5.78 cores  mem 2.48 GB (peak 3.20 GB)  6m50s
+07:26:04     812/1000 done  answered 586 (72%)  1.93 pages/s  cpu 7.04 cores  mem 3.00 GB (peak 3.20 GB)  7m0s
+07:26:14     828/1000 done  answered 598 (72%)  1.93 pages/s  cpu 4.18 cores  mem 1.65 GB (peak 3.20 GB)  7m10s
+07:26:24     846/1000 done  answered 613 (72%)  1.92 pages/s  cpu 3.80 cores  mem 1.57 GB (peak 3.20 GB)  7m20s
+07:26:34     867/1000 done  answered 629 (73%)  1.93 pages/s  cpu 3.46 cores  mem 1.35 GB (peak 3.20 GB)  7m30s
+07:26:44     885/1000 done  answered 647 (73%)  1.92 pages/s  cpu 5.32 cores  mem 2.05 GB (peak 3.20 GB)  7m40s
+07:26:54     910/1000 done  answered 665 (73%)  1.94 pages/s  cpu 5.29 cores  mem 2.02 GB (peak 3.20 GB)  7m50s
+07:27:04     931/1000 done  answered 682 (73%)  1.94 pages/s  cpu 5.35 cores  mem 2.13 GB (peak 3.20 GB)  8m0s
+07:27:14     951/1000 done  answered 696 (73%)  1.94 pages/s  cpu 3.09 cores  mem 2.16 GB (peak 3.20 GB)  8m10s
+07:27:24     973/1000 done  answered 709 (73%)  1.95 pages/s  cpu 5.03 cores  mem 2.38 GB (peak 3.20 GB)  8m20s
+07:27:34     980/1000 done  answered 714 (73%)  1.92 pages/s  cpu 2.12 cores  mem 2.70 GB (peak 3.20 GB)  8m30s
+07:27:44     980/1000 done  answered 714 (73%)  1.88 pages/s  cpu 2.12 cores  mem 2.72 GB (peak 3.20 GB)  8m40s
+07:27:54     980/1000 done  answered 714 (73%)  1.85 pages/s  cpu 2.14 cores  mem 2.58 GB (peak 3.20 GB)  8m50s
+07:28:04     980/1000 done  answered 714 (73%)  1.81 pages/s  cpu 2.21 cores  mem 2.52 GB (peak 3.20 GB)  9m0s
+07:28:14     980/1000 done  answered 714 (73%)  1.78 pages/s  cpu 2.32 cores  mem 2.46 GB (peak 3.20 GB)  9m10s
+07:28:23    PASSED level 16: success 65.9%, 1.79 pages/s, p50 7.1s, cpu avg 3.77 cores, mem peak 3.20 GB
+07:28:23 == crawl4ai capacity level 32: starting a fresh container
+07:28:27    ready after 4s
+07:28:32    scraping 1000 URLs, 32 at a time
+07:28:42      13/1000 done  answered 6 (46%)  1.30 pages/s  cpu 7.55 cores  mem 2.27 GB (peak 2.95 GB)  10s
+07:28:52      27/1000 done  answered 18 (67%)  1.35 pages/s  cpu 2.00 cores  mem 3.20 GB (peak 3.23 GB)  20s
+07:29:02      40/1000 done  answered 26 (65%)  1.33 pages/s  cpu 3.09 cores  mem 3.71 GB (peak 4.27 GB)  30s
+07:29:12      60/1000 done  answered 41 (68%)  1.50 pages/s  cpu 7.02 cores  mem 2.65 GB (peak 4.27 GB)  40s
+07:29:22      85/1000 done  answered 57 (67%)  1.70 pages/s  cpu 4.64 cores  mem 2.71 GB (peak 4.27 GB)  50s
+07:29:32     100/1000 done  answered 69 (69%)  1.67 pages/s  cpu 6.59 cores  mem 3.76 GB (peak 4.27 GB)  1m0s
+07:29:42     114/1000 done  answered 81 (71%)  1.63 pages/s  cpu 7.86 cores  mem 3.42 GB (peak 4.27 GB)  1m10s
+07:29:52     123/1000 done  answered 87 (71%)  1.54 pages/s  cpu 1.97 cores  mem 4.25 GB (peak 4.27 GB)  1m20s
+07:30:02     128/1000 done  answered 92 (72%)  1.42 pages/s  cpu 5.00 cores  mem 4.77 GB (peak 4.77 GB)  1m30s
+07:30:12     142/1000 done  answered 101 (71%)  1.42 pages/s  cpu 3.97 cores  mem 4.03 GB (peak 5.35 GB)  1m40s
+07:30:22     156/1000 done  answered 113 (72%)  1.42 pages/s  cpu 3.77 cores  mem 3.49 GB (peak 5.35 GB)  1m50s
+07:30:32     169/1000 done  answered 124 (73%)  1.41 pages/s  cpu 4.60 cores  mem 3.77 GB (peak 5.35 GB)  2m0s
+07:30:42     189/1000 done  answered 139 (74%)  1.45 pages/s  cpu 1.70 cores  mem 2.75 GB (peak 5.35 GB)  2m10s
+07:30:52     200/1000 done  answered 147 (74%)  1.43 pages/s  cpu 4.35 cores  mem 3.68 GB (peak 5.35 GB)  2m20s
+07:31:02     207/1000 done  answered 151 (73%)  1.38 pages/s  cpu 3.88 cores  mem 4.48 GB (peak 5.35 GB)  2m30s
+07:31:12     219/1000 done  answered 162 (74%)  1.37 pages/s  cpu 5.07 cores  mem 4.35 GB (peak 5.35 GB)  2m40s
+07:31:22     222/1000 done  answered 165 (74%)  1.31 pages/s  cpu 0.77 cores  mem 4.17 GB (peak 5.35 GB)  2m50s
+07:31:32     232/1000 done  answered 171 (74%)  1.29 pages/s  cpu 6.95 cores  mem 3.91 GB (peak 5.47 GB)  3m0s
+07:31:42     242/1000 done  answered 179 (74%)  1.27 pages/s  cpu 5.40 cores  mem 4.75 GB (peak 5.47 GB)  3m10s
+07:31:52     249/1000 done  answered 184 (74%)  1.24 pages/s  cpu 3.71 cores  mem 5.15 GB (peak 5.47 GB)  3m20s
+07:32:02     261/1000 done  answered 193 (74%)  1.24 pages/s  cpu 5.99 cores  mem 4.45 GB (peak 5.47 GB)  3m30s
+07:32:12     281/1000 done  answered 206 (73%)  1.28 pages/s  cpu 4.80 cores  mem 3.00 GB (peak 5.47 GB)  3m40s
+07:32:22     303/1000 done  answered 222 (73%)  1.32 pages/s  cpu 6.62 cores  mem 3.51 GB (peak 5.47 GB)  3m50s
+07:32:32     321/1000 done  answered 237 (74%)  1.34 pages/s  cpu 4.57 cores  mem 3.94 GB (peak 5.47 GB)  4m0s
+07:32:42     330/1000 done  answered 243 (74%)  1.32 pages/s  cpu 5.27 cores  mem 3.40 GB (peak 5.47 GB)  4m10s
+07:32:52     335/1000 done  answered 246 (73%)  1.29 pages/s  cpu 4.29 cores  mem 4.09 GB (peak 5.47 GB)  4m20s
+07:33:02     343/1000 done  answered 253 (74%)  1.27 pages/s  cpu 1.80 cores  mem 4.07 GB (peak 5.47 GB)  4m30s
+07:33:12     358/1000 done  answered 263 (73%)  1.28 pages/s  cpu 5.12 cores  mem 4.25 GB (peak 5.47 GB)  4m40s
+07:33:22     378/1000 done  answered 278 (74%)  1.30 pages/s  cpu 5.86 cores  mem 4.10 GB (peak 5.47 GB)  4m50s
+07:33:32     392/1000 done  answered 288 (73%)  1.31 pages/s  cpu 3.88 cores  mem 3.71 GB (peak 5.47 GB)  5m0s
+07:33:42     402/1000 done  answered 296 (74%)  1.30 pages/s  cpu 4.77 cores  mem 4.03 GB (peak 5.47 GB)  5m10s
+07:33:52     408/1000 done  answered 301 (74%)  1.27 pages/s  cpu 4.99 cores  mem 3.48 GB (peak 5.47 GB)  5m20s
+07:34:02     411/1000 done  answered 303 (74%)  1.25 pages/s  cpu 0.78 cores  mem 3.85 GB (peak 5.47 GB)  5m30s
+07:34:12     425/1000 done  answered 313 (74%)  1.25 pages/s  cpu 2.41 cores  mem 3.63 GB (peak 5.47 GB)  5m40s
+07:34:22     432/1000 done  answered 319 (74%)  1.23 pages/s  cpu 3.47 cores  mem 4.02 GB (peak 5.47 GB)  5m50s
+07:34:32     444/1000 done  answered 327 (74%)  1.23 pages/s  cpu 4.51 cores  mem 4.24 GB (peak 5.47 GB)  6m0s
+07:34:42     457/1000 done  answered 339 (74%)  1.24 pages/s  cpu 3.81 cores  mem 3.98 GB (peak 5.47 GB)  6m10s
+07:34:52     475/1000 done  answered 352 (74%)  1.25 pages/s  cpu 7.34 cores  mem 3.68 GB (peak 5.47 GB)  6m20s
+07:35:02     492/1000 done  answered 364 (74%)  1.26 pages/s  cpu 6.10 cores  mem 3.90 GB (peak 5.47 GB)  6m30s
+07:35:12     513/1000 done  answered 376 (73%)  1.28 pages/s  cpu 6.79 cores  mem 4.13 GB (peak 5.47 GB)  6m40s
+07:35:22     533/1000 done  answered 390 (73%)  1.30 pages/s  cpu 5.00 cores  mem 3.16 GB (peak 5.47 GB)  6m50s
+07:35:32     554/1000 done  answered 403 (73%)  1.32 pages/s  cpu 4.11 cores  mem 3.97 GB (peak 5.47 GB)  7m0s
+07:35:42     573/1000 done  answered 411 (72%)  1.33 pages/s  cpu 7.11 cores  mem 3.84 GB (peak 5.47 GB)  7m10s
+07:35:52     596/1000 done  answered 431 (72%)  1.35 pages/s  cpu 5.11 cores  mem 4.54 GB (peak 5.47 GB)  7m20s
+07:36:02     613/1000 done  answered 445 (73%)  1.36 pages/s  cpu 5.57 cores  mem 5.09 GB (peak 5.47 GB)  7m30s
+07:36:12     626/1000 done  answered 456 (73%)  1.36 pages/s  cpu 3.04 cores  mem 5.61 GB (peak 5.61 GB)  7m40s
+07:36:22     647/1000 done  answered 474 (73%)  1.38 pages/s  cpu 2.51 cores  mem 4.11 GB (peak 5.80 GB)  7m50s
+07:36:32     665/1000 done  answered 486 (73%)  1.39 pages/s  cpu 4.53 cores  mem 4.64 GB (peak 5.80 GB)  8m0s
+07:36:42     680/1000 done  answered 495 (73%)  1.39 pages/s  cpu 4.08 cores  mem 4.64 GB (peak 5.80 GB)  8m10s
+07:36:52     689/1000 done  answered 502 (73%)  1.38 pages/s  cpu 3.01 cores  mem 3.54 GB (peak 5.80 GB)  8m20s
+07:37:02     694/1000 done  answered 505 (73%)  1.36 pages/s  cpu 2.85 cores  mem 3.52 GB (peak 5.80 GB)  8m30s
+07:37:12     716/1000 done  answered 521 (73%)  1.38 pages/s  cpu 6.58 cores  mem 3.28 GB (peak 5.80 GB)  8m40s
+07:37:22     731/1000 done  answered 532 (73%)  1.38 pages/s  cpu 6.85 cores  mem 3.74 GB (peak 5.80 GB)  8m50s
+07:37:32     746/1000 done  answered 544 (73%)  1.38 pages/s  cpu 0.62 cores  mem 3.04 GB (peak 5.80 GB)  9m0s
+07:37:42     758/1000 done  answered 551 (73%)  1.38 pages/s  cpu 4.21 cores  mem 3.22 GB (peak 5.80 GB)  9m10s
+07:37:52     779/1000 done  answered 565 (73%)  1.39 pages/s  cpu 4.88 cores  mem 3.60 GB (peak 5.80 GB)  9m20s
+07:38:02     801/1000 done  answered 580 (72%)  1.41 pages/s  cpu 7.03 cores  mem 3.74 GB (peak 5.80 GB)  9m30s
+07:38:12     815/1000 done  answered 588 (72%)  1.41 pages/s  cpu 5.23 cores  mem 3.50 GB (peak 5.80 GB)  9m40s
+07:38:22     830/1000 done  answered 600 (72%)  1.41 pages/s  cpu 2.20 cores  mem 3.11 GB (peak 5.80 GB)  9m50s
+07:38:32     846/1000 done  answered 612 (72%)  1.41 pages/s  cpu 4.15 cores  mem 3.29 GB (peak 5.80 GB)  10m0s
+07:38:42     860/1000 done  answered 625 (73%)  1.41 pages/s  cpu 3.61 cores  mem 3.46 GB (peak 5.80 GB)  10m10s
+07:38:52     879/1000 done  answered 642 (73%)  1.42 pages/s  cpu 5.14 cores  mem 3.62 GB (peak 5.80 GB)  10m20s
+07:39:02     890/1000 done  answered 651 (73%)  1.41 pages/s  cpu 4.73 cores  mem 3.99 GB (peak 5.80 GB)  10m30s
+07:39:12     909/1000 done  answered 665 (73%)  1.42 pages/s  cpu 4.17 cores  mem 2.92 GB (peak 5.80 GB)  10m40s
+07:39:22     929/1000 done  answered 679 (73%)  1.43 pages/s  cpu 3.44 cores  mem 3.56 GB (peak 5.80 GB)  10m50s
+07:39:32     940/1000 done  answered 689 (73%)  1.42 pages/s  cpu 5.30 cores  mem 4.08 GB (peak 5.80 GB)  11m0s
+07:39:42     958/1000 done  answered 699 (73%)  1.43 pages/s  cpu 7.60 cores  mem 4.61 GB (peak 5.80 GB)  11m10s
+07:39:52     977/1000 done  answered 713 (73%)  1.44 pages/s  cpu 5.23 cores  mem 4.75 GB (peak 5.80 GB)  11m20s
+07:40:02     981/1000 done  answered 715 (73%)  1.42 pages/s  cpu 2.22 cores  mem 4.59 GB (peak 5.80 GB)  11m30s
+07:40:12     981/1000 done  answered 715 (73%)  1.40 pages/s  cpu 2.32 cores  mem 4.49 GB (peak 5.80 GB)  11m40s
+07:40:22     981/1000 done  answered 715 (73%)  1.38 pages/s  cpu 2.24 cores  mem 4.26 GB (peak 5.80 GB)  11m50s
+07:40:32     981/1000 done  answered 715 (73%)  1.36 pages/s  cpu 2.20 cores  mem 4.21 GB (peak 5.80 GB)  12m0s
+07:40:42     991/1000 done  answered 715 (72%)  1.36 pages/s  cpu 2.38 cores  mem 4.16 GB (peak 5.80 GB)  12m10s
+07:40:47    FAILED at level 32: median latency more than 3x the first level
+07:40:47    success 64.2%, 1.37 pages/s, p50 20.1s, mem peak 5.80 GB, oom-killed false
+07:40:47    last engine log lines (results/large/crawl4ai/level-32/engine.log):
+07:40:47    | [SCRAPE].. ◆ https://www.dartmouth.edu/finance/purchasing/working_with_suppliers/vendor_guide/                    | ✓ | ⏱: 0.20s 
+07:40:47    | [COMPLETE] ● https://www.dartmouth.edu/finance/purchasing/working_with_suppliers/vendor_guide/                    | ✓ | ⏱: 59.79s 
+07:40:47    | 2026-10-26 07:40:44,619 - api - INFO - Memory usage: Start: 263.2734375 MB, End: 457.91796875 MB, Delta: 194.64453125 MB, Peak: 457.91796875 MB
+07:40:47    | [FETCH]... ↓ https://karmagroup.com/news-events/bali-booklist                                                     | ✓ | ⏱: 63.20s 
+07:40:47    | [SCRAPE].. ◆ https://karmagroup.com/news-events/bali-booklist                                                     | ✓ | ⏱: 0.08s 
+07:40:47    | [COMPLETE] ● https://karmagroup.com/news-events/bali-booklist                                                     | ✓ | ⏱: 63.29s 
+07:40:47    | 2026-10-26 07:40:44,728 - api - INFO - Memory usage: Start: 263.2734375 MB, End: 457.91796875 MB, Delta: 194.64453125 MB, Peak: 457.91796875 MB
+07:40:47    | [FETCH]... ↓ https://www.antal.com/job/ophthalmology-consultant---vitreoretinal-surgery                           | ✓ | ⏱: 57.73s 
+07:40:47    | [SCRAPE].. ◆ https://www.antal.com/job/ophthalmology-consultant---vitreoretinal-surgery                           | ✓ | ⏱: 0.27s 
+07:40:47    | [COMPLETE] ● https://www.antal.com/job/ophthalmology-consultant---vitreoretinal-surgery                           | ✓ | ⏱: 58.01s 
+07:40:47    | 2026-10-26 07:40:45,028 - api - INFO - Memory usage: Start: 263.2734375 MB, End: 457.91796875 MB, Delta: 194.64453125 MB, Peak: 457.91796875 MB
+07:40:47    | [FETCH]... ↓ https://airtable.com/developers/web/api/model/webhooks-notification                                  | ✓ | ⏱: 59.04s 
+07:40:47    | [SCRAPE].. ◆ https://airtable.com/developers/web/api/model/webhooks-notification                                  | ✓ | ⏱: 0.08s 
+07:40:47    | [COMPLETE] ● https://airtable.com/developers/web/api/model/webhooks-notification                                  | ✓ | ⏱: 59.16s 
+07:40:47    | 2026-10-26 07:40:45,161 - api - INFO - Memory usage: Start: 263.2734375 MB, End: 457.91796875 MB, Delta: 194.64453125 MB, Peak: 457.91796875 MB
+07:40:47 == crawl4ai capacity: max sustainable concurrency 16
+07:40:47 == crawl4ai RESOURCE PROFILE: levels 1,2,3,4,5,6,7,8,12,16,24, 1m30s each (first 20s not measured), about 20m10s in total
+07:40:47 == crawl4ai profile level 1: starting a fresh container
+07:40:52    ready after 5s
+07:40:57    1 at a time for 1m30s
+07:41:07      10s/1m30s  5 done  answered 5 (100%)  cpu 1.50 cores  mem 0.60 GB (peak 0.62 GB)
+07:41:17      20s/1m30s  6 done  answered 6 (100%)  cpu 0.00 cores  mem 0.57 GB (peak 0.62 GB)
+07:41:27      30s/1m30s  6 done  answered 6 (100%)  cpu 0.00 cores  mem 0.57 GB (peak 0.62 GB)
+07:41:37      40s/1m30s  6 done  answered 6 (100%)  cpu 0.00 cores  mem 0.57 GB (peak 0.62 GB)
+07:41:47      50s/1m30s  6 done  answered 6 (100%)  cpu 0.00 cores  mem 0.57 GB (peak 0.62 GB)
+07:41:57      1m0s/1m30s  6 done  answered 6 (100%)  cpu 0.00 cores  mem 0.56 GB (peak 0.62 GB)
+07:42:07      1m10s/1m30s  6 done  answered 6 (100%)  cpu 0.00 cores  mem 0.56 GB (peak 0.62 GB)
+07:42:17      1m20s/1m30s  14 done  answered 10 (71%)  cpu 1.21 cores  mem 0.68 GB (peak 0.72 GB)
+07:42:27      1m30s (finishing requests in flight)  21 done  answered 17 (81%)  cpu 1.98 cores  mem 0.80 GB (peak 0.80 GB)
+07:42:28    level 1: cpu 0.26 cores (peak 2.37), mem 0.59 GB (peak 0.88 GB), 0.21 pages/s, success 81.8%
+07:42:28 == crawl4ai profile level 2: starting a fresh container
+07:42:32    ready after 4s
+07:42:37    2 at a time for 1m30s
+07:42:47      10s/1m30s  13 done  answered 9 (69%)  cpu 2.04 cores  mem 0.70 GB (peak 0.70 GB)
+07:42:58      20s/1m30s  26 done  answered 20 (77%)  cpu 2.59 cores  mem 0.96 GB (peak 0.96 GB)
+07:43:08      30s/1m30s  38 done  answered 28 (74%)  cpu 1.49 cores  mem 0.89 GB (peak 1.04 GB)
+07:43:18      40s/1m30s  47 done  answered 32 (68%)  cpu 0.37 cores  mem 0.84 GB (peak 1.17 GB)
+07:43:28      50s/1m30s  58 done  answered 39 (67%)  cpu 1.40 cores  mem 0.82 GB (peak 1.17 GB)
+07:43:38      1m0s/1m30s  66 done  answered 47 (71%)  cpu 2.36 cores  mem 1.06 GB (peak 1.17 GB)
+07:43:48      1m10s/1m30s  84 done  answered 58 (69%)  cpu 2.38 cores  mem 1.18 GB (peak 1.18 GB)
+07:43:58      1m20s/1m30s  95 done  answered 65 (68%)  cpu 1.34 cores  mem 1.08 GB (peak 1.28 GB)
+07:44:08      1m30s (finishing requests in flight)  99 done  answered 68 (69%)  cpu 1.24 cores  mem 1.09 GB (peak 1.28 GB)
+07:44:18      1m40s (finishing requests in flight)  100 done  answered 69 (69%)  cpu 0.01 cores  mem 1.12 GB (peak 1.28 GB)
+07:44:24    level 2: cpu 1.34 cores (peak 3.23), mem 0.97 GB (peak 1.28 GB), 1.04 pages/s, success 63.4%
+07:44:24 == crawl4ai profile level 3: starting a fresh container
+07:44:29    ready after 4s
+07:44:34    3 at a time for 1m30s
+07:44:44      10s/1m30s  16 done  answered 12 (75%)  cpu 4.43 cores  mem 0.78 GB (peak 0.81 GB)
+07:44:54      20s/1m30s  34 done  answered 24 (71%)  cpu 2.80 cores  mem 0.83 GB (peak 0.90 GB)
+07:45:04      30s/1m30s  47 done  answered 33 (70%)  cpu 1.66 cores  mem 0.84 GB (peak 1.17 GB)
+07:45:14      40s/1m30s  63 done  answered 46 (73%)  cpu 3.56 cores  mem 0.77 GB (peak 1.17 GB)
+07:45:24      50s/1m30s  81 done  answered 57 (70%)  cpu 0.70 cores  mem 0.97 GB (peak 1.17 GB)
+07:45:34      1m0s/1m30s  96 done  answered 68 (71%)  cpu 1.55 cores  mem 0.97 GB (peak 1.17 GB)
+07:45:44      1m10s/1m30s  110 done  answered 77 (70%)  cpu 1.53 cores  mem 1.14 GB (peak 1.17 GB)
+07:45:54      1m20s/1m30s  123 done  answered 88 (72%)  cpu 1.39 cores  mem 1.10 GB (peak 1.18 GB)
+07:46:04      1m30s (finishing requests in flight)  139 done  answered 99 (71%)  cpu 3.13 cores  mem 1.11 GB (peak 1.18 GB)
+07:46:06    level 3: cpu 1.94 cores (peak 3.91), mem 0.98 GB (peak 1.18 GB), 1.50 pages/s, success 64.1%
+07:46:06 == crawl4ai profile level 4: starting a fresh container
+07:46:10    ready after 4s
+07:46:15    4 at a time for 1m30s
+07:46:25      10s/1m30s  21 done  answered 16 (76%)  cpu 2.30 cores  mem 0.80 GB (peak 1.27 GB)
+07:46:35      20s/1m30s  36 done  answered 26 (72%)  cpu 3.58 cores  mem 1.13 GB (peak 1.27 GB)
+07:46:45      30s/1m30s  55 done  answered 39 (71%)  cpu 1.75 cores  mem 0.97 GB (peak 1.27 GB)
+07:46:55      40s/1m30s  71 done  answered 50 (70%)  cpu 2.27 cores  mem 0.97 GB (peak 1.27 GB)
+07:47:05      50s/1m30s  92 done  answered 63 (68%)  cpu 2.23 cores  mem 1.18 GB (peak 1.30 GB)
+07:47:15      1m0s/1m30s  109 done  answered 76 (70%)  cpu 2.39 cores  mem 1.28 GB (peak 1.31 GB)
+07:47:25      1m10s/1m30s  127 done  answered 91 (72%)  cpu 2.50 cores  mem 1.30 GB (peak 1.43 GB)
+07:47:35      1m20s/1m30s  146 done  answered 105 (72%)  cpu 3.79 cores  mem 1.31 GB (peak 1.43 GB)
+07:47:45      1m30s (finishing requests in flight)  159 done  answered 115 (72%)  cpu 4.02 cores  mem 1.24 GB (peak 1.53 GB)
+07:47:55      1m40s (finishing requests in flight)  162 done  answered 118 (73%)  cpu 0.01 cores  mem 1.09 GB (peak 1.53 GB)
+07:48:05    level 4: cpu 2.32 cores (peak 4.81), mem 1.17 GB (peak 1.53 GB), 1.76 pages/s, success 66.3%
+07:48:05 == crawl4ai profile level 5: starting a fresh container
+07:48:10    ready after 4s
+07:48:15    5 at a time for 1m30s
+07:48:25      10s/1m30s  24 done  answered 20 (83%)  cpu 3.52 cores  mem 0.87 GB (peak 1.02 GB)
+07:48:35      20s/1m30s  41 done  answered 30 (73%)  cpu 1.55 cores  mem 1.31 GB (peak 1.34 GB)
+07:48:45      30s/1m30s  61 done  answered 44 (72%)  cpu 1.59 cores  mem 0.96 GB (peak 1.35 GB)
+07:48:55      40s/1m30s  84 done  answered 60 (71%)  cpu 5.53 cores  mem 1.51 GB (peak 1.51 GB)
+07:49:05      50s/1m30s  99 done  answered 71 (72%)  cpu 0.01 cores  mem 1.35 GB (peak 1.51 GB)
+07:49:15      1m0s/1m30s  121 done  answered 87 (72%)  cpu 5.39 cores  mem 1.54 GB (peak 1.54 GB)
+07:49:25      1m10s/1m30s  143 done  answered 104 (73%)  cpu 4.49 cores  mem 1.39 GB (peak 1.54 GB)
+07:49:35      1m20s/1m30s  158 done  answered 115 (73%)  cpu 3.22 cores  mem 1.31 GB (peak 1.57 GB)
+07:49:45      1m30s (finishing requests in flight)  173 done  answered 129 (75%)  cpu 2.58 cores  mem 1.23 GB (peak 1.57 GB)
+07:49:55      1m40s (finishing requests in flight)  177 done  answered 133 (75%)  cpu 0.01 cores  mem 1.12 GB (peak 1.57 GB)
+07:50:05      1m50s (finishing requests in flight)  177 done  answered 133 (75%)  cpu 0.00 cores  mem 1.11 GB (peak 1.57 GB)
+07:50:08    level 5: cpu 2.64 cores (peak 5.53), mem 1.26 GB (peak 1.57 GB), 1.89 pages/s, success 68.0%
+07:50:08 == crawl4ai profile level 6: starting a fresh container
+07:50:13    ready after 4s
+07:50:18    6 at a time for 1m30s
+07:50:28      10s/1m30s  25 done  answered 19 (76%)  cpu 3.74 cores  mem 1.04 GB (peak 1.04 GB)
+07:50:38      20s/1m30s  43 done  answered 29 (67%)  cpu 1.81 cores  mem 1.29 GB (peak 1.29 GB)
+07:50:48      30s/1m30s  66 done  answered 47 (71%)  cpu 3.68 cores  mem 1.09 GB (peak 1.29 GB)
+07:50:58      40s/1m30s  92 done  answered 64 (70%)  cpu 3.45 cores  mem 1.12 GB (peak 1.49 GB)
+07:51:08      50s/1m30s  117 done  answered 83 (71%)  cpu 1.85 cores  mem 1.23 GB (peak 1.56 GB)
+07:51:18      1m0s/1m30s  141 done  answered 102 (72%)  cpu 4.08 cores  mem 1.31 GB (peak 1.57 GB)
+07:51:28      1m10s/1m30s  154 done  answered 111 (72%)  cpu 1.68 cores  mem 1.45 GB (peak 1.74 GB)
+07:51:38      1m20s/1m30s  166 done  answered 122 (73%)  cpu 1.27 cores  mem 1.21 GB (peak 1.74 GB)
+07:51:48      1m30s (finishing requests in flight)  184 done  answered 137 (74%)  cpu 2.56 cores  mem 1.43 GB (peak 1.74 GB)
+07:51:58      1m40s (finishing requests in flight)  189 done  answered 141 (75%)  cpu 0.00 cores  mem 1.15 GB (peak 1.74 GB)
+07:52:01    level 6: cpu 3.10 cores (peak 5.79), mem 1.33 GB (peak 1.74 GB), 2.01 pages/s, success 66.3%
+07:52:01 == crawl4ai profile level 7: starting a fresh container
+07:52:05    ready after 4s
+07:52:10    7 at a time for 1m30s
+07:52:20      10s/1m30s  26 done  answered 19 (73%)  cpu 2.11 cores  mem 0.89 GB (peak 1.00 GB)
+07:52:30      20s/1m30s  46 done  answered 31 (67%)  cpu 1.68 cores  mem 0.91 GB (peak 1.22 GB)
+07:52:40      30s/1m30s  69 done  answered 47 (68%)  cpu 4.55 cores  mem 1.18 GB (peak 1.22 GB)
+07:52:50      40s/1m30s  96 done  answered 66 (69%)  cpu 2.86 cores  mem 1.19 GB (peak 1.37 GB)
+07:53:00      50s/1m30s  124 done  answered 88 (71%)  cpu 1.78 cores  mem 1.27 GB (peak 1.63 GB)
+07:53:10      1m0s/1m30s  144 done  answered 103 (72%)  cpu 4.55 cores  mem 1.88 GB (peak 1.88 GB)
+07:53:20      1m10s/1m30s  161 done  answered 115 (71%)  cpu 1.01 cores  mem 1.33 GB (peak 1.88 GB)
+07:53:30      1m20s/1m30s  180 done  answered 132 (73%)  cpu 2.50 cores  mem 1.24 GB (peak 1.88 GB)
+07:53:40      1m30s (finishing requests in flight)  201 done  answered 147 (73%)  cpu 2.70 cores  mem 1.22 GB (peak 1.88 GB)
+07:53:50      1m40s (finishing requests in flight)  207 done  answered 152 (73%)  cpu 0.01 cores  mem 1.13 GB (peak 1.88 GB)
+07:54:00      1m50s (finishing requests in flight)  207 done  answered 152 (73%)  cpu 0.00 cores  mem 1.11 GB (peak 1.88 GB)
+07:54:07    level 7: cpu 3.31 cores (peak 6.12), mem 1.31 GB (peak 1.88 GB), 2.21 pages/s, success 67.3%
+07:54:07 == crawl4ai profile level 8: starting a fresh container
+07:54:11    ready after 4s
+07:54:16    8 at a time for 1m30s
+07:54:26      10s/1m30s  27 done  answered 20 (74%)  cpu 5.76 cores  mem 1.19 GB (peak 1.19 GB)
+07:54:36      20s/1m30s  44 done  answered 30 (68%)  cpu 0.91 cores  mem 0.93 GB (peak 1.53 GB)
+07:54:46      30s/1m30s  69 done  answered 49 (71%)  cpu 3.97 cores  mem 1.26 GB (peak 1.53 GB)
+07:54:56      40s/1m30s  99 done  answered 72 (73%)  cpu 5.06 cores  mem 1.46 GB (peak 1.62 GB)
+07:55:06      50s/1m30s  126 done  answered 92 (73%)  cpu 2.53 cores  mem 1.41 GB (peak 1.66 GB)
+07:55:16      1m0s/1m30s  147 done  answered 108 (73%)  cpu 2.81 cores  mem 1.83 GB (peak 1.87 GB)
+07:55:26      1m10s/1m30s  164 done  answered 120 (73%)  cpu 1.36 cores  mem 1.39 GB (peak 1.87 GB)
+07:55:36      1m20s/1m30s  182 done  answered 135 (74%)  cpu 2.33 cores  mem 1.38 GB (peak 1.87 GB)
+07:55:46      1m30s (finishing requests in flight)  204 done  answered 152 (75%)  cpu 1.22 cores  mem 1.49 GB (peak 1.87 GB)
+07:55:56      1m40s (finishing requests in flight)  211 done  answered 157 (74%)  cpu 0.01 cores  mem 1.28 GB (peak 1.87 GB)
+07:56:06      1m50s (finishing requests in flight)  211 done  answered 157 (74%)  cpu 0.01 cores  mem 1.26 GB (peak 1.87 GB)
+07:56:12    level 8: cpu 3.44 cores (peak 6.99), mem 1.46 GB (peak 1.87 GB), 2.29 pages/s, success 67.5%
+07:56:12 == crawl4ai profile level 12: starting a fresh container
+07:56:16    ready after 4s
+07:56:21    12 at a time for 1m30s
+07:56:31      10s/1m30s  26 done  answered 20 (77%)  cpu 6.74 cores  mem 1.86 GB (peak 1.86 GB)
+07:56:41      20s/1m30s  49 done  answered 35 (71%)  cpu 3.15 cores  mem 1.60 GB (peak 1.86 GB)
+07:56:51      30s/1m30s  72 done  answered 51 (71%)  cpu 1.52 cores  mem 1.48 GB (peak 1.86 GB)
+07:57:01      40s/1m30s  97 done  answered 69 (71%)  cpu 1.49 cores  mem 1.82 GB (peak 1.86 GB)
+07:57:11      50s/1m30s  121 done  answered 88 (73%)  cpu 3.14 cores  mem 1.67 GB (peak 2.02 GB)
+07:57:21      1m0s/1m30s  144 done  answered 105 (73%)  cpu 4.50 cores  mem 1.90 GB (peak 2.04 GB)
+07:57:31      1m10s/1m30s  163 done  answered 119 (73%)  cpu 1.05 cores  mem 1.53 GB (peak 2.31 GB)
+07:57:41      1m20s/1m30s  178 done  answered 133 (75%)  cpu 4.34 cores  mem 1.81 GB (peak 2.31 GB)
+07:57:51      1m30s (finishing requests in flight)  202 done  answered 149 (74%)  cpu 3.53 cores  mem 1.93 GB (peak 2.31 GB)
+07:58:01      1m40s (finishing requests in flight)  212 done  answered 158 (75%)  cpu 0.02 cores  mem 1.63 GB (peak 2.31 GB)
+07:58:11      1m50s (finishing requests in flight)  212 done  answered 158 (75%)  cpu 0.01 cores  mem 1.56 GB (peak 2.31 GB)
+07:58:21    level 12: cpu 3.89 cores (peak 6.87), mem 1.69 GB (peak 2.31 GB), 2.19 pages/s, success 67.8%
+07:58:21 == crawl4ai profile level 16: starting a fresh container
+07:58:26    ready after 4s
+07:58:31    16 at a time for 1m30s
+07:58:41      10s/1m30s  23 done  answered 17 (74%)  cpu 7.30 cores  mem 1.52 GB (peak 1.84 GB)
+07:58:51      20s/1m30s  39 done  answered 28 (72%)  cpu 3.27 cores  mem 2.04 GB (peak 2.15 GB)
+07:59:01      30s/1m30s  65 done  answered 48 (74%)  cpu 4.46 cores  mem 1.65 GB (peak 2.17 GB)
+07:59:11      40s/1m30s  94 done  answered 68 (72%)  cpu 3.62 cores  mem 1.86 GB (peak 2.17 GB)
+07:59:21      50s/1m30s  115 done  answered 83 (72%)  cpu 6.39 cores  mem 2.39 GB (peak 2.39 GB)
+07:59:31      1m0s/1m30s  138 done  answered 101 (73%)  cpu 3.37 cores  mem 2.34 GB (peak 2.42 GB)
+07:59:41      1m10s/1m30s  159 done  answered 116 (73%)  cpu 6.69 cores  mem 1.87 GB (peak 2.82 GB)
+07:59:51      1m20s/1m30s  173 done  answered 130 (75%)  cpu 2.07 cores  mem 2.01 GB (peak 2.82 GB)
+08:00:01      1m30s (finishing requests in flight)  197 done  answered 146 (74%)  cpu 6.83 cores  mem 1.84 GB (peak 2.82 GB)
+08:00:11      1m40s (finishing requests in flight)  211 done  answered 158 (75%)  cpu 0.01 cores  mem 1.54 GB (peak 2.82 GB)
+08:00:21      1m50s (finishing requests in flight)  211 done  answered 158 (75%)  cpu 0.01 cores  mem 1.51 GB (peak 2.82 GB)
+08:00:31    level 16: cpu 4.56 cores (peak 7.85), mem 2.02 GB (peak 2.82 GB), 2.26 pages/s, success 67.1%
+08:00:31 == crawl4ai profile level 24: starting a fresh container
+08:00:36    ready after 4s
+08:00:41    24 at a time for 1m30s
+08:00:51      10s/1m30s  15 done  answered 12 (80%)  cpu 5.49 cores  mem 2.79 GB (peak 2.79 GB)
+08:01:01      20s/1m30s  35 done  answered 26 (74%)  cpu 3.09 cores  mem 3.00 GB (peak 3.25 GB)
+08:01:11      30s/1m30s  54 done  answered 39 (72%)  cpu 3.77 cores  mem 2.30 GB (peak 3.25 GB)
+08:01:21      40s/1m30s  78 done  answered 55 (71%)  cpu 3.03 cores  mem 2.63 GB (peak 3.25 GB)
+08:01:31      50s/1m30s  99 done  answered 72 (73%)  cpu 6.02 cores  mem 2.86 GB (peak 3.25 GB)
+08:01:41      1m0s/1m30s  114 done  answered 84 (74%)  cpu 6.53 cores  mem 3.56 GB (peak 3.56 GB)
+08:01:51      1m10s/1m30s  130 done  answered 96 (74%)  cpu 7.06 cores  mem 2.91 GB (peak 3.81 GB)
+08:02:01      1m20s/1m30s  140 done  answered 103 (74%)  cpu 6.50 cores  mem 3.61 GB (peak 3.81 GB)
+08:02:11      1m30s (finishing requests in flight)  157 done  answered 117 (75%)  cpu 5.53 cores  mem 2.72 GB (peak 4.06 GB)
+08:02:21      1m40s (finishing requests in flight)  177 done  answered 134 (76%)  cpu 3.44 cores  mem 1.90 GB (peak 4.06 GB)
+08:02:31      1m50s (finishing requests in flight)  180 done  answered 137 (76%)  cpu 0.01 cores  mem 1.57 GB (peak 4.06 GB)
+08:02:33    level 24: cpu 5.16 cores (peak 7.88), mem 2.96 GB (peak 4.06 GB), 1.74 pages/s, success 68.0%
+
+08:02:33 CAPACITY
+08:02:33 level  result  success  pages/s    p50       p95       cpu avg   mem peak  reason
+08:02:33 8      pass    65.2%    1.93       2.9s      9.4s      3.03      2.65 GB   -
+08:02:33 16     pass    65.9%    1.79       7.1s      18.2s     3.77      3.20 GB   -
+08:02:33 32     FAIL    64.2%    1.37       20.1s     43.3s     4.34      5.80 GB   median latency more than 3x the first level
+
+08:02:33 RESOURCE PROFILE (steady state, after 20s warm-up)
+08:02:33 level  result  cpu avg    cpu peak   mem avg    mem peak   pages/s   success
+08:02:33 1      ok      0.26       2.37       0.59 GB    0.88 GB    0.21      81.8%
+08:02:33 2      ok      1.34       3.23       0.97 GB    1.28 GB    1.04      63.4%
+08:02:33 3      ok      1.94       3.91       0.98 GB    1.18 GB    1.50      64.1%
+08:02:33 4      ok      2.32       4.81       1.17 GB    1.53 GB    1.76      66.3%
+08:02:33 5      ok      2.64       5.53       1.26 GB    1.57 GB    1.89      68.0%
+08:02:33 6      ok      3.10       5.79       1.33 GB    1.74 GB    2.01      66.3%
+08:02:33 7      ok      3.31       6.12       1.31 GB    1.88 GB    2.21      67.3%
+08:02:33 8      ok      3.44       6.99       1.46 GB    1.87 GB    2.29      67.5%
+08:02:33 12     ok      3.89       6.87       1.69 GB    2.31 GB    2.19      67.8%
+08:02:33 16     ok      4.56       7.85       2.02 GB    2.82 GB    2.26      67.1%
+08:02:33 24     ok      5.16       7.88       2.96 GB    4.06 GB    1.74      68.0%
+
+08:02:33 == crawl4ai: max sustainable concurrency 16; results in results/large/crawl4ai/ramp.json

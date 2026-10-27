@@ -1,0 +1,8 @@
+.git
+data
+bin
+benchmark
+dataset
+!benchmark/fixture
+*.db*
+.pristine

@@ -1,0 +1,16 @@
+{
+  "avg_f1": 0.47080734890431486,
+  "concurrency": 8,
+  "cpu_cores_avg": 1.7850714285714286,
+  "cpu_cores_peak": 3.984,
+  "engine": "huntsman",
+  "latency_ms_p50_all": 1524.7685000000001,
+  "latency_ms_p95_all": 7693.798399999996,
+  "mem_bytes_avg": 628752618.0571429,
+  "pages_per_second_this_run": 2.8857142857142857,
+  "steady_from_seconds": 20,
+  "steady_to_seconds": 90,
+  "success_rate": 0.6901408450704225,
+  "urls": 284,
+  "wall_seconds_this_run": 110.516994447
+}

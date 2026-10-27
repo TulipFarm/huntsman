@@ -1,0 +1,16 @@
+{
+  "avg_f1": 0.47021072666182057,
+  "concurrency": 6,
+  "cpu_cores_avg": 3.609442857142858,
+  "cpu_cores_peak": 3.987,
+  "engine": "spider",
+  "latency_ms_p50_all": 6699.5435,
+  "latency_ms_p95_all": 30002.85875,
+  "mem_bytes_avg": 1839872702.1714287,
+  "pages_per_second_this_run": 0.5428571428571428,
+  "steady_from_seconds": 20,
+  "steady_to_seconds": 90,
+  "success_rate": 0.7321428571428571,
+  "urls": 56,
+  "wall_seconds_this_run": 110.721975227
+}

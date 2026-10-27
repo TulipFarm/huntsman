@@ -1,0 +1,106 @@
+name: scrape-benchmark
+description: Temporary Graviton VMs for the concurrency benchmark. Destroy them when the run ends.
+runtime: yaml
+
+config:
+  sshPublicKey:
+    type: string
+  sshCidr:
+    type: string
+
+variables:
+  ami:
+    fn::invoke:
+      function: aws:ssm:getParameter
+      arguments:
+        name: /aws/service/canonical/ubuntu/server/24.04/stable/current/arm64/hvm/ebs-gp3/ami-id
+      return: value
+  userData: |
+    #!/bin/bash
+    set -e
+    apt-get update -y
+    apt-get install -y docker.io docker-buildx
+    systemctl enable --now docker
+    usermod -aG docker ubuntu
+    touch /var/tmp/ready
+  tags:
+    project: scrape-benchmark
+
+resources:
+  key:
+    type: aws:ec2:KeyPair
+    properties:
+      publicKey: ${sshPublicKey}
+      tags: ${tags}
+
+  ssh:
+    type: aws:ec2:SecurityGroup
+    properties:
+      description: SSH from the benchmark operator only
+      ingress:
+        - protocol: tcp
+          fromPort: 22
+          toPort: 22
+          cidrBlocks: ["${sshCidr}"]
+      egress:
+        - protocol: "-1"
+          fromPort: 0
+          toPort: 0
+          cidrBlocks: ["0.0.0.0/0"]
+      tags: ${tags}
+
+  small:
+    type: aws:ec2:Instance
+    properties:
+      ami: ${ami}
+      instanceType: c7g.large
+      keyName: ${key.keyName}
+      vpcSecurityGroupIds: ["${ssh.id}"]
+      associatePublicIpAddress: true
+      instanceInitiatedShutdownBehavior: terminate
+      userData: ${userData}
+      rootBlockDevice:
+        volumeSize: 30
+        volumeType: gp3
+      tags:
+        project: scrape-benchmark
+        Name: scrape-benchmark-small
+
+  medium:
+    type: aws:ec2:Instance
+    properties:
+      ami: ${ami}
+      instanceType: c7g.xlarge
+      keyName: ${key.keyName}
+      vpcSecurityGroupIds: ["${ssh.id}"]
+      associatePublicIpAddress: true
+      instanceInitiatedShutdownBehavior: terminate
+      userData: ${userData}
+      rootBlockDevice:
+        volumeSize: 40
+        volumeType: gp3
+      tags:
+        project: scrape-benchmark
+        Name: scrape-benchmark-medium
+
+  large:
+    type: aws:ec2:Instance
+    properties:
+      ami: ${ami}
+      instanceType: c7g.2xlarge
+      keyName: ${key.keyName}
+      vpcSecurityGroupIds: ["${ssh.id}"]
+      associatePublicIpAddress: true
+      instanceInitiatedShutdownBehavior: terminate
+      userData: ${userData}
+      rootBlockDevice:
+        volumeSize: 60
+        volumeType: gp3
+      tags:
+        project: scrape-benchmark
+        Name: scrape-benchmark-large
+
+outputs:
+  small: ${small.publicIp}
+  medium: ${medium.publicIp}
+  large: ${large.publicIp}

@@ -1,0 +1,50 @@
+== 2026-10-25T10:17:14Z firecrawl: preparing
+== firecrawl level 1
+firecrawl c=1: 100/1000
+firecrawl c=1: 200/1000
+firecrawl c=1: 300/1000
+firecrawl c=1: 400/1000
+firecrawl c=1: 500/1000
+firecrawl c=1: 600/1000
+firecrawl c=1: 700/1000
+firecrawl c=1: 800/1000
+firecrawl c=1: 900/1000
+firecrawl c=1: 1000/1000
+{"level": 1, "passed": true, "reason": null, "success_rate": 0.638, "pages_per_second_this_run": 0.40475320306037293, "latency_ms_p50_all": 1114.7236135002458, "latency_ms_p95_all": 6296.296246800806, "cpu_cores_avg": 0.6784796288826139, "mem_bytes_peak": 5585530880}
+== firecrawl level 2
+firecrawl c=2: 100/1000
+firecrawl c=2: 200/1000
+firecrawl c=2: 300/1000
+firecrawl c=2: 400/1000
+firecrawl c=2: 500/1000
+firecrawl c=2: 600/1000
+firecrawl c=2: 700/1000
+firecrawl c=2: 800/1000
+firecrawl c=2: 900/1000
+firecrawl c=2: 1000/1000
+{"level": 2, "passed": true, "reason": null, "success_rate": 0.64, "pages_per_second_this_run": 0.8035474922214352, "latency_ms_p50_all": 1103.2720734992836, "latency_ms_p95_all": 5754.045867499453, "cpu_cores_avg": 1.2231580207501995, "mem_bytes_peak": 4218593280}
+== firecrawl level 4
+firecrawl c=4: 100/1000
+firecrawl c=4: 200/1000
+firecrawl c=4: 300/1000
+firecrawl c=4: 400/1000
+firecrawl c=4: 500/1000
+firecrawl c=4: 600/1000
+firecrawl c=4: 700/1000
+firecrawl c=4: 800/1000
+firecrawl c=4: 900/1000
+firecrawl c=4: 1000/1000
+{"level": 4, "passed": true, "reason": null, "success_rate": 0.634, "pages_per_second_this_run": 1.476695886321337, "latency_ms_p50_all": 1297.5722290002523, "latency_ms_p95_all": 6744.892803350373, "cpu_cores_avg": 2.341756559766764, "mem_bytes_peak": 6090027008}
+== firecrawl level 8
+firecrawl c=8: 100/1000
+firecrawl c=8: 200/1000
+firecrawl c=8: 300/1000
+firecrawl c=8: 400/1000
+firecrawl c=8: 500/1000
+firecrawl c=8: 600/1000
+firecrawl c=8: 700/1000
+firecrawl c=8: 800/1000
+firecrawl c=8: 900/1000
+firecrawl c=8: 1000/1000
+{"level": 8, "passed": false, "reason": "engine crashed or ran out of memory; success fell more than 10 points below the best level", "success_rate": 0.395, "pages_per_second_this_run": 3.584342844857296, "latency_ms_p50_all": 1118.5057319999032, "latency_ms_p95_all": 6620.502126749215, "cpu_cores_avg": 3.5254154929577464, "mem_bytes_peak": 7250718720}
+{"engine": "firecrawl", "urls": 1000, "max_sustainable_concurrency": 4, "best_throughput_level": 4, "best_pages_per_second": 1.476695886321337}

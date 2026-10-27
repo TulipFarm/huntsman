@@ -1,0 +1,360 @@
+04:11:06 == huntsman CAPACITY: 1000 URLs per level, levels 8,16,32,64,128,256,512, container memory 15.62 GB, 8 vCPU
+04:11:06 == huntsman capacity level 8: starting a fresh container
+04:11:10    ready after 3s
+04:11:15    scraping 1000 URLs, 8 at a time
+04:11:25      46/1000 done  answered 34 (74%)  4.60 pages/s  cpu 1.98 cores  mem 0.40 GB (peak 0.65 GB)  10s
+04:11:35      84/1000 done  answered 64 (76%)  4.20 pages/s  cpu 3.70 cores  mem 0.66 GB (peak 0.66 GB)  20s
+04:11:45     122/1000 done  answered 94 (77%)  4.07 pages/s  cpu 5.24 cores  mem 0.65 GB (peak 0.78 GB)  30s
+04:11:55     153/1000 done  answered 117 (76%)  3.82 pages/s  cpu 1.09 cores  mem 0.68 GB (peak 0.85 GB)  40s
+04:12:05     192/1000 done  answered 146 (76%)  3.84 pages/s  cpu 2.64 cores  mem 0.65 GB (peak 0.85 GB)  50s
+04:12:15     215/1000 done  answered 164 (76%)  3.58 pages/s  cpu 1.10 cores  mem 0.58 GB (peak 0.85 GB)  1m0s
+04:12:25     240/1000 done  answered 184 (77%)  3.43 pages/s  cpu 1.22 cores  mem 0.59 GB (peak 0.85 GB)  1m10s
+04:12:35     260/1000 done  answered 199 (77%)  3.25 pages/s  cpu 1.86 cores  mem 0.88 GB (peak 0.88 GB)  1m20s
+04:12:45     283/1000 done  answered 214 (76%)  3.14 pages/s  cpu 0.81 cores  mem 0.60 GB (peak 0.88 GB)  1m30s
+04:12:55     310/1000 done  answered 234 (75%)  3.10 pages/s  cpu 1.07 cores  mem 0.59 GB (peak 0.88 GB)  1m40s
+04:13:05     344/1000 done  answered 261 (76%)  3.13 pages/s  cpu 0.45 cores  mem 0.58 GB (peak 0.88 GB)  1m50s
+04:13:15     373/1000 done  answered 282 (76%)  3.11 pages/s  cpu 0.34 cores  mem 0.59 GB (peak 0.88 GB)  2m0s
+04:13:25     394/1000 done  answered 296 (75%)  3.03 pages/s  cpu 2.16 cores  mem 0.73 GB (peak 0.94 GB)  2m10s
+04:13:35     423/1000 done  answered 319 (75%)  3.02 pages/s  cpu 2.08 cores  mem 0.61 GB (peak 0.94 GB)  2m20s
+04:13:45     459/1000 done  answered 342 (75%)  3.06 pages/s  cpu 2.32 cores  mem 0.97 GB (peak 0.97 GB)  2m30s
+04:13:55     493/1000 done  answered 364 (74%)  3.08 pages/s  cpu 1.85 cores  mem 0.92 GB (peak 1.03 GB)  2m40s
+04:14:05     520/1000 done  answered 383 (74%)  3.06 pages/s  cpu 2.35 cores  mem 0.84 GB (peak 1.22 GB)  2m50s
+04:14:15     540/1000 done  answered 395 (73%)  3.00 pages/s  cpu 0.49 cores  mem 0.77 GB (peak 1.22 GB)  3m0s
+04:14:25     573/1000 done  answered 410 (72%)  3.02 pages/s  cpu 4.46 cores  mem 1.13 GB (peak 1.22 GB)  3m10s
+04:14:35     613/1000 done  answered 438 (71%)  3.06 pages/s  cpu 4.34 cores  mem 1.60 GB (peak 1.60 GB)  3m20s
+04:14:45     652/1000 done  answered 467 (72%)  3.10 pages/s  cpu 1.60 cores  mem 0.88 GB (peak 1.60 GB)  3m30s
+04:14:55     682/1000 done  answered 490 (72%)  3.10 pages/s  cpu 3.47 cores  mem 0.91 GB (peak 1.60 GB)  3m40s
+04:15:05     708/1000 done  answered 510 (72%)  3.08 pages/s  cpu 0.64 cores  mem 0.89 GB (peak 1.60 GB)  3m50s
+04:15:15     735/1000 done  answered 527 (72%)  3.06 pages/s  cpu 2.01 cores  mem 0.95 GB (peak 1.60 GB)  4m0s
+04:15:25     768/1000 done  answered 551 (72%)  3.07 pages/s  cpu 1.80 cores  mem 0.88 GB (peak 1.60 GB)  4m10s
+04:15:35     808/1000 done  answered 578 (72%)  3.11 pages/s  cpu 2.62 cores  mem 0.97 GB (peak 1.60 GB)  4m20s
+04:15:45     840/1000 done  answered 600 (71%)  3.11 pages/s  cpu 1.41 cores  mem 1.10 GB (peak 1.61 GB)  4m30s
+04:15:55     873/1000 done  answered 629 (72%)  3.12 pages/s  cpu 0.93 cores  mem 1.10 GB (peak 1.61 GB)  4m40s
+04:16:05     891/1000 done  answered 646 (73%)  3.07 pages/s  cpu 0.67 cores  mem 1.10 GB (peak 1.61 GB)  4m50s
+04:16:15     914/1000 done  answered 664 (73%)  3.05 pages/s  cpu 0.96 cores  mem 1.01 GB (peak 1.61 GB)  5m0s
+04:16:25     946/1000 done  answered 688 (73%)  3.05 pages/s  cpu 1.78 cores  mem 1.05 GB (peak 1.61 GB)  5m10s
+04:16:35     982/1000 done  answered 715 (73%)  3.07 pages/s  cpu 2.33 cores  mem 0.99 GB (peak 1.61 GB)  5m20s
+04:16:46    PASSED level 8: success 67.7%, 3.04 pages/s, p50 1.5s, cpu avg 1.88 cores, mem peak 1.61 GB
+04:16:46 == huntsman capacity level 16: starting a fresh container
+04:16:50    ready after 3s
+04:16:55    scraping 1000 URLs, 16 at a time
+04:17:05      79/1000 done  answered 58 (73%)  7.90 pages/s  cpu 5.74 cores  mem 1.11 GB (peak 1.11 GB)  10s
+04:17:15     150/1000 done  answered 112 (75%)  7.50 pages/s  cpu 5.00 cores  mem 1.16 GB (peak 1.33 GB)  20s
+04:17:25     210/1000 done  answered 159 (76%)  7.00 pages/s  cpu 2.47 cores  mem 1.12 GB (peak 1.33 GB)  30s
+04:17:35     254/1000 done  answered 194 (76%)  6.35 pages/s  cpu 1.70 cores  mem 1.36 GB (peak 1.36 GB)  40s
+04:17:45     297/1000 done  answered 223 (75%)  5.94 pages/s  cpu 2.58 cores  mem 1.18 GB (peak 1.36 GB)  50s
+04:17:55     362/1000 done  answered 274 (76%)  6.03 pages/s  cpu 2.61 cores  mem 1.05 GB (peak 1.36 GB)  1m0s
+04:18:05     423/1000 done  answered 319 (75%)  6.04 pages/s  cpu 3.47 cores  mem 1.32 GB (peak 1.55 GB)  1m10s
+04:18:15     493/1000 done  answered 363 (74%)  6.16 pages/s  cpu 2.85 cores  mem 1.38 GB (peak 1.55 GB)  1m20s
+04:18:25     559/1000 done  answered 401 (72%)  6.21 pages/s  cpu 3.05 cores  mem 1.51 GB (peak 1.63 GB)  1m30s
+04:18:35     625/1000 done  answered 446 (71%)  6.25 pages/s  cpu 4.02 cores  mem 1.43 GB (peak 1.93 GB)  1m40s
+04:18:45     698/1000 done  answered 500 (72%)  6.34 pages/s  cpu 3.22 cores  mem 1.33 GB (peak 1.93 GB)  1m50s
+04:18:55     749/1000 done  answered 534 (71%)  6.24 pages/s  cpu 3.98 cores  mem 1.53 GB (peak 1.93 GB)  2m0s
+04:19:05     819/1000 done  answered 582 (71%)  6.30 pages/s  cpu 4.62 cores  mem 1.93 GB (peak 1.93 GB)  2m10s
+04:19:15     881/1000 done  answered 634 (72%)  6.29 pages/s  cpu 4.92 cores  mem 1.69 GB (peak 2.22 GB)  2m20s
+04:19:25     944/1000 done  answered 684 (72%)  6.29 pages/s  cpu 4.67 cores  mem 1.55 GB (peak 2.22 GB)  2m30s
+04:19:35     995/1000 done  answered 720 (72%)  6.22 pages/s  cpu 1.44 cores  mem 1.33 GB (peak 2.22 GB)  2m40s
+04:19:45     999/1000 done  answered 722 (72%)  5.88 pages/s  cpu 0.09 cores  mem 1.27 GB (peak 2.22 GB)  2m50s
+04:19:50    PASSED level 16: success 67.2%, 5.79 pages/s, p50 1.5s, cpu avg 3.51 cores, mem peak 2.22 GB
+04:19:50 == huntsman capacity level 32: starting a fresh container
+04:19:54    ready after 3s
+04:19:59    scraping 1000 URLs, 32 at a time
+04:20:09     125/1000 done  answered 92 (74%)  12.50 pages/s  cpu 7.99 cores  mem 1.94 GB (peak 1.94 GB)  10s
+04:20:19     238/1000 done  answered 178 (75%)  11.90 pages/s  cpu 7.05 cores  mem 2.07 GB (peak 2.26 GB)  20s
+04:20:29     345/1000 done  answered 257 (74%)  11.50 pages/s  cpu 4.69 cores  mem 1.98 GB (peak 2.28 GB)  30s
+04:20:39     456/1000 done  answered 335 (73%)  11.40 pages/s  cpu 7.96 cores  mem 2.54 GB (peak 2.60 GB)  40s
+04:20:49     595/1000 done  answered 419 (70%)  11.90 pages/s  cpu 7.85 cores  mem 2.63 GB (peak 2.63 GB)  50s
+04:20:59     703/1000 done  answered 499 (71%)  11.72 pages/s  cpu 5.92 cores  mem 2.18 GB (peak 3.06 GB)  1m0s
+04:21:09     819/1000 done  answered 578 (71%)  11.70 pages/s  cpu 7.85 cores  mem 2.85 GB (peak 3.06 GB)  1m10s
+04:21:19     938/1000 done  answered 670 (71%)  11.72 pages/s  cpu 7.82 cores  mem 3.07 GB (peak 3.12 GB)  1m20s
+04:21:29     997/1000 done  answered 716 (72%)  11.08 pages/s  cpu 0.30 cores  mem 2.11 GB (peak 3.12 GB)  1m30s
+04:21:39     998/1000 done  answered 716 (72%)  9.98 pages/s  cpu 0.18 cores  mem 1.99 GB (peak 3.12 GB)  1m40s
+04:21:46    PASSED level 32: success 66.7%, 9.55 pages/s, p50 1.7s, cpu avg 5.71 cores, mem peak 3.12 GB
+04:21:46 == huntsman capacity level 64: starting a fresh container
+04:21:49    ready after 3s
+04:21:54    scraping 1000 URLs, 64 at a time
+04:22:04     147/1000 done  answered 103 (70%)  14.70 pages/s  cpu 7.97 cores  mem 3.89 GB (peak 3.96 GB)  10s
+04:22:14     286/1000 done  answered 214 (75%)  14.30 pages/s  cpu 7.98 cores  mem 4.11 GB (peak 4.14 GB)  20s
+04:22:24     436/1000 done  answered 318 (73%)  14.53 pages/s  cpu 7.97 cores  mem 4.58 GB (peak 4.58 GB)  30s
+04:22:34     604/1000 done  answered 427 (71%)  15.10 pages/s  cpu 7.98 cores  mem 4.50 GB (peak 4.71 GB)  40s
+04:22:44     767/1000 done  answered 541 (71%)  15.34 pages/s  cpu 7.99 cores  mem 4.75 GB (peak 4.78 GB)  50s
+04:22:54     919/1000 done  answered 655 (71%)  15.32 pages/s  cpu 7.98 cores  mem 4.94 GB (peak 5.14 GB)  1m0s
+04:23:04     996/1000 done  answered 720 (72%)  14.23 pages/s  cpu 0.41 cores  mem 3.22 GB (peak 5.14 GB)  1m10s
+04:23:14     997/1000 done  answered 720 (72%)  12.46 pages/s  cpu 0.34 cores  mem 3.13 GB (peak 5.14 GB)  1m20s
+04:23:21    PASSED level 64: success 67.1%, 11.84 pages/s, p50 2.7s, cpu avg 6.22 cores, mem peak 5.14 GB
+04:23:21 == huntsman capacity level 128: starting a fresh container
+04:23:25    ready after 3s
+04:23:30    scraping 1000 URLs, 128 at a time
+04:23:40      89/1000 done  answered 61 (69%)  8.90 pages/s  cpu 7.99 cores  mem 5.02 GB (peak 5.02 GB)  10s
+04:23:50     227/1000 done  answered 163 (72%)  11.35 pages/s  cpu 7.97 cores  mem 5.84 GB (peak 5.86 GB)  20s
+04:24:00     382/1000 done  answered 282 (74%)  12.73 pages/s  cpu 7.98 cores  mem 6.16 GB (peak 6.16 GB)  30s
+04:24:10     549/1000 done  answered 387 (70%)  13.72 pages/s  cpu 7.97 cores  mem 5.80 GB (peak 6.43 GB)  40s
+04:24:20     688/1000 done  answered 487 (71%)  13.76 pages/s  cpu 7.98 cores  mem 6.15 GB (peak 6.58 GB)  50s
+04:24:30     833/1000 done  answered 589 (71%)  13.88 pages/s  cpu 7.98 cores  mem 7.01 GB (peak 7.29 GB)  1m0s
+04:24:40     993/1000 done  answered 716 (72%)  14.18 pages/s  cpu 6.45 cores  mem 5.87 GB (peak 7.31 GB)  1m10s
+04:24:50     997/1000 done  answered 718 (72%)  12.46 pages/s  cpu 0.74 cores  mem 5.22 GB (peak 7.31 GB)  1m20s
+04:25:00    FAILED at level 128: median latency more than 3x the first level
+04:25:00    success 66.8%, 11.41 pages/s, p50 7.1s, mem peak 7.31 GB, oom-killed false
+04:25:00    last engine log lines (results/large/huntsman/level-128/engine.log):
+04:25:00    | $time=1792988669923 $scope=app $level=error $msg="JS heap limit script" $page=13 url=https://dash.plotly.com/dash-ag-grid/column-definitions page_url=https://dash.plotly.com/dash-ag-grid/column-defini…
+04:25:00    | $time=1792988669950 $scope=frame $level=error $msg="navigation done" $page=13 url=https://dash.plotly.com/dash-ag-grid/column-definitions
+04:25:00    | 2026/10/26 04:24:30 WARN scrape failed job=205df4a43fb11d102ddad69d4932ed9a error="page produced empty Markdown"
+04:25:00    | 2026/10/26 04:24:30 WARN scrape failed job=6f616bdf125afa0fe9e97a0d9e5d729b error="navigate: page load error net::ERR_TIMED_OUT"
+04:25:00    | 2026/10/26 04:24:31 WARN scrape failed job=ba00a313652c8fe143be392da20f8de6 error="target returned HTTP 403"
+04:25:00    | 2026/10/26 04:24:31 WARN scrape failed job=dcf31c71a8027e7e6f464da9aabe6a9a error="navigate: page load error net::ERR_TIMED_OUT"
+04:25:00    | 2026/10/26 04:24:32 WARN scrape failed job=42e988a87e592cf3ffe475012b289d60 error="navigate: page load error CouldntResolveHost"
+04:25:00    | 2026/10/26 04:24:35 WARN scrape failed job=9b0fe1c7045e9030569c78ec3a607136 error="PDF has no extractable text"
+04:25:00    | 2026/10/26 04:24:37 WARN scrape failed job=12700cc83767bcf17cb00f1203a87621 error="navigate: page load error net::ERR_TIMED_OUT"
+04:25:00    | 2026/10/26 04:24:38 WARN scrape failed job=69aa7c6cc568e4d81711163f43b24192 error="navigate: page load error net::ERR_TIMED_OUT"
+04:25:00    | 2026/10/26 04:24:43 WARN scrape failed job=79701b6d9ddca6778ae55f961f460c62 error="navigate: page load error net::ERR_TIMED_OUT"
+04:25:00    | 2026/10/26 04:24:45 WARN scrape failed job=418a8d170a4c08c59e6a999a85d040d8 error="navigate: page load error net::ERR_TIMED_OUT"
+04:25:00    | 2026/10/26 04:24:53 WARN scrape failed job=30d20091688eef7a4c9e7510d3ead1cc error="navigate: page load error net::ERR_TIMED_OUT"
+04:25:00    | 2026/10/26 04:24:54 WARN scrape failed job=edbd63089793d08421dc75a3305d2ecc error="navigate: page load error net::ERR_TIMED_OUT"
+04:25:00    | 2026/10/26 04:24:57 WARN scrape failed job=c19f11c05a00e0886eb45511dc777b4f error="navigate: page load error net::ERR_TIMED_OUT"
+04:25:00 == huntsman capacity: max sustainable concurrency 64
+04:25:00 == huntsman RESOURCE PROFILE: levels 1,2,3,4,5,6,7,8,12,16,24,32,48,64,96, 1m30s each (first 20s not measured), about 27m30s in total
+04:25:00 == huntsman profile level 1: starting a fresh container
+04:25:04    ready after 3s
+04:25:09    1 at a time for 1m30s
+04:25:19      10s/1m30s  4 done  answered 4 (100%)  cpu 0.34 cores  mem 0.07 GB (peak 0.07 GB)
+04:25:29      20s/1m30s  10 done  answered 8 (80%)  cpu 0.00 cores  mem 0.05 GB (peak 0.07 GB)
+04:25:39      30s/1m30s  15 done  answered 13 (87%)  cpu 0.72 cores  mem 0.09 GB (peak 0.12 GB)
+04:25:49      40s/1m30s  15 done  answered 13 (87%)  cpu 1.01 cores  mem 0.10 GB (peak 0.12 GB)
+04:25:59      50s/1m30s  20 done  answered 17 (85%)  cpu 0.62 cores  mem 0.12 GB (peak 0.12 GB)
+04:26:09      1m0s/1m30s  25 done  answered 21 (84%)  cpu 0.08 cores  mem 0.10 GB (peak 0.14 GB)
+04:26:19      1m10s/1m30s  36 done  answered 27 (75%)  cpu 0.59 cores  mem 0.14 GB (peak 0.22 GB)
+04:26:29      1m20s/1m30s  44 done  answered 32 (73%)  cpu 0.01 cores  mem 0.10 GB (peak 0.22 GB)
+04:26:39      1m30s (finishing requests in flight)  48 done  answered 36 (75%)  cpu 0.06 cores  mem 0.11 GB (peak 0.22 GB)
+04:26:43    level 1: cpu 0.43 cores (peak 1.33), mem 0.10 GB (peak 0.22 GB), 0.54 pages/s, success 71.4%
+04:26:43 == huntsman profile level 2: starting a fresh container
+04:26:46    ready after 3s
+04:26:51    2 at a time for 1m30s
+04:27:01      10s/1m30s  11 done  answered 9 (82%)  cpu 0.01 cores  mem 0.16 GB (peak 0.16 GB)
+04:27:11      20s/1m30s  19 done  answered 16 (84%)  cpu 1.18 cores  mem 0.16 GB (peak 0.19 GB)
+04:27:21      30s/1m30s  30 done  answered 24 (80%)  cpu 0.28 cores  mem 0.16 GB (peak 0.21 GB)
+04:27:31      40s/1m30s  45 done  answered 33 (73%)  cpu 0.14 cores  mem 0.14 GB (peak 0.30 GB)
+04:27:41      50s/1m30s  52 done  answered 39 (75%)  cpu 0.38 cores  mem 0.15 GB (peak 0.30 GB)
+04:27:51      1m0s/1m30s  57 done  answered 43 (75%)  cpu 0.98 cores  mem 0.19 GB (peak 0.30 GB)
+04:28:01      1m10s/1m30s  71 done  answered 54 (76%)  cpu 0.13 cores  mem 0.23 GB (peak 0.30 GB)
+04:28:11      1m20s/1m30s  87 done  answered 66 (76%)  cpu 2.38 cores  mem 0.22 GB (peak 0.30 GB)
+04:28:21      1m30s (finishing requests in flight)  95 done  answered 72 (76%)  cpu 0.14 cores  mem 0.21 GB (peak 0.30 GB)
+04:28:31      1m40s (finishing requests in flight)  96 done  answered 73 (76%)  cpu 0.01 cores  mem 0.15 GB (peak 0.30 GB)
+04:28:41      1m50s (finishing requests in flight)  96 done  answered 73 (76%)  cpu 0.01 cores  mem 0.15 GB (peak 0.30 GB)
+04:28:43    level 2: cpu 0.59 cores (peak 2.38), mem 0.19 GB (peak 0.30 GB), 1.09 pages/s, success 69.1%
+04:28:43 == huntsman profile level 3: starting a fresh container
+04:28:46    ready after 3s
+04:28:51    3 at a time for 1m30s
+04:29:01      10s/1m30s  18 done  answered 16 (89%)  cpu 1.60 cores  mem 0.20 GB (peak 0.22 GB)
+04:29:11      20s/1m30s  32 done  answered 25 (78%)  cpu 1.00 cores  mem 0.22 GB (peak 0.25 GB)
+04:29:21      30s/1m30s  47 done  answered 36 (77%)  cpu 0.04 cores  mem 0.27 GB (peak 0.33 GB)
+04:29:31      40s/1m30s  58 done  answered 44 (76%)  cpu 0.59 cores  mem 0.25 GB (peak 0.33 GB)
+04:29:41      50s/1m30s  80 done  answered 61 (76%)  cpu 0.79 cores  mem 0.26 GB (peak 0.33 GB)
+04:29:51      1m0s/1m30s  95 done  answered 74 (78%)  cpu 1.27 cores  mem 0.32 GB (peak 0.34 GB)
+04:30:01      1m10s/1m30s  106 done  answered 83 (78%)  cpu 1.73 cores  mem 0.33 GB (peak 0.34 GB)
+04:30:11      1m20s/1m30s  113 done  answered 87 (77%)  cpu 1.59 cores  mem 0.29 GB (peak 0.34 GB)
+04:30:21      1m30s (finishing requests in flight)  129 done  answered 99 (77%)  cpu 1.55 cores  mem 0.37 GB (peak 0.39 GB)
+04:30:31    level 3: cpu 0.90 cores (peak 2.41), mem 0.27 GB (peak 0.39 GB), 1.39 pages/s, success 70.5%
+04:30:31 == huntsman profile level 4: starting a fresh container
+04:30:34    ready after 3s
+04:30:39    4 at a time for 1m30s
+04:30:49      10s/1m30s  20 done  answered 17 (85%)  cpu 2.47 cores  mem 0.27 GB (peak 0.29 GB)
+04:30:59      20s/1m30s  44 done  answered 33 (75%)  cpu 0.69 cores  mem 0.25 GB (peak 0.41 GB)
+04:31:09      30s/1m30s  57 done  answered 43 (75%)  cpu 0.24 cores  mem 0.33 GB (peak 0.41 GB)
+04:31:19      40s/1m30s  84 done  answered 64 (76%)  cpu 2.27 cores  mem 0.38 GB (peak 0.41 GB)
+04:31:29      50s/1m30s  104 done  answered 80 (77%)  cpu 1.99 cores  mem 0.30 GB (peak 0.41 GB)
+04:31:39      1m0s/1m30s  113 done  answered 85 (75%)  cpu 1.76 cores  mem 0.38 GB (peak 0.41 GB)
+04:31:49      1m10s/1m30s  126 done  answered 96 (76%)  cpu 1.97 cores  mem 0.37 GB (peak 0.46 GB)
+04:31:59      1m20s/1m30s  145 done  answered 110 (76%)  cpu 1.06 cores  mem 0.42 GB (peak 0.46 GB)
+04:32:09      1m30s (finishing requests in flight)  163 done  answered 124 (76%)  cpu 1.11 cores  mem 0.33 GB (peak 0.46 GB)
+04:32:19      1m40s (finishing requests in flight)  166 done  answered 127 (77%)  cpu 0.02 cores  mem 0.25 GB (peak 0.46 GB)
+04:32:29      1m50s (finishing requests in flight)  166 done  answered 127 (77%)  cpu 0.02 cores  mem 0.25 GB (peak 0.46 GB)
+04:32:36    level 4: cpu 1.00 cores (peak 2.44), mem 0.33 GB (peak 0.46 GB), 1.70 pages/s, success 68.9%
+04:32:36 == huntsman profile level 5: starting a fresh container
+04:32:39    ready after 3s
+04:32:44    5 at a time for 1m30s
+04:32:54      10s/1m30s  25 done  answered 20 (80%)  cpu 1.89 cores  mem 0.26 GB (peak 0.34 GB)
+04:33:04      20s/1m30s  50 done  answered 38 (76%)  cpu 0.80 cores  mem 0.35 GB (peak 0.46 GB)
+04:33:14      30s/1m30s  70 done  answered 54 (77%)  cpu 0.72 cores  mem 0.39 GB (peak 0.46 GB)
+04:33:24      40s/1m30s  102 done  answered 78 (76%)  cpu 1.06 cores  mem 0.42 GB (peak 0.46 GB)
+04:33:34      50s/1m30s  116 done  answered 89 (77%)  cpu 2.97 cores  mem 0.37 GB (peak 0.46 GB)
+04:33:44      1m0s/1m30s  130 done  answered 101 (78%)  cpu 0.14 cores  mem 0.37 GB (peak 0.63 GB)
+04:33:54      1m10s/1m30s  152 done  answered 114 (75%)  cpu 0.78 cores  mem 0.47 GB (peak 0.63 GB)
+04:34:04      1m20s/1m30s  175 done  answered 133 (76%)  cpu 2.24 cores  mem 0.45 GB (peak 0.63 GB)
+04:34:14      1m30s (finishing requests in flight)  194 done  answered 146 (75%)  cpu 0.86 cores  mem 0.42 GB (peak 0.63 GB)
+04:34:24      1m40s (finishing requests in flight)  197 done  answered 149 (76%)  cpu 0.02 cores  mem 0.31 GB (peak 0.63 GB)
+04:34:26    level 5: cpu 1.19 cores (peak 3.26), mem 0.41 GB (peak 0.63 GB), 2.06 pages/s, success 68.8%
+04:34:26 == huntsman profile level 6: starting a fresh container
+04:34:29    ready after 3s
+04:34:34    6 at a time for 1m30s
+04:34:44      10s/1m30s  33 done  answered 25 (76%)  cpu 3.76 cores  mem 0.40 GB (peak 0.45 GB)
+04:34:54      20s/1m30s  60 done  answered 46 (77%)  cpu 0.68 cores  mem 0.42 GB (peak 0.56 GB)
+04:35:04      30s/1m30s  94 done  answered 72 (77%)  cpu 0.49 cores  mem 0.40 GB (peak 0.56 GB)
+04:35:14      40s/1m30s  115 done  answered 88 (77%)  cpu 2.08 cores  mem 0.40 GB (peak 0.57 GB)
+04:35:24      50s/1m30s  132 done  answered 100 (76%)  cpu 0.25 cores  mem 0.45 GB (peak 0.67 GB)
+04:35:34      1m0s/1m30s  156 done  answered 118 (76%)  cpu 0.81 cores  mem 0.44 GB (peak 0.67 GB)
+04:35:44      1m10s/1m30s  182 done  answered 137 (75%)  cpu 0.32 cores  mem 0.49 GB (peak 0.67 GB)
+04:35:54      1m20s/1m30s  200 done  answered 149 (74%)  cpu 0.26 cores  mem 0.48 GB (peak 0.67 GB)
+04:36:04      1m30s (finishing requests in flight)  219 done  answered 163 (74%)  cpu 1.36 cores  mem 0.47 GB (peak 0.67 GB)
+04:36:14      1m40s (finishing requests in flight)  224 done  answered 168 (75%)  cpu 0.03 cores  mem 0.41 GB (peak 0.67 GB)
+04:36:24      1m50s (finishing requests in flight)  224 done  answered 168 (75%)  cpu 0.03 cores  mem 0.41 GB (peak 0.67 GB)
+04:36:28    level 6: cpu 1.26 cores (peak 3.85), mem 0.47 GB (peak 0.67 GB), 2.27 pages/s, success 68.4%
+04:36:28 == huntsman profile level 7: starting a fresh container
+04:36:31    ready after 3s
+04:36:36    7 at a time for 1m30s
+04:36:46      10s/1m30s  40 done  answered 29 (72%)  cpu 4.19 cores  mem 0.58 GB (peak 0.58 GB)
+04:36:56      20s/1m30s  70 done  answered 54 (77%)  cpu 2.29 cores  mem 0.57 GB (peak 0.58 GB)
+04:37:06      30s/1m30s  109 done  answered 83 (76%)  cpu 2.55 cores  mem 0.48 GB (peak 0.61 GB)
+04:37:16      40s/1m30s  132 done  answered 101 (77%)  cpu 0.80 cores  mem 0.45 GB (peak 0.78 GB)
+04:37:26      50s/1m30s  156 done  answered 120 (77%)  cpu 0.90 cores  mem 0.46 GB (peak 0.78 GB)
+04:37:36      1m0s/1m30s  192 done  answered 144 (75%)  cpu 4.16 cores  mem 0.59 GB (peak 0.78 GB)
+04:37:46      1m10s/1m30s  212 done  answered 160 (75%)  cpu 0.95 cores  mem 0.56 GB (peak 0.78 GB)
+04:37:56      1m20s/1m30s  232 done  answered 176 (76%)  cpu 1.24 cores  mem 0.60 GB (peak 0.78 GB)
+04:38:06      1m30s (finishing requests in flight)  253 done  answered 191 (75%)  cpu 1.28 cores  mem 0.62 GB (peak 0.78 GB)
+04:38:16      1m40s (finishing requests in flight)  259 done  answered 196 (76%)  cpu 0.04 cores  mem 0.42 GB (peak 0.78 GB)
+04:38:26      1m50s (finishing requests in flight)  259 done  answered 196 (76%)  cpu 0.04 cores  mem 0.42 GB (peak 0.78 GB)
+04:38:28    level 7: cpu 1.56 cores (peak 4.16), mem 0.54 GB (peak 0.78 GB), 2.61 pages/s, success 68.8%
+04:38:28 == huntsman profile level 8: starting a fresh container
+04:38:31    ready after 3s
+04:38:36    8 at a time for 1m30s
+04:38:46      10s/1m30s  41 done  answered 29 (71%)  cpu 2.49 cores  mem 0.39 GB (peak 0.62 GB)
+04:38:56      20s/1m30s  80 done  answered 59 (74%)  cpu 1.79 cores  mem 0.61 GB (peak 0.63 GB)
+04:39:06      30s/1m30s  119 done  answered 91 (76%)  cpu 5.27 cores  mem 0.75 GB (peak 0.82 GB)
+04:39:16      40s/1m30s  150 done  answered 112 (75%)  cpu 1.21 cores  mem 0.66 GB (peak 0.84 GB)
+04:39:26      50s/1m30s  191 done  answered 142 (74%)  cpu 4.36 cores  mem 0.61 GB (peak 0.84 GB)
+04:39:36      1m0s/1m30s  215 done  answered 161 (75%)  cpu 1.51 cores  mem 0.54 GB (peak 0.84 GB)
+04:39:46      1m10s/1m30s  238 done  answered 179 (75%)  cpu 1.54 cores  mem 0.71 GB (peak 0.84 GB)
+04:39:56      1m20s/1m30s  260 done  answered 196 (75%)  cpu 2.50 cores  mem 0.91 GB (peak 0.91 GB)
+04:40:06      1m30s (finishing requests in flight)  282 done  answered 211 (75%)  cpu 0.53 cores  mem 0.58 GB (peak 0.94 GB)
+04:40:16      1m40s (finishing requests in flight)  289 done  answered 217 (75%)  cpu 0.05 cores  mem 0.49 GB (peak 0.94 GB)
+04:40:24    level 8: cpu 1.81 cores (peak 5.27), mem 0.65 GB (peak 0.94 GB), 2.89 pages/s, success 68.3%
+04:40:24 == huntsman profile level 12: starting a fresh container
+04:40:27    ready after 3s
+04:40:32    12 at a time for 1m30s
+04:40:42      10s/1m30s  57 done  answered 42 (74%)  cpu 2.75 cores  mem 0.70 GB (peak 0.78 GB)
+04:40:52      20s/1m30s  121 done  answered 90 (74%)  cpu 7.04 cores  mem 1.06 GB (peak 1.06 GB)
+04:41:02      30s/1m30s  169 done  answered 126 (75%)  cpu 1.44 cores  mem 0.79 GB (peak 1.10 GB)
+04:41:12      40s/1m30s  205 done  answered 153 (75%)  cpu 0.99 cores  mem 0.76 GB (peak 1.10 GB)
+04:41:22      50s/1m30s  239 done  answered 180 (75%)  cpu 3.84 cores  mem 1.01 GB (peak 1.10 GB)
+04:41:32      1m0s/1m30s  273 done  answered 204 (75%)  cpu 0.73 cores  mem 0.92 GB (peak 1.14 GB)
+04:41:42      1m10s/1m30s  310 done  answered 231 (75%)  cpu 2.35 cores  mem 0.86 GB (peak 1.14 GB)
+04:41:52      1m20s/1m30s  357 done  answered 267 (75%)  cpu 2.96 cores  mem 0.86 GB (peak 1.14 GB)
+04:42:02      1m30s (finishing requests in flight)  401 done  answered 299 (75%)  cpu 3.24 cores  mem 1.17 GB (peak 1.17 GB)
+04:42:12      1m40s (finishing requests in flight)  412 done  answered 308 (75%)  cpu 0.07 cores  mem 0.72 GB (peak 1.17 GB)
+04:42:23    level 12: cpu 2.21 cores (peak 4.67), mem 0.91 GB (peak 1.17 GB), 4.00 pages/s, success 68.8%
+04:42:23 == huntsman profile level 16: starting a fresh container
+04:42:27    ready after 3s
+04:42:32    16 at a time for 1m30s
+04:42:42      10s/1m30s  85 done  answered 62 (73%)  cpu 5.82 cores  mem 1.11 GB (peak 1.11 GB)
+04:42:52      20s/1m30s  155 done  answered 116 (75%)  cpu 3.65 cores  mem 1.20 GB (peak 1.42 GB)
+04:43:02      30s/1m30s  215 done  answered 162 (75%)  cpu 2.30 cores  mem 0.89 GB (peak 1.42 GB)
+04:43:12      40s/1m30s  259 done  answered 194 (75%)  cpu 4.20 cores  mem 1.33 GB (peak 1.42 GB)
+04:43:22      50s/1m30s  307 done  answered 230 (75%)  cpu 2.52 cores  mem 1.06 GB (peak 1.42 GB)
+04:43:32      1m0s/1m30s  370 done  answered 277 (75%)  cpu 0.88 cores  mem 1.09 GB (peak 1.42 GB)
+04:43:42      1m10s/1m30s  437 done  answered 325 (74%)  cpu 4.69 cores  mem 1.34 GB (peak 1.42 GB)
+04:43:52      1m20s/1m30s  499 done  answered 363 (73%)  cpu 6.25 cores  mem 1.67 GB (peak 1.67 GB)
+04:44:02      1m30s (finishing requests in flight)  557 done  answered 396 (71%)  cpu 3.18 cores  mem 1.51 GB (peak 1.67 GB)
+04:44:12      1m40s (finishing requests in flight)  569 done  answered 407 (72%)  cpu 0.11 cores  mem 1.10 GB (peak 1.67 GB)
+04:44:23    level 16: cpu 3.24 cores (peak 6.25), mem 1.23 GB (peak 1.67 GB), 5.74 pages/s, success 64.9%
+04:44:23 == huntsman profile level 24: starting a fresh container
+04:44:26    ready after 3s
+04:44:31    24 at a time for 1m30s
+04:44:41      10s/1m30s  114 done  answered 84 (74%)  cpu 7.03 cores  mem 1.47 GB (peak 1.47 GB)
+04:44:51      20s/1m30s  206 done  answered 152 (74%)  cpu 6.04 cores  mem 1.60 GB (peak 1.96 GB)
+04:45:01      30s/1m30s  278 done  answered 207 (74%)  cpu 3.66 cores  mem 1.69 GB (peak 1.96 GB)
+04:45:11      40s/1m30s  361 done  answered 270 (75%)  cpu 4.37 cores  mem 1.59 GB (peak 1.96 GB)
+04:45:21      50s/1m30s  448 done  answered 331 (74%)  cpu 7.90 cores  mem 2.13 GB (peak 2.13 GB)
+04:45:31      1m0s/1m30s  560 done  answered 396 (71%)  cpu 4.67 cores  mem 1.78 GB (peak 2.16 GB)
+04:45:41      1m10s/1m30s  652 done  answered 461 (71%)  cpu 5.93 cores  mem 2.09 GB (peak 2.66 GB)
+04:45:51      1m20s/1m30s  738 done  answered 523 (71%)  cpu 4.60 cores  mem 1.99 GB (peak 2.66 GB)
+04:46:01      1m30s (finishing requests in flight)  832 done  answered 586 (70%)  cpu 5.99 cores  mem 2.48 GB (peak 2.66 GB)
+04:46:11      1m40s (finishing requests in flight)  855 done  answered 605 (71%)  cpu 0.15 cores  mem 1.60 GB (peak 2.67 GB)
+04:46:21      1m50s (finishing requests in flight)  855 done  answered 605 (71%)  cpu 0.14 cores  mem 1.58 GB (peak 2.67 GB)
+04:46:31    level 24: cpu 5.24 cores (peak 7.90), mem 1.88 GB (peak 2.67 GB), 8.94 pages/s, success 65.9%
+04:46:31 == huntsman profile level 32: starting a fresh container
+04:46:34    ready after 3s
+04:46:39    32 at a time for 1m30s
+04:46:49      10s/1m30s  126 done  answered 93 (74%)  cpu 7.95 cores  mem 1.98 GB (peak 1.98 GB)
+04:46:59      20s/1m30s  234 done  answered 175 (75%)  cpu 6.60 cores  mem 1.95 GB (peak 2.26 GB)
+04:47:09      30s/1m30s  339 done  answered 253 (75%)  cpu 4.55 cores  mem 1.83 GB (peak 2.32 GB)
+04:47:19      40s/1m30s  452 done  answered 330 (73%)  cpu 7.96 cores  mem 2.65 GB (peak 2.65 GB)
+04:47:29      50s/1m30s  585 done  answered 408 (70%)  cpu 6.38 cores  mem 2.50 GB (peak 2.65 GB)
+04:47:39      1m0s/1m30s  706 done  answered 499 (71%)  cpu 5.01 cores  mem 2.31 GB (peak 2.92 GB)
+04:47:49      1m10s/1m30s  822 done  answered 577 (70%)  cpu 7.84 cores  mem 2.86 GB (peak 2.92 GB)
+04:47:59      1m20s/1m30s  938 done  answered 668 (71%)  cpu 6.93 cores  mem 3.03 GB (peak 3.20 GB)
+04:48:09      1m30s (finishing requests in flight)  1061 done  answered 759 (72%)  cpu 7.96 cores  mem 2.72 GB (peak 3.20 GB)
+04:48:19      1m40s (finishing requests in flight)  1088 done  answered 783 (72%)  cpu 0.30 cores  mem 2.10 GB (peak 3.20 GB)
+04:48:29      1m50s (finishing requests in flight)  1092 done  answered 784 (72%)  cpu 0.18 cores  mem 2.05 GB (peak 3.20 GB)
+04:48:40    level 32: cpu 7.04 cores (peak 7.98), mem 2.52 GB (peak 3.20 GB), 11.81 pages/s, success 66.7%
+04:48:40 == huntsman profile level 48: starting a fresh container
+04:48:43    ready after 3s
+04:48:48    48 at a time for 1m30s
+04:48:58      10s/1m30s  140 done  answered 105 (75%)  cpu 7.99 cores  mem 3.20 GB (peak 3.20 GB)
+04:49:08      20s/1m30s  270 done  answered 202 (75%)  cpu 7.98 cores  mem 3.19 GB (peak 3.22 GB)
+04:49:18      30s/1m30s  418 done  answered 312 (75%)  cpu 7.97 cores  mem 3.38 GB (peak 3.38 GB)
+04:49:28      40s/1m30s  577 done  answered 408 (71%)  cpu 7.96 cores  mem 3.32 GB (peak 3.62 GB)
+04:49:38      50s/1m30s  714 done  answered 505 (71%)  cpu 7.97 cores  mem 3.35 GB (peak 3.99 GB)
+04:49:48      1m0s/1m30s  851 done  answered 607 (71%)  cpu 7.98 cores  mem 4.01 GB (peak 4.01 GB)
+04:49:58      1m10s/1m30s  996 done  answered 713 (72%)  cpu 7.98 cores  mem 4.29 GB (peak 4.29 GB)
+04:50:08      1m20s/1m30s  1123 done  answered 813 (72%)  cpu 7.99 cores  mem 4.24 GB (peak 4.34 GB)
+04:50:18      1m30s (finishing requests in flight)  1265 done  answered 916 (72%)  cpu 7.98 cores  mem 4.23 GB (peak 4.34 GB)
+04:50:28      1m40s (finishing requests in flight)  1305 done  answered 951 (73%)  cpu 0.52 cores  mem 2.93 GB (peak 4.34 GB)
+04:50:38      1m50s (finishing requests in flight)  1311 done  answered 953 (73%)  cpu 0.26 cores  mem 2.84 GB (peak 4.34 GB)
+04:50:45    level 48: cpu 7.96 cores (peak 7.99), mem 3.76 GB (peak 4.34 GB), 14.21 pages/s, success 67.3%
+04:50:45 == huntsman profile level 64: starting a fresh container
+04:50:48    ready after 3s
+04:50:53    64 at a time for 1m30s
+04:51:03      10s/1m30s  144 done  answered 100 (69%)  cpu 7.97 cores  mem 4.00 GB (peak 4.00 GB)
+04:51:13      20s/1m30s  281 done  answered 211 (75%)  cpu 7.98 cores  mem 4.21 GB (peak 4.21 GB)
+04:51:23      30s/1m30s  434 done  answered 317 (73%)  cpu 7.98 cores  mem 4.49 GB (peak 4.49 GB)
+04:51:33      40s/1m30s  606 done  answered 427 (70%)  cpu 7.98 cores  mem 4.42 GB (peak 4.71 GB)
+04:51:43      50s/1m30s  766 done  answered 542 (71%)  cpu 7.97 cores  mem 4.53 GB (peak 4.94 GB)
+04:51:53      1m0s/1m30s  904 done  answered 645 (71%)  cpu 7.98 cores  mem 5.24 GB (peak 5.30 GB)
+04:52:03      1m10s/1m30s  1065 done  answered 762 (72%)  cpu 7.98 cores  mem 5.24 GB (peak 5.32 GB)
+04:52:13      1m20s/1m30s  1211 done  answered 875 (72%)  cpu 7.99 cores  mem 5.05 GB (peak 5.32 GB)
+04:52:23      1m30s (finishing requests in flight)  1364 done  answered 986 (72%)  cpu 7.98 cores  mem 5.11 GB (peak 5.32 GB)
+04:52:33      1m40s (finishing requests in flight)  1420 done  answered 1033 (73%)  cpu 0.44 cores  mem 3.54 GB (peak 5.32 GB)
+04:52:43      1m50s (finishing requests in flight)  1425 done  answered 1035 (73%)  cpu 0.35 cores  mem 3.40 GB (peak 5.32 GB)
+04:52:52    level 64: cpu 7.98 cores (peak 7.99), mem 4.78 GB (peak 5.32 GB), 15.46 pages/s, success 67.4%
+04:52:52 == huntsman profile level 96: starting a fresh container
+04:52:55    ready after 3s
+04:53:00    96 at a time for 1m30s
+04:53:10      10s/1m30s  137 done  answered 92 (67%)  cpu 7.98 cores  mem 4.84 GB (peak 4.84 GB)
+04:53:20      20s/1m30s  298 done  answered 213 (71%)  cpu 7.96 cores  mem 5.33 GB (peak 5.77 GB)
+04:53:30      30s/1m30s  465 done  answered 329 (71%)  cpu 7.98 cores  mem 6.26 GB (peak 6.28 GB)
+04:53:40      40s/1m30s  626 done  answered 434 (69%)  cpu 7.98 cores  mem 5.90 GB (peak 6.28 GB)
+04:53:50      50s/1m30s  799 done  answered 554 (69%)  cpu 7.98 cores  mem 6.22 GB (peak 6.28 GB)
+04:54:00      1m0s/1m30s  960 done  answered 675 (70%)  cpu 7.98 cores  mem 6.55 GB (peak 6.56 GB)
+04:54:10      1m10s/1m30s  1118 done  answered 797 (71%)  cpu 7.98 cores  mem 6.60 GB (peak 6.67 GB)
+04:54:20      1m20s/1m30s  1279 done  answered 917 (72%)  cpu 7.98 cores  mem 6.93 GB (peak 7.06 GB)
+04:54:30      1m30s (finishing requests in flight)  1429 done  answered 1023 (72%)  cpu 7.98 cores  mem 6.79 GB (peak 7.06 GB)
+04:54:40      1m40s (finishing requests in flight)  1516 done  answered 1090 (72%)  cpu 1.92 cores  mem 4.89 GB (peak 7.06 GB)
+04:54:50      1m50s (finishing requests in flight)  1523 done  answered 1093 (72%)  cpu 0.52 cores  mem 4.58 GB (peak 7.06 GB)
+04:55:02    level 96: cpu 7.97 cores (peak 7.99), mem 6.28 GB (peak 7.06 GB), 16.16 pages/s, success 66.6%
+
+04:55:02 CAPACITY
+04:55:02 level  result  success  pages/s    p50       p95       cpu avg   mem peak  reason
+04:55:02 8      pass    67.7%    3.04       1.5s      7.1s      1.88      1.61 GB   -
+04:55:02 16     pass    67.2%    5.79       1.5s      6.9s      3.51      2.22 GB   -
+04:55:02 32     pass    66.7%    9.55       1.7s      7.4s      5.71      3.12 GB   -
+04:55:02 64     pass    67.1%    11.84      2.7s      11.1s     6.22      5.14 GB   -
+04:55:02 128    FAIL    66.8%    11.41      7.1s      15.0s     6.35      7.31 GB   median latency more than 3x the first level
+
+04:55:02 RESOURCE PROFILE (steady state, after 20s warm-up)
+04:55:02 level  result  cpu avg    cpu peak   mem avg    mem peak   pages/s   success
+04:55:02 1      ok      0.43       1.33       0.10 GB    0.22 GB    0.54      71.4%
+04:55:02 2      ok      0.59       2.38       0.19 GB    0.30 GB    1.09      69.1%
+04:55:02 3      ok      0.90       2.41       0.27 GB    0.39 GB    1.39      70.5%
+04:55:02 4      ok      1.00       2.44       0.33 GB    0.46 GB    1.70      68.9%
+04:55:02 5      ok      1.19       3.26       0.41 GB    0.63 GB    2.06      68.8%
+04:55:02 6      ok      1.26       3.85       0.47 GB    0.67 GB    2.27      68.4%
+04:55:02 7      ok      1.56       4.16       0.54 GB    0.78 GB    2.61      68.8%
+04:55:02 8      ok      1.81       5.27       0.65 GB    0.94 GB    2.89      68.3%
+04:55:02 12     ok      2.21       4.67       0.91 GB    1.17 GB    4.00      68.8%
+04:55:02 16     ok      3.24       6.25       1.23 GB    1.67 GB    5.74      64.9%
+04:55:02 24     ok      5.24       7.90       1.88 GB    2.67 GB    8.94      65.9%
+04:55:02 32     ok      7.04       7.98       2.52 GB    3.20 GB    11.81     66.7%
+04:55:02 48     ok      7.96       7.99       3.76 GB    4.34 GB    14.21     67.3%
+04:55:02 64     ok      7.98       7.99       4.78 GB    5.32 GB    15.46     67.4%
+04:55:02 96     ok      7.97       7.99       6.28 GB    7.06 GB    16.16     66.6%
+
+04:55:02 == huntsman: max sustainable concurrency 64; results in results/large/huntsman/ramp.json

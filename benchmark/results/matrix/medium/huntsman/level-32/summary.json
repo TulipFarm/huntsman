@@ -1,0 +1,16 @@
+{
+  "avg_f1": 0.4715175412830393,
+  "avg_precision": 0.4888808336060538,
+  "avg_recall": 0.47052080696237436,
+  "concurrency": 32,
+  "coverage_recall_10pct": 0.639,
+  "engine": "huntsman",
+  "latency_ms_p50_all": 2721.4875,
+  "latency_ms_p50_success": 3528.81,
+  "latency_ms_p95_all": 11066.360049999994,
+  "latency_ms_p95_success": 10926.006799999994,
+  "pages_per_second_this_run": 6.810040497447202,
+  "success_rate": 0.669,
+  "urls": 1000,
+  "wall_seconds_this_run": 146.842004886
+}

@@ -1,0 +1,16 @@
+{
+  "avg_f1": 0.4452791003452666,
+  "concurrency": 7,
+  "cpu_cores_avg": 1.9846571428571427,
+  "cpu_cores_peak": 1.998,
+  "engine": "firecrawl",
+  "latency_ms_p50_all": 3919.686,
+  "latency_ms_p95_all": 12761.472999999998,
+  "mem_bytes_avg": 1443266501.4857142,
+  "pages_per_second_this_run": 1.3428571428571427,
+  "steady_from_seconds": 20,
+  "steady_to_seconds": 90,
+  "success_rate": 0.6821705426356589,
+  "urls": 129,
+  "wall_seconds_this_run": 107.662562234
+}

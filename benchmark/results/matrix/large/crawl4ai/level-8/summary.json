@@ -1,0 +1,16 @@
+{
+  "avg_f1": 0.4248648428394757,
+  "avg_precision": 0.45143419769881465,
+  "avg_recall": 0.42290335411141844,
+  "concurrency": 8,
+  "coverage_recall_10pct": 0.582,
+  "engine": "crawl4ai",
+  "latency_ms_p50_all": 2932.109,
+  "latency_ms_p50_success": 3346.654,
+  "latency_ms_p95_all": 9428.243399999998,
+  "latency_ms_p95_success": 9319.193599999999,
+  "pages_per_second_this_run": 1.930237462846623,
+  "success_rate": 0.652,
+  "urls": 1000,
+  "wall_seconds_this_run": 518.070972742
+}

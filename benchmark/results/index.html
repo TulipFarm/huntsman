@@ -1,0 +1,451 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Huntsman benchmark: resource usage and capacity</title>
+<style>
+:root {
+  color-scheme: light dark;
+  --bg: #f7f7f5; --surface: #ffffff; --ink: #18181b; --muted: #5f5f66; --faint: #6b6b73;
+  --line: #e4e4e0; --grid: #efefeb; --focus: #0b63ce;
+  --huntsman: #0b63ce; --firecrawl: #d97706; --crawl4ai: #059669; --spider: #c0399b;
+  --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px; --space-5: 20px; --space-6: 24px; --space-8: 32px; --space-12: 48px;
+  --radius: 10px;
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #111113; --surface: #19191c; --ink: #ededef; --muted: #a1a1aa; --faint: #8e8e96;
+    --line: #2a2a2f; --grid: #222226; --focus: #6aa8ff;
+    --huntsman: #5b9dff; --firecrawl: #f5a524; --crawl4ai: #34c48f; --spider: #e073c4;
+  }
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); line-height: 1.5; font-size: 15px; }
+main { max-width: 1120px; margin: 0 auto; padding: var(--space-12) var(--space-6) var(--space-12); }
+h1 { font-size: 28px; line-height: 1.2; letter-spacing: -0.01em; margin: 0 0 var(--space-2); text-wrap: balance; }
+h2 { font-size: 17px; margin: 0; }
+p { margin: 0; }
+.lede { color: var(--muted); max-width: 68ch; }
+.num { font-variant-numeric: tabular-nums; }
+header { margin-bottom: var(--space-8); }
+
+.controls { display: flex; flex-wrap: wrap; gap: var(--space-4); align-items: center; justify-content: space-between; margin-bottom: var(--space-6); }
+.segmented { display: inline-flex; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 3px; }
+.segmented button { font: inherit; border: 0; background: transparent; color: var(--muted); padding: 6px 14px; border-radius: 7px; cursor: pointer; min-height: 36px; }
+.segmented button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+.specs { color: var(--muted); font-size: 14px; }
+.legend { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.legend button { font: inherit; font-size: 14px; display: inline-flex; align-items: center; gap: var(--space-2); background: var(--surface); color: var(--ink);
+  border: 1px solid var(--line); border-radius: 999px; padding: 4px 12px; cursor: pointer; min-height: 32px; }
+.legend button[aria-pressed="false"] { color: var(--faint); }
+.legend button[aria-pressed="false"] .swatch { background: transparent !important; }
+.swatch { width: 10px; height: 10px; border-radius: 50%; border: 2px solid currentColor; }
+button:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-4); margin-bottom: var(--space-8); }
+.stat { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: var(--space-5); }
+.stat .label { color: var(--muted); font-size: 13px; }
+.stat .value { font-size: 30px; font-weight: 650; letter-spacing: -0.02em; margin: var(--space-1) 0; }
+.stat .value small { font-size: 15px; font-weight: 500; color: var(--muted); letter-spacing: 0; }
+.stat .cmp { font-size: 13px; color: var(--muted); }
+
+.grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-4); }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: var(--space-5) var(--space-5) var(--space-3); position: relative; }
+.card.wide { grid-column: 1 / -1; }
+.card .sub { color: var(--muted); font-size: 13px; margin-top: 2px; }
+.chart { position: relative; margin-top: var(--space-3); }
+.chart svg { display: block; width: 100%; height: auto; overflow: visible; }
+.chart text { fill: var(--faint); font-size: 12px; font-variant-numeric: tabular-nums; }
+.chart .axis-title { fill: var(--muted); font-size: 12px; }
+.chart .gridline { stroke: var(--grid); }
+.chart .baseline { stroke: var(--line); }
+.chart .ref { stroke: var(--faint); stroke-dasharray: 4 4; }
+.chart .cursor { stroke: var(--faint); }
+.tip { position: absolute; pointer-events: none; background: var(--ink); color: var(--bg); font-size: 12px; border-radius: 8px; padding: 8px 10px;
+  min-width: 150px; opacity: 0; transition: opacity 120ms ease-out; z-index: 2; }
+.tip.on { opacity: 1; }
+.tip b { display: block; margin-bottom: 4px; }
+.tip .row { display: flex; justify-content: space-between; gap: 12px; }
+.tip .row span:first-child { display: inline-flex; align-items: center; gap: 6px; }
+.tip i { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+.tip .fail { opacity: 0.7; }
+.tip .why { margin-top: 6px; max-width: 240px; white-space: normal; opacity: 0.85; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+details.data { margin-top: var(--space-2); font-size: 13px; }
+details.data summary { cursor: pointer; color: var(--muted); padding: var(--space-1) 0; width: max-content; }
+details.data summary:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; border-radius: 4px; }
+details.data .table-wrap { margin-top: var(--space-2); }
+details.data table { font-size: 13px; }
+details.data th, details.data td { padding: 6px 10px; }
+
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+th, td { text-align: right; padding: 10px 12px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+th:first-child, td:first-child { text-align: left; }
+thead th { color: var(--muted); font-weight: 500; font-size: 13px; }
+tbody tr:last-child td { border-bottom: 0; }
+.best { font-weight: 650; }
+.table-wrap { overflow-x: auto; }
+#summary th:first-child, #summary td:first-child { position: sticky; left: 0; background: var(--surface); }
+#summary .group th { text-align: left; font-weight: 600; padding-top: var(--space-5); color: var(--ink); }
+#summary .group span { color: var(--muted); font-weight: 400; }
+.verdict { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: var(--space-5); margin-bottom: var(--space-8); }
+.verdict ul { margin: var(--space-2) 0 0; padding-left: var(--space-5); }
+.verdict li + li { margin-top: var(--space-1); }
+code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; }
+.note pre { overflow-x: auto; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: var(--space-3); margin-top: var(--space-2); }
+a { color: var(--focus); }
+.dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 8px; vertical-align: 1px; }
+.note { color: var(--muted); font-size: 13px; margin-top: var(--space-6); max-width: 80ch; }
+.note p + p, .note h2 + p { margin-top: var(--space-2); }
+.note pre code { font-size: 13px; }
+.note h2 { color: var(--ink); font-size: 15px; margin-top: var(--space-8); }
+
+@media (max-width: 760px) {
+  main { padding: var(--space-8) var(--space-4); }
+  .grid { grid-template-columns: 1fr; }
+  h1 { font-size: 24px; }
+}
+@media (prefers-reduced-motion: reduce) { .tip { transition: none; } }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Resource usage and capacity</h1>
+    <p class="lede">Firecrawl's 1,000-URL dataset, scored like scrape-evals, on AWS Graviton machines. Each engine runs alone with the whole machine to itself. Concurrency rises until success drops, latency triples, or the engine runs out of memory.</p>
+  </header>
+
+  <div class="controls">
+    <div>
+      <div class="segmented" role="group" aria-label="Machine" id="machines"></div>
+      <p class="specs num" id="specs"></p>
+    </div>
+    <div class="legend" role="group" aria-label="Engines" id="legend"></div>
+  </div>
+
+  <section class="stats" id="stats" aria-label="Headline numbers"></section>
+
+  <section class="verdict" aria-labelledby="verdict-title">
+    <h2 id="verdict-title">In short</h2>
+    <ul id="verdict"></ul>
+  </section>
+
+  <section class="grid" aria-label="Charts">
+    <article class="card">
+      <h2 id="t-mem">Memory</h2>
+      <p class="sub">Average container memory over a 90-second run at each concurrency. Engines finish different numbers of pages in that time, so read it alongside throughput.</p>
+      <div class="chart" id="chart-mem" data-label="Memory"></div>
+    </article>
+    <article class="card">
+      <h2 id="t-cpu">CPU</h2>
+      <p class="sub">Average cores in use over the same runs; the dashed line is the machine's vCPUs</p>
+      <div class="chart" id="chart-cpu" data-label="CPU"></div>
+    </article>
+    <article class="card">
+      <h2 id="t-pps">Throughput</h2>
+      <p class="sub">Pages per second across all 1,000 URLs; hollow points failed the level</p>
+      <div class="chart" id="chart-pps" data-label="Throughput"></div>
+    </article>
+    <article class="card">
+      <h2 id="t-p50">Median latency</h2>
+      <p class="sub">Time from request to Markdown at each capacity level</p>
+      <div class="chart" id="chart-p50" data-label="Median latency"></div>
+    </article>
+    <article class="card">
+      <h2 id="t-success">Success rate</h2>
+      <p class="sub">Share of URLs returned with a 2xx or 3xx status, some text, and no block page. It does not check the text is the right text.</p>
+      <div class="chart" id="chart-success" data-label="Success rate"></div>
+    </article>
+    <article class="card">
+      <h2 id="t-f1">Content match (F1)</h2>
+      <p class="sub">Average word overlap with each URL's reference text, from 0 to 1, over all 1,000 URLs; a page with no text scores 0. Higher means the Markdown holds more of the right content.</p>
+      <div class="chart" id="chart-f1" data-label="Content match F1"></div>
+    </article>
+  </section>
+  <p class="sr" aria-live="polite" id="live"></p>
+
+  <section class="card wide" style="margin-top: var(--space-4)" aria-labelledby="summary-title">
+    <h2 id="summary-title">All machines</h2>
+    <p class="sub">Highest concurrency each engine sustained, and its numbers at that level</p>
+    <div class="table-wrap" style="margin-top: var(--space-3)"><table class="num" id="summary"></table></div>
+  </section>
+
+  <div class="note">
+    <h2>How the levels are judged</h2>
+    <p>Each capacity level runs all 1,000 URLs once in a fresh container. A level fails if the engine crashes or runs out of memory, if its success rate falls more than 10 points below its best level so far, or if its median latency is more than 3× its latency at 8 concurrent pages. Firecrawl also runs 1, 2 and 4 because it can't reach 8 on the small machine; its latency is still compared with its level-8 run. The ramp also stops once throughput falls below 80% of the best level; that level still counts as sustained.</p>
+    <p>Every point is a single run against live websites, so expect a few points of noise between runs. Memory and CPU come from separate 90-second runs at each fixed concurrency.</p>
+    <p>Firecrawl runs in scrape-only mode (API and browser service, without the unused queue workers). Every engine is scored with the site's real HTTP status. Huntsman's robots.txt check, which is on by default, was turned off to match the other engines. Caching was turned off for Huntsman (<code>maxAge: 0</code>) and Crawl4AI (bypass); Firecrawl and Spider ran with their defaults, and no URL is requested twice in one container.</p>
+    <p>Raw results for every machine and engine are in <a href="matrix/">matrix/</a>. To reproduce from the <code>engine</code> directory:</p>
+    <pre><code>go run ./benchmark/cmd/bench provision
+go run ./benchmark/cmd/bench run --machine all --engine all --firecrawl-scrape-only
+go run ./benchmark/cmd/bench report --inject benchmark/results/index.html
+go run ./benchmark/cmd/bench destroy</code></pre>
+  </div>
+</main>
+
+<script>
+const DATA = /*MATRIX*/{"large":{"host":{"cpu":"Neoverse-V1","disk_gb":58,"docker":"29.1.3","instance_type":"c7g.2xlarge","mem_bytes":16425984000,"size":"large","vcpus":8},"engines":{"crawl4ai":{"max":16,"best_level":8,"best_pps":1.93,"levels":[{"level":8,"passed":true,"reason":null,"success":0.652,"f1":0.425,"pps":1.93,"p50":2932,"p95":9428,"cpu":3.029,"cpu_peak":6.946,"mem":1453,"mem_peak":2646},{"level":16,"passed":true,"reason":null,"success":0.659,"f1":0.435,"pps":1.794,"p50":7122,"p95":18167,"cpu":3.774,"cpu_peak":7.793,"mem":2116,"mem_peak":3202},{"level":32,"passed":false,"reason":"median latency more than 3x the first level","success":0.642,"f1":0.441,"pps":1.366,"p50":20109,"p95":43316,"cpu":4.338,"cpu_peak":7.861,"mem":3903,"mem_peak":5800}],"profile":[{"level":1,"passed":true,"reason":null,"success":0.818,"f1":0.483,"pps":0.214,"p50":1072,"p95":4775,"cpu":0.264,"cpu_peak":2.369,"mem":594,"mem_peak":878},{"level":2,"passed":true,"reason":null,"success":0.634,"f1":0.435,"pps":1.043,"p50":1320,"p95":5011,"cpu":1.337,"cpu_peak":3.23,"mem":974,"mem_peak":1284},{"level":3,"passed":true,"reason":null,"success":0.641,"f1":0.405,"pps":1.5,"p50":1409,"p95":4369,"cpu":1.943,"cpu_peak":3.912,"mem":981,"mem_peak":1184},{"level":4,"passed":true,"reason":null,"success":0.663,"f1":0.425,"pps":1.757,"p50":1530,"p95":5604,"cpu":2.323,"cpu_peak":4.813,"mem":1174,"mem_peak":1533},{"level":5,"passed":true,"reason":null,"success":0.68,"f1":0.437,"pps":1.886,"p50":1931,"p95":6643,"cpu":2.643,"cpu_peak":5.528,"mem":1261,"mem_peak":1571},{"level":6,"passed":true,"reason":null,"success":0.663,"f1":0.427,"pps":2.014,"p50":2157,"p95":6363,"cpu":3.103,"cpu_peak":5.789,"mem":1325,"mem_peak":1742},{"level":7,"passed":true,"reason":null,"success":0.673,"f1":0.429,"pps":2.214,"p50":2358,"p95":6638,"cpu":3.309,"cpu_peak":6.118,"mem":1305,"mem_peak":1878},{"level":8,"passed":true,"reason":null,"success":0.675,"f1":0.438,"pps":2.286,"p50":2730,"p95":7060,"cpu":3.443,"cpu_peak":6.991,"mem":1455,"mem_peak":1874},{"level":12,"passed":true,"reason":null,"success":0.678,"f1":0.439,"pps":2.186,"p50":4657,"p95":9353,"cpu":3.889,"cpu_peak":6.869,"mem":1687,"mem_peak":2310},{"level":16,"passed":true,"reason":null,"success":0.671,"f1":0.434,"pps":2.257,"p50":6536,"p95":13059,"cpu":4.564,"cpu_peak":7.851,"mem":2023,"mem_peak":2815},{"level":24,"passed":true,"reason":null,"success":0.68,"f1":0.446,"pps":1.743,"p50":12671,"p95":21402,"cpu":5.164,"cpu_peak":7.882,"mem":2962,"mem_peak":4063}]},"firecrawl":{"max":32,"best_level":16,"best_pps":3.548,"levels":[{"level":1,"passed":true,"reason":null,"success":0.647,"f1":0.444,"pps":0.386,"p50":1012,"p95":7053,"cpu":0.588,"cpu_peak":4.961,"mem":1115,"mem_peak":3204},{"level":2,"passed":true,"reason":null,"success":0.657,"f1":0.456,"pps":0.772,"p50":1104,"p95":7119,"cpu":1.186,"cpu_peak":6.133,"mem":1179,"mem_peak":1994},{"level":4,"passed":true,"reason":null,"success":0.659,"f1":0.456,"pps":1.532,"p50":1160,"p95":6584,"cpu":2.388,"cpu_peak":7.223,"mem":1502,"mem_peak":3675},{"level":8,"passed":true,"reason":null,"success":0.652,"f1":0.45,"pps":1.642,"p50":2819,"p95":14853,"cpu":2.507,"cpu_peak":7.437,"mem":1906,"mem_peak":3060},{"level":16,"passed":true,"reason":null,"success":0.651,"f1":0.449,"pps":3.548,"p50":2595,"p95":10198,"cpu":5.73,"cpu_peak":7.873,"mem":3295,"mem_peak":5848},{"level":32,"passed":true,"reason":null,"success":0.646,"f1":0.445,"pps":3.382,"p50":7039,"p95":20600,"cpu":6.55,"cpu_peak":7.963,"mem":4822,"mem_peak":7522},{"level":64,"passed":false,"reason":"median latency more than 3x the first level","success":0.633,"f1":0.432,"pps":3.446,"p50":15815,"p95":30502,"cpu":6.898,"cpu_peak":7.953,"mem":6443,"mem_peak":8926}],"profile":[{"level":1,"passed":true,"reason":null,"success":0.7,"f1":0.462,"pps":0.529,"p50":1092,"p95":5888,"cpu":0.811,"cpu_peak":2.226,"mem":853,"mem_peak":1120},{"level":2,"passed":true,"reason":null,"success":0.673,"f1":0.461,"pps":0.986,"p50":1034,"p95":6313,"cpu":1.47,"cpu_peak":3.682,"mem":986,"mem_peak":1479},{"level":3,"passed":true,"reason":null,"success":0.664,"f1":0.436,"pps":1.429,"p50":1063,"p95":4513,"cpu":1.99,"cpu_peak":4.359,"mem":1145,"mem_peak":1743},{"level":4,"passed":true,"reason":null,"success":0.66,"f1":0.437,"pps":1.943,"p50":1073,"p95":5930,"cpu":2.544,"cpu_peak":5.098,"mem":1227,"mem_peak":1624},{"level":5,"passed":true,"reason":null,"success":0.67,"f1":0.445,"pps":2.143,"p50":1082,"p95":6188,"cpu":2.945,"cpu_peak":6.451,"mem":1296,"mem_peak":2033},{"level":6,"passed":true,"reason":null,"success":0.665,"f1":0.443,"pps":2.257,"p50":1122,"p95":6823,"cpu":3.254,"cpu_peak":7.049,"mem":1610,"mem_peak":2158},{"level":7,"passed":true,"reason":null,"success":0.668,"f1":0.439,"pps":2.586,"p50":1352,"p95":6837,"cpu":3.95,"cpu_peak":7.43,"mem":1746,"mem_peak":2398},{"level":8,"passed":true,"reason":null,"success":0.68,"f1":0.445,"pps":2.714,"p50":1398,"p95":7000,"cpu":4.224,"cpu_peak":7.066,"mem":1705,"mem_peak":2417},{"level":12,"passed":true,"reason":null,"success":0.666,"f1":0.448,"pps":3.586,"p50":1812,"p95":8137,"cpu":5.57,"cpu_peak":7.918,"mem":2066,"mem_peak":2797},{"level":16,"passed":true,"reason":null,"success":0.658,"f1":0.444,"pps":4.157,"p50":2513,"p95":8195,"cpu":6.605,"cpu_peak":7.962,"mem":2520,"mem_peak":3297},{"level":24,"passed":true,"reason":null,"success":0.656,"f1":0.441,"pps":4.514,"p50":3715,"p95":11503,"cpu":7.001,"cpu_peak":7.874,"mem":3093,"mem_peak":3833},{"level":32,"passed":true,"reason":null,"success":0.658,"f1":0.446,"pps":4.343,"p50":5766,"p95":15107,"cpu":7.322,"cpu_peak":7.979,"mem":3699,"mem_peak":4848},{"level":48,"passed":true,"reason":null,"success":0.662,"f1":0.444,"pps":4.314,"p50":9257,"p95":22548,"cpu":7.58,"cpu_peak":7.956,"mem":4856,"mem_peak":6576}]},"huntsman":{"max":64,"best_level":64,"best_pps":11.845,"levels":[{"level":8,"passed":true,"reason":null,"success":0.677,"f1":0.477,"pps":3.042,"p50":1547,"p95":7056,"cpu":1.881,"cpu_peak":5.584,"mem":849,"mem_peak":1608},{"level":16,"passed":true,"reason":null,"success":0.672,"f1":0.474,"pps":5.785,"p50":1480,"p95":6922,"cpu":3.508,"cpu_peak":7.484,"mem":1353,"mem_peak":2223},{"level":32,"passed":true,"reason":null,"success":0.667,"f1":0.472,"pps":9.548,"p50":1652,"p95":7394,"cpu":5.711,"cpu_peak":7.985,"mem":2288,"mem_peak":3125},{"level":64,"passed":true,"reason":null,"success":0.671,"f1":0.475,"pps":11.845,"p50":2734,"p95":11146,"cpu":6.218,"cpu_peak":7.99,"mem":4012,"mem_peak":5137},{"level":128,"passed":false,"reason":"median latency more than 3x the first level","success":0.668,"f1":0.473,"pps":11.412,"p50":7113,"p95":15017,"cpu":6.347,"cpu_peak":7.99,"mem":5716,"mem_peak":7306}],"profile":[{"level":1,"passed":true,"reason":null,"success":0.714,"f1":0.517,"pps":0.543,"p50":1025,"p95":6409,"cpu":0.427,"cpu_peak":1.33,"mem":104,"mem_peak":221},{"level":2,"passed":true,"reason":null,"success":0.691,"f1":0.491,"pps":1.086,"p50":1129,"p95":6807,"cpu":0.586,"cpu_peak":2.378,"mem":189,"mem_peak":299},{"level":3,"passed":true,"reason":null,"success":0.705,"f1":0.485,"pps":1.386,"p50":1204,"p95":6457,"cpu":0.903,"cpu_peak":2.41,"mem":266,"mem_peak":389},{"level":4,"passed":true,"reason":null,"success":0.689,"f1":0.482,"pps":1.7,"p50":1229,"p95":6318,"cpu":1.001,"cpu_peak":2.44,"mem":335,"mem_peak":461},{"level":5,"passed":true,"reason":null,"success":0.688,"f1":0.476,"pps":2.057,"p50":1241,"p95":6630,"cpu":1.191,"cpu_peak":3.264,"mem":407,"mem_peak":633},{"level":6,"passed":true,"reason":null,"success":0.684,"f1":0.477,"pps":2.271,"p50":1235,"p95":6399,"cpu":1.263,"cpu_peak":3.847,"mem":472,"mem_peak":667},{"level":7,"passed":true,"reason":null,"success":0.688,"f1":0.474,"pps":2.614,"p50":1325,"p95":6746,"cpu":1.559,"cpu_peak":4.159,"mem":541,"mem_peak":778},{"level":8,"passed":true,"reason":null,"success":0.683,"f1":0.471,"pps":2.886,"p50":1460,"p95":7607,"cpu":1.806,"cpu_peak":5.273,"mem":649,"mem_peak":938},{"level":12,"passed":true,"reason":null,"success":0.688,"f1":0.483,"pps":4,"p50":1423,"p95":7437,"cpu":2.21,"cpu_peak":4.674,"mem":907,"mem_peak":1173},{"level":16,"passed":true,"reason":null,"success":0.649,"f1":0.455,"pps":5.743,"p50":1416,"p95":7450,"cpu":3.245,"cpu_peak":6.253,"mem":1231,"mem_peak":1669},{"level":24,"passed":true,"reason":null,"success":0.659,"f1":0.471,"pps":8.943,"p50":1550,"p95":7563,"cpu":5.243,"cpu_peak":7.897,"mem":1884,"mem_peak":2668},{"level":32,"passed":true,"reason":null,"success":0.667,"f1":0.473,"pps":11.814,"p50":1631,"p95":7236,"cpu":7.041,"cpu_peak":7.981,"mem":2521,"mem_peak":3198},{"level":48,"passed":true,"reason":null,"success":0.673,"f1":0.472,"pps":14.214,"p50":2172,"p95":9636,"cpu":7.957,"cpu_peak":7.993,"mem":3765,"mem_peak":4343},{"level":64,"passed":true,"reason":null,"success":0.674,"f1":0.474,"pps":15.457,"p50":2787,"p95":11742,"cpu":7.975,"cpu_peak":7.989,"mem":4779,"mem_peak":5325},{"level":96,"passed":true,"reason":null,"success":0.666,"f1":0.464,"pps":16.157,"p50":4505,"p95":14658,"cpu":7.975,"cpu_peak":7.987,"mem":6276,"mem_peak":7057}]},"spider":{"max":16,"best_level":16,"best_pps":1.172,"levels":[{"level":8,"passed":true,"reason":null,"success":0.672,"f1":0.431,"pps":0.984,"p50":3410,"p95":30002,"cpu":5.614,"cpu_peak":7.915,"mem":2440,"mem_peak":4222},{"level":16,"passed":true,"reason":null,"success":0.641,"f1":0.413,"pps":1.172,"p50":9922,"p95":30004,"cpu":7.147,"cpu_peak":7.974,"mem":3770,"mem_peak":5769},{"level":32,"passed":false,"reason":"success fell more than 10 points below the best level; median latency more than 3x the first level","success":0.333,"f1":0.201,"pps":1.169,"p50":30001,"p95":30005,"cpu":6.642,"cpu_peak":7.909,"mem":4231,"mem_peak":6142}],"profile":[{"level":1,"passed":true,"reason":null,"success":0.9,"f1":0.482,"pps":0.157,"p50":1079,"p95":30002,"cpu":0.69,"cpu_peak":3.489,"mem":433,"mem_peak":682},{"level":2,"passed":true,"reason":null,"success":0.759,"f1":0.445,"pps":0.3,"p50":1458,"p95":30002,"cpu":2.667,"cpu_peak":6.74,"mem":1387,"mem_peak":2770},{"level":3,"passed":true,"reason":null,"success":0.783,"f1":0.483,"pps":0.486,"p50":1659,"p95":30002,"cpu":2.929,"cpu_peak":6.793,"mem":1132,"mem_peak":2923},{"level":4,"passed":true,"reason":null,"success":0.74,"f1":0.453,"pps":0.543,"p50":2080,"p95":30003,"cpu":3.95,"cpu_peak":7.351,"mem":1899,"mem_peak":3541},{"level":5,"passed":true,"reason":null,"success":0.742,"f1":0.472,"pps":0.643,"p50":2693,"p95":30002,"cpu":3.782,"cpu_peak":6.647,"mem":1640,"mem_peak":3185},{"level":6,"passed":true,"reason":null,"success":0.672,"f1":0.421,"pps":0.657,"p50":2978,"p95":30002,"cpu":4.365,"cpu_peak":7.188,"mem":2326,"mem_peak":4137},{"level":7,"passed":true,"reason":null,"success":0.7,"f1":0.439,"pps":0.986,"p50":3006,"p95":30002,"cpu":5.502,"cpu_peak":7.777,"mem":2400,"mem_peak":4011},{"level":8,"passed":true,"reason":null,"success":0.705,"f1":0.436,"pps":1.071,"p50":3815,"p95":30003,"cpu":6.071,"cpu_peak":7.667,"mem":2578,"mem_peak":4188},{"level":12,"passed":true,"reason":null,"success":0.697,"f1":0.436,"pps":1.229,"p50":5580,"p95":30005,"cpu":7.185,"cpu_peak":7.895,"mem":3189,"mem_peak":4957},{"level":16,"passed":true,"reason":null,"success":0.655,"f1":0.417,"pps":1.114,"p50":10164,"p95":30004,"cpu":7.184,"cpu_peak":7.848,"mem":3523,"mem_peak":5094},{"level":24,"passed":true,"reason":null,"success":0.595,"f1":0.355,"pps":1.129,"p50":16207,"p95":30007,"cpu":7.202,"cpu_peak":7.834,"mem":4206,"mem_peak":5281}]}}},"medium":{"host":{"cpu":"Neoverse-V1","disk_gb":38,"docker":"29.1.3","instance_type":"c7g.xlarge","mem_bytes":8132464640,"size":"medium","vcpus":4},"engines":{"crawl4ai":{"max":16,"best_level":8,"best_pps":1.497,"levels":[{"level":8,"passed":true,"reason":null,"success":0.658,"f1":0.428,"pps":1.497,"p50":3744,"p95":13087,"cpu":2.521,"cpu_peak":3.987,"mem":1731,"mem_peak":2717},{"level":16,"passed":true,"reason":null,"success":0.651,"f1":0.433,"pps":1.373,"p50":10194,"p95":22192,"cpu":2.928,"cpu_peak":3.994,"mem":2080,"mem_peak":3144},{"level":32,"passed":false,"reason":"median latency more than 3x the first level","success":0.634,"f1":0.434,"pps":1.058,"p50":28624,"p95":49053,"cpu":3.263,"cpu_peak":3.996,"mem":3550,"mem_peak":5519}],"profile":[{"level":1,"passed":true,"reason":null,"success":0.81,"f1":0.468,"pps":0.2,"p50":1062,"p95":5988,"cpu":0.229,"cpu_peak":1.964,"mem":574,"mem_peak":716},{"level":2,"passed":true,"reason":null,"success":0.634,"f1":0.435,"pps":1.043,"p50":1272,"p95":5455,"cpu":1.406,"cpu_peak":3.129,"mem":953,"mem_peak":1221},{"level":3,"passed":true,"reason":null,"success":0.632,"f1":0.415,"pps":1.457,"p50":1467,"p95":5209,"cpu":1.938,"cpu_peak":3.397,"mem":1107,"mem_peak":1427},{"level":4,"passed":true,"reason":null,"success":0.651,"f1":0.422,"pps":1.629,"p50":1753,"p95":5086,"cpu":2.247,"cpu_peak":3.801,"mem":1189,"mem_peak":1555},{"level":5,"passed":true,"reason":null,"success":0.652,"f1":0.416,"pps":1.757,"p50":2194,"p95":6441,"cpu":2.426,"cpu_peak":3.952,"mem":1321,"mem_peak":1639},{"level":6,"passed":true,"reason":null,"success":0.667,"f1":0.424,"pps":1.8,"p50":2551,"p95":6898,"cpu":2.677,"cpu_peak":3.923,"mem":1360,"mem_peak":1719},{"level":7,"passed":true,"reason":null,"success":0.678,"f1":0.435,"pps":1.914,"p50":2970,"p95":7524,"cpu":2.816,"cpu_peak":3.98,"mem":1403,"mem_peak":1877},{"level":8,"passed":true,"reason":null,"success":0.68,"f1":0.438,"pps":1.929,"p50":3579,"p95":8100,"cpu":2.911,"cpu_peak":3.961,"mem":1512,"mem_peak":1787},{"level":12,"passed":true,"reason":null,"success":0.66,"f1":0.419,"pps":1.629,"p50":6409,"p95":13428,"cpu":3.108,"cpu_peak":3.989,"mem":1731,"mem_peak":2365},{"level":16,"passed":true,"reason":null,"success":0.635,"f1":0.401,"pps":1.543,"p50":9393,"p95":15706,"cpu":3.197,"cpu_peak":3.989,"mem":2043,"mem_peak":2617},{"level":24,"passed":true,"reason":null,"success":0.667,"f1":0.424,"pps":1.4,"p50":15598,"p95":23809,"cpu":3.49,"cpu_peak":3.99,"mem":2487,"mem_peak":3161}]},"firecrawl":{"max":16,"best_level":16,"best_pps":2.467,"levels":[{"level":1,"passed":true,"reason":null,"success":0.637,"f1":0.44,"pps":0.384,"p50":1171,"p95":7124,"cpu":0.564,"cpu_peak":3.647,"mem":1185,"mem_peak":2131},{"level":2,"passed":true,"reason":null,"success":0.65,"f1":0.447,"pps":0.731,"p50":1262,"p95":7694,"cpu":1.11,"cpu_peak":3.77,"mem":1241,"mem_peak":2317},{"level":4,"passed":true,"reason":null,"success":0.657,"f1":0.451,"pps":1.405,"p50":1402,"p95":6932,"cpu":2.194,"cpu_peak":3.97,"mem":1678,"mem_peak":3280},{"level":8,"passed":true,"reason":null,"success":0.657,"f1":0.453,"pps":1.893,"p50":2629,"p95":10281,"cpu":2.995,"cpu_peak":3.991,"mem":2346,"mem_peak":4152},{"level":16,"passed":true,"reason":null,"success":0.654,"f1":0.452,"pps":2.467,"p50":4828,"p95":15212,"cpu":3.799,"cpu_peak":3.996,"mem":2744,"mem_peak":4500},{"level":32,"passed":false,"reason":"median latency more than 3x the first level","success":0.633,"f1":0.434,"pps":2.037,"p50":12829,"p95":30475,"cpu":3.695,"cpu_peak":3.998,"mem":4152,"mem_peak":6647}],"profile":[{"level":1,"passed":true,"reason":null,"success":0.7,"f1":0.468,"pps":0.543,"p50":1129,"p95":5840,"cpu":0.805,"cpu_peak":2.421,"mem":839,"mem_peak":1170},{"level":2,"passed":true,"reason":null,"success":0.663,"f1":0.445,"pps":1.1,"p50":1217,"p95":6014,"cpu":1.495,"cpu_peak":3.539,"mem":975,"mem_peak":1399},{"level":3,"passed":true,"reason":null,"success":0.683,"f1":0.444,"pps":1.171,"p50":1081,"p95":5223,"cpu":1.715,"cpu_peak":3.396,"mem":1223,"mem_peak":1745},{"level":4,"passed":true,"reason":null,"success":0.669,"f1":0.444,"pps":1.829,"p50":1345,"p95":5568,"cpu":2.6,"cpu_peak":3.71,"mem":1336,"mem_peak":1643},{"level":5,"passed":true,"reason":null,"success":0.655,"f1":0.434,"pps":2.029,"p50":1382,"p95":5655,"cpu":2.669,"cpu_peak":3.945,"mem":1488,"mem_peak":1950},{"level":6,"passed":true,"reason":null,"success":0.685,"f1":0.455,"pps":2.229,"p50":1688,"p95":7801,"cpu":3.139,"cpu_peak":3.971,"mem":1532,"mem_peak":2057},{"level":7,"passed":true,"reason":null,"success":0.681,"f1":0.448,"pps":2.414,"p50":1783,"p95":8066,"cpu":3.292,"cpu_peak":3.977,"mem":1672,"mem_peak":2154},{"level":8,"passed":true,"reason":null,"success":0.675,"f1":0.448,"pps":2.486,"p50":2107,"p95":7398,"cpu":3.582,"cpu_peak":3.988,"mem":1697,"mem_peak":2457},{"level":12,"passed":true,"reason":null,"success":0.661,"f1":0.438,"pps":2.571,"p50":3233,"p95":10924,"cpu":3.861,"cpu_peak":3.993,"mem":1976,"mem_peak":2692},{"level":16,"passed":true,"reason":null,"success":0.664,"f1":0.438,"pps":2.514,"p50":4850,"p95":14419,"cpu":3.869,"cpu_peak":3.996,"mem":2313,"mem_peak":3048},{"level":24,"passed":true,"reason":null,"success":0.674,"f1":0.448,"pps":2.414,"p50":8392,"p95":21124,"cpu":3.968,"cpu_peak":3.994,"mem":2689,"mem_peak":3448}]},"huntsman":{"max":32,"best_level":32,"best_pps":6.81,"levels":[{"level":8,"passed":true,"reason":null,"success":0.677,"f1":0.477,"pps":2.929,"p50":1586,"p95":7864,"cpu":1.751,"cpu_peak":3.937,"mem":820,"mem_peak":1533},{"level":16,"passed":true,"reason":null,"success":0.671,"f1":0.473,"pps":5.395,"p50":1644,"p95":7263,"cpu":3.156,"cpu_peak":3.996,"mem":1369,"mem_peak":2107},{"level":32,"passed":true,"reason":null,"success":0.669,"f1":0.472,"pps":6.81,"p50":2721,"p95":11066,"cpu":3.471,"cpu_peak":3.995,"mem":2363,"mem_peak":3330},{"level":64,"passed":false,"reason":"median latency more than 3x the first level","success":0.664,"f1":0.463,"pps":8.177,"p50":4855,"p95":18371,"cpu":3.572,"cpu_peak":3.993,"mem":3913,"mem_peak":4940}],"profile":[{"level":1,"passed":true,"reason":null,"success":0.745,"f1":0.527,"pps":0.514,"p50":1090,"p95":6457,"cpu":0.423,"cpu_peak":1.311,"mem":102,"mem_peak":205},{"level":2,"passed":true,"reason":null,"success":0.701,"f1":0.492,"pps":1.086,"p50":1181,"p95":6651,"cpu":0.579,"cpu_peak":2.066,"mem":193,"mem_peak":309},{"level":3,"passed":true,"reason":null,"success":0.681,"f1":0.482,"pps":1.271,"p50":1241,"p95":6854,"cpu":0.706,"cpu_peak":2.645,"mem":243,"mem_peak":384},{"level":4,"passed":true,"reason":null,"success":0.677,"f1":0.476,"pps":1.729,"p50":1205,"p95":6652,"cpu":0.954,"cpu_peak":2.389,"mem":316,"mem_peak":408},{"level":5,"passed":true,"reason":null,"success":0.682,"f1":0.471,"pps":2,"p50":1234,"p95":7180,"cpu":1.135,"cpu_peak":3.115,"mem":387,"mem_peak":483},{"level":6,"passed":true,"reason":null,"success":0.69,"f1":0.479,"pps":2.429,"p50":1296,"p95":6649,"cpu":1.298,"cpu_peak":3.673,"mem":454,"mem_peak":660},{"level":7,"passed":true,"reason":null,"success":0.688,"f1":0.469,"pps":2.729,"p50":1421,"p95":6665,"cpu":1.615,"cpu_peak":3.813,"mem":545,"mem_peak":711},{"level":8,"passed":true,"reason":null,"success":0.69,"f1":0.471,"pps":2.886,"p50":1525,"p95":7694,"cpu":1.785,"cpu_peak":3.984,"mem":629,"mem_peak":834},{"level":12,"passed":true,"reason":null,"success":0.685,"f1":0.479,"pps":3.929,"p50":1544,"p95":6981,"cpu":2.328,"cpu_peak":3.995,"mem":931,"mem_peak":1319},{"level":16,"passed":true,"reason":null,"success":0.654,"f1":0.459,"pps":5.757,"p50":1637,"p95":7201,"cpu":3.273,"cpu_peak":3.994,"mem":1229,"mem_peak":1595},{"level":24,"passed":true,"reason":null,"success":0.652,"f1":0.456,"pps":7.229,"p50":2087,"p95":9272,"cpu":3.916,"cpu_peak":3.995,"mem":1810,"mem_peak":2271},{"level":32,"passed":true,"reason":null,"success":0.654,"f1":0.459,"pps":7.943,"p50":2628,"p95":11552,"cpu":3.985,"cpu_peak":3.994,"mem":2315,"mem_peak":2840},{"level":48,"passed":true,"reason":null,"success":0.657,"f1":0.465,"pps":8.886,"p50":3829,"p95":15463,"cpu":3.983,"cpu_peak":3.994,"mem":3326,"mem_peak":3860}]},"spider":{"max":8,"best_level":8,"best_pps":0.757,"levels":[{"level":8,"passed":true,"reason":null,"success":0.665,"f1":0.425,"pps":0.757,"p50":6848,"p95":30004,"cpu":3.847,"cpu_peak":3.998,"mem":2115,"mem_peak":3517},{"level":16,"passed":false,"reason":"success fell more than 10 points below the best level; median latency more than 3x the first level","success":0.522,"f1":0.327,"pps":0.736,"p50":20782,"p95":30006,"cpu":3.923,"cpu_peak":3.997,"mem":2724,"mem_peak":3994}],"profile":[{"level":1,"passed":true,"reason":null,"success":0.9,"f1":0.482,"pps":0.157,"p50":1087,"p95":30002,"cpu":0.636,"cpu_peak":2.877,"mem":413,"mem_peak":683},{"level":2,"passed":true,"reason":null,"success":0.778,"f1":0.472,"pps":0.329,"p50":2195,"p95":30003,"cpu":2.674,"cpu_peak":3.944,"mem":1401,"mem_peak":2755},{"level":3,"passed":true,"reason":null,"success":0.771,"f1":0.466,"pps":0.357,"p50":3312,"p95":30002,"cpu":2.7,"cpu_peak":3.96,"mem":1432,"mem_peak":2834},{"level":4,"passed":true,"reason":null,"success":0.78,"f1":0.47,"pps":0.443,"p50":4157,"p95":30004,"cpu":2.993,"cpu_peak":3.983,"mem":1663,"mem_peak":3034},{"level":5,"passed":true,"reason":null,"success":0.745,"f1":0.463,"pps":0.529,"p50":5196,"p95":30004,"cpu":3.316,"cpu_peak":3.987,"mem":1838,"mem_peak":3552},{"level":6,"passed":true,"reason":null,"success":0.732,"f1":0.47,"pps":0.543,"p50":6700,"p95":30003,"cpu":3.609,"cpu_peak":3.987,"mem":1840,"mem_peak":2950},{"level":7,"passed":true,"reason":null,"success":0.7,"f1":0.44,"pps":0.571,"p50":6593,"p95":30003,"cpu":3.521,"cpu_peak":3.994,"mem":1858,"mem_peak":3153},{"level":8,"passed":true,"reason":null,"success":0.708,"f1":0.475,"pps":0.643,"p50":7403,"p95":30003,"cpu":3.876,"cpu_peak":3.991,"mem":2134,"mem_peak":3748},{"level":12,"passed":true,"reason":null,"success":0.714,"f1":0.455,"pps":0.814,"p50":11297,"p95":30005,"cpu":3.965,"cpu_peak":3.996,"mem":2456,"mem_peak":3441}]}}},"small":{"host":{"cpu":"Neoverse-V1","disk_gb":29,"docker":"29.1.3","instance_type":"c7g.large","mem_bytes":3984646144,"size":"small","vcpus":2},"engines":{"crawl4ai":{"max":16,"best_level":8,"best_pps":0.99,"levels":[{"level":8,"passed":true,"reason":null,"success":0.659,"f1":0.424,"pps":0.99,"p50":6688,"p95":15606,"cpu":1.734,"cpu_peak":1.999,"mem":1685,"mem_peak":2627},{"level":16,"passed":true,"reason":"throughput fell below 80% of the best level","success":0.635,"f1":0.427,"pps":0.764,"p50":19008,"p95":39782,"cpu":1.777,"cpu_peak":1.999,"mem":1997,"mem_peak":2908}],"profile":[{"level":1,"passed":true,"reason":null,"success":0.8,"f1":0.466,"pps":0.143,"p50":1372,"p95":10948,"cpu":0.15,"cpu_peak":1.62,"mem":691,"mem_peak":893},{"level":2,"passed":true,"reason":null,"success":0.632,"f1":0.431,"pps":1.043,"p50":1526,"p95":4938,"cpu":1.358,"cpu_peak":1.996,"mem":893,"mem_peak":1216},{"level":3,"passed":true,"reason":null,"success":0.647,"f1":0.435,"pps":1.057,"p50":1985,"p95":6339,"cpu":1.547,"cpu_peak":1.995,"mem":1030,"mem_peak":1321},{"level":4,"passed":true,"reason":null,"success":0.64,"f1":0.428,"pps":1.229,"p50":2635,"p95":6944,"cpu":1.689,"cpu_peak":1.998,"mem":1115,"mem_peak":1444},{"level":5,"passed":true,"reason":null,"success":0.632,"f1":0.422,"pps":1.214,"p50":3123,"p95":8295,"cpu":1.696,"cpu_peak":1.998,"mem":985,"mem_peak":1359},{"level":6,"passed":true,"reason":null,"success":0.658,"f1":0.438,"pps":1.257,"p50":4052,"p95":9734,"cpu":1.773,"cpu_peak":1.996,"mem":1364,"mem_peak":1706},{"level":7,"passed":true,"reason":null,"success":0.643,"f1":0.426,"pps":1.186,"p50":4574,"p95":10246,"cpu":1.784,"cpu_peak":1.997,"mem":1325,"mem_peak":1681},{"level":8,"passed":true,"reason":null,"success":0.63,"f1":0.429,"pps":1.057,"p50":5853,"p95":13213,"cpu":1.667,"cpu_peak":1.998,"mem":1357,"mem_peak":1719},{"level":12,"passed":true,"reason":null,"success":0.645,"f1":0.432,"pps":1.071,"p50":10564,"p95":18517,"cpu":1.863,"cpu_peak":1.997,"mem":1457,"mem_peak":1958},{"level":16,"passed":true,"reason":null,"success":0.642,"f1":0.438,"pps":0.943,"p50":15728,"p95":26430,"cpu":1.92,"cpu_peak":1.997,"mem":1740,"mem_peak":2200},{"level":24,"passed":false,"reason":"engine crashed or ran out of memory","success":0.617,"f1":0.431,"pps":0.671,"p50":30152,"p95":46736,"cpu":1.91,"cpu_peak":1.998,"mem":2346,"mem_peak":3171}]},"firecrawl":{"max":8,"best_level":8,"best_pps":1.235,"levels":[{"level":1,"passed":true,"reason":null,"success":0.646,"f1":0.446,"pps":0.374,"p50":1232,"p95":6696,"cpu":0.576,"cpu_peak":1.993,"mem":1311,"mem_peak":2994},{"level":2,"passed":true,"reason":null,"success":0.653,"f1":0.449,"pps":0.673,"p50":1540,"p95":7845,"cpu":1.028,"cpu_peak":1.998,"mem":1365,"mem_peak":3083},{"level":4,"passed":true,"reason":null,"success":0.656,"f1":0.451,"pps":1.075,"p50":2055,"p95":9349,"cpu":1.681,"cpu_peak":1.999,"mem":1645,"mem_peak":2969},{"level":8,"passed":true,"reason":null,"success":0.65,"f1":0.447,"pps":1.235,"p50":4476,"p95":16023,"cpu":1.882,"cpu_peak":1.998,"mem":1866,"mem_peak":2646},{"level":16,"passed":false,"reason":"engine crashed or ran out of memory; success fell more than 10 points below the best level","success":0.4,"f1":0.27,"pps":1.941,"p50":6749,"p95":27123,"cpu":1.98,"cpu_peak":1.998,"mem":2220,"mem_peak":3163}],"profile":[{"level":1,"passed":true,"reason":null,"success":0.7,"f1":0.474,"pps":0.557,"p50":1195,"p95":7089,"cpu":0.758,"cpu_peak":1.846,"mem":929,"mem_peak":1261},{"level":2,"passed":true,"reason":null,"success":0.67,"f1":0.452,"pps":0.986,"p50":1347,"p95":6578,"cpu":1.353,"cpu_peak":1.989,"mem":1050,"mem_peak":1568},{"level":3,"passed":true,"reason":null,"success":0.694,"f1":0.476,"pps":1.157,"p50":1645,"p95":7612,"cpu":1.636,"cpu_peak":1.997,"mem":1146,"mem_peak":1497},{"level":4,"passed":true,"reason":null,"success":0.689,"f1":0.455,"pps":1.257,"p50":2112,"p95":8329,"cpu":1.885,"cpu_peak":1.998,"mem":1205,"mem_peak":1743},{"level":5,"passed":true,"reason":null,"success":0.669,"f1":0.435,"pps":1.343,"p50":2617,"p95":8813,"cpu":1.949,"cpu_peak":1.998,"mem":1241,"mem_peak":1536},{"level":6,"passed":true,"reason":null,"success":0.674,"f1":0.441,"pps":1.4,"p50":3172,"p95":10150,"cpu":1.948,"cpu_peak":1.998,"mem":1357,"mem_peak":1775},{"level":7,"passed":true,"reason":null,"success":0.682,"f1":0.445,"pps":1.343,"p50":3920,"p95":12761,"cpu":1.985,"cpu_peak":1.998,"mem":1443,"mem_peak":2212},{"level":8,"passed":true,"reason":null,"success":0.712,"f1":0.472,"pps":1.371,"p50":4734,"p95":13258,"cpu":1.989,"cpu_peak":1.998,"mem":1521,"mem_peak":2094},{"level":12,"passed":true,"reason":null,"success":0.674,"f1":0.44,"pps":1.4,"p50":7542,"p95":20567,"cpu":1.988,"cpu_peak":1.998,"mem":1789,"mem_peak":2291}]},"huntsman":{"max":32,"best_level":32,"best_pps":4.524,"levels":[{"level":8,"passed":true,"reason":null,"success":0.675,"f1":0.474,"pps":2.712,"p50":1741,"p95":7197,"cpu":1.547,"cpu_peak":1.998,"mem":795,"mem_peak":1292},{"level":16,"passed":true,"reason":null,"success":0.667,"f1":0.469,"pps":3.703,"p50":2662,"p95":11959,"cpu":1.894,"cpu_peak":1.999,"mem":1379,"mem_peak":2067},{"level":32,"passed":true,"reason":null,"success":0.661,"f1":0.463,"pps":4.524,"p50":4785,"p95":18584,"cpu":1.926,"cpu_peak":1.998,"mem":2294,"mem_peak":2942},{"level":64,"passed":false,"reason":"engine crashed or ran out of memory; median latency more than 3x the first level","success":0.658,"f1":0.459,"pps":4.725,"p50":10416,"p95":25226,"cpu":1.893,"cpu_peak":1.998,"mem":2846,"mem_peak":3179}],"profile":[{"level":1,"passed":true,"reason":null,"success":0.735,"f1":0.519,"pps":0.529,"p50":1048,"p95":5334,"cpu":0.438,"cpu_peak":1.24,"mem":110,"mem_peak":228},{"level":2,"passed":true,"reason":null,"success":0.738,"f1":0.521,"pps":0.914,"p50":1106,"p95":7002,"cpu":0.5,"cpu_peak":1.783,"mem":177,"mem_peak":266},{"level":3,"passed":true,"reason":null,"success":0.67,"f1":0.475,"pps":1.214,"p50":1221,"p95":7332,"cpu":0.691,"cpu_peak":1.986,"mem":233,"mem_peak":396},{"level":4,"passed":true,"reason":null,"success":0.685,"f1":0.475,"pps":1.743,"p50":1436,"p95":6230,"cpu":1.001,"cpu_peak":1.96,"mem":341,"mem_peak":492},{"level":5,"passed":true,"reason":null,"success":0.677,"f1":0.47,"pps":2.029,"p50":1291,"p95":6649,"cpu":1.137,"cpu_peak":1.998,"mem":410,"mem_peak":583},{"level":6,"passed":true,"reason":null,"success":0.687,"f1":0.476,"pps":2.329,"p50":1598,"p95":6512,"cpu":1.288,"cpu_peak":1.998,"mem":478,"mem_peak":697},{"level":7,"passed":true,"reason":null,"success":0.671,"f1":0.46,"pps":2.686,"p50":1563,"p95":6920,"cpu":1.4,"cpu_peak":1.997,"mem":513,"mem_peak":685},{"level":8,"passed":true,"reason":null,"success":0.68,"f1":0.465,"pps":2.671,"p50":1677,"p95":8420,"cpu":1.526,"cpu_peak":1.998,"mem":615,"mem_peak":798},{"level":12,"passed":true,"reason":null,"success":0.679,"f1":0.467,"pps":3.457,"p50":2126,"p95":9138,"cpu":1.919,"cpu_peak":1.999,"mem":878,"mem_peak":1160},{"level":16,"passed":true,"reason":null,"success":0.681,"f1":0.474,"pps":3.857,"p50":2619,"p95":11978,"cpu":1.989,"cpu_peak":1.998,"mem":1137,"mem_peak":1372},{"level":24,"passed":true,"reason":null,"success":0.682,"f1":0.471,"pps":4.2,"p50":3875,"p95":16566,"cpu":1.99,"cpu_peak":1.998,"mem":1621,"mem_peak":1911},{"level":32,"passed":true,"reason":null,"success":0.674,"f1":0.471,"pps":4.486,"p50":5038,"p95":19217,"cpu":1.989,"cpu_peak":1.998,"mem":2100,"mem_peak":2517},{"level":48,"passed":true,"reason":null,"success":0.673,"f1":0.468,"pps":4.871,"p50":7697,"p95":22990,"cpu":1.986,"cpu_peak":1.996,"mem":2752,"mem_peak":3125}]},"spider":{"max":8,"best_level":8,"best_pps":0.417,"levels":[{"level":8,"passed":true,"reason":null,"success":0.583,"f1":0.378,"pps":0.417,"p50":17727,"p95":30007,"cpu":1.986,"cpu_peak":1.999,"mem":1609,"mem_peak":3065},{"level":16,"passed":false,"reason":"success fell more than 10 points below the best level","success":0.067,"f1":0.038,"pps":0.54,"p50":30003,"p95":30011,"cpu":1.977,"cpu_peak":1.999,"mem":1797,"mem_peak":2929}],"profile":[{"level":1,"passed":true,"reason":null,"success":0.95,"f1":0.523,"pps":0.157,"p50":1817,"p95":12791,"cpu":0.813,"cpu_peak":1.995,"mem":434,"mem_peak":831},{"level":2,"passed":true,"reason":null,"success":0.909,"f1":0.467,"pps":0.214,"p50":4454,"p95":29635,"cpu":1.629,"cpu_peak":1.997,"mem":1016,"mem_peak":2139},{"level":3,"passed":true,"reason":null,"success":0.767,"f1":0.461,"pps":0.286,"p50":5528,"p95":30003,"cpu":1.807,"cpu_peak":1.998,"mem":1144,"mem_peak":2316},{"level":4,"passed":true,"reason":null,"success":0.765,"f1":0.472,"pps":0.314,"p50":8488,"p95":30004,"cpu":1.962,"cpu_peak":1.998,"mem":1255,"mem_peak":2180},{"level":5,"passed":true,"reason":null,"success":0.811,"f1":0.466,"pps":0.357,"p50":12397,"p95":30003,"cpu":1.947,"cpu_peak":1.998,"mem":1099,"mem_peak":1717},{"level":6,"passed":true,"reason":null,"success":0.763,"f1":0.433,"pps":0.371,"p50":13204,"p95":30010,"cpu":1.992,"cpu_peak":1.998,"mem":1278,"mem_peak":1904},{"level":7,"passed":true,"reason":null,"success":0.75,"f1":0.45,"pps":0.386,"p50":15593,"p95":30005,"cpu":1.993,"cpu_peak":2,"mem":1369,"mem_peak":1820},{"level":8,"passed":true,"reason":null,"success":0.714,"f1":0.431,"pps":0.414,"p50":15986,"p95":30004,"cpu":1.989,"cpu_peak":1.998,"mem":1386,"mem_peak":2209},{"level":12,"passed":true,"reason":null,"success":0.449,"f1":0.286,"pps":0.514,"p50":29163,"p95":30037,"cpu":1.984,"cpu_peak":1.999,"mem":1658,"mem_peak":2496}]}}}}/*END*/;
+const ENGINES = [
+  { id: "huntsman", name: "Huntsman" },
+  { id: "firecrawl", name: "Firecrawl" },
+  { id: "crawl4ai", name: "Crawl4AI" },
+  { id: "spider", name: "Spider" },
+];
+const SIZES = ["small", "medium", "large"].filter(s => DATA[s]);
+const state = { size: SIZES.includes("large") ? "large" : SIZES[0], hidden: new Set() };
+const color = id => getComputedStyle(document.documentElement).getPropertyValue("--" + id).trim();
+const fmt = {
+  gb: v => (v / 1000).toFixed(v < 1000 ? 2 : 1) + " GB",
+  cores: v => v.toFixed(1) + " cores",
+  pps: v => v.toFixed(v < 10 ? 2 : 1) + " pages/s",
+  pct: v => (v * 100).toFixed(1) + "%",
+  sec: v => (v / 1000).toFixed(1) + " s",
+};
+const svgNS = "http://www.w3.org/2000/svg";
+const el = (tag, attrs = {}, parent) => {
+  const n = document.createElementNS(svgNS, tag);
+  for (const [k, v] of Object.entries(attrs)) n.setAttribute(k, v);
+  if (parent) parent.appendChild(n);
+  return n;
+};
+const host = size => DATA[size].host || {};
+const openTables = new Set();
+
+function niceStep(v) {
+  const p = Math.pow(10, Math.floor(Math.log10(v)));
+  for (const m of [1, 2, 2.5, 5, 10]) if (m * p >= v) return m * p;
+  return 10 * p;
+}
+
+function chart(container, { series, yFmt, tickFmt, yMin = 0, yMaxFixed, ref, xLabel = "Concurrent pages" }) {
+  container.innerHTML = "";
+  const width = Math.max(container.clientWidth, 280);
+  const height = Math.round(Math.min(300, Math.max(220, width * 0.5)));
+  const m = { t: 10, r: 14, b: 38, l: 52 };
+  const visible = series.filter(s => !state.hidden.has(s.id) && s.points.length);
+  const summary = visible.map(s => `${s.name} ${yFmt(s.points[0].y)} at ${s.points[0].x} to ${yFmt(s.points[s.points.length - 1].y)} at ${s.points[s.points.length - 1].x}`).join("; ");
+  const svg = el("svg", { viewBox: `0 0 ${width} ${height}`, role: "img",
+    "aria-label": `${container.dataset.label} by concurrent pages. ${summary}. Use the arrow keys to read each level, or open the data table below.` }, container);
+  const xs = [...new Set(series.flatMap(s => s.points.map(p => p.x)))].sort((a, b) => a - b);
+  if (!xs.length) return;
+  const xMin = Math.log2(xs[0]), xMax = Math.log2(xs[xs.length - 1]);
+  const top = yMaxFixed ?? (Math.max(...visible.flatMap(s => s.points.map(p => p.y)), 0) * 1.05 || 1);
+  const step = niceStep(top / 4);
+  const yMax = Math.ceil(top / step - 1e-9) * step;
+  const X = x => m.l + (xMax === xMin ? 0.5 : (Math.log2(x) - xMin) / (xMax - xMin)) * (width - m.l - m.r);
+  const Y = v => height - m.b - ((v - yMin) / (yMax - yMin)) * (height - m.t - m.b);
+
+  for (let i = 0; i * step <= yMax + 1e-9; i++) {
+    const v = yMin + i * step;
+    el("line", { x1: m.l, x2: width - m.r, y1: Y(v), y2: Y(v), class: i ? "gridline" : "baseline" }, svg);
+    const t = el("text", { x: m.l - 8, y: Y(v) + 4, "text-anchor": "end" }, svg);
+    t.textContent = tickFmt(v);
+  }
+  const ticks = [];
+  const pow2 = x => (x & (x - 1)) === 0;
+  for (const x of [...xs.filter(pow2), ...xs.filter(x => !pow2(x))]) {
+    if (ticks.every(t => Math.abs(X(t) - X(x)) > 20)) ticks.push(x);
+  }
+  for (const x of ticks) {
+    const t = el("text", { x: X(x), y: height - m.b + 16, "text-anchor": "middle" }, svg);
+    t.textContent = x;
+  }
+  const xt = el("text", { x: (m.l + width - m.r) / 2, y: height - 4, "text-anchor": "middle", class: "axis-title" }, svg);
+  xt.textContent = xLabel + " (log scale)";
+  if (ref && ref.value <= yMax) {
+    el("line", { x1: m.l, x2: width - m.r, y1: Y(ref.value), y2: Y(ref.value), class: "ref" }, svg);
+    const t = el("text", { x: width - m.r, y: Y(ref.value) - 6, "text-anchor": "end" }, svg);
+    t.textContent = ref.label;
+  }
+  for (const s of visible) {
+    const c = color(s.id);
+    const lead = s.id === "huntsman";
+    const d = s.points.map((p, i) => (i ? "L" : "M") + X(p.x).toFixed(1) + "," + Y(p.y).toFixed(1)).join("");
+    el("path", { d, fill: "none", stroke: c, "stroke-width": lead ? 2.75 : 1.75, "stroke-linejoin": "round", "stroke-linecap": "round" }, svg);
+    for (const p of s.points) {
+      el("circle", { cx: X(p.x), cy: Y(p.y), r: lead ? 3.5 : 3, fill: p.failed ? "var(--surface)" : c, stroke: c, "stroke-width": 1.75 }, svg);
+    }
+  }
+
+  const cursor = el("line", { y1: m.t, y2: height - m.b, class: "cursor", visibility: "hidden" }, svg);
+  const tip = document.createElement("div");
+  tip.className = "tip";
+  container.appendChild(tip);
+  const show = x => {
+    const rows = visible.map(s => ({ s, p: s.points.find(p => p.x === x) })).filter(r => r.p).sort((a, b) => b.p.y - a.p.y);
+    if (!rows.length) return hide();
+    cursor.setAttribute("x1", X(x)); cursor.setAttribute("x2", X(x)); cursor.setAttribute("visibility", "visible");
+    tip.innerHTML = `<b>${x} concurrent page${x === 1 ? "" : "s"}</b>` + rows.map(({ s, p }) =>
+      `<div class="row${p.failed ? " fail" : ""}"><span><i style="background:${color(s.id)}"></i>${s.name}</span><span class="num">${yFmt(p.y)}${p.failed ? " ✗" : ""}</span></div>`).join("") +
+      rows.filter(r => r.p.reason).map(({ s, p }) => `<div class="why">${s.name}: ${p.reason}${p.failed ? "" : " (ramp stopped)"}</div>`).join("");
+    tip.classList.add("on");
+    const scale = container.clientWidth / width;
+    const left = X(x) * scale;
+    tip.style.left = Math.min(Math.max(left - tip.offsetWidth / 2, 0), container.clientWidth - tip.offsetWidth) + "px";
+    tip.style.top = Math.max(0, m.t * scale - 4) + "px";
+  };
+  const hide = () => { tip.classList.remove("on"); cursor.setAttribute("visibility", "hidden"); };
+  svg.addEventListener("pointermove", e => {
+    const r = svg.getBoundingClientRect();
+    const px = (e.clientX - r.left) * width / r.width;
+    let best = xs[0];
+    for (const x of xs) if (Math.abs(X(x) - px) < Math.abs(X(best) - px)) best = x;
+    show(best);
+  });
+  svg.addEventListener("pointerleave", hide);
+  svg.tabIndex = 0;
+  let k = -1;
+  svg.addEventListener("keydown", e => {
+    if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
+    e.preventDefault();
+    k = Math.min(xs.length - 1, Math.max(0, k + (e.key === "ArrowRight" ? 1 : -1)));
+    show(xs[k]);
+    document.getElementById("live").textContent = tip.innerText.replace(/\n+/g, ", ");
+  });
+  svg.addEventListener("blur", hide);
+
+  const details = document.createElement("details");
+  details.className = "data";
+  const cols = visible;
+  details.innerHTML = `<summary>Show data</summary><div class="table-wrap"><table class="num"><caption class="sr">${container.dataset.label} by concurrent pages</caption>` +
+    `<thead><tr><th scope="col">Concurrent pages</th>${cols.map(s => `<th scope="col">${s.name}</th>`).join("")}</tr></thead><tbody>` +
+    xs.map(x => `<tr><th scope="row">${x}</th>${cols.map(s => { const p = s.points.find(p => p.x === x); return `<td>${p ? yFmt(p.y) + (p.failed ? " ✗" : "") : "–"}</td>`; }).join("")}</tr>`).join("") +
+    `</tbody></table></div>`;
+  if (openTables.has(container.id)) details.open = true;
+  details.addEventListener("toggle", () => details.open ? openTables.add(container.id) : openTables.delete(container.id));
+  container.appendChild(details);
+}
+
+function seriesFor(size, source, key) {
+  return ENGINES.map(({ id, name }) => {
+    const e = DATA[size].engines[id];
+    const rows = (e && e[source]) || [];
+    return { id, name, points: rows.filter(r => r[key] != null).map(r => ({ x: r.level, y: r[key], failed: source === "levels" && r.passed === false, reason: source === "levels" ? r.reason : null })) };
+  });
+}
+
+function atLevel(e, level) {
+  return e && e.levels.find(l => l.level === level);
+}
+
+function renderStats() {
+  const engines = DATA[state.size].engines;
+  const h = engines.huntsman;
+  const rivals = ENGINES.slice(1).map(({ id, name }) => ({ id, name, e: engines[id] })).filter(r => r.e);
+  const bestRival = (f) => rivals.reduce((a, r) => (f(r.e) ?? -Infinity) > (f(a.e) ?? -Infinity) ? r : a, rivals[0]);
+  const memAt = (e, n) => e && e.profile && (e.profile.find(p => p.level === n) || {}).mem;
+  const cards = [];
+  if (h && h.max) {
+    const r = bestRival(e => e.max);
+    cards.push({ label: "Huntsman max concurrent pages", value: h.max, cmp: r ? `${(h.max / r.e.max).toFixed(1)}× ${r.name} (${r.e.max})` : "" });
+  }
+  if (h && h.best_pps) {
+    const r = bestRival(e => e.best_pps);
+    cards.push({ label: "Huntsman best throughput", value: h.best_pps.toFixed(1), unit: "pages/s", cmp: r ? `${(h.best_pps / r.e.best_pps).toFixed(1)}× ${r.name} (${r.e.best_pps.toFixed(1)})` : "" });
+  }
+  const hm = memAt(h, 8);
+  if (hm) {
+    const r = rivals.filter(r => memAt(r.e, 8)).sort((a, b) => memAt(a.e, 8) - memAt(b.e, 8))[0];
+    cards.push({ label: "Memory at 8 concurrent pages", value: fmt.gb(hm).replace(" GB", ""), unit: "GB", cmp: r ? `${(memAt(r.e, 8) / hm).toFixed(1)}× less than ${r.name} (${fmt.gb(memAt(r.e, 8))})` : "" });
+  }
+  if (h && h.max) {
+    const lv = atLevel(h, h.max);
+    const r = bestRival(e => (atLevel(e, e.max) || {}).success);
+    const rs = r && (atLevel(r.e, r.e.max) || {}).success;
+    if (lv && lv.success != null) cards.push({ label: "Huntsman success at max", value: (lv.success * 100).toFixed(1) + "%", cmp: rs != null ? `${r.name} best: ${fmt.pct(rs)} at ${r.e.max}` : "" });
+  }
+  document.getElementById("stats").innerHTML = cards.map(c =>
+    `<div class="stat"><div class="label">${c.label}</div><div class="value num">${c.value}${c.unit ? ` <small>${c.unit}</small>` : ""}</div><div class="cmp num">${c.cmp}</div></div>`).join("");
+}
+
+function renderSummary() {
+  const head = `<thead><tr><th scope="col">Engine</th><th scope="col">Max pages</th><th scope="col">Pages/s</th><th scope="col">Success</th><th scope="col">F1</th><th scope="col">Median latency</th><th scope="col">Memory peak</th></tr></thead>`;
+  const body = SIZES.map(size => {
+    const hs = host(size);
+    const label = `${size[0].toUpperCase() + size.slice(1)} <span>${hs.vcpus || "?"} vCPU · ${hs.mem_bytes ? Math.round(hs.mem_bytes / 1e9) : "?"} GB</span>`;
+    const rows = ENGINES.filter(({ id }) => DATA[size].engines[id]).map(({ id, name }) => {
+      const e = DATA[size].engines[id];
+      const lv = e.max ? atLevel(e, e.max) : null;
+      const best = id === "huntsman" ? " class=\"best\"" : "";
+      const v = (k, f) => lv && lv[k] != null ? f(lv[k]) : "–";
+      return `<tr><th scope="row"${best}><span class="dot" style="background:${color(id)}"></span>${name}</th>` +
+        `<td${best}>${e.max ?? "–"}</td><td${best}>${v("pps", x => x.toFixed(1))}</td>` +
+        `<td>${v("success", fmt.pct)}</td><td>${v("f1", x => x.toFixed(2))}</td><td>${v("p50", fmt.sec)}</td><td>${v("mem_peak", fmt.gb)}</td></tr>`;
+    }).join("");
+    return `<tr class="group"><th colspan="7" scope="rowgroup">${label}</th></tr>` + rows;
+  }).join("");
+  document.getElementById("summary").innerHTML = head + `<tbody>${body}</tbody>`;
+}
+
+function renderVerdict() {
+  const lines = [];
+  const per = SIZES.map(size => {
+    const eng = DATA[size].engines, h = eng.huntsman;
+    const rivals = Object.entries(eng).filter(([id]) => id !== "huntsman").map(([, e]) => e);
+    const top = f => Math.max(...rivals.map(f).filter(v => v != null));
+    const at = e => (e.max && atLevel(e, e.max)) || {};
+    const peaks = rivals.map(e => at(e).mem_peak).filter(v => v != null);
+    return { size, h, hl: at(h), pps: h.best_pps / top(e => e.best_pps), max: h.max / top(e => e.max),
+      success: top(e => at(e).success), f1: top(e => at(e).f1),
+      memInRange: at(h).mem_peak <= Math.max(...peaks), all: [at(h).success, ...rivals.map(e => at(e).success)].filter(v => v != null) };
+  }).filter(p => p.h && p.h.max);
+  if (!per.length) return;
+  const range = (a, f) => { const lo = f(Math.min(...a)), hi = f(Math.max(...a)); return lo === hi ? lo : `${lo}–${hi}`; };
+  lines.push(`Huntsman reached ${range(per.map(p => p.pps), v => v.toFixed(1))}× the throughput and ${range(per.map(p => p.max), v => v.toFixed(0))}× the concurrent pages of the best other engine on each machine.`);
+  const ahead = per.every(p => p.hl.success >= p.success && p.hl.f1 >= p.f1);
+  lines.push(`At its limit its success rate (${range(per.map(p => p.hl.success * 100), v => v.toFixed(1))}%) and content match (F1 ${range(per.map(p => p.hl.f1), v => v.toFixed(2))}) were ${ahead ? "at or above" : "compared with"} the best other engine's (${range(per.map(p => p.success * 100), v => v.toFixed(1))}%, F1 ${range(per.map(p => p.f1), v => v.toFixed(2))}).`);
+  if (per.every(p => p.memInRange)) lines.push("It uses less memory per page, but because it runs more pages at once its peak memory at full load is no higher than the other engines' peaks. Size machines by the concurrency you need.");
+  const all = per.flatMap(p => p.all);
+  lines.push(`Every engine succeeded on only ${range([Math.min(...all) * 100, Math.max(...all) * 100], v => v.toFixed(0))}% of these URLs, since many sites block scrapers, so expect about two in three pages to return usable Markdown on a similar mix of sites.`);
+  document.getElementById("verdict").innerHTML = lines.map(l => `<li>${l}</li>`).join("");
+}
+
+function render() {
+  const size = state.size;
+  const hs = host(size);
+  document.getElementById("specs").textContent = [hs.instance_type, hs.vcpus && hs.vcpus + " vCPU", hs.mem_bytes && (hs.mem_bytes / 1e9).toFixed(1) + " GB RAM", hs.cpu].filter(Boolean).join(" · ");
+  document.querySelectorAll("#machines button").forEach(b => b.setAttribute("aria-pressed", b.dataset.size === size));
+  document.querySelectorAll("#legend button").forEach(b => b.setAttribute("aria-pressed", !state.hidden.has(b.dataset.id)));
+  renderStats();
+  chart(document.getElementById("chart-mem"), { series: seriesFor(size, "profile", "mem"), yFmt: fmt.gb, tickFmt: v => +(v / 1000).toFixed(1) + " GB",
+  });
+  chart(document.getElementById("chart-cpu"), { series: seriesFor(size, "profile", "cpu"), yFmt: fmt.cores, tickFmt: v => +v.toFixed(1) + "",
+    yMaxFixed: hs.vcpus, ref: hs.vcpus ? { value: hs.vcpus, label: hs.vcpus + " vCPU" } : null });
+  chart(document.getElementById("chart-pps"), { series: seriesFor(size, "levels", "pps"), yFmt: fmt.pps, tickFmt: v => +v.toFixed(1) + "" });
+  chart(document.getElementById("chart-success"), { series: seriesFor(size, "levels", "success"), yFmt: fmt.pct, tickFmt: v => Math.round(v * 100) + "%", yMaxFixed: 1 });
+  chart(document.getElementById("chart-p50"), { series: seriesFor(size, "levels", "p50"), yFmt: fmt.sec, tickFmt: v => +(v / 1000).toFixed(1) + " s" });
+  chart(document.getElementById("chart-f1"), { series: seriesFor(size, "levels", "f1"), yFmt: v => v.toFixed(2), tickFmt: v => +v.toFixed(2) + "", yMaxFixed: 1 });
+}
+
+const machines = document.getElementById("machines");
+for (const size of SIZES) {
+  const b = document.createElement("button");
+  b.type = "button"; b.dataset.size = size; b.textContent = size[0].toUpperCase() + size.slice(1);
+  b.addEventListener("click", () => { state.size = size; render(); });
+  machines.appendChild(b);
+}
+const legend = document.getElementById("legend");
+for (const { id, name } of ENGINES) {
+  const b = document.createElement("button");
+  b.type = "button"; b.dataset.id = id;
+  b.innerHTML = `<span class="swatch" style="color:var(--${id});background:var(--${id})"></span>${name}`;
+  b.addEventListener("click", () => { state.hidden.has(id) ? state.hidden.delete(id) : state.hidden.add(id); render(); });
+  legend.appendChild(b);
+}
+renderSummary();
+renderVerdict();
+render();
+let resizeFrame;
+let lastWidth = document.querySelector("main").clientWidth;
+new ResizeObserver(([entry]) => {
+  const w = entry.contentRect.width;
+  if (w === lastWidth) return;
+  lastWidth = w;
+  cancelAnimationFrame(resizeFrame); resizeFrame = requestAnimationFrame(render);
+}).observe(document.querySelector("main"));
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => { renderSummary(); render(); });
+</script>
+</body>
+</html>

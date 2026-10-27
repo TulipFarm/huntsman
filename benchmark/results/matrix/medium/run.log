@@ -1,0 +1,130 @@
+== 2026-10-25T04:11:57Z huntsman: preparing
+== huntsman level 8
+huntsman c=8: 100/1000
+huntsman c=8: 200/1000
+huntsman c=8: 300/1000
+huntsman c=8: 400/1000
+huntsman c=8: 500/1000
+huntsman c=8: 600/1000
+huntsman c=8: 700/1000
+huntsman c=8: 800/1000
+huntsman c=8: 900/1000
+huntsman c=8: 1000/1000
+{"level": 8, "passed": true, "reason": null, "success_rate": 0.659, "pages_per_second_this_run": 3.618693997187775, "latency_ms_p50_all": 1400.2393109999502, "latency_ms_p95_all": 6677.303175250065, "cpu_cores_avg": 2.2024685314685315, "mem_bytes_peak": 1491156992}
+== huntsman level 16
+huntsman c=16: 100/1000
+huntsman c=16: 200/1000
+huntsman c=16: 300/1000
+huntsman c=16: 400/1000
+huntsman c=16: 500/1000
+huntsman c=16: 600/1000
+huntsman c=16: 700/1000
+huntsman c=16: 800/1000
+huntsman c=16: 900/1000
+huntsman c=16: 1000/1000
+{"level": 16, "passed": true, "reason": null, "success_rate": 0.653, "pages_per_second_this_run": 6.153055817567716, "latency_ms_p50_all": 1713.2147479999276, "latency_ms_p95_all": 7705.7008176499, "cpu_cores_avg": 3.514732558139535, "mem_bytes_peak": 2098532352}
+== huntsman level 32
+huntsman c=32: 100/1000
+huntsman c=32: 200/1000
+huntsman c=32: 300/1000
+huntsman c=32: 400/1000
+huntsman c=32: 500/1000
+huntsman c=32: 600/1000
+huntsman c=32: 700/1000
+huntsman c=32: 800/1000
+huntsman c=32: 900/1000
+huntsman c=32: 1000/1000
+{"level": 32, "passed": true, "reason": null, "success_rate": 0.653, "pages_per_second_this_run": 7.808637889610211, "latency_ms_p50_all": 2760.268079999946, "latency_ms_p95_all": 11422.984133099906, "cpu_cores_avg": 3.699521739130435, "mem_bytes_peak": 3273433088}
+== huntsman level 64
+huntsman c=64: 100/1000
+huntsman c=64: 200/1000
+huntsman c=64: 300/1000
+huntsman c=64: 400/1000
+huntsman c=64: 500/1000
+huntsman c=64: 600/1000
+huntsman c=64: 700/1000
+huntsman c=64: 800/1000
+huntsman c=64: 900/1000
+huntsman c=64: 1000/1000
+{"level": 64, "passed": false, "reason": "median latency more than 3x the first level", "success_rate": 0.642, "pages_per_second_this_run": 8.740083540839919, "latency_ms_p50_all": 5215.913124500048, "latency_ms_p95_all": 18702.41514424998, "cpu_cores_avg": 3.652290322580645, "mem_bytes_peak": 5298499584}
+{"engine": "huntsman", "urls": 1000, "max_sustainable_concurrency": 32, "best_throughput_level": 32, "best_pages_per_second": 7.808637889610211}
+== 2026-10-25T04:24:38Z spider: preparing
+== spider level 8
+spider c=8: 100/1000
+spider c=8: 200/1000
+spider c=8: 300/1000
+spider c=8: 400/1000
+spider c=8: 500/1000
+spider c=8: 600/1000
+spider c=8: 700/1000
+spider c=8: 800/1000
+spider c=8: 900/1000
+spider c=8: 1000/1000
+{"level": 8, "passed": true, "reason": null, "success_rate": 0.648, "pages_per_second_this_run": 0.7112411070706429, "latency_ms_p50_all": 7159.665405000169, "latency_ms_p95_all": 30005.422177800006, "cpu_cores_avg": 3.8174201977401125, "mem_bytes_peak": 3669147648}
+== spider level 16
+spider c=16: 100/1000
+spider c=16: 200/1000
+spider c=16: 300/1000
+spider c=16: 400/1000
+spider c=16: 500/1000
+spider c=16: 600/1000
+spider c=16: 700/1000
+spider c=16: 800/1000
+spider c=16: 900/1000
+spider c=16: 1000/1000
+{"level": 16, "passed": false, "reason": "success fell more than 10 points below the best level; median latency more than 3x the first level", "success_rate": 0.507, "pages_per_second_this_run": 0.71367073072001, "latency_ms_p50_all": 21658.98448749999, "latency_ms_p95_all": 30007.918538400234, "cpu_cores_avg": 3.8954570007107323, "mem_bytes_peak": 3923578880}
+{"engine": "spider", "urls": 1000, "max_sustainable_concurrency": 8, "best_throughput_level": 8, "best_pages_per_second": 0.7112411070706429}
+== 2026-10-25T05:12:15Z crawl4ai: preparing
+== crawl4ai level 8
+crawl4ai c=8: 100/1000
+crawl4ai c=8: 200/1000
+crawl4ai c=8: 300/1000
+crawl4ai c=8: 400/1000
+crawl4ai c=8: 500/1000
+crawl4ai c=8: 600/1000
+crawl4ai c=8: 700/1000
+crawl4ai c=8: 800/1000
+crawl4ai c=8: 900/1000
+crawl4ai c=8: 1000/1000
+{"level": 8, "passed": true, "reason": null, "success_rate": 0.697, "pages_per_second_this_run": 1.999880934328742, "latency_ms_p50_all": 2733.6433799996485, "latency_ms_p95_all": 8373.225235000378, "cpu_cores_avg": 2.6115147928994085, "mem_bytes_peak": 2188578816}
+== crawl4ai level 16
+crawl4ai c=16: 100/1000
+crawl4ai c=16: 200/1000
+crawl4ai c=16: 300/1000
+crawl4ai c=16: 400/1000
+crawl4ai c=16: 500/1000
+crawl4ai c=16: 600/1000
+crawl4ai c=16: 700/1000
+crawl4ai c=16: 800/1000
+crawl4ai c=16: 900/1000
+crawl4ai c=16: 1000/1000
+{"level": 16, "passed": true, "reason": null, "success_rate": 0.697, "pages_per_second_this_run": 1.9949903527569097, "latency_ms_p50_all": 7167.919018000248, "latency_ms_p95_all": 14467.743998950244, "cpu_cores_avg": 3.104801571709234, "mem_bytes_peak": 2609225728}
+== crawl4ai level 32
+crawl4ai c=32: 100/1000
+crawl4ai c=32: 200/1000
+crawl4ai c=32: 300/1000
+crawl4ai c=32: 400/1000
+crawl4ai c=32: 500/1000
+crawl4ai c=32: 600/1000
+crawl4ai c=32: 700/1000
+crawl4ai c=32: 800/1000
+crawl4ai c=32: 900/1000
+crawl4ai c=32: 1000/1000
+{"level": 32, "passed": false, "reason": "median latency more than 3x the first level", "success_rate": 0.688, "pages_per_second_this_run": 1.439398391990213, "latency_ms_p50_all": 21518.280290500115, "latency_ms_p95_all": 33454.024695999484, "cpu_cores_avg": 3.5137457386363637, "mem_bytes_peak": 4804050944}
+{"engine": "crawl4ai", "urls": 1000, "max_sustainable_concurrency": 16, "best_throughput_level": 8, "best_pages_per_second": 1.999880934328742}
+== 2026-10-25T05:43:09Z firecrawl: preparing
+== firecrawl level 8
+firecrawl c=8: 100/1000
+firecrawl c=8: 200/1000
+firecrawl c=8: 300/1000
+firecrawl c=8: 400/1000
+firecrawl c=8: 500/1000
+firecrawl c=8: 600/1000
+firecrawl c=8: 700/1000
+firecrawl c=8: 800/1000
+firecrawl c=8: 900/1000
+firecrawl c=8: 1000/1000
+{"level": 8, "passed": true, "reason": null, "success_rate": 0.647, "pages_per_second_this_run": 0.9759009738178981, "latency_ms_p50_all": 4208.193013000255, "latency_ms_p95_all": 30714.762487050073, "cpu_cores_avg": 1.5297783155856728, "mem_bytes_peak": 7321526272}
+== firecrawl level 16
+{"level": 16, "passed": false, "reason": "engine did not become ready", "success_rate": null, "pages_per_second_this_run": null, "latency_ms_p50_all": null, "latency_ms_p95_all": null, "cpu_cores_avg": null, "mem_bytes_peak": null}
+{"engine": "firecrawl", "urls": 1000, "max_sustainable_concurrency": 8, "best_throughput_level": 8, "best_pages_per_second": 0.9759009738178981}

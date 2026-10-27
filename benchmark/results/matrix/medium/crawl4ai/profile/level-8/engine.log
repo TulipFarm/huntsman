@@ -1,0 +1,300 @@
+2026-10-26 07:55:36,191 - api - INFO - Memory usage: Start: 212.1484375 MB, End: 184.63671875 MB, Delta: -27.51171875 MB, Peak: 212.1484375 MB
+2026-10-26 07:55:36,314 - crawler_pool - INFO - ♨️  Using hot pool browser (sig=b76434f3, active=8)
+[FETCH]... ↓ https://www.polylm.com/blog/how-to-generate-logo-with-ai                                             | ✓ | ⏱: 1.56s 
+[SCRAPE].. ◆ https://www.polylm.com/blog/how-to-generate-logo-with-ai                                             | ✓ | ⏱: 0.08s 
+[COMPLETE] ● https://www.polylm.com/blog/how-to-generate-logo-with-ai                                             | ✓ | ⏱: 1.66s 
+2026-10-26 07:55:36,467 - api - INFO - Memory usage: Start: 256.7265625 MB, End: 184.63671875 MB, Delta: -72.08984375 MB, Peak: 256.7265625 MB
+2026-10-26 07:55:36,597 - crawler_pool - INFO - ♨️  Using hot pool browser (sig=b76434f3, active=8)
+[FETCH]... ↓ https://scanpy.readthedocs.io/en/stable/api/generated/classes/scanpy.pl.DotPlot.DEFAULT_DOT_MAX.html | ✓ | ⏱: 1.32s 
+[SCRAPE].. ◆ https://scanpy.readthedocs.io/en/stable/api/generated/classes/scanpy.pl.DotPlot.DEFAULT_DOT_MAX.html | ✓ | ⏱: 0.10s 
+[COMPLETE] ● https://scanpy.readthedocs.io/en/stable/api/generated/classes/scanpy.pl.DotPlot.DEFAULT_DOT_MAX.html | ✓ | ⏱: 1.44s 
+2026-10-26 07:55:36,958 - api - INFO - Memory usage: Start: 184.63671875 MB, End: 184.63671875 MB, Delta: 0.0 MB, Peak: 184.63671875 MB
+2026-10-26 07:55:37,117 - crawler_pool - INFO - ♨️  Using hot pool browser (sig=b76434f3, active=8)
+[ANTIBOT]. ℹ https://constructalia.a...e5b7299792599e90933.pdf  | Error: Proxy direct failed: Failed on navigating ACS-GOTO:
+Page.goto: Download is starting
+Call log:
+  - navigating to "https://constructalia.arcelormittal.com/files/MSB02%20Concept%20Design--3193df3624346e5b7299792599e90933.pdf", waiting until "domcontentloaded"
+ 
+[ERROR]... × https://constructalia.a...e5b7299792599e90933.pdf  | Error: Unexpected error in _crawl_web at line 779 in _crawl_web 
+(../usr/local/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: Download is starting
+Call log:
+  - navigating to "https://constructalia.arcelormittal.com/files/MSB02%20Concept%20Design--3193df3624346e5b7299792599e90933.pdf", waiting until "domcontentloaded"
+
+
+Code context:
+ 774                                   tag="GOTO",
+ 775                                   params={"url": url},
+ 776                               )
+ 777                               response = None
+ 778                           else:
+ 779 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 780   
+ 781                       # ──────────────────────────────────────────────────────────────
+ 782                       # Walk the redirect chain.  Playwright returns only the last
+ 783                       # hop, so we trace the `request.redirected_from` links until the
+ 784                       # first response that differs from the final one and surface its 
+2026-10-26 07:55:37,213 - api - INFO - Memory usage: Start: 184.63671875 MB, End: 184.63671875 MB, Delta: 0.0 MB, Peak: 184.63671875 MB
+2026-10-26 07:55:37,304 - crawler_pool - INFO - ♨️  Using hot pool browser (sig=b76434f3, active=8)
+[FETCH]... ↓ https://carta.com/blog/file-fund-and-spv-taxes/?ir=fa_spv_related3                                   | ✓ | ⏱: 2.22s 
+[SCRAPE].. ◆ https://carta.com/blog/file-fund-and-spv-taxes/?ir=fa_spv_related3                                   | ✓ | ⏱: 0.13s 
+[COMPLETE] ● https://carta.com/blog/file-fund-and-spv-taxes/?ir=fa_spv_related3                                   | ✓ | ⏱: 2.37s 
+2026-10-26 07:55:37,792 - api - INFO - Memory usage: Start: 256.7265625 MB, End: 184.63671875 MB, Delta: -72.08984375 MB, Peak: 256.7265625 MB
+2026-10-26 07:55:38,004 - crawler_pool - INFO - ♨️  Using hot pool browser (sig=b76434f3, active=8)
+[FETCH]... ↓ https://cowboystatedaily.com/2024/10/28/the-hunt...ads-to-wyoming-and-the-powell-man-who-bought-it/  | ✓ | ⏱: 2.08s 
+[SCRAPE].. ◆ https://cowboystatedaily.com/2024/10/28/the-hunt...ads-to-wyoming-and-the-powell-man-who-bought-it/  | ✓ | ⏱: 0.13s 
+[COMPLETE] ● https://cowboystatedaily.com/2024/10/28/the-hunt...ads-to-wyoming-and-the-powell-man-who-bought-it/  | ✓ | ⏱: 2.22s 
+2026-10-26 07:55:38,540 - api - INFO - Memory usage: Start: 184.63671875 MB, End: 184.63671875 MB, Delta: 0.0 MB, Peak: 184.63671875 MB
+[FETCH]... ↓ https://www.ted.com/talks/https:/www.ted.com/tal...page_featured&utm_content=4&utm_term=video-title  | ✓ | ⏱: 2.57s 
+[SCRAPE].. ◆ https://www.ted.com/talks/https:/www.ted.com/tal...page_featured&utm_content=4&utm_term=video-title  | ✓ | ⏱: 0.02s 
+[COMPLETE] ● https://www.ted.com/talks/https:/www.ted.com/tal...page_featured&utm_content=4&utm_term=video-title  | ✓ | ⏱: 2.61s 
+2026-10-26 07:55:38,615 - api - INFO - Memory usage: Start: 184.63671875 MB, End: 184.63671875 MB, Delta: 0.0 MB, Peak: 184.63671875 MB
+2026-10-26 07:55:38,890 - crawler_pool - INFO - ♨️  Using hot pool browser (sig=b76434f3, active=8)
+2026-10-26 07:55:39,020 - crawler_pool - INFO - ♨️  Using hot pool browser (sig=b76434f3, active=8)
+[FETCH]... ↓ https://tdan.com/data-cleansing-tools-for-big-data-challenges-and-solutions/31659                    | ✓ | ⏱: 4.05s 
+[SCRAPE].. ◆ https://tdan.com/data-cleansing-tools-for-big-data-challenges-and-solutions/31659                    | ✓ | ⏱: 0.07s 
+[COMPLETE] ● https://tdan.com/data-cleansing-tools-for-big-data-challenges-and-solutions/31659                    | ✓ | ⏱: 4.16s 
+2026-10-26 07:55:39,256 - api - INFO - Memory usage: Start: 256.7265625 MB, End: 185.8125 MB, Delta: -70.9140625 MB, Peak: 256.7265625 MB
+2026-10-26 07:55:39,454 - crawler_pool - INFO - ♨️  Using hot pool browser (sig=b76434f3, active=8)
+[FETCH]... ↓ https://numpy.org/ja/news/                                                                           | ✓ | ⏱: 2.42s 
+[SCRAPE].. ◆ https://numpy.org/ja/news/                                                                           | ✓ | ⏱: 0.14s 
+[COMPLETE] ● https://numpy.org/ja/news/                                                                           | ✓ | ⏱: 2.58s 
+2026-10-26 07:55:39,695 - api - INFO - Memory usage: Start: 184.63671875 MB, End: 186.27734375 MB, Delta: 1.640625 MB, Peak: 186.27734375 MB
+[FETCH]... ↓ https://www.kraken.com/it/learn/what-is-shiden-sdn                                                   | ✓ | ⏱: 3.38s 
+[SCRAPE].. ◆ https://www.kraken.com/it/learn/what-is-shiden-sdn                                                   | ✓ | ⏱: 0.23s 
+[COMPLETE] ● https://www.kraken.com/it/learn/what-is-shiden-sdn                                                   | ✓ | ⏱: 3.64s 
+2026-10-26 07:55:40,237 - api - INFO - Memory usage: Start: 184.63671875 MB, End: 189.7890625 MB, Delta: 5.15234375 MB, Peak: 189.7890625 MB
+2026-10-26 07:55:40,347 - crawler_pool - INFO - ♨️  Using hot pool browser (sig=b76434f3, active=7)
+2026-10-26 07:55:40,497 - crawler_pool - INFO - ♨️  Using hot pool browser (sig=b76434f3, active=8)
+[ANTIBOT]. ℹ https://millerhendrysolicitors.co.uk               | Error: Proxy direct failed: Failed on navigating ACS-GOTO:
+Page.goto: net::ERR_TIMED_OUT at https://millerhendrysolicitors.co.uk/
+Call log:
+  - navigating to "https://millerhendrysolicitors.co.uk/", waiting until "domcontentloaded"
+ 
+[ERROR]... × https://millerhendrysolicitors.co.uk               | Error: Unexpected error in _crawl_web at line 779 in _crawl_web 
+(../usr/local/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: net::ERR_TIMED_OUT at https://millerhendrysolicitors.co.uk/
+Call log:
+  - navigating to "https://millerhendrysolicitors.co.uk/", waiting until "domcontentloaded"
+
+
+Code context:
+ 774                                   tag="GOTO",
+ 775                                   params={"url": url},
+ 776                               )
+ 777                               response = None
+ 778                           else:
+ 779 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 780   
+ 781                       # ──────────────────────────────────────────────────────────────
+ 782                       # Walk the redirect chain.  Playwright returns only the last
+ 783                       # hop, so we trace the `request.redirected_from` links until the
+ 784                       # first response that differs from the final one and surface its 
+2026-10-26 07:55:41,435 - api - INFO - Memory usage: Start: 212.1484375 MB, End: 191.7421875 MB, Delta: -20.40625 MB, Peak: 212.1484375 MB
+2026-10-26 07:55:41,540 - crawler_pool - INFO - ♨️  Using hot pool browser (sig=b76434f3, active=8)
+[FETCH]... ↓ https://aubergeresorts.com/altagracia/press/                                                         | ✓ | ⏱: 4.43s 
+[SCRAPE].. ◆ https://aubergeresorts.com/altagracia/press/                                                         | ✓ | ⏱: 0.10s 
+[COMPLETE] ● https://aubergeresorts.com/altagracia/press/                                                         | ✓ | ⏱: 4.55s 
+2026-10-26 07:55:41,851 - api - INFO - Memory usage: Start: 184.63671875 MB, End: 191.7421875 MB, Delta: 7.10546875 MB, Peak: 191.7421875 MB
+[FETCH]... ↓ https://docs.pantheon.io/multizone-failover                                                          | ✓ | ⏱: 3.74s 
+[SCRAPE].. ◆ https://docs.pantheon.io/multizone-failover                                                          | ✓ | ⏱: 0.21s 
+[COMPLETE] ● https://docs.pantheon.io/multizone-failover                                                          | ✓ | ⏱: 3.98s 
+2026-10-26 07:55:42,996 - api - INFO - Memory usage: Start: 184.63671875 MB, End: 191.7421875 MB, Delta: 7.10546875 MB, Peak: 191.7421875 MB
+2026-10-26 07:55:44,045 - crawler_pool - INFO - ♨️  Using hot pool browser (sig=b76434f3, active=7)
+2026-10-26 07:55:44,386 - crawler_pool - INFO - ♨️  Using hot pool browser (sig=b76434f3, active=8)
+[FETCH]... ↓ https://pmc.ncbi.nlm.nih.gov/articles/PMC10124679/                                                   | ✓ | ⏱: 6.42s 
+[SCRAPE].. ◆ https://pmc.ncbi.nlm.nih.gov/articles/PMC10124679/                                                   | ✓ | ⏱: 0.40s 
+[COMPLETE] ● https://pmc.ncbi.nlm.nih.gov/articles/PMC10124679/                                                   | ✓ | ⏱: 6.84s 
+2026-10-26 07:55:44,845 - api - INFO - Memory usage: Start: 184.63671875 MB, End: 191.7421875 MB, Delta: 7.10546875 MB, Peak: 191.7421875 MB
+2026-10-26 07:55:45,008 - crawler_pool - INFO - ♨️  Using hot pool browser (sig=b76434f3, active=8)
+[FETCH]... ↓ https://www.zhihu.com/tardis/bd/art/504335175                                                        | ✓ | ⏱: 6.13s 
+[SCRAPE].. ◆ https://www.zhihu.com/tardis/bd/art/504335175                                                        | ✓ | ⏱: 0.09s 
+[COMPLETE] ● https://www.zhihu.com/tardis/bd/art/504335175                                                        | ✓ | ⏱: 6.23s 
+2026-10-26 07:55:45,122 - api - INFO - Memory usage: Start: 184.63671875 MB, End: 191.7421875 MB, Delta: 7.10546875 MB, Peak: 191.7421875 MB
+2026-10-26 07:55:45,215 - crawler_pool - INFO - ♨️  Using hot pool browser (sig=b76434f3, active=8)
+[FETCH]... ↓ https://www.wine-searcher.com/find/repris+right+bank/2015?Xcurrencycode=USD&Xsavecurrency=Y          | ✓ | ⏱: 3.80s 
+[SCRAPE].. ◆ https://www.wine-searcher.com/find/repris+right+bank/2015?Xcurrencycode=USD&Xsavecurrency=Y          | ✓ | ⏱: 0.01s 
+[ERROR]... × https://www.wine-search...ode=USD&Xsavecurrency=Y  | Error: Blocked by anti-bot protection: PerimeterX block 
+[COMPLETE] ● https://www.wine-searcher.com/find/repris+right+bank/2015?Xcurrencycode=USD&Xsavecurrency=Y          | ✗ | ⏱: 3.82s 
+2026-10-26 07:55:45,358 - api - INFO - Memory usage: Start: 191.7421875 MB, End: 191.7421875 MB, Delta: 0.0 MB, Peak: 191.7421875 MB
+[FETCH]... ↓ https://www.aae.org/specialty/clinical-resources/root-canal-safety                                   | ✓ | ⏱: 4.87s 
+[SCRAPE].. ◆ https://www.aae.org/specialty/clinical-resources/root-canal-safety                                   | ✓ | ⏱: 0.01s 
+[ERROR]... × https://www.aae.org/spe...urces/root-canal-safety  | Error: Blocked by anti-bot protection: Cloudflare JS challenge 
+[COMPLETE] ● https://www.aae.org/specialty/clinical-resources/root-canal-safety                                   | ✗ | ⏱: 4.89s 
+2026-10-26 07:55:45,395 - api - INFO - Memory usage: Start: 191.7421875 MB, End: 191.7421875 MB, Delta: 0.0 MB, Peak: 191.7421875 MB
+2026-10-26 07:55:45,562 - crawler_pool - INFO - ♨️  Using hot pool browser (sig=b76434f3, active=7)
+2026-10-26 07:55:45,662 - crawler_pool - INFO - ♨️  Using hot pool browser (sig=b76434f3, active=8)
+[FETCH]... ↓ https://www.financialexpress.com/market/private-...ance-players-see-strong-growth-in-august-857273/  | ✓ | ⏱: 6.23s 
+[SCRAPE].. ◆ https://www.financialexpress.com/market/private-...ance-players-see-strong-growth-in-august-857273/  | ✓ | ⏱: 0.13s 
+[COMPLETE] ● https://www.financialexpress.com/market/private-...ance-players-see-strong-growth-in-august-857273/  | ✓ | ⏱: 6.39s 
+2026-10-26 07:55:45,842 - api - INFO - Memory usage: Start: 185.8125 MB, End: 191.7421875 MB, Delta: 5.9296875 MB, Peak: 191.7421875 MB
+[ANTIBOT]. ℹ https://static.cninfo.c...24-10-30/1221553583.PDF  | Error: Proxy direct failed: Failed on navigating ACS-GOTO:
+Page.goto: Download is starting
+Call log:
+  - navigating to "https://static.cninfo.com.cn/finalpage/2024-10-30/1221553583.PDF", waiting until "domcontentloaded"
+ 
+[ERROR]... × https://static.cninfo.c...24-10-30/1221553583.PDF  | Error: Unexpected error in _crawl_web at line 779 in _crawl_web 
+(../usr/local/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: Download is starting
+Call log:
+  - navigating to "https://static.cninfo.com.cn/finalpage/2024-10-30/1221553583.PDF", waiting until "domcontentloaded"
+
+
+Code context:
+ 774                                   tag="GOTO",
+ 775                                   params={"url": url},
+ 776                               )
+ 777                               response = None
+ 778                           else:
+ 779 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 780   
+ 781                       # ──────────────────────────────────────────────────────────────
+ 782                       # Walk the redirect chain.  Playwright returns only the last
+ 783                       # hop, so we trace the `request.redirected_from` links until the
+ 784                       # first response that differs from the final one and surface its 
+2026-10-26 07:55:45,869 - api - INFO - Memory usage: Start: 191.7421875 MB, End: 191.7421875 MB, Delta: 0.0 MB, Peak: 191.7421875 MB
+2026-10-26 07:55:45,970 - crawler_pool - INFO - ♨️  Using hot pool browser (sig=b76434f3, active=7)
+2026-10-26 07:55:46,121 - crawler_pool - INFO - ♨️  Using hot pool browser (sig=b76434f3, active=8)
+[FETCH]... ↓ https://www.puregym.com/landing-page/modern-slavery-statement/                                       | ✓ | ⏱: 6.30s 
+[SCRAPE].. ◆ https://www.puregym.com/landing-page/modern-slavery-statement/                                       | ✓ | ⏱: 0.42s 
+[COMPLETE] ● https://www.puregym.com/landing-page/modern-slavery-statement/                                       | ✓ | ⏱: 6.74s 
+2026-10-26 07:55:47,089 - api - INFO - Memory usage: Start: 191.7421875 MB, End: 191.7421875 MB, Delta: 0.0 MB, Peak: 191.7421875 MB
+2026-10-26 07:55:47,282 - crawler_pool - INFO - ♨️  Using hot pool browser (sig=b76434f3, active=8)
+[FETCH]... ↓ https://www.deribit.com/kb/8-july-2021                                                               | ✓ | ⏱: 3.11s 
+[SCRAPE].. ◆ https://www.deribit.com/kb/8-july-2021                                                               | ✓ | ⏱: 0.02s 
+[COMPLETE] ● https://www.deribit.com/kb/8-july-2021                                                               | ✓ | ⏱: 3.16s 
+2026-10-26 07:55:47,555 - api - INFO - Memory usage: Start: 191.7421875 MB, End: 191.7421875 MB, Delta: 0.0 MB, Peak: 191.7421875 MB
+2026-10-26 07:55:47,724 - crawler_pool - INFO - ♨️  Using hot pool browser (sig=b76434f3, active=8)
+[FETCH]... ↓ https://www.law.cornell.edu/uscode/text/18/6                                                         | ✓ | ⏱: 2.05s 
+[SCRAPE].. ◆ https://www.law.cornell.edu/uscode/text/18/6                                                         | ✓ | ⏱: 0.05s 
+[COMPLETE] ● https://www.law.cornell.edu/uscode/text/18/6                                                         | ✓ | ⏱: 2.12s 
+2026-10-26 07:55:48,096 - api - INFO - Memory usage: Start: 191.7421875 MB, End: 191.7421875 MB, Delta: 0.0 MB, Peak: 191.7421875 MB
+[FETCH]... ↓ https://explodingtopics.com/blog/ai-statistics                                                       | ✓ | ⏱: 2.90s 
+[SCRAPE].. ◆ https://explodingtopics.com/blog/ai-statistics                                                       | ✓ | ⏱: 0.37s 
+[COMPLETE] ● https://explodingtopics.com/blog/ai-statistics                                                       | ✓ | ⏱: 3.29s 
+2026-10-26 07:55:48,508 - api - INFO - Memory usage: Start: 191.7421875 MB, End: 192.31640625 MB, Delta: 0.57421875 MB, Peak: 192.31640625 MB
+2026-10-26 07:55:48,860 - crawler_pool - INFO - ♨️  Using hot pool browser (sig=b76434f3, active=7)
+2026-10-26 07:55:49,080 - crawler_pool - INFO - ♨️  Using hot pool browser (sig=b76434f3, active=8)
+[FETCH]... ↓ https://softwarebude.at/blog/vorteile-linzer-unternehmen                                             | ✓ | ⏱: 3.16s 
+[SCRAPE].. ◆ https://softwarebude.at/blog/vorteile-linzer-unternehmen                                             | ✓ | ⏱: 0.05s 
+[COMPLETE] ● https://softwarebude.at/blog/vorteile-linzer-unternehmen                                             | ✓ | ⏱: 3.22s 
+2026-10-26 07:55:49,342 - api - INFO - Memory usage: Start: 191.7421875 MB, End: 192.3203125 MB, Delta: 0.578125 MB, Peak: 192.3203125 MB
+2026-10-26 07:55:49,546 - crawler_pool - INFO - ♨️  Using hot pool browser (sig=b76434f3, active=8)
+[FETCH]... ↓ https://dwenger.eu/leistungen/                                                                       | ✓ | ⏱: 4.04s 
+[SCRAPE].. ◆ https://dwenger.eu/leistungen/                                                                       | ✓ | ⏱: 0.17s 
+[COMPLETE] ● https://dwenger.eu/leistungen/                                                                       | ✓ | ⏱: 4.25s 
+2026-10-26 07:55:49,815 - api - INFO - Memory usage: Start: 191.7421875 MB, End: 192.3203125 MB, Delta: 0.578125 MB, Peak: 192.3203125 MB
+[FETCH]... ↓ https://www.seattletimes.com/nation-world/nation...rump-considers-paving-over-grass-in-rose-garden/  | ✓ | ⏱: 4.83s 
+[SCRAPE].. ◆ https://www.seattletimes.com/nation-world/nation...rump-considers-paving-over-grass-in-rose-garden/  | ✓ | ⏱: 0.11s 
+[COMPLETE] ● https://www.seattletimes.com/nation-world/nation...rump-considers-paving-over-grass-in-rose-garden/  | ✓ | ⏱: 4.97s 
+2026-10-26 07:55:49,981 - api - INFO - Memory usage: Start: 191.7421875 MB, End: 192.3203125 MB, Delta: 0.578125 MB, Peak: 192.3203125 MB
+2026-10-26 07:55:50,084 - crawler_pool - INFO - ♨️  Using hot pool browser (sig=b76434f3, active=7)
+2026-10-26 07:55:50,266 - crawler_pool - INFO - ♨️  Using hot pool browser (sig=b76434f3, active=8)
+[FETCH]... ↓ https://www.orthazone.com/caries-indicator-syr-refill-green-4pk                                      | ✓ | ⏱: 4.97s 
+[SCRAPE].. ◆ https://www.orthazone.com/caries-indicator-syr-refill-green-4pk                                      | ✓ | ⏱: 2.98s 
+[COMPLETE] ● https://www.orthazone.com/caries-indicator-syr-refill-green-4pk                                      | ✓ | ⏱: 7.97s 
+2026-10-26 07:55:53,635 - api - INFO - Memory usage: Start: 191.7421875 MB, End: 204.015625 MB, Delta: 12.2734375 MB, Peak: 204.015625 MB
+[FETCH]... ↓ https://www.digikey.com/en/products/detail/edac-inc/833-026-559-108/11191619                         | ✓ | ⏱: 4.64s 
+[SCRAPE].. ◆ https://www.digikey.com/en/products/detail/edac-inc/833-026-559-108/11191619                         | ✓ | ⏱: 0.01s 
+[ERROR]... × https://www.digikey.com...33-026-559-108/11191619  | Error: Blocked by anti-bot protection: Cloudflare JS challenge 
+[COMPLETE] ● https://www.digikey.com/en/products/detail/edac-inc/833-026-559-108/11191619                         | ✗ | ⏱: 4.65s 
+2026-10-26 07:55:53,730 - api - INFO - Memory usage: Start: 192.3203125 MB, End: 215.609375 MB, Delta: 23.2890625 MB, Peak: 215.609375 MB
+2026-10-26 07:55:54,245 - crawler_pool - INFO - ♨️  Using hot pool browser (sig=b76434f3, active=7)
+2026-10-26 07:55:54,470 - crawler_pool - INFO - ♨️  Using hot pool browser (sig=b76434f3, active=8)
+[FETCH]... ↓ https://www.chd.lu/lu/dossier/8434                                                                   | ✓ | ⏱: 7.39s 
+[SCRAPE].. ◆ https://www.chd.lu/lu/dossier/8434                                                                   | ✓ | ⏱: 0.55s 
+[COMPLETE] ● https://www.chd.lu/lu/dossier/8434                                                                   | ✓ | ⏱: 7.96s 
+2026-10-26 07:55:55,241 - api - INFO - Memory usage: Start: 191.7421875 MB, End: 218.4921875 MB, Delta: 26.75 MB, Peak: 218.4921875 MB
+2026-10-26 07:55:55,462 - crawler_pool - INFO - ♨️  Using hot pool browser (sig=b76434f3, active=8)
+[FETCH]... ↓ http://truist.com                                                                                    | ✓ | ⏱: 7.75s 
+[SCRAPE].. ◆ http://truist.com                                                                                    | ✓ | ⏱: 0.43s 
+[COMPLETE] ● http://truist.com                                                                                    | ✓ | ⏱: 8.20s 
+2026-10-26 07:55:55,930 - api - INFO - Memory usage: Start: 191.7421875 MB, End: 219.80859375 MB, Delta: 28.06640625 MB, Peak: 219.80859375 MB
+2026-10-26 07:55:56,037 - crawler_pool - INFO - ♨️  Using hot pool browser (sig=b76434f3, active=8)
+[FETCH]... ↓ https://www.accuranker.com/blog/how-to-build-links-that-will-actually-improve-your-seo/              | ✓ | ⏱: 6.50s 
+[SCRAPE].. ◆ https://www.accuranker.com/blog/how-to-build-links-that-will-actually-improve-your-seo/              | ✓ | ⏱: 0.08s 
+[COMPLETE] ● https://www.accuranker.com/blog/how-to-build-links-that-will-actually-improve-your-seo/              | ✓ | ⏱: 6.60s 
+2026-10-26 07:55:56,147 - api - INFO - Memory usage: Start: 192.3203125 MB, End: 220.81640625 MB, Delta: 28.49609375 MB, Peak: 220.81640625 MB
+2026-10-26 07:55:56,474 - crawler_pool - INFO - ♨️  Using hot pool browser (sig=b76434f3, active=8)
+[FETCH]... ↓ https://torres.maderausd.org/venue/madera-south-high-school/                                         | ✓ | ⏱: 6.47s 
+[SCRAPE].. ◆ https://torres.maderausd.org/venue/madera-south-high-school/                                         | ✓ | ⏱: 0.08s 
+[COMPLETE] ● https://torres.maderausd.org/venue/madera-south-high-school/                                         | ✓ | ⏱: 6.56s 
+2026-10-26 07:55:56,831 - api - INFO - Memory usage: Start: 192.3203125 MB, End: 221.890625 MB, Delta: 29.5703125 MB, Peak: 221.890625 MB
+[FETCH]... ↓ https://oregon.public.law/statutes/ors_323.175                                                       | ✓ | ⏱: 2.39s 
+[SCRAPE].. ◆ https://oregon.public.law/statutes/ors_323.175                                                       | ✓ | ⏱: 0.25s 
+[COMPLETE] ● https://oregon.public.law/statutes/ors_323.175                                                       | ✓ | ⏱: 2.65s 
+2026-10-26 07:55:57,125 - api - INFO - Memory usage: Start: 217.3671875 MB, End: 221.890625 MB, Delta: 4.5234375 MB, Peak: 221.890625 MB
+2026-10-26 07:55:57,228 - crawler_pool - INFO - ♨️  Using hot pool browser (sig=b76434f3, active=7)
+2026-10-26 07:55:57,360 - crawler_pool - INFO - ♨️  Using hot pool browser (sig=b76434f3, active=8)
+[FETCH]... ↓ https://dev.mysql.com/doc/workbench/en/wb-admin-export-import-management.html                        | ✓ | ⏱: 2.32s 
+[SCRAPE].. ◆ https://dev.mysql.com/doc/workbench/en/wb-admin-export-import-management.html                        | ✓ | ⏱: 0.12s 
+[COMPLETE] ● https://dev.mysql.com/doc/workbench/en/wb-admin-export-import-management.html                        | ✓ | ⏱: 2.45s 
+2026-10-26 07:55:57,917 - api - INFO - Memory usage: Start: 218.4921875 MB, End: 221.8984375 MB, Delta: 3.40625 MB, Peak: 221.8984375 MB
+2026-10-26 07:55:58,074 - crawler_pool - INFO - ♨️  Using hot pool browser (sig=b76434f3, active=8)
+[FETCH]... ↓ https://biospace.com/press-releases                                                                  | ✓ | ⏱: 2.06s 
+[SCRAPE].. ◆ https://biospace.com/press-releases                                                                  | ✓ | ⏱: 0.19s 
+[COMPLETE] ● https://biospace.com/press-releases                                                                  | ✓ | ⏱: 2.26s 
+2026-10-26 07:55:58,302 - api - INFO - Memory usage: Start: 219.80859375 MB, End: 221.8984375 MB, Delta: 2.08984375 MB, Peak: 221.8984375 MB
+2026-10-26 07:55:58,574 - crawler_pool - INFO - ♨️  Using hot pool browser (sig=b76434f3, active=8)
+[FETCH]... ↓ https://ccg.ai                                                                                       | ✓ | ⏱: 4.44s 
+[SCRAPE].. ◆ https://ccg.ai                                                                                       | ✓ | ⏱: 0.09s 
+[COMPLETE] ● https://ccg.ai                                                                                       | ✓ | ⏱: 4.56s 
+2026-10-26 07:55:58,810 - api - INFO - Memory usage: Start: 215.609375 MB, End: 221.8984375 MB, Delta: 6.2890625 MB, Peak: 221.8984375 MB
+2026-10-26 07:55:58,929 - crawler_pool - INFO - ♨️  Using hot pool browser (sig=b76434f3, active=8)
+[FETCH]... ↓ https://manchesterbmhstudents.wordpress.com/2023/06/15/programming-for-biologists/                   | ✓ | ⏱: 1.85s 
+[SCRAPE].. ◆ https://manchesterbmhstudents.wordpress.com/2023/06/15/programming-for-biologists/                   | ✓ | ⏱: 0.11s 
+[COMPLETE] ● https://manchesterbmhstudents.wordpress.com/2023/06/15/programming-for-biologists/                   | ✓ | ⏱: 1.98s 
+2026-10-26 07:55:59,337 - api - INFO - Memory usage: Start: 221.8984375 MB, End: 221.8984375 MB, Delta: 0.0 MB, Peak: 221.8984375 MB
+[FETCH]... ↓ https://www.brightdentalhospital.com/about-us/                                                       | ✓ | ⏱: 10.39s 
+[SCRAPE].. ◆ https://www.brightdentalhospital.com/about-us/                                                       | ✓ | ⏱: 0.10s 
+[COMPLETE] ● https://www.brightdentalhospital.com/about-us/                                                       | ✓ | ⏱: 10.50s 
+2026-10-26 07:56:00,589 - api - INFO - Memory usage: Start: 192.3203125 MB, End: 221.8984375 MB, Delta: 29.578125 MB, Peak: 221.8984375 MB
+[FETCH]... ↓ http://kylas.io/features/integrations/integration-go2markets                                         | ✓ | ⏱: 3.44s 
+[SCRAPE].. ◆ http://kylas.io/features/integrations/integration-go2markets                                         | ✓ | ⏱: 0.15s 
+[COMPLETE] ● http://kylas.io/features/integrations/integration-go2markets                                         | ✓ | ⏱: 3.60s 
+2026-10-26 07:56:00,829 - api - INFO - Memory usage: Start: 221.890625 MB, End: 221.8984375 MB, Delta: 0.0078125 MB, Peak: 221.8984375 MB
+[FETCH]... ↓ https://www.elder.org/our-locations/south-east/hampshire/emsworth                                    | ✓ | ⏱: 2.99s 
+[SCRAPE].. ◆ https://www.elder.org/our-locations/south-east/hampshire/emsworth                                    | ✓ | ⏱: 0.23s 
+[COMPLETE] ● https://www.elder.org/our-locations/south-east/hampshire/emsworth                                    | ✓ | ⏱: 3.25s 
+2026-10-26 07:56:01,327 - api - INFO - Memory usage: Start: 221.8984375 MB, End: 221.8984375 MB, Delta: 0.0 MB, Peak: 221.8984375 MB
+[FETCH]... ↓ https://faq.zazume.com/hc/es/sections/12747571388316-Pagos                                           | ✓ | ⏱: 2.64s 
+[SCRAPE].. ◆ https://faq.zazume.com/hc/es/sections/12747571388316-Pagos                                           | ✓ | ⏱: 0.02s 
+[COMPLETE] ● https://faq.zazume.com/hc/es/sections/12747571388316-Pagos                                           | ✓ | ⏱: 2.67s 
+2026-10-26 07:56:01,600 - api - INFO - Memory usage: Start: 221.8984375 MB, End: 221.8984375 MB, Delta: 0.0 MB, Peak: 221.8984375 MB
+[FETCH]... ↓ https://www.vtc.edu.hk/home/sc/about-us/governance-structure/training-boards.html                    | ✓ | ⏱: 5.33s 
+[SCRAPE].. ◆ https://www.vtc.edu.hk/home/sc/about-us/governance-structure/training-boards.html                    | ✓ | ⏱: 0.13s 
+[COMPLETE] ● https://www.vtc.edu.hk/home/sc/about-us/governance-structure/training-boards.html                    | ✓ | ⏱: 5.47s 
+2026-10-26 07:56:01,947 - api - INFO - Memory usage: Start: 220.81640625 MB, End: 221.8984375 MB, Delta: 1.08203125 MB, Peak: 221.8984375 MB
+[FETCH]... ↓ https://item.rakuten.co.jp/hakuraishop/n-30a19l-sp/                                                  | ✓ | ⏱: 5.01s 
+[SCRAPE].. ◆ https://item.rakuten.co.jp/hakuraishop/n-30a19l-sp/                                                  | ✓ | ⏱: 0.46s 
+[COMPLETE] ● https://item.rakuten.co.jp/hakuraishop/n-30a19l-sp/                                                  | ✓ | ⏱: 5.49s 
+2026-10-26 07:56:04,067 - api - INFO - Memory usage: Start: 221.8984375 MB, End: 221.8984375 MB, Delta: 0.0 MB, Peak: 221.8984375 MB
+[ANTIBOT]. ℹ https://www.fdxsme.com/...140de2a075b2dd2e5b0148e  | Error: Proxy direct failed: Failed on navigating ACS-GOTO:
+Page.goto: net::ERR_TIMED_OUT at https://www.fdxsme.com/newsdetails.html?id=7e899459e140de2a075b2dd2e5b0148e
+Call log:
+  - navigating to "https://www.fdxsme.com/newsdetails.html?id=7e899459e140de2a075b2dd2e5b0148e", waiting until "domcontentloaded"
+ 
+[ERROR]... × https://www.fdxsme.com/...140de2a075b2dd2e5b0148e  | Error: Unexpected error in _crawl_web at line 779 in _crawl_web 
+(../usr/local/lib/python3.12/site-packages/crawl4ai/async_crawler_strategy.py):
+Error: Failed on navigating ACS-GOTO:
+Page.goto: net::ERR_TIMED_OUT at https://www.fdxsme.com/newsdetails.html?id=7e899459e140de2a075b2dd2e5b0148e
+Call log:
+  - navigating to "https://www.fdxsme.com/newsdetails.html?id=7e899459e140de2a075b2dd2e5b0148e", waiting until "domcontentloaded"
+
+
+Code context:
+ 774                                   tag="GOTO",
+ 775                                   params={"url": url},
+ 776                               )
+ 777                               response = None
+ 778                           else:
+ 779 →                             raise RuntimeError(f"Failed on navigating ACS-GOTO:\n{str(e)}")
+ 780   
+ 781                       # ──────────────────────────────────────────────────────────────
+ 782                       # Walk the redirect chain.  Playwright returns only the last
+ 783                       # hop, so we trace the `request.redirected_from` links until the
+ 784                       # first response that differs from the final one and surface its 
+2026-10-26 07:56:19,138 - api - INFO - Memory usage: Start: 192.3203125 MB, End: 221.8984375 MB, Delta: 29.578125 MB, Peak: 221.8984375 MB

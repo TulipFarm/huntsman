@@ -1,0 +1,18 @@
+[project]
+name = "huntsman-scrape-dataset-v1"
+version = "0.1.0"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+  "duckdb",
+  "playwright",
+  "httpx[http2]",
+  "fast-langdetect",
+  "tldextract",
+  "pyyaml",
+  "pypdf",
+  "python-docx",
+  "python-pptx",
+  "openpyxl",
+  "selectolax",
+  "charset-normalizer",
+]
