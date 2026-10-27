@@ -181,12 +181,24 @@ docker build --target test .                               # full test suite wit
 
 ### Releases
 
-Pushing a `vX.Y.Z` tag runs the Docker test suite, then publishes `ghcr.io/tulipfarm/huntsman` for `linux/amd64` and
-`linux/arm64` with tags `X.Y.Z`, `X.Y` and `latest`, a provenance attestation and an SBOM.
+Maintainers release from their own machine; the build runs on GitHub Actions. You need the
+[GitHub CLI](https://cli.github.com) and, for a preview of the version and notes, [git-cliff](https://git-cliff.org).
 
 ```sh
-git tag v0.1.0 && git push origin v0.1.0
+make release              # version from the commit messages: feat → minor (before 1.0), fix → patch
+make release BUMP=minor   # or patch, major, or an exact version such as 1.0.0
 ```
+
+The command checks that CI passed on `main`, shows the changes and next version, and asks before it starts the
+[Release workflow](.github/workflows/release.yml). That workflow:
+
+1. Writes [CHANGELOG.md](CHANGELOG.md) and commits it to `main`, then tags `vX.Y.Z`.
+2. Runs the Docker test suite.
+3. Publishes `ghcr.io/tulipfarm/huntsman` for `linux/amd64` and `linux/arm64`, tagged `X.Y.Z`, `X.Y` and `latest`,
+   with a provenance attestation and an SBOM.
+4. Pushes the commit and tag, and creates the GitHub release.
+
+The script then watches the run until it finishes.
 
 ## Contributing
 
