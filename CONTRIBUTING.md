@@ -1,7 +1,8 @@
 # Contributing
 
 Thanks for helping. Issues and pull requests are welcome at
-[github.com/tulipfarm/huntsman](https://github.com/tulipfarm/huntsman).
+[github.com/TulipFarm/huntsman](https://github.com/TulipFarm/huntsman). Everyone taking part follows the
+[Code of Conduct](CODE_OF_CONDUCT.md); report security issues as described in [SECURITY.md](SECURITY.md).
 
 ## Before you open a pull request
 

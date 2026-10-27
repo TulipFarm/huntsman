@@ -1,0 +1,39 @@
+name: Bug report
+description: Something is broken or a page converts badly
+labels: [bug]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: What you did, what you expected and what you got instead.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      description: The request you sent (URL and options) and, if useful, the response.
+      render: sh
+      placeholder: |
+        curl -s localhost:8080/v1/scrape -H 'Content-Type: application/json' -d '{"url":"https://example.com"}'
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: Image tag or digest, or the commit you built from.
+      placeholder: ghcr.io/tulipfarm/huntsman:0.1.0
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: How you run Huntsman (Docker, compose, binary), CPU architecture, and any HUNTSMAN_* settings you changed.
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs
+      render: text

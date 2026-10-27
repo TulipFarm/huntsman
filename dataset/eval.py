@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Run a scrape-content dataset (Firecrawl's v1 by default, or huntsman-scrape-dataset-v1 via --dataset) against a self-hosted scrape API and score it.
 
-Scoring is copied from Firecrawl's scrape-evals (MIT): https://github.com/firecrawl/scrape-evals
+Scoring is copied from Firecrawl's scrape-evals (MIT, Copyright (c) 2025 Firecrawl); see NOTICE.
 Usage: eval.py --engine huntsman --endpoint http://127.0.0.1:8080 --out results/dataset/huntsman
        eval.py ... --dataset dataset/huntsman-v1/data/huntsman-scrape-dataset-v1.csv --split test
 Datasets with dimension columns (huntsman-scrape-dataset-v1) also get out/breakdown.json: the same metrics per dimension value.

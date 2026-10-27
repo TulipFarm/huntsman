@@ -42,7 +42,7 @@ jobs:
           labels: |
             org.opencontainers.image.title=Huntsman
             org.opencontainers.image.licenses=Apache-2.0
-            org.opencontainers.image.url=https://huntsman.tulipfarm.ai
+            org.opencontainers.image.url=https://github.com/TulipFarm/huntsman
       - id: build
         name: Runtime image
         uses: docker/build-push-action@v6

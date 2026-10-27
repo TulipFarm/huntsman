@@ -1,6 +1,6 @@
 package main
 
-// Scoring follows Firecrawl's scrape-evals (MIT): https://github.com/firecrawl/scrape-evals,
+// Scoring follows Firecrawl's scrape-evals (MIT, Copyright (c) 2025 Firecrawl),
 // and matches dataset/eval.py.
 
 import (
