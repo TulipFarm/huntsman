@@ -2,16 +2,19 @@ ARG LIGHTPANDA_IMAGE=lightpanda/browser@sha256:5d1d724c476957d8c2f8393a51fd08947
 FROM ${LIGHTPANDA_IMAGE} AS browser
 # Optional: --build-context gomodcache="$(go env GOMODCACHE)" reuses host modules offline.
 FROM scratch AS gomodcache
-FROM golang:1.27-trixie AS build
+# Cross-compiles on the build machine, so multi-platform images need no emulation for Go.
+FROM --platform=$BUILDPLATFORM golang:1.27-trixie AS build
+ARG TARGETOS TARGETARCH
 WORKDIR /src
 COPY go.mod go.sum ./
 RUN --mount=type=bind,from=gomodcache,target=/gomodcache \
     if [ -d /gomodcache/cache/download ]; then export GOPROXY=file:///gomodcache/cache/download,https://proxy.golang.org,direct; fi; \
     go mod download
 COPY . .
-RUN CGO_ENABLED=0 go build -trimpath -ldflags="-s -w" -o /out/huntsman ./src/cmd/huntsman \
-    && CGO_ENABLED=0 go build -trimpath -ldflags="-s -w" -o /out/bench ./benchmark/fixture/bench \
-    && CGO_ENABLED=0 go build -trimpath -ldflags="-s -w" -o /out/fixture ./benchmark/fixture/server
+RUN export CGO_ENABLED=0 GOOS=$TARGETOS GOARCH=$TARGETARCH \
+    && go build -trimpath -ldflags="-s -w" -o /out/huntsman ./src/cmd/huntsman \
+    && go build -trimpath -ldflags="-s -w" -o /out/bench ./benchmark/fixture/bench \
+    && go build -trimpath -ldflags="-s -w" -o /out/fixture ./benchmark/fixture/server
 
 FROM build AS test
 COPY --from=browser /bin/lightpanda /usr/local/bin/lightpanda

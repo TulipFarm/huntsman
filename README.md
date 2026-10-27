@@ -8,6 +8,15 @@ Website: [huntsman.tulipfarm.ai](https://huntsman.tulipfarm.ai)
 
 ## Quick start
 
+Run the published image (`linux/amd64` and `linux/arm64`):
+
+```sh
+docker run -d -p 127.0.0.1:8080:8080 -v huntsman-data:/data ghcr.io/tulipfarm/huntsman:latest
+curl -s localhost:8080/v1/scrape -H 'Content-Type: application/json' -d '{"url":"https://example.com"}'
+```
+
+Pin a version such as `ghcr.io/tulipfarm/huntsman:0.1.0`, or its digest, in production. To build from source instead:
+
 ```sh
 docker compose up -d --build
 curl -s localhost:8080/v1/scrape -H 'Content-Type: application/json' -d '{"url":"https://example.com"}'
@@ -63,6 +72,15 @@ go build ./...
 go test ./...                                              # browser tests are skipped without a browser
 HUNTSMAN_TEST_BROWSER=/path/to/lightpanda go test ./...
 docker build --target test .                               # full test suite with Lightpanda inside Docker
+```
+
+## Releases
+
+Pushing a `vX.Y.Z` tag runs the Docker test suite, then publishes `ghcr.io/tulipfarm/huntsman` for `linux/amd64` and
+`linux/arm64` with tags `X.Y.Z`, `X.Y` and `latest`, a provenance attestation and an SBOM.
+
+```sh
+git tag v0.1.0 && git push origin v0.1.0
 ```
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) to contribute and [SECURITY.md](SECURITY.md) to report a vulnerability.
