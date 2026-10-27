@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"iter"
 	"log/slog"
 	"net"
 	"net/http"
@@ -25,8 +26,8 @@ import (
 	"github.com/chromedp/cdproto/cdp"
 	"github.com/chromedp/cdproto/network"
 	"github.com/chromedp/cdproto/page"
-	"github.com/chromedp/cdproto/runtime"
 	"github.com/chromedp/chromedp"
+	"github.com/chromedp/chromedp/remote"
 )
 
 //go:embed tracker.js
@@ -159,14 +160,14 @@ func (b *Browser) start() error {
 }
 
 func open(parent context.Context, address string) session {
-	alloc, closeAlloc := chromedp.NewRemoteAllocator(parent, address, chromedp.NoModifyURL)
+	alloc, closeAlloc := remote.NewAllocator(parent, address, remote.NoModifyURL)
 	tab, closeTab := chromedp.NewContext(alloc)
 	cancel := func() { closeTab(); closeAlloc() }
 	timeout := time.AfterFunc(15*time.Second, cancel)
-	err := chromedp.Run(tab, network.Enable(), chromedp.ActionFunc(func(ctx context.Context) error {
-		_, err := page.AddScriptToEvaluateOnNewDocument(trackerJS).Do(ctx)
-		return err
-	}))
+	_, err := chromedp.Call(tab, network.Enable, network.EnableParams{})
+	if err == nil {
+		_, err = chromedp.Call(tab, page.AddScriptToEvaluateOnNewDocument, page.AddScriptToEvaluateOnNewDocumentParams{Source: trackerJS})
+	}
 	timeout.Stop()
 	if err != nil {
 		cancel()
@@ -267,35 +268,46 @@ func (b *Browser) render(ctx context.Context, r Request) (_ *Document, err error
 	var mainFrame cdp.FrameID
 	var mainDoc docInfo
 	pending := map[network.RequestID]bool{}
+	// Each event type arrives on its own stream, so a request can finish before it is seen to start.
+	finished := map[network.RequestID]bool{}
 	lastNetwork := time.Now()
-	chromedp.ListenTarget(tab, func(ev any) {
+	started := func(id network.RequestID, kind network.ResourceType) {
+		if kind != network.ResourceTypeWebSocket && kind != network.ResourceTypeEventSource {
+			mu.Lock()
+			defer mu.Unlock()
+			if !finished[id] {
+				pending[id] = true
+			}
+			lastNetwork = time.Now()
+		}
+	}
+	ended := func(id network.RequestID) {
 		mu.Lock()
 		defer mu.Unlock()
-		switch e := ev.(type) {
-		case *network.EventRequestWillBeSent:
-			if e.Type != network.ResourceTypeWebSocket && e.Type != network.ResourceTypeEventSource {
-				pending[e.RequestID] = true
-				lastNetwork = time.Now()
-			}
-		case *network.EventLoadingFinished:
-			delete(pending, e.RequestID)
-			lastNetwork = time.Now()
-		case *network.EventLoadingFailed:
-			delete(pending, e.RequestID)
-			lastNetwork = time.Now()
-		case *network.EventResponseReceived:
-			if e.Type == network.ResourceTypeDocument {
-				info := docInfo{int(e.Response.Status), mimeType(e.Response)}
-				docs[e.Response.URL] = info
-				if mainFrame == "" {
-					mainFrame = e.FrameID
-				}
-				if e.FrameID == mainFrame {
-					mainDoc = info
-				}
-			}
+		delete(pending, id)
+		finished[id] = true
+		lastNetwork = time.Now()
+	}
+	responded := func(e network.EventResponseReceived) {
+		if e.Type != network.ResourceTypeDocument || e.Response == nil {
+			return
 		}
-	})
+		mu.Lock()
+		defer mu.Unlock()
+		info := docInfo{int(e.Response.Status), mimeType(e.Response)}
+		docs[e.Response.URL] = info
+		if mainFrame == "" {
+			mainFrame = e.FrameID
+		}
+		if e.FrameID == mainFrame {
+			mainDoc = info
+		}
+	}
+	// Subscribe before navigating; the subscriptions buffer events until the goroutines read them.
+	listen(chromedp.Events(tab, network.RequestWillBeSent), func(e network.EventRequestWillBeSent) { started(e.RequestID, e.Type) })
+	listen(chromedp.Events(tab, network.LoadingFinished), func(e network.EventLoadingFinished) { ended(e.RequestID) })
+	listen(chromedp.Events(tab, network.LoadingFailed), func(e network.EventLoadingFailed) { ended(e.RequestID) })
+	listen(chromedp.Events(tab, network.ResponseReceived), responded)
 	// The page URL can differ from the response URL (for example after history.replaceState), so fall back to the main frame.
 	document := func(href string) docInfo {
 		mu.Lock()
@@ -305,14 +317,14 @@ func (b *Browser) render(ctx context.Context, r Request) (_ *Document, err error
 		}
 		return mainDoc
 	}
-	err = chromedp.Run(tab, chromedp.Navigate(r.URL))
+	err = chromedp.Do(tab, chromedp.Navigate(r.URL))
 	if err != nil && strings.HasSuffix(err.Error(), "Shutdown") {
 		// A script navigated away while the page loaded; Lightpanda reports that as Shutdown, so follow it like a redirect.
 		err = waitForDocument(tab)
 	}
 	var href string
 	if err == nil {
-		err = chromedp.Run(tab, chromedp.Location(&href))
+		href, err = chromedp.Run(tab, chromedp.Location())
 	}
 	if err != nil {
 		return nil, fmt.Errorf("navigate: %w", err)
@@ -336,7 +348,6 @@ func (b *Browser) render(ctx context.Context, r Request) (_ *Document, err error
 		// Pages the tracker could not enter (for example plain text) fall back to a fixed quiet period.
 		ready := fmt.Sprintf(`window.__huntsman ? window.__huntsman.ready(%d, %s) : new Promise(r => setTimeout(() => r("untracked"), %d))`,
 			readySettle.Milliseconds(), selector, b.IdleTime.Milliseconds())
-		awaitPromise := func(p *runtime.EvaluateParams) *runtime.EvaluateParams { return p.WithAwaitPromise(true) }
 		settle := tab
 		if r.WaitSelector == "" {
 			var cancelSettle context.CancelFunc
@@ -346,7 +357,7 @@ func (b *Browser) render(ctx context.Context, r Request) (_ *Document, err error
 		var idleSince time.Time
 		for {
 			var reason string
-			if err = chromedp.Run(settle, chromedp.Evaluate(ready, &reason, awaitPromise)); err != nil {
+			if reason, err = chromedp.Run(settle, chromedp.Evaluate[string](ready, chromedp.EvalAwaitPromise)); err != nil {
 				if ctx.Err() == nil && settle.Err() != nil {
 					break
 				}
@@ -379,12 +390,6 @@ func (b *Browser) render(ctx context.Context, r Request) (_ *Document, err error
 			}
 		}
 	}
-	var pageData struct {
-		HTML  string   `json:"html"`
-		Title string   `json:"title"`
-		URL   string   `json:"url"`
-		Links []string `json:"links"`
-	}
 	main := r.OnlyMainContent != nil && *r.OnlyMainContent
 	exclude, _ := json.Marshal(map[bool]string{true: strings.Join(nonMainSelectors, ","), false: ""}[main])
 	keep, _ := json.Marshal(strings.Join(keepMainSelectors, ","))
@@ -398,7 +403,8 @@ if (exclude) node.querySelectorAll(exclude).forEach(n => { if (!n.querySelector(
 const links = Array.from(document.querySelectorAll('a[href]')).map(a => a.href).filter(u => /^https?:\/\//.test(u));
 return {html: node.outerHTML, title: document.title, url: location.href, links: links};
 })()`, exclude, keep)
-	if err = chromedp.Run(tab, chromedp.Evaluate(script, &pageData)); err != nil {
+	pageData, err := chromedp.Run(tab, chromedp.Evaluate[extraction](script))
+	if err != nil {
 		return nil, fmt.Errorf("extract HTML: %w", err)
 	}
 	if len(pageData.HTML) > 16<<20 {
@@ -448,8 +454,7 @@ func newDocument(md string, hrefs []string, title, source string, status int, en
 // waitForDocument waits until the tab's current document has finished loading.
 func waitForDocument(tab context.Context) error {
 	for {
-		var state string
-		if chromedp.Run(tab, chromedp.Evaluate(`document.readyState`, &state)) == nil && state == "complete" {
+		if state, err := chromedp.Run(tab, chromedp.Evaluate[string](`document.readyState`)); err == nil && state == "complete" {
 			return nil
 		}
 		select {
@@ -458,6 +463,25 @@ func waitForDocument(tab context.Context) error {
 		case <-time.After(20 * time.Millisecond):
 		}
 	}
+}
+
+type extraction struct {
+	HTML  string   `json:"html"`
+	Title string   `json:"title"`
+	URL   string   `json:"url"`
+	Links []string `json:"links"`
+}
+
+// listen hands each event to handle until the stream ends with its context.
+func listen[E any](events iter.Seq2[E, error], handle func(E)) {
+	go func() {
+		for e, err := range events {
+			if err != nil {
+				return
+			}
+			handle(e)
+		}
+	}()
 }
 
 // mimeType reads Content-Type because Lightpanda leaves Response.MimeType empty.
