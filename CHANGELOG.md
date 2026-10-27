@@ -3,6 +3,12 @@
 All notable changes to Huntsman. Versions follow [Semantic Versioning](https://semver.org), and each release is
 published as `ghcr.io/tulipfarm/huntsman:<version>`.
 
+## [0.1.2](https://github.com/TulipFarm/huntsman/releases/tag/v0.1.2) - 2026-10-27
+
+### Dependencies
+
+- Upgrade Go modules, chromedp 0.21 and GitHub Actions ([#6](https://github.com/TulipFarm/huntsman/pull/6))
+
 ## [0.1.1](https://github.com/TulipFarm/huntsman/releases/tag/v0.1.1) - 2026-10-27
 
 ### Build and CI
