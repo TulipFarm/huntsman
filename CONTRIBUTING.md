@@ -8,6 +8,9 @@ Thanks for helping. Issues and pull requests are welcome at
 
 - Open an issue first for anything bigger than a small fix, so we can agree on the approach.
 - Keep changes focused; one topic per pull request.
+- Title pull requests as [Conventional Commits](https://www.conventionalcommits.org), such as
+  `fix: keep tables in Markdown output`. Squash-merged titles become the [changelog](CHANGELOG.md) and decide the
+  next version.
 - Run `gofmt -l .`, `go vet ./...` and `go test ./...`. For changes that touch rendering, also run
   `docker build --target test .`.
 - Add or update tests for behaviour you change.
