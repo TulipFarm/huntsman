@@ -1,0 +1,130 @@
+---
+import { Code } from 'astro:components';
+
+interface Props {
+  code: string;
+  label: string;
+  lang?: 'bash' | 'json';
+}
+const { code, label, lang = 'bash' } = Astro.props;
+---
+
+<figure class="code">
+  <figcaption>
+    <span>{label}</span>
+    <button type="button" class="copy" data-copy={code} hidden>
+    <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+    <span data-label>Copy</span>
+    </button>
+  </figcaption>
+  <Code
+    code={code}
+    lang={lang}
+    themes={{ light: 'github-light', dark: 'github-dark' }}
+    defaultColor={false}
+  />
+</figure>
+
+<style>
+  .code :global(.astro-code) {
+    background: transparent !important;
+  }
+
+  .code :global(.astro-code span) {
+    color: var(--shiki-light);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .code :global(.astro-code span) {
+      color: var(--shiki-dark);
+    }
+  }
+
+  .code {
+    margin: 0;
+    min-width: 0;
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+  }
+
+  figcaption {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+    min-height: 40px;
+    padding: var(--space-1) var(--space-1) var(--space-1) var(--space-4);
+    border-bottom: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: 0.8125rem;
+  }
+
+  .code :global(pre) {
+    margin: 0;
+    padding: var(--space-4);
+    overflow-x: auto;
+    line-height: 1.6;
+    color: var(--text);
+  }
+
+  .copy {
+    position: relative;
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    height: 32px;
+    padding: 0 var(--space-3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--surface);
+    color: var(--text-muted);
+    font: 500 0.8125rem/1 var(--font-body);
+    cursor: pointer;
+    transition: background-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out),
+      transform var(--dur-fast) var(--ease-out);
+  }
+
+  .copy::after {
+    content: '';
+    position: absolute;
+    inset: -6px;
+  }
+
+  .copy[hidden] {
+    display: none;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .copy:hover {
+      background: var(--surface-2);
+      color: var(--text);
+    }
+  }
+
+  .copy:active {
+    transform: scale(0.97);
+  }
+
+  .copy[data-done] {
+    color: var(--accent);
+  }
+</style>
+
+<script>
+  for (const button of document.querySelectorAll<HTMLButtonElement>('button[data-copy]')) {
+    if (!navigator.clipboard) continue;
+    button.hidden = false;
+    const label = button.querySelector('[data-label]')!;
+    button.addEventListener('click', async () => {
+      await navigator.clipboard.writeText(button.dataset.copy ?? '');
+      label.textContent = 'Copied';
+      button.dataset.done = '';
+      setTimeout(() => {
+        label.textContent = 'Copy';
+        delete button.dataset.done;
+      }, 1600);
+    });
+  }
+</script>

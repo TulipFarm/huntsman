@@ -1,0 +1,522 @@
+---
+const examples = [
+  { label: 'Huntsman spider on Wikipedia', url: 'https://en.wikipedia.org/wiki/Huntsman_spider' },
+  { label: 'Hacker News', url: 'https://news.ycombinator.com' },
+  { label: 'example.com', url: 'https://example.com' },
+];
+---
+
+<section class="live" aria-labelledby="live-title">
+  <h2 id="live-title">Try it on any page</h2>
+
+  <form class="ask" action="/api/scrape" method="post" data-live>
+    <label for="live-url" class="visually-hidden">Page address</label>
+    <input
+      id="live-url"
+      name="url"
+      type="text"
+      inputmode="url"
+      autocomplete="url"
+      autocapitalize="off"
+      spellcheck="false"
+      placeholder="https://"
+      maxlength="2048"
+      required
+    />
+    <button type="submit" class="go">
+      <span data-go-label>Scrape</span>
+    </button>
+  </form>
+
+  <div class="examples" data-examples hidden>
+    <span>Or try</span>
+    {
+      examples.map((e) => (
+        <button type="button" data-url={e.url}>
+          {e.label}
+        </button>
+      ))
+    }
+  </div>
+
+  <div class="sheet" data-state="idle">
+    <div class="bar">
+      <p class="status" role="status" aria-live="polite" data-status>Markdown appears here</p>
+      <span class="timer" aria-hidden="true" data-timer></span>
+      <button type="button" class="copy" data-copy hidden>Copy</button>
+    </div>
+    <div class="out" data-out tabindex="0" aria-label="Scraped Markdown">
+      <div class="idle" data-idle>
+        <p>
+          Paste a link and Huntsman fetches it live, renders any JavaScript, and strips ads, trackers and cookie
+          banners. You get back just the page’s content as Markdown.
+        </p>
+      </div>
+      <pre class="md" data-md hidden></pre>
+    </div>
+  </div>
+</section>
+
+<script>
+  type Result = {
+    url: string;
+    ms: number;
+    cached: boolean;
+    title: string;
+    statusCode: number | null;
+    links: number;
+    chars: number;
+    truncated: boolean;
+    markdown: string;
+    error?: string;
+  };
+
+  const form = document.querySelector<HTMLFormElement>('[data-live]')!;
+  const input = form.querySelector('input')!;
+  const go = form.querySelector<HTMLButtonElement>('.go')!;
+  const goLabel = form.querySelector<HTMLElement>('[data-go-label]')!;
+  const sheet = document.querySelector<HTMLElement>('.sheet')!;
+  const status = sheet.querySelector<HTMLElement>('[data-status]')!;
+  const timer = sheet.querySelector<HTMLElement>('[data-timer]')!;
+  const copy = sheet.querySelector<HTMLButtonElement>('[data-copy]')!;
+  const idle = sheet.querySelector<HTMLElement>('[data-idle]')!;
+  const md = sheet.querySelector<HTMLElement>('[data-md]')!;
+  const examples = document.querySelector<HTMLElement>('[data-examples]')!;
+
+  examples.hidden = false;
+  let controller: AbortController | null = null;
+  let tick = 0;
+  let text = '';
+
+  const host = (u: string) => {
+    try {
+      return new URL(/^[a-z]+:\/\//i.test(u) ? u : `https://${u}`).hostname.replace(/^www\./, '');
+    } catch {
+      return u;
+    }
+  };
+
+  const number = new Intl.NumberFormat('en');
+
+  // Colors Markdown by line with text nodes only, so scraped content can never become HTML.
+  function paint(source: string) {
+    const frag = document.createDocumentFragment();
+    for (const line of source.split('\n')) {
+      const row = document.createElement('span');
+      row.className = /^#{1,6}\s/.test(line)
+        ? 'h'
+        : /^\s*([-*+]|\d+\.)\s/.test(line)
+          ? 'li'
+          : /^>/.test(line)
+            ? 'q'
+            : '';
+      let last = 0;
+      for (const m of line.matchAll(/\[([^\]]*)\]\(([^)]+)\)/g)) {
+        row.append(line.slice(last, m.index));
+        const link = document.createElement('span');
+        link.className = 'a';
+        link.append(`[${m[1]}]`);
+        const href = document.createElement('span');
+        href.className = 'u';
+        href.textContent = `(${m[2]})`;
+        link.append(href);
+        row.append(link);
+        last = m.index! + m[0].length;
+      }
+      row.append(line.slice(last), '\n');
+      frag.append(row);
+    }
+    md.replaceChildren(frag);
+  }
+
+  function setState(state: 'idle' | 'loading' | 'done' | 'error') {
+    sheet.dataset.state = state;
+    const busy = state === 'loading';
+    sheet.setAttribute('aria-busy', String(busy));
+    goLabel.textContent = busy ? 'Stop' : 'Scrape';
+    window.clearInterval(tick);
+    if (!busy) timer.textContent = '';
+  }
+
+  async function scrape(url: string) {
+    if (controller) {
+      controller.abort();
+      return;
+    }
+    controller = new AbortController();
+    const started = performance.now();
+    setState('loading');
+    status.textContent = `Scraping ${host(url)}…`;
+    copy.hidden = true;
+    tick = window.setInterval(() => {
+      timer.textContent = `${((performance.now() - started) / 1000).toFixed(1)} s`;
+    }, 100);
+
+    try {
+      const res = await fetch('/api/scrape', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ url }),
+        signal: controller.signal,
+      });
+      const data = (await res.json().catch(() => ({ error: 'Something went wrong. Try again.' }))) as Result;
+      if (!res.ok || data.error) throw new Error(data.error ?? 'Something went wrong. Try again.');
+
+      text = data.markdown;
+      const facts = [
+        data.statusCode ? `HTTP ${data.statusCode}` : null,
+        data.cached ? 'from cache' : `${number.format(data.ms)} ms`,
+        `${number.format(data.chars)} characters`,
+        `${number.format(data.links)} links`,
+      ].filter(Boolean);
+      setState('done');
+      const title = document.createElement('span');
+      title.className = 'title';
+      title.textContent = data.title || host(data.url);
+      const meta = document.createElement('span');
+      meta.className = 'facts';
+      meta.textContent = facts.join(' · ');
+      status.replaceChildren(title, meta);
+      idle.hidden = true;
+      md.hidden = false;
+      paint(data.truncated ? `${text}\n\n… cut off here; the API returns the full page.` : text || '(This page has no readable content.)');
+      sheet.querySelector('.out')!.scrollTop = 0;
+      copy.hidden = !navigator.clipboard || !text;
+    } catch (err) {
+      const aborted = err instanceof DOMException && err.name === 'AbortError';
+      setState(aborted ? 'idle' : 'error');
+      status.textContent = aborted ? 'Stopped.' : (err as Error).message;
+    } finally {
+      controller = null;
+    }
+  }
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (controller) {
+      controller.abort();
+      return;
+    }
+    if (input.value.trim()) scrape(input.value.trim());
+  });
+
+  examples.addEventListener('click', (e) => {
+    const button = (e.target as HTMLElement).closest<HTMLButtonElement>('button[data-url]');
+    if (!button || controller) return;
+    input.value = button.dataset.url!;
+    scrape(button.dataset.url!);
+  });
+
+  copy.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(text);
+      copy.textContent = 'Copied';
+    } catch {
+      copy.textContent = 'Couldn’t copy';
+    }
+    window.setTimeout(() => (copy.textContent = 'Copy'), 1600);
+  });
+
+</script>
+
+<style>
+  .live {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  h2 {
+    font-size: 1.0625rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 44px;
+  }
+
+  .ask {
+    display: flex;
+    gap: var(--space-2);
+    margin-top: var(--space-6);
+    padding: var(--space-1);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-md);
+    background: var(--surface);
+    transition: border-color var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out);
+  }
+
+  .ask:focus-within {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px color-mix(in oklch, var(--accent) 25%, transparent);
+  }
+
+  input {
+    flex: 1;
+    min-width: 0;
+    height: var(--control-h);
+    padding-inline: var(--space-3);
+    border: 0;
+    background: transparent;
+    color: var(--text);
+    font: 400 1rem var(--font-mono);
+  }
+
+  input:focus-visible {
+    outline: none;
+  }
+
+  input::placeholder {
+    color: var(--text-muted);
+  }
+
+  .go {
+    flex: none;
+    min-width: 96px;
+    height: var(--control-h);
+    padding-inline: var(--space-6);
+    border: 0;
+    border-radius: var(--radius-sm);
+    background: var(--accent);
+    color: var(--on-accent);
+    font: 600 0.9375rem var(--font-body);
+    cursor: pointer;
+    transition: background-color var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .go:hover {
+      background: var(--accent-hover);
+    }
+  }
+
+  .go:active {
+    background: var(--accent-press);
+    transform: scale(0.97);
+  }
+
+  .examples {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-1) var(--space-2);
+    margin-top: var(--space-3);
+    color: var(--text-muted);
+    font-size: 0.8125rem;
+  }
+
+  .examples[hidden] {
+    display: none;
+  }
+
+  .examples button {
+    min-height: 32px;
+    padding: 0 var(--space-3);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--text);
+    font: 500 0.8125rem var(--font-body);
+    cursor: pointer;
+    position: relative;
+    transition: border-color var(--dur-fast) var(--ease-out), background-color var(--dur-fast) var(--ease-out);
+  }
+
+  .examples button::after {
+    content: '';
+    position: absolute;
+    inset: -6px -2px;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .examples button:hover {
+      border-color: var(--border-strong);
+      background: var(--surface-2);
+    }
+  }
+
+  .examples button:active {
+    transform: scale(0.97);
+  }
+
+  .sheet {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+    margin-top: var(--space-4);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    background: var(--code-bg);
+    overflow: hidden;
+  }
+
+  .bar {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    min-height: 52px;
+    padding: var(--space-2) var(--space-2) var(--space-2) var(--space-4);
+    border-bottom: 1px solid var(--border);
+    font-size: 0.8125rem;
+  }
+
+  .status {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    color: var(--text-muted);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .status :global(.title),
+  .status :global(.facts) {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .status :global(.title) {
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  .status :global(.facts) {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+  }
+
+  [data-state='error'] .status {
+    color: var(--danger);
+    white-space: normal;
+  }
+
+  [data-state='loading'] .status::before {
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    margin-right: var(--space-2);
+    border-radius: 50%;
+    background: var(--accent);
+    animation: pulse 900ms ease-in-out infinite alternate;
+  }
+
+  .timer {
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .copy {
+    height: 32px;
+    padding: 0 var(--space-3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--surface);
+    color: var(--text-muted);
+    font: 500 0.8125rem var(--font-body);
+    cursor: pointer;
+    position: relative;
+  }
+
+  .copy::after {
+    content: '';
+    position: absolute;
+    inset: -6px;
+  }
+
+  .copy[hidden] {
+    display: none;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .copy:hover {
+      color: var(--text);
+    }
+  }
+
+  .out {
+    flex: 1;
+    min-height: 320px;
+    max-height: 460px;
+    overflow: auto;
+    overscroll-behavior: contain;
+  }
+
+  .out:focus-visible {
+    outline-offset: -2px;
+  }
+
+  .idle {
+    padding: var(--space-6) var(--space-4);
+    color: var(--text-muted);
+    font-size: 0.9375rem;
+    max-width: 52ch;
+  }
+
+  [data-state='loading'] .out {
+    opacity: 0.5;
+    transition: opacity var(--dur-fast) var(--ease-out);
+  }
+
+  .md {
+    margin: 0;
+    padding: var(--space-4);
+    color: var(--text);
+    font-size: 0.8125rem;
+    line-height: 1.7;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
+
+  .md[hidden] {
+    display: none;
+  }
+
+  .md :global(.h) {
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  .md :global(.li) {
+    color: var(--text);
+  }
+
+  .md :global(.q) {
+    color: var(--text-muted);
+    font-style: italic;
+  }
+
+  .md :global(.a) {
+    color: var(--link);
+  }
+
+  .md :global(.u) {
+    color: var(--text-muted);
+  }
+
+  @keyframes pulse {
+    from {
+      opacity: 0.3;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-state='loading'] .status::before {
+      animation: none;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .go {
+      min-width: 0;
+      padding-inline: var(--space-4);
+    }
+
+    .out {
+      min-height: 260px;
+      max-height: 60vh;
+    }
+  }
+</style>

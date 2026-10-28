@@ -1,0 +1,365 @@
+---
+import { machines, ratio } from '../data/benchmarks';
+
+const fmt = (n: number, digits = 1) => n.toFixed(digits);
+const defaultMachine = 'large';
+const repo = 'https://github.com/TulipFarm/huntsman';
+---
+
+<section class="board" id="benchmarks" aria-labelledby="bench-title">
+  <div class="head">
+    <h2 id="bench-title">Pages scraped at once</h2>
+    <fieldset class="switch">
+      <legend class="visually-hidden">Machine size</legend>
+      {
+        machines.map((m) => (
+          <label>
+            <input type="radio" name="machine" value={m.id} checked={m.id === defaultMachine} />
+            <span>{m.label}</span>
+          </label>
+        ))
+      }
+    </fieldset>
+  </div>
+
+  {
+    machines.map((m) => {
+      const top = Math.max(...m.results.map((r) => r.maxConcurrency ?? 0));
+      const conc = ratio(m, 'maxConcurrency');
+      const speed = ratio(m, 'pagesPerSecond');
+      return (
+        <div class="panel" data-machine={m.id}>
+          <p class="machine">
+            {m.vcpu} vCPU · {m.memoryGB} GB memory
+          </p>
+          <ol class="threads">
+            {m.results.map((r, i) => (
+              <li class={r.engine === 'Huntsman' ? 'ours' : undefined} style={`--i: ${i}`}>
+                <span class="name">{r.engine}</span>
+                {r.maxConcurrency != null ? (
+                  <>
+                    <span class="thread" aria-hidden="true">
+                      <span class="silk" style={`--w: ${(r.maxConcurrency / top).toFixed(4)}`}>
+                        <span class="knot" />
+                      </span>
+                    </span>
+                    <span class="value">
+                      {r.maxConcurrency}
+                      <span class="visually-hidden"> pages at once</span>
+                    </span>
+                    <span class="detail">
+                      {fmt(r.pagesPerSecond!, 2)} pages/s · {fmt(r.successRate!)}%<span class="wide"> scraped</span>
+                    </span>
+                  </>
+                ) : (
+                  <span class="note">{r.note}</span>
+                )}
+              </li>
+            ))}
+          </ol>
+          {conc && speed && (
+            <p class="summary">
+              <strong>{fmt(conc)}×</strong> the pages in flight of Firecrawl, and <strong>{fmt(speed)}×</strong> the
+              pages per second.
+            </p>
+          )}
+        </div>
+      );
+    })
+  }
+
+  <details class="method">
+    <summary>How we measured</summary>
+    <p>
+      1,000 random URLs from the test split of{' '}
+      <a href={`${repo}/tree/main/dataset/huntsman-v1`}>huntsman-scrape-dataset-v1</a>, scraped live on ARM cloud
+      machines with each engine self-hosted alone. A binary search found each engine’s exact limit: a level passes if
+      the engine doesn’t crash, success stays within 10 points of its best level, and the median page takes under 3×
+      as long as at 8 pages. Firecrawl ran in scrape-only mode on the small machine. One run per level;{' '}
+      <a href={`${repo}/blob/main/benchmark/README.md`}>methods and raw results</a>.
+    </p>
+  </details>
+</section>
+
+<style>
+  .board {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  .head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+  }
+
+  h2 {
+    font-size: 1.0625rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  .switch {
+    display: inline-flex;
+    margin: 0;
+    padding: 3px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+  }
+
+  .switch label {
+    position: relative;
+    display: grid;
+    place-items: center;
+    min-height: 36px;
+    padding-inline: var(--space-4);
+    border-radius: 999px;
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
+  }
+
+  /* Stretch the hit area to 44px without growing the pill. */
+  .switch label::after {
+    content: '';
+    position: absolute;
+    inset: -4px 0;
+  }
+
+  .switch input {
+    position: absolute;
+    inset: 0;
+    margin: 0;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .switch label:hover {
+      color: var(--text);
+    }
+  }
+
+  .switch label:has(input:checked) {
+    background: var(--text);
+    color: var(--bg);
+  }
+
+  .switch label:has(input:focus-visible) {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  .panel {
+    display: none;
+  }
+
+  .board:has(input[value='small']:checked) [data-machine='small'],
+  .board:has(input[value='medium']:checked) [data-machine='medium'],
+  .board:has(input[value='large']:checked) [data-machine='large'] {
+    display: block;
+  }
+
+  .machine {
+    margin-top: var(--space-6);
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+  }
+
+  .threads {
+    margin: var(--space-4) 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .threads li {
+    display: grid;
+    grid-template-columns: 6.5rem minmax(0, 1fr) auto;
+    grid-template-areas:
+      'name thread value'
+      '. detail value';
+    column-gap: var(--space-4);
+    align-items: center;
+    padding-block: var(--space-4);
+    border-top: 1px solid var(--border);
+  }
+
+  .name {
+    grid-area: name;
+    font-weight: 500;
+  }
+
+  .ours .name {
+    font-weight: 650;
+  }
+
+  .thread {
+    grid-area: thread;
+    position: relative;
+    height: 14px;
+    display: flex;
+    align-items: center;
+  }
+
+  .silk {
+    position: relative;
+    display: block;
+    width: calc(var(--w) * 100%);
+    height: 2px;
+    border-radius: 1px;
+    background: var(--bar-other);
+    transform-origin: left center;
+    animation: spin var(--dur-reveal) var(--ease-out) both;
+    animation-delay: calc(var(--i) * 70ms);
+  }
+
+  .knot {
+    position: absolute;
+    right: -5px;
+    top: 50%;
+    width: 10px;
+    height: 10px;
+    margin-top: -5px;
+    border-radius: 50%;
+    background: var(--bar-other);
+    animation: land 200ms var(--ease-out) both;
+    animation-delay: calc(var(--i) * 70ms + var(--dur-reveal) - 120ms);
+  }
+
+  .ours .silk,
+  .ours .knot {
+    background: var(--accent);
+  }
+
+  .ours .knot {
+    box-shadow: 0 0 0 4px color-mix(in oklch, var(--accent) 22%, transparent);
+  }
+
+  .value {
+    grid-area: value;
+    min-width: 3ch;
+    font-family: var(--font-display);
+    font-size: clamp(2.25rem, 1.6rem + 2vw, 3.25rem);
+    line-height: 1;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .ours .value {
+    color: var(--accent);
+  }
+
+  .detail {
+    grid-area: detail;
+    margin-top: var(--space-1);
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .note {
+    grid-column: 2 / -1;
+    color: var(--text-muted);
+    font-size: 0.875rem;
+  }
+
+  .summary {
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--border);
+    font-size: 0.9375rem;
+  }
+
+  .summary strong {
+    color: var(--accent);
+    font-weight: 650;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .method {
+    margin-top: var(--space-6);
+    color: var(--text-muted);
+    font-size: 0.8125rem;
+  }
+
+  .method summary {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--control-h);
+    gap: var(--space-2);
+    color: var(--text);
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .method summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .method summary::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-right: 1.5px solid currentColor;
+    border-bottom: 1.5px solid currentColor;
+    transform: rotate(-45deg);
+    transition: transform var(--dur-fast) var(--ease-out);
+  }
+
+  .method[open] summary::before {
+    transform: rotate(45deg);
+  }
+
+  .method p {
+    max-width: 62ch;
+  }
+
+  @keyframes spin {
+    from {
+      transform: scaleX(0);
+    }
+  }
+
+  @keyframes land {
+    from {
+      opacity: 0;
+      transform: scale(0.4);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .silk,
+    .knot {
+      animation: fade 200ms linear both;
+    }
+
+    @keyframes fade {
+      from {
+        opacity: 0;
+      }
+    }
+  }
+
+  @media (max-width: 480px) {
+    .wide {
+      display: none;
+    }
+
+    .threads li {
+      grid-template-columns: 5.5rem minmax(0, 1fr) auto;
+      column-gap: var(--space-3);
+    }
+
+    .switch label {
+      padding-inline: var(--space-3);
+    }
+  }
+</style>
