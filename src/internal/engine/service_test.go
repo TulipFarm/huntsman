@@ -11,7 +11,7 @@ import (
 )
 
 func TestHTTPContract(t *testing.T) {
-	svc := NewService(testStore(t, 10), time.Hour, 1, "test-key")
+	svc := NewService(testStore(t, 10), time.Hour, 1, []Key{{"test", "test-key"}})
 	svc.Start(context.Background(), []Renderer{&fakeRenderer{}})
 	defer svc.Close()
 	for _, tc := range []struct {
@@ -58,5 +58,68 @@ func TestNormalization(t *testing.T) {
 		if err := r.Normalize(time.Hour); err == nil {
 			t.Fatalf("accepted %s", raw)
 		}
+	}
+}
+
+func TestParseKeys(t *testing.T) {
+	keys, err := ParseKeys("", " demo:a, staging:b ,")
+	if err != nil || len(keys) != 2 || keys[1] != (Key{"staging", "b"}) {
+		t.Fatalf("%v %v", keys, err)
+	}
+	if keys, err := ParseKeys("solo", ""); err != nil || keys[0] != (Key{"default", "solo"}) {
+		t.Fatalf("%v %v", keys, err)
+	}
+	for _, tc := range [][2]string{{"a", "x:b"}, {"", "demo"}, {"", "Demo:a"}, {"", "demo:"}, {"", "a:x,a:y"}, {"", "a:x,b:x"}} {
+		if _, err := ParseKeys(tc[0], tc[1]); err == nil {
+			t.Fatalf("accepted %q %q", tc[0], tc[1])
+		}
+	}
+}
+
+func TestNamedKeysAndSearch(t *testing.T) {
+	var forwarded string
+	searxng := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		forwarded = r.URL.RawQuery
+		if r.URL.Query().Get("q") == "broken" {
+			w.WriteHeader(500)
+			return
+		}
+		w.Write([]byte(`{"results":[{"url":"https://example.com"}]}`))
+	}))
+	defer searxng.Close()
+	svc := NewService(testStore(t, 10), time.Hour, 1, []Key{{"production", "p"}, {"staging", "s"}})
+	svc.SearXNG = searxng.URL
+	get := func(svc *Service, path, token string) *httptest.ResponseRecorder {
+		w := httptest.NewRecorder()
+		r := httptest.NewRequest(http.MethodGet, path, nil)
+		r.Header.Set("Authorization", "Bearer "+token)
+		svc.Handler().ServeHTTP(w, r)
+		return w
+	}
+	for _, tc := range []struct {
+		path, token string
+		status      int
+	}{
+		{"/v1/search?q=tulips", "", 401},
+		{"/v1/search?q=tulips", "p", 200},
+		{"/v1/search?q=tulips&time_range=week&format=html", "s", 200},
+		{"/v1/search?q=", "s", 400},
+		{"/v1/search?q=tulips&engines=google", "s", 400},
+		{"/v1/search?q=tulips&time_range=hour", "s", 400},
+		{"/v1/search?q=broken", "s", 502},
+	} {
+		if w := get(svc, tc.path, tc.token); w.Code != tc.status {
+			t.Fatalf("%s: status=%d body=%s", tc.path, w.Code, w.Body.String())
+		}
+	}
+	if forwarded != "format=json&q=broken" {
+		t.Fatalf("forwarded %q", forwarded)
+	}
+	if w := get(svc, "/v1/search?q=tulips&time_range=week", "s"); forwarded != "format=json&q=tulips&time_range=week" || w.Body.String() != `{"results":[{"url":"https://example.com"}]}` {
+		t.Fatalf("forwarded %q body %s", forwarded, w.Body.String())
+	}
+	svc.SearXNG = ""
+	if w := get(svc, "/v1/search?q=tulips", "p"); w.Code != 404 {
+		t.Fatalf("unconfigured search: %d", w.Code)
 	}
 }

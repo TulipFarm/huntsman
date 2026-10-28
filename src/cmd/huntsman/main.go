@@ -7,6 +7,7 @@ import (
 	"log/slog"
 	"net"
 	"net/http"
+	"net/url"
 	"os"
 	"os/signal"
 	"strconv"
@@ -30,6 +31,19 @@ func integer(name string, fallback, min, max int) (int, error) {
 		return 0, fmt.Errorf("%s must be %d..%d", name, min, max)
 	}
 	return n, nil
+}
+
+// origin reads an optional http(s) origin such as http://searxng:8080.
+func origin(name string) (string, error) {
+	raw := strings.TrimSuffix(os.Getenv(name), "/")
+	if raw == "" {
+		return "", nil
+	}
+	u, err := url.Parse(raw)
+	if err != nil || (u.Scheme != "http" && u.Scheme != "https") || u.Host == "" || u.User != nil || u.Path != "" || u.RawQuery != "" {
+		return "", fmt.Errorf("%s must be an http(s) origin without credentials or a path", name)
+	}
+	return raw, nil
 }
 
 func run() error {
@@ -81,7 +95,16 @@ func run() error {
 		return err
 	}
 	defer store.Close()
-	svc := engine.NewService(store, age, perHost, os.Getenv("HUNTSMAN_TOKEN"))
+	keys, err := engine.ParseKeys(os.Getenv("HUNTSMAN_TOKEN"), os.Getenv("HUNTSMAN_TOKENS"))
+	if err != nil {
+		return err
+	}
+	searxng, err := origin("HUNTSMAN_SEARXNG_URL")
+	if err != nil {
+		return err
+	}
+	svc := engine.NewService(store, age, perHost, keys)
+	svc.SearXNG = searxng
 	renderers := make([]engine.Renderer, workers)
 	for i := range renderers {
 		browser := engine.NewBrowser(ctx, env("HUNTSMAN_BROWSER", "lightpanda"), port+i, allowPrivate, obeyRobots, time.Duration(idle)*time.Millisecond)
@@ -99,7 +122,8 @@ func run() error {
 		WriteTimeout: 125 * time.Second, IdleTimeout: 30 * time.Second, MaxHeaderBytes: 16 << 10}
 	serverErrors := make(chan error, 1)
 	go func() { serverErrors <- srv.Serve(listener) }()
-	slog.Info("Huntsman ready", "address", addr, "workers", workers, "perHost", perHost, "cacheTTL", age, "allowPrivate", allowPrivate)
+	slog.Info("Huntsman ready", "address", addr, "workers", workers, "perHost", perHost, "cacheTTL", age, "allowPrivate", allowPrivate,
+		"keys", len(keys), "search", searxng != "")
 	select {
 	case <-ctx.Done():
 	case err = <-svc.Errors():

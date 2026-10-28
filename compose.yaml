@@ -8,6 +8,8 @@ services:
       HUNTSMAN_PER_HOST: ${HUNTSMAN_PER_HOST:-2}
       HUNTSMAN_CACHE_TTL: ${HUNTSMAN_CACHE_TTL:-1h}
       HUNTSMAN_TOKEN: ${HUNTSMAN_TOKEN:-}
+      HUNTSMAN_TOKENS: ${HUNTSMAN_TOKENS:-}
+      HUNTSMAN_SEARXNG_URL: ${HUNTSMAN_SEARXNG_URL:-}
     cpus: 1.0
     mem_limit: 6g
     memswap_limit: 6g

@@ -2,7 +2,6 @@ package engine
 
 import (
 	"context"
-	"crypto/subtle"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -18,7 +17,8 @@ type Service struct {
 	Store      *Store
 	DefaultAge time.Duration
 	PerHost    int
-	Token      string
+	Keys       []Key
+	SearXNG    string // SearXNG origin for GET /v1/search; empty disables search
 	mu         sync.Mutex
 	changed    chan struct{}
 	wake       chan struct{}
@@ -27,8 +27,8 @@ type Service struct {
 	fatal      chan error
 }
 
-func NewService(store *Store, age time.Duration, perHost int, token string) *Service {
-	return &Service{Store: store, DefaultAge: age, PerHost: perHost, Token: token,
+func NewService(store *Store, age time.Duration, perHost int, keys []Key) *Service {
+	return &Service{Store: store, DefaultAge: age, PerHost: perHost, Keys: keys,
 		changed: make(chan struct{}), wake: make(chan struct{}, 1), fatal: make(chan error, 1)}
 }
 
@@ -189,6 +189,7 @@ func (s *Service) Handler() http.Handler {
 		writeJSON(w, 200, j)
 	})
 	mux.HandleFunc("POST /v1/crawl", s.crawl)
+	mux.HandleFunc("GET /v1/search", s.search)
 	mux.HandleFunc("GET /v1/crawl/{id}", func(w http.ResponseWriter, r *http.Request) {
 		offset := 0
 		if raw := r.URL.Query().Get("offset"); raw != "" {
@@ -207,11 +208,19 @@ func (s *Service) Handler() http.Handler {
 		writeJSON(w, 200, result)
 	})
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		if s.Token != "" && r.URL.Path != "/health" && subtle.ConstantTimeCompare([]byte(r.Header.Get("Authorization")), []byte("Bearer "+s.Token)) != 1 {
-			failure(w, 401, errors.New("authentication required"))
+		if r.URL.Path == "/health" {
+			mux.ServeHTTP(w, r)
 			return
 		}
-		mux.ServeHTTP(w, r)
+		start, sw := time.Now(), &statusWriter{ResponseWriter: w, status: 200}
+		key, ok := s.authenticate(r.Header.Get("Authorization"))
+		if ok {
+			mux.ServeHTTP(sw, r)
+		} else {
+			failure(sw, 401, errors.New("authentication required"))
+		}
+		slog.Info("request", "key", key, "method", r.Method, "path", r.URL.Path, "status", sw.status,
+			"ms", time.Since(start).Milliseconds())
 	})
 }
 

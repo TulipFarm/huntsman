@@ -216,7 +216,7 @@ func (*fakeRenderer) Close() {}
 
 func TestServiceCompletesAndCaches(t *testing.T) {
 	s := testStore(t, 100)
-	svc := NewService(s, time.Hour, 2, "")
+	svc := NewService(s, time.Hour, 2, nil)
 	renderer := &fakeRenderer{}
 	svc.Start(context.Background(), []Renderer{renderer})
 	defer svc.Close()
