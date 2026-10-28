@@ -67,6 +67,7 @@ const settings = [
   ['HUNTSMAN_WORKERS', '4', 'Pages scraped at once. The default is safe for any machine; raise it to use yours fully (see step 3 above).'],
   ['HUNTSMAN_PER_HOST', '2', 'Most pages scraped at once from a single site, so one site isn’t flooded. Max 64.'],
   ['HUNTSMAN_TOKEN', 'empty', 'Bearer token; empty turns auth off'],
+  ['HUNTSMAN_TOKENS', 'empty', 'Named keys, name:token,... One per client, so you can revoke one without the others'],
   ['HUNTSMAN_CACHE_TTL', '1h', 'Default result cache age, up to 168h'],
   ['HUNTSMAN_OBEY_ROBOTS', 'true', 'Respect robots.txt'],
   ['HUNTSMAN_QUEUE_CAPACITY', '10000', 'Queued jobs before 429'],
