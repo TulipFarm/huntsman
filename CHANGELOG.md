@@ -3,6 +3,23 @@
 All notable changes to Huntsman. Versions follow [Semantic Versioning](https://semver.org), and each release is
 published as `ghcr.io/tulipfarm/huntsman:<version>`.
 
+## [0.2.0](https://github.com/TulipFarm/huntsman/releases/tag/v0.2.0) - 2026-10-28
+
+### Features
+
+- Add named API keys and SearXNG search proxy ([#7](https://github.com/TulipFarm/huntsman/pull/7))
+
+### Bug fixes
+
+- Remove the SearXNG search proxy ([#8](https://github.com/TulipFarm/huntsman/pull/8))
+
+### Other changes
+
+- Custom datasets, split filter and exact-limit search
+- Exact concurrency results on the huntsman-v1 sample
+- Astro landing page with benchmarks and live scrape
+- Document named API keys
+
 ## [0.1.2](https://github.com/TulipFarm/huntsman/releases/tag/v0.1.2) - 2026-10-27
 
 ### Dependencies
