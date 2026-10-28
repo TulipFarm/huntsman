@@ -18,7 +18,6 @@ type Service struct {
 	DefaultAge time.Duration
 	PerHost    int
 	Keys       []Key
-	SearXNG    string // SearXNG origin for GET /v1/search; empty disables search
 	mu         sync.Mutex
 	changed    chan struct{}
 	wake       chan struct{}
@@ -189,7 +188,6 @@ func (s *Service) Handler() http.Handler {
 		writeJSON(w, 200, j)
 	})
 	mux.HandleFunc("POST /v1/crawl", s.crawl)
-	mux.HandleFunc("GET /v1/search", s.search)
 	mux.HandleFunc("GET /v1/crawl/{id}", func(w http.ResponseWriter, r *http.Request) {
 		offset := 0
 		if raw := r.URL.Query().Get("offset"); raw != "" {

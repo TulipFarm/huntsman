@@ -92,7 +92,6 @@ docker compose up -d --build
 | `GET /v1/jobs/{id}` | Status and result of a queued job |
 | `POST /v1/crawl` | Crawl a site: `{"url", "limit", "maxDepth", "scrapeOptions"}` |
 | `GET /v1/crawl/{id}?offset=N` | Crawl progress and pages |
-| `GET /v1/search?q=…` | Web search through your [SearXNG](https://github.com/searxng/searxng), if `HUNTSMAN_SEARXNG_URL` is set |
 | `GET /health` | Liveness and storage check |
 
 **Scrape options:** `url`, `formats` (only `markdown`), `waitFor` (ms), `waitSelector`, `timeout` (ms), `maxAge`
@@ -102,10 +101,6 @@ docker compose up -d --build
 `Authorization: Bearer <token>`. `HUNTSMAN_TOKENS` gives each client its own key, such as
 `HUNTSMAN_TOKENS=web:t0k3n1,staging:t0k3n2`. Each request is logged with its key name, never the token, so you can tell
 clients apart and revoke one key without the others.
-
-**Search:** `GET /v1/search` forwards `q` and the optional `time_range` (`day`, `week`, `month`, `year`), `pageno`
-(1–10), `language`, `categories` and `safesearch` (0–2) to SearXNG's `/search?format=json`, and returns its JSON.
-Other parameters are rejected. Clients reuse their Huntsman key, so SearXNG can stay private.
 
 <details>
 <summary>Crawl a site</summary>
@@ -124,8 +119,8 @@ curl -s 'localhost:8080/v1/crawl/<id>?offset=0'
 ### Coming from Firecrawl
 
 Point your client at Huntsman's base URL and keep using `/v1/scrape`. Huntsman deliberately does less: it returns
-Markdown and links only, with no screenshots, HTML, JSON extraction or actions. For search, run
-[SearXNG](https://github.com/searxng/searxng) privately and set `HUNTSMAN_SEARXNG_URL` to use `GET /v1/search`.
+Markdown and links only, with no screenshots, HTML, JSON extraction, actions or search. Pair it with a search engine
+such as [SearXNG](https://github.com/searxng/searxng) if you need one.
 
 ## Benchmarks
 
@@ -160,7 +155,6 @@ All settings are environment variables.
 | `HUNTSMAN_CACHE_TTL` | `1h` | Default result cache age (max `168h`) |
 | `HUNTSMAN_TOKEN` | empty | Bearer token; empty disables auth |
 | `HUNTSMAN_TOKENS` | empty | Named tokens, `name:token,...`, instead of `HUNTSMAN_TOKEN` |
-| `HUNTSMAN_SEARXNG_URL` | empty | SearXNG origin, such as `http://searxng:8080`, for `GET /v1/search`; empty disables search |
 | `HUNTSMAN_OBEY_ROBOTS` | `true` | Respect `robots.txt` |
 | `HUNTSMAN_ALLOW_PRIVATE` | `false` | Allow private and loopback addresses |
 | `HUNTSMAN_IDLE_MS` | `200` | Network-idle wait before extracting |
