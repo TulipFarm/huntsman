@@ -10,6 +10,7 @@ import (
 	"os/exec"
 	"path/filepath"
 	"runtime"
+	"sort"
 	"strconv"
 	"strings"
 	"sync"
@@ -423,6 +424,17 @@ func readMeminfo() map[string]int64 {
 func runLevel(engine, endpoint string, tasks []Task, concurrency, timeoutMS int, out string, mon *Monitor) map[string]any {
 	os.MkdirAll(out, 0o755)
 	rows := make([]Row, len(tasks))
+	// Page Markdown goes to a spool file until scoring, so bench's memory stays flat however many URLs a level has.
+	spoolPath := filepath.Join(out, "content.spool")
+	spool, err := os.Create(spoolPath)
+	if err != nil {
+		fatalf("%v", err)
+	}
+	defer os.Remove(spoolPath)
+	defer spool.Close()
+	var spoolMu sync.Mutex
+	var spoolEnd int64
+	spoolOff, spoolLen := make([]int64, len(tasks)), make([]int, len(tasks))
 	var next, finished, answered atomic.Int64
 	start := time.Now()
 	stopProgress := make(chan struct{})
@@ -452,10 +464,20 @@ func runLevel(engine, endpoint string, tasks []Task, concurrency, timeoutMS int,
 				}
 				r := scrape(endpoint, engine, tasks[i].URL, timeoutMS)
 				r.ID = tasks[i].ID
-				rows[i] = r
 				if r.answered() {
 					answered.Add(1)
 				}
+				spoolMu.Lock()
+				n, err := spool.WriteString(r.content)
+				if err != nil {
+					spoolMu.Unlock()
+					fatalf("write %s: %v", spoolPath, err)
+				}
+				spoolOff[i], spoolLen[i] = spoolEnd, n
+				spoolEnd += int64(n)
+				spoolMu.Unlock()
+				r.content = ""
+				rows[i] = r
 				finished.Add(1)
 			}
 		}()
@@ -472,6 +494,11 @@ func runLevel(engine, endpoint string, tasks []Task, concurrency, timeoutMS int,
 	enc := json.NewEncoder(f)
 	enc.SetEscapeHTML(false)
 	for i := range rows {
+		buf := make([]byte, spoolLen[i])
+		if _, err := spool.ReadAt(buf, spoolOff[i]); err != nil && spoolLen[i] > 0 {
+			fatalf("read %s: %v", spoolPath, err)
+		}
+		rows[i].content = string(buf)
 		rows[i].score(tasks[i])
 		r := rows[i]
 		enc.Encode(r)
@@ -598,6 +625,8 @@ func cmdRamp(args []string) {
 	readyTimeout := fs.Int("ready-timeout", 0, "seconds to wait for the engine to answer (default depends on the engine)")
 	baseline := fs.Int("baseline-level", -1, "first level the latency rule compares against (default depends on the engine)")
 	dataset := fs.String("dataset", "", "dataset CSV (default dataset/firecrawl-v1/scrape-content-dataset-v1.csv)")
+	refine := fs.Int("refine", 2, "after the first failing level, binary-search down to this many pages (0 = off)")
+	split := fs.String("split", "", "only dataset rows whose split column matches, e.g. test (default all rows)")
 	fs.BoolVar(&firecrawlScrapeOnly, "firecrawl-scrape-only", false,
 		"Firecrawl: start only the API and browser service, without the queue, extract and NuQ workers that /v1/scrape never uses")
 	fs.Usage = usageFor(fs, "bench ramp --engine <name> [flags]",
@@ -632,9 +661,12 @@ func cmdRamp(args []string) {
 	if *out == "" {
 		*out = filepath.Join(matrixDir(), "local", *engine)
 	}
-	all, err := loadTasks(*dataset, 0)
+	all, err := loadTasks(*dataset, *split, 0)
 	if err != nil {
 		fatalf("%v", err)
+	}
+	if len(all) == 0 {
+		fatalf("%s has no rows with split %q", *dataset, *split)
 	}
 	o := rampOpts{engine: *engine, image: *image, memory: hostMemoryBytes() - int64(*reserveMB)<<20,
 		ready: time.Duration(*readyTimeout) * time.Second, timeoutMS: *timeoutMS}
@@ -646,7 +678,7 @@ func cmdRamp(args []string) {
 		if *limit > 0 && *limit < len(all) {
 			tasks = all[:*limit]
 		}
-		result = capacityPhase(o, tasks, parseLevels(*levels), *baseline, *out)
+		result = capacityPhase(o, tasks, parseLevels(*levels), *baseline, *refine, *out)
 	} else {
 		b, err := os.ReadFile(filepath.Join(*out, "ramp.json"))
 		if err == nil {
@@ -685,11 +717,39 @@ func cmdRamp(args []string) {
 	say("== %s: max sustainable concurrency %v; results in %s", *engine, orDash(result["max_sustainable_concurrency"]), filepath.Join(*out, "ramp.json"))
 }
 
-func capacityPhase(o rampOpts, tasks []Task, lv []int, baseline int, out string) map[string]any {
+// searchLevels runs the levels in order until one fails or plateaus, then binary-searches the gap between
+// the last passing level and the first failing one until it is at most refine pages wide (0 = no search).
+// It returns the highest passing level, or 0.
+func searchLevels(lv []int, refine int, try func(level int) (passed, plateau bool)) int {
+	lastPass, firstFail := 0, 0
+	for _, level := range lv {
+		passed, plateau := try(level)
+		if !passed {
+			firstFail = level
+			break
+		}
+		if plateau {
+			break
+		}
+		lastPass = level
+	}
+	for refine > 0 && lastPass > 0 && firstFail-lastPass > refine {
+		mid := (lastPass + firstFail) / 2
+		say("== capacity: searching between %d (passed) and %d (failed)", lastPass, firstFail)
+		if passed, plateau := try(mid); passed && !plateau {
+			lastPass = mid
+		} else {
+			firstFail = mid
+		}
+	}
+	return lastPass
+}
+
+func capacityPhase(o rampOpts, tasks []Task, lv []int, baseline, refine int, out string) map[string]any {
 	say("== %s CAPACITY: %d URLs per level, levels %s, container memory %s, %d vCPU", o.engine, len(tasks), joinInts(lv), gb(o.memory), runtime.NumCPU())
 	var records []map[string]any
 	var best, base map[string]any
-	for _, level := range lv {
+	try := func(level int) map[string]any {
 		dir := filepath.Join(out, fmt.Sprintf("level-%d", level))
 		say("== %s capacity level %d: starting a fresh container", o.engine, level)
 		rec, crashed := inContainer(o, level, dir, func(endpoint string, mon *Monitor) map[string]any {
@@ -719,21 +779,24 @@ func capacityPhase(o rampOpts, tasks []Task, lv []int, baseline int, out string)
 		writeJSON(filepath.Join(dir, "level.json"), rec)
 		records = append(records, rec)
 		printLevel(rec, dir)
-		if rec["passed"] != true || rec["plateau"] == true {
-			break
+		if rec["passed"] == true && rec["plateau"] != true {
+			if base == nil && level >= baseline {
+				base = rec
+			}
+			if best == nil || num(rec["pages_per_second_this_run"]) > num(best["pages_per_second_this_run"]) {
+				best = rec
+			}
 		}
-		if base == nil && level >= baseline {
-			base = rec
-		}
-		if best == nil || num(rec["pages_per_second_this_run"]) > num(best["pages_per_second_this_run"]) {
-			best = rec
-		}
+		return rec
 	}
+	lastPass := searchLevels(lv, refine, func(level int) (bool, bool) {
+		rec := try(level)
+		return rec["passed"] == true, rec["plateau"] == true
+	})
+	sort.Slice(records, func(i, j int) bool { return num(records[i]["level"]) < num(records[j]["level"]) })
 	var maxLevel any
-	for _, r := range records {
-		if r["passed"] == true {
-			maxLevel = r["level"]
-		}
+	if lastPass > 0 {
+		maxLevel = lastPass
 	}
 	result := map[string]any{"urls": len(tasks), "max_sustainable_concurrency": maxLevel,
 		"best_throughput_level": nil, "best_pages_per_second": nil, "levels": records}

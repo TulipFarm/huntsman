@@ -22,7 +22,7 @@ type Task struct {
 	ID, URL, Truth, Lie string
 }
 
-func loadTasks(path string, limit int) ([]Task, error) {
+func loadTasks(path, split string, limit int) ([]Task, error) {
 	f, err := os.Open(path)
 	if err != nil {
 		return nil, err
@@ -46,8 +46,15 @@ func loadTasks(path string, limit int) ([]Task, error) {
 			return nil, fmt.Errorf("%s has no %q column", path, need)
 		}
 	}
+	splitCol, hasSplit := col["split"]
+	if split != "" && !hasSplit {
+		return nil, fmt.Errorf("%s has no \"split\" column", path)
+	}
 	var tasks []Task
 	for _, row := range rows[1:] {
+		if split != "" && row[splitCol] != split {
+			continue
+		}
 		tasks = append(tasks, Task{ID: row[col["id"]], URL: row[col["url"]], Truth: row[col["truth_text"]], Lie: row[col["lie_text"]]})
 		if limit > 0 && len(tasks) == limit {
 			break

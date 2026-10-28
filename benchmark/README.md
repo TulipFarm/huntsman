@@ -27,7 +27,7 @@ Each engine runs two phases on each machine. Every level starts a fresh containe
 
 ### 1. Capacity: how many pages at once, and how accurate
 
-For each level N (8, 16, 32, 64, 128, 256, 512 by default; set with `--levels`), send all 1,000 dataset URLs with exactly N requests in flight and a 30 s page timeout, then score the Markdown with the scrape-evals rules.
+For each level N (8, 16, 32, 64, 128, 256, 512 by default; set with `--levels`), send every dataset URL (1,000 by default) with exactly N requests in flight and a 30 s page timeout, then score the Markdown with the scrape-evals rules.
 
 The ramp stops at the first level where the engine crashes or is OOM-killed, success drops more than 10 points below the best level, median latency exceeds 3× the first level's median, or throughput falls below 80% of the best level. **Max sustainable concurrency** is the highest level that passed.
 
@@ -55,6 +55,8 @@ go run ./benchmark/cmd/bench provision
 go run ./benchmark/cmd/bench run --machine all --engine all
 go run ./benchmark/cmd/bench run --machine small --engine firecrawl --levels 1,2,4
 go run ./benchmark/cmd/bench run --machine small --engine huntsman --phases profile
+go run ./benchmark/cmd/bench run --machine all --engine all \
+  --dataset dataset/huntsman-v1/data/huntsman-scrape-dataset-v1.csv --split test
 
 # 3. Look at the numbers, then refresh the HTML report.
 go run ./benchmark/cmd/bench report
@@ -72,7 +74,7 @@ go run ./benchmark/cmd/bench destroy
 
 All three are Graviton (arm64) Ubuntu 24.04. SSH is open only to your public IP. Pulumi state and the SSH key stay in `benchmark/aws/.state/`.
 
-`run` uploads the CLI and dataset, builds or ships the engine image, and starts the ramp detached on each machine. Machines run in parallel; engines run one after another. Every 10 s it prints progress: URLs done, success so far, pages/s, CPU and memory. Ctrl-C only detaches; the ramp keeps going on the machine.
+`run` uploads the CLI and dataset (`--dataset`, default Firecrawl's 1,000 URLs; `--split` keeps only rows with that `split` value), builds or ships the engine image, and starts the ramp detached on each machine. Machines run in parallel; engines run one after another. Every 10 s it prints progress: URLs done, success so far, pages/s, CPU and memory. Ctrl-C only detaches; the ramp keeps going on the machine.
 
 | Command | Use |
 |---|---|

@@ -80,10 +80,10 @@ func streamed(m string, cmd *exec.Cmd, logPath string) error {
 }
 
 type rampFlags struct {
-	phases, levels, profileLevels, image              string
-	limit, timeoutMS, readyTimeout, baseline, reserve int
-	profileSeconds, profileWarmup                     int
-	firecrawlScrapeOnly                               bool
+	phases, levels, profileLevels, image, split               string
+	limit, timeoutMS, readyTimeout, baseline, reserve, refine int
+	profileSeconds, profileWarmup                             int
+	firecrawlScrapeOnly                                       bool
 }
 
 func (f rampFlags) args() []string {
@@ -105,6 +105,12 @@ func (f rampFlags) args() []string {
 	}
 	if f.image != "" {
 		a = append(a, "--image", f.image)
+	}
+	if f.refine >= 0 {
+		a = append(a, "--refine", itoa(f.refine))
+	}
+	if f.split != "" {
+		a = append(a, "--split", f.split)
 	}
 	if f.limit > 0 {
 		a = append(a, "--limit", itoa(f.limit))
@@ -179,7 +185,10 @@ func cmdRun(args []string) {
 	fs.IntVar(&rf.profileSeconds, "profile-seconds", 0, "length of each profile level (default 90)")
 	fs.IntVar(&rf.profileWarmup, "profile-warmup", 0, "seconds of each profile level left out of the measurements (default 20)")
 	fs.StringVar(&rf.image, "image", "", "override the engine image tag on the VM")
-	fs.IntVar(&rf.limit, "limit", 0, "capacity phase: only the first N dataset URLs (default all 1,000)")
+	dataset := fs.String("dataset", firecrawlDataset(), "dataset CSV to upload and run")
+	fs.IntVar(&rf.refine, "refine", -1, "after the first failing level, binary-search down to this many pages (default 2, 0 = off)")
+	fs.StringVar(&rf.split, "split", "", "only dataset rows whose split column matches, e.g. test (default all rows)")
+	fs.IntVar(&rf.limit, "limit", 0, "capacity phase: only the first N dataset URLs (default all)")
 	fs.IntVar(&rf.timeoutMS, "timeout-ms", 0, "per-page timeout (default 30000)")
 	fs.IntVar(&rf.readyTimeout, "ready-timeout", 0, "seconds to wait for the engine to start (default depends on the engine)")
 	fs.IntVar(&rf.baseline, "baseline-level", -1, "first level used as the latency baseline (default depends on the engine)")
@@ -197,6 +206,9 @@ func cmdRun(args []string) {
 	if *machines == "" || *engineArg == "" {
 		fs.Usage()
 		os.Exit(2)
+	}
+	if !fileExists(*dataset) {
+		fatalf("dataset %s not found", *dataset)
 	}
 	cfg := loadConfig()
 	ms := cfg.pickMachines(*machines)
@@ -232,7 +244,7 @@ func cmdRun(args []string) {
 		wg.Add(1)
 		go func(m string) {
 			defer wg.Done()
-			if err := runMachine(cfg, m, arch[m], bins[arch[m]], es, rf); err != nil {
+			if err := runMachine(cfg, m, arch[m], bins[arch[m]], *dataset, es, rf); err != nil {
 				failed.Store(true)
 				msay(m, "ERROR: %v", err)
 			}
@@ -252,22 +264,27 @@ func buildSelf(arch string) string {
 	out := filepath.Join(stateDir(), "bench-linux-"+arch)
 	os.MkdirAll(stateDir(), 0o700)
 	say("building the bench CLI for linux/%s", arch)
-	cmd := exec.Command("go", "build", "-trimpath", "-o", out, "./benchmark/cmd/bench")
+	// Build to a private file and rename it, so parallel `bench run` processes never ship a half-written binary.
+	tmp := fmt.Sprintf("%s.%d", out, os.Getpid())
+	cmd := exec.Command("go", "build", "-trimpath", "-o", tmp, "./benchmark/cmd/bench")
 	cmd.Dir = repoRoot()
 	cmd.Env = append(os.Environ(), "GOOS=linux", "GOARCH="+arch, "CGO_ENABLED=0")
 	if b, err := cmd.CombinedOutput(); err != nil {
 		fatalf("go build: %v\n%s", err, b)
 	}
+	if err := os.Rename(tmp, out); err != nil {
+		fatalf("%v", err)
+	}
 	return out
 }
 
-func runMachine(cfg Config, m, arch, bin string, es []string, rf rampFlags) error {
+func runMachine(cfg Config, m, arch, bin, dataset string, es []string, rf rampFlags) error {
 	msay(m, "uploading the bench CLI and dataset to %s", cfg.Hosts[m])
 	files := map[string]string{
-		"bench": bin,
-		"dataset/firecrawl-v1/scrape-content-dataset-v1.csv": firecrawlDataset(),
-		"benchmark/fixture/Dockerfile.firecrawl":             filepath.Join(benchDir(), "fixture", "Dockerfile.firecrawl"),
-		"benchmark/fixture/firecrawl-entrypoint.sh":          filepath.Join(benchDir(), "fixture", "firecrawl-entrypoint.sh"),
+		"bench":                                  bin,
+		"dataset.csv":                            dataset,
+		"benchmark/fixture/Dockerfile.firecrawl": filepath.Join(benchDir(), "fixture", "Dockerfile.firecrawl"),
+		"benchmark/fixture/firecrawl-entrypoint.sh": filepath.Join(benchDir(), "fixture", "firecrawl-entrypoint.sh"),
 	}
 	if err := upload(cfg, m, files); err != nil {
 		return fmt.Errorf("upload: %w", err)
@@ -283,11 +300,12 @@ func runMachine(cfg Config, m, arch, bin string, es []string, rf rampFlags) erro
 			os.WriteFile(filepath.Join(local, e+".image"), []byte(id+"\n"), 0o644)
 		}
 		rampArgs := append([]string{"./bench", "ramp", "--engine", e, "--out", "results/" + m + "/" + e,
-			"--dataset", "dataset/firecrawl-v1/scrape-content-dataset-v1.csv"}, rf.args()...)
+			"--dataset", "dataset.csv"}, rf.args()...)
 		script := fmt.Sprintf(`set -e; cd %s; mkdir -p results/%s; rm -rf results/%s/%s results/%s/%s.log
 ./bench host --size %s > results/%s/host.json
 setsid nohup %s > results/%s/%s.log 2>&1 < /dev/null &
-echo $! > results/%s/%s.pid`, remoteDir, m, m, e, m, e, m, m, shellJoin(rampArgs), m, e, m, e)
+echo $! > results/%s/%s.pid
+sudo -n choom -n -1000 -p $! >/dev/null 2>&1 || echo "warning: could not protect bench from the OOM killer"`, remoteDir, m, m, e, m, e, m, m, shellJoin(rampArgs), m, e, m, e)
 		if out, err := cfg.sshOutput(m, script); err != nil {
 			return fmt.Errorf("start %s ramp: %v %s", e, err, out)
 		}
@@ -386,6 +404,13 @@ func shipImage(cfg Config, m, ref string) error {
 	if err := load.Start(); err != nil {
 		return err
 	}
+	// If ssh exits early (dropped connection), unblock the writer instead of hanging on the pipe.
+	loadDone := make(chan error, 1)
+	go func() {
+		err := load.Wait()
+		pr.CloseWithError(fmt.Errorf("ssh exited: %v", err))
+		loadDone <- err
+	}()
 	var sent atomic.Int64
 	done := make(chan struct{})
 	go func() {
@@ -403,8 +428,11 @@ func shipImage(cfg Config, m, ref string) error {
 	_, copyErr := io.Copy(zw, saveOut)
 	zw.Close()
 	pw.Close()
+	if copyErr != nil {
+		save.Process.Kill()
+	}
 	saveErr := save.Wait()
-	loadErr := load.Wait()
+	loadErr := <-loadDone
 	close(done)
 	for _, err := range []error{copyErr, saveErr, loadErr} {
 		if err != nil {
