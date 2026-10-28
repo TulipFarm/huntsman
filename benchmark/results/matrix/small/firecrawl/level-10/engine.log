@@ -1,0 +1,300 @@
+2026-10-28 09:33:15 [32minfo[39m [:scrapeController]: Request metrics 
+2026-10-28 09:33:15 [32minfo[39m [:POST]: v1 request completed 
+2026-10-28 09:33:15 [34mdebug[39m [:scrapeController]: Scrape 01a181db-4d5e-70e3-afc1-06b4fa2dd457 starting 
+2026-10-28 09:33:15 [32minfo[39m [log_job:robustInsert]: Skipping job log due to USE_DB_AUTHENTICATION being off 
+2026-10-28 09:33:15 [34mdebug[39m [:]: Bypassing concurrency limit for bypass 
+2026-10-28 09:33:15 [34mdebug[39m [:scrapeController]: Lock acquired for team: bypass 
+2026-10-28 09:33:15 [32minfo[39m [queue-worker:processJob]: 🐂 Worker taking job 01a181db-4d5e-70e3-afc1-06b4fa2dd457 
+2026-10-28 09:33:15 [32minfo[39m [runWebscraper:runWebScraper]: runWebScraper called 
+2026-10-28 09:33:15 [32minfo[39m [runWebscraper:runWebScraper]: running scrapeURL... 
+2026-10-28 09:33:15 [32minfo[39m [ScrapeURL:]: scrapeURL entered 
+2026-10-28 09:33:15 [32minfo[39m [ScrapeURL:]: Scraping URL "https://www.puratos.com.tr/tr/urunlerimiz/kimo-croissant-a_"... 
+2026-10-28 09:33:15 [32minfo[39m [ScrapeURL:]: Selected engines 
+2026-10-28 09:33:15 [32minfo[39m [ScrapeURL:]: Scraping via playwright... 
+2026-10-28 09:33:16 [32minfo[39m [ScrapeURL:]: Waterfalling to next engine... 
+2026-10-28 09:33:16 [32minfo[39m [ScrapeURL:]: Scraping via fetch... 
+2026-10-28 09:33:17 [32minfo[39m [ScrapeURL:]: Scrape via playwright deemed successful. 
+2026-10-28 09:33:17 [34mdebug[39m [ScrapeURL:]: Executed transformers. 
+2026-10-28 09:33:17 [34mdebug[39m [scrapeURL/metrics:]: scrapeURL metrics 
+2026-10-28 09:33:17 [32minfo[39m [log_job:robustInsert]: Skipping job log due to USE_DB_AUTHENTICATION being off 
+2026-10-28 09:33:17 [32minfo[39m [queue-worker:processJob]: 🐂 Job done 01a181da-dcd4-7283-8624-eb8606d49adc 
+2026-10-28 09:33:17 [34mdebug[39m [queue-worker:processJobInternal]: Job succeeded -- putting result in Redis 
+2026-10-28 09:33:17 [32minfo[39m [:scrapeController]: Done with waitForJob 
+2026-10-28 09:33:17 [32minfo[39m [:scrapeController]: Removed job from queue 
+2026-10-28 09:33:17 [32minfo[39m [:scrapeController]: Request metrics 
+2026-10-28 09:33:17 [32minfo[39m [:POST]: v1 request completed 
+2026-10-28 09:33:17 [34mdebug[39m [:scrapeController]: Scrape 01a181db-567f-725c-ae0f-a1e0bc1a8a45 starting 
+2026-10-28 09:33:17 [32minfo[39m [log_job:robustInsert]: Skipping job log due to USE_DB_AUTHENTICATION being off 
+2026-10-28 09:33:17 [34mdebug[39m [:]: Bypassing concurrency limit for bypass 
+2026-10-28 09:33:17 [34mdebug[39m [:scrapeController]: Lock acquired for team: bypass 
+2026-10-28 09:33:17 [32minfo[39m [queue-worker:processJob]: 🐂 Worker taking job 01a181db-567f-725c-ae0f-a1e0bc1a8a45 
+2026-10-28 09:33:17 [32minfo[39m [runWebscraper:runWebScraper]: runWebScraper called 
+2026-10-28 09:33:17 [32minfo[39m [runWebscraper:runWebScraper]: running scrapeURL... 
+2026-10-28 09:33:17 [32minfo[39m [ScrapeURL:]: scrapeURL entered 
+2026-10-28 09:33:17 [32minfo[39m [ScrapeURL:]: Scraping URL "https://www.whnnews.online/2025/10/dpp-whn-angkat-suara-terkait-dugaan.html"... 
+2026-10-28 09:33:17 [32minfo[39m [ScrapeURL:]: Selected engines 
+2026-10-28 09:33:17 [32minfo[39m [ScrapeURL:]: Scraping via playwright... 
+2026-10-28 09:33:20 [32minfo[39m [ScrapeURL:]: Waterfalling to next engine... 
+2026-10-28 09:33:20 [32minfo[39m [ScrapeURL:]: Scraping via fetch... 
+2026-10-28 09:33:21 [32minfo[39m [ScrapeURL:]: Scrape via playwright deemed successful. 
+2026-10-28 09:33:22 [34mdebug[39m [ScrapeURL:]: Executed transformers. 
+2026-10-28 09:33:22 [34mdebug[39m [scrapeURL/metrics:]: scrapeURL metrics 
+2026-10-28 09:33:22 [32minfo[39m [log_job:robustInsert]: Skipping job log due to USE_DB_AUTHENTICATION being off 
+2026-10-28 09:33:22 [32minfo[39m [queue-worker:processJob]: 🐂 Job done 01a181db-1e5a-7605-9e67-24549012ffd4 
+2026-10-28 09:33:22 [34mdebug[39m [queue-worker:processJobInternal]: Job succeeded -- putting result in Redis 
+2026-10-28 09:33:22 [32minfo[39m [:scrapeController]: Done with waitForJob 
+2026-10-28 09:33:22 [32minfo[39m [:scrapeController]: Removed job from queue 
+2026-10-28 09:33:22 [32minfo[39m [:scrapeController]: Request metrics 
+2026-10-28 09:33:22 [32minfo[39m [:POST]: v1 request completed 
+2026-10-28 09:33:22 [34mdebug[39m [:scrapeController]: Scrape 01a181db-6756-776a-b2e2-864e05c376e9 starting 
+2026-10-28 09:33:22 [32minfo[39m [log_job:robustInsert]: Skipping job log due to USE_DB_AUTHENTICATION being off 
+2026-10-28 09:33:22 [34mdebug[39m [:]: Bypassing concurrency limit for bypass 
+2026-10-28 09:33:22 [34mdebug[39m [:scrapeController]: Lock acquired for team: bypass 
+2026-10-28 09:33:22 [32minfo[39m [queue-worker:processJob]: 🐂 Worker taking job 01a181db-6756-776a-b2e2-864e05c376e9 
+2026-10-28 09:33:22 [32minfo[39m [runWebscraper:runWebScraper]: runWebScraper called 
+2026-10-28 09:33:22 [32minfo[39m [runWebscraper:runWebScraper]: running scrapeURL... 
+2026-10-28 09:33:22 [32minfo[39m [ScrapeURL:]: scrapeURL entered 
+2026-10-28 09:33:22 [32minfo[39m [ScrapeURL:]: Scraping URL "https://soorstudio.com/"... 
+2026-10-28 09:33:22 [32minfo[39m [ScrapeURL:]: Selected engines 
+2026-10-28 09:33:22 [32minfo[39m [ScrapeURL:]: Scraping via playwright... 
+2026-10-28 09:33:23 [32minfo[39m [ScrapeURL:]: Scrape via playwright deemed successful. 
+2026-10-28 09:33:23 [34mdebug[39m [ScrapeURL:]: Skipping markdown conversion for quality check due to large HTML size 
+2026-10-28 09:33:23 [32minfo[39m [ScrapeURL:]: Scrape via playwright deemed successful. 
+2026-10-28 09:33:23 [34mdebug[39m [ScrapeURL:]: Executed transformers. 
+2026-10-28 09:33:23 [34mdebug[39m [scrapeURL/metrics:]: scrapeURL metrics 
+2026-10-28 09:33:23 [32minfo[39m [log_job:robustInsert]: Skipping job log due to USE_DB_AUTHENTICATION being off 
+2026-10-28 09:33:23 [32minfo[39m [queue-worker:processJob]: 🐂 Job done 01a181da-ed67-72f8-89c8-74077d1942d8 
+2026-10-28 09:33:23 [34mdebug[39m [queue-worker:processJobInternal]: Job succeeded -- putting result in Redis 
+2026-10-28 09:33:23 [32minfo[39m [:scrapeController]: Done with waitForJob 
+2026-10-28 09:33:23 [32minfo[39m [:scrapeController]: Removed job from queue 
+2026-10-28 09:33:23 [32minfo[39m [:scrapeController]: Request metrics 
+2026-10-28 09:33:23 [32minfo[39m [:POST]: v1 request completed 
+2026-10-28 09:33:23 [34mdebug[39m [:scrapeController]: Scrape 01a181db-6e55-71d8-8bce-9a90da4d40bd starting 
+2026-10-28 09:33:23 [32minfo[39m [log_job:robustInsert]: Skipping job log due to USE_DB_AUTHENTICATION being off 
+2026-10-28 09:33:23 [34mdebug[39m [:]: Bypassing concurrency limit for bypass 
+2026-10-28 09:33:24 [34mdebug[39m [:scrapeController]: Lock acquired for team: bypass 
+2026-10-28 09:33:24 [32minfo[39m [queue-worker:processJob]: 🐂 Worker taking job 01a181db-6e55-71d8-8bce-9a90da4d40bd 
+2026-10-28 09:33:24 [32minfo[39m [runWebscraper:runWebScraper]: runWebScraper called 
+2026-10-28 09:33:24 [32minfo[39m [runWebscraper:runWebScraper]: running scrapeURL... 
+2026-10-28 09:33:24 [32minfo[39m [ScrapeURL:]: scrapeURL entered 
+2026-10-28 09:33:24 [32minfo[39m [ScrapeURL:]: Scraping URL "https://felgen.express/abe/TTUY8BA47E.pdf"... 
+2026-10-28 09:33:24 [32minfo[39m [ScrapeURL:]: Selected engines 
+2026-10-28 09:33:24 [32minfo[39m [ScrapeURL:]: Scraping via pdf... 
+2026-10-28 09:33:24 [34mdebug[39m [ScrapeURL:]: Executed transformers. 
+2026-10-28 09:33:24 [34mdebug[39m [scrapeURL/metrics:]: scrapeURL metrics 
+2026-10-28 09:33:24 [32minfo[39m [log_job:robustInsert]: Skipping job log due to USE_DB_AUTHENTICATION being off 
+2026-10-28 09:33:24 [32minfo[39m [queue-worker:processJob]: 🐂 Job done 01a181db-329d-709c-be2f-250e4937640d 
+2026-10-28 09:33:24 [34mdebug[39m [queue-worker:processJobInternal]: Job succeeded -- putting result in Redis 
+2026-10-28 09:33:24 [32minfo[39m [:scrapeController]: Done with waitForJob 
+2026-10-28 09:33:24 [32minfo[39m [:scrapeController]: Removed job from queue 
+2026-10-28 09:33:24 [32minfo[39m [:scrapeController]: Request metrics 
+2026-10-28 09:33:24 [32minfo[39m [:POST]: v1 request completed 
+2026-10-28 09:33:24 [34mdebug[39m [:scrapeController]: Scrape 01a181db-6edd-77fa-bdfe-be2879190206 starting 
+2026-10-28 09:33:24 [32minfo[39m [log_job:robustInsert]: Skipping job log due to USE_DB_AUTHENTICATION being off 
+2026-10-28 09:33:24 [34mdebug[39m [:]: Bypassing concurrency limit for bypass 
+2026-10-28 09:33:24 [34mdebug[39m [:scrapeController]: Lock acquired for team: bypass 
+2026-10-28 09:33:24 [32minfo[39m [queue-worker:processJob]: 🐂 Worker taking job 01a181db-6edd-77fa-bdfe-be2879190206 
+2026-10-28 09:33:24 [32minfo[39m [runWebscraper:runWebScraper]: runWebScraper called 
+2026-10-28 09:33:24 [32minfo[39m [runWebscraper:runWebScraper]: running scrapeURL... 
+2026-10-28 09:33:24 [32minfo[39m [ScrapeURL:]: scrapeURL entered 
+2026-10-28 09:33:24 [32minfo[39m [ScrapeURL:]: Scraping URL "https://minsa.gob.pa/sites/default/files/programas/marco_regulatorio_en_salud_bucal_formato_digital_dic._2013.pdf"... 
+2026-10-28 09:33:24 [32minfo[39m [ScrapeURL:]: Selected engines 
+2026-10-28 09:33:24 [32minfo[39m [ScrapeURL:]: Scraping via pdf... 
+2026-10-28 09:33:24 [32minfo[39m [pdf.detect:scrapePDF]: starting PDF detection 
+2026-10-28 09:33:24 [32minfo[39m [pdf.detect:scrapePDF]: PDF detection complete 
+2026-10-28 09:33:24 [32minfo[39m [ScrapeURL:scrapePDF/processPdf]: detectPdf completed 
+2026-10-28 09:33:24 [34mdebug[39m [ScrapeURL:scrapePDF/scrapePDFWithParsePDF]: Processing PDF document with parse-pdf 
+2026-10-28 09:33:24 [32minfo[39m [ScrapeURL:scrapePDF/scrapePDFWithParsePDF]: pdfParse succeeded 
+2026-10-28 09:33:24 [32minfo[39m [ScrapeURL:]: Scrape via pdf deemed successful. 
+2026-10-28 09:33:24 [34mdebug[39m [ScrapeURL:executeTransformers/deriveMarkdownFromHTML]: Skipping markdown derivation - document already has markdown 
+2026-10-28 09:33:24 [34mdebug[39m [ScrapeURL:]: Executed transformers. 
+2026-10-28 09:33:24 [34mdebug[39m [scrapeURL/metrics:]: scrapeURL metrics 
+2026-10-28 09:33:24 [32minfo[39m [log_job:robustInsert]: Skipping job log due to USE_DB_AUTHENTICATION being off 
+2026-10-28 09:33:24 [32minfo[39m [queue-worker:processJob]: 🐂 Job done 01a181db-6edd-77fa-bdfe-be2879190206 
+2026-10-28 09:33:24 [34mdebug[39m [queue-worker:processJobInternal]: Job succeeded -- putting result in Redis 
+2026-10-28 09:33:24 [32minfo[39m [:scrapeController]: Done with waitForJob 
+2026-10-28 09:33:24 [32minfo[39m [:scrapeController]: Removed job from queue 
+2026-10-28 09:33:24 [32minfo[39m [:scrapeController]: Request metrics 
+2026-10-28 09:33:24 [32minfo[39m [:POST]: v1 request completed 
+2026-10-28 09:33:24 [34mdebug[39m [:scrapeController]: Scrape 01a181db-7199-756c-ab8d-8b2ec32d8179 starting 
+2026-10-28 09:33:24 [32minfo[39m [log_job:robustInsert]: Skipping job log due to USE_DB_AUTHENTICATION being off 
+2026-10-28 09:33:24 [34mdebug[39m [:]: Bypassing concurrency limit for bypass 
+2026-10-28 09:33:24 [34mdebug[39m [:scrapeController]: Lock acquired for team: bypass 
+2026-10-28 09:33:24 [32minfo[39m [queue-worker:processJob]: 🐂 Worker taking job 01a181db-7199-756c-ab8d-8b2ec32d8179 
+2026-10-28 09:33:24 [32minfo[39m [runWebscraper:runWebScraper]: runWebScraper called 
+2026-10-28 09:33:24 [32minfo[39m [runWebscraper:runWebScraper]: running scrapeURL... 
+2026-10-28 09:33:24 [32minfo[39m [ScrapeURL:]: scrapeURL entered 
+2026-10-28 09:33:24 [32minfo[39m [ScrapeURL:]: Scraping URL "https://www.nazafa-cleaning.com/post/%D8%A3%D9%81%D8%B6%D9%84-%D8%B4%D8%B1%D9%83%D8%A9-%D8%AA%D9%86%D8%B8%D9%8A%D9%81-%D9%88%D8%AA%D9%84%D9%85%D9%8A%D8%B9-%D9%81%D9%8A-%D8%A7%D8%A8%D9%88%D8%B8%D8%A8%D9%8A"... 
+2026-10-28 09:33:24 [32minfo[39m [ScrapeURL:]: Selected engines 
+2026-10-28 09:33:24 [32minfo[39m [ScrapeURL:]: Scraping via playwright... 
+2026-10-28 09:33:26 [32minfo[39m [pdf.detect:scrapePDF]: starting PDF detection 
+2026-10-28 09:33:26 [32minfo[39m [pdf.detect:scrapePDF]: PDF detection complete 
+2026-10-28 09:33:26 [32minfo[39m [ScrapeURL:scrapePDF/processPdf]: detectPdf completed 
+2026-10-28 09:33:26 [34mdebug[39m [ScrapeURL:scrapePDF/scrapePDFWithParsePDF]: Processing PDF document with parse-pdf 
+Warning: TT: undefined function: 32
+Warning: TT: undefined function: 32
+Warning: TT: undefined function: 32
+Warning: TT: undefined function: 32
+Warning: TT: undefined function: 32
+Warning: TT: undefined function: 32
+Warning: TT: undefined function: 32
+Warning: TT: undefined function: 32
+Warning: TT: undefined function: 32
+Warning: TT: undefined function: 32
+Warning: TT: undefined function: 32
+2026-10-28 09:33:33 [32minfo[39m [ScrapeURL:scrapePDF/scrapePDFWithParsePDF]: pdfParse succeeded 
+2026-10-28 09:33:33 [32minfo[39m [ScrapeURL:]: Waterfalling to next engine... 
+2026-10-28 09:33:33 [32minfo[39m [ScrapeURL:]: Scraping via fetch... 
+2026-10-28 09:33:33 [32minfo[39m [ScrapeURL:]: Scrape via pdf deemed successful. 
+2026-10-28 09:33:33 [34mdebug[39m [ScrapeURL:]: Skipping markdown conversion for quality check due to large HTML size 
+2026-10-28 09:33:33 [32minfo[39m [ScrapeURL:]: Scrape via playwright deemed successful. 
+2026-10-28 09:33:33 [34mdebug[39m [ScrapeURL:executeTransformers/deriveMarkdownFromHTML]: Skipping markdown derivation - document already has markdown 
+2026-10-28 09:33:34 [34mdebug[39m [ScrapeURL:]: Executed transformers. 
+2026-10-28 09:33:34 [34mdebug[39m [scrapeURL/metrics:]: scrapeURL metrics 
+2026-10-28 09:33:34 [32minfo[39m [log_job:robustInsert]: Skipping job log due to USE_DB_AUTHENTICATION being off 
+2026-10-28 09:33:34 [32minfo[39m [queue-worker:processJob]: 🐂 Job done 01a181db-6e55-71d8-8bce-9a90da4d40bd 
+2026-10-28 09:33:34 [32minfo[39m [ScrapeURL:]: Scrape via playwright deemed successful. 
+2026-10-28 09:33:34 [32minfo[39m [ScrapeURL:]: Scrape via playwright deemed successful. 
+2026-10-28 09:33:34 [32minfo[39m [ScrapeURL:]: Scrape via playwright deemed successful. 
+2026-10-28 09:33:34 [32minfo[39m [ScrapeURL:]: Scrape via playwright deemed successful. 
+2026-10-28 09:33:34 [34mdebug[39m [ScrapeURL:]: Executed transformers. 
+2026-10-28 09:33:34 [34mdebug[39m [scrapeURL/metrics:]: scrapeURL metrics 
+2026-10-28 09:33:34 [32minfo[39m [log_job:robustInsert]: Skipping job log due to USE_DB_AUTHENTICATION being off 
+2026-10-28 09:33:34 [32minfo[39m [queue-worker:processJob]: 🐂 Job done 01a181db-7199-756c-ab8d-8b2ec32d8179 
+2026-10-28 09:33:34 [34mdebug[39m [queue-worker:processJobInternal]: Job succeeded -- putting result in Redis 
+2026-10-28 09:33:34 [34mdebug[39m [ScrapeURL:]: Executed transformers. 
+2026-10-28 09:33:34 [34mdebug[39m [scrapeURL/metrics:]: scrapeURL metrics 
+2026-10-28 09:33:34 [32minfo[39m [log_job:robustInsert]: Skipping job log due to USE_DB_AUTHENTICATION being off 
+2026-10-28 09:33:34 [32minfo[39m [queue-worker:processJob]: 🐂 Job done 01a181db-567f-725c-ae0f-a1e0bc1a8a45 
+2026-10-28 09:33:34 [34mdebug[39m [queue-worker:processJobInternal]: Job succeeded -- putting result in Redis 
+2026-10-28 09:33:34 [34mdebug[39m [ScrapeURL:]: Executed transformers. 
+2026-10-28 09:33:34 [34mdebug[39m [scrapeURL/metrics:]: scrapeURL metrics 
+2026-10-28 09:33:34 [32minfo[39m [log_job:robustInsert]: Skipping job log due to USE_DB_AUTHENTICATION being off 
+2026-10-28 09:33:34 [32minfo[39m [queue-worker:processJob]: 🐂 Job done 01a181db-448a-72c8-8f8d-12ec7d8835b1 
+2026-10-28 09:33:34 [34mdebug[39m [queue-worker:processJobInternal]: Job succeeded -- putting result in Redis 
+2026-10-28 09:33:34 [32minfo[39m [:scrapeController]: Done with waitForJob 
+2026-10-28 09:33:34 [32minfo[39m [:scrapeController]: Removed job from queue 
+2026-10-28 09:33:34 [32minfo[39m [:scrapeController]: Request metrics 
+2026-10-28 09:33:34 [32minfo[39m [:POST]: v1 request completed 
+2026-10-28 09:33:34 [34mdebug[39m [ScrapeURL:]: Executed transformers. 
+2026-10-28 09:33:34 [34mdebug[39m [scrapeURL/metrics:]: scrapeURL metrics 
+2026-10-28 09:33:34 [32minfo[39m [log_job:robustInsert]: Skipping job log due to USE_DB_AUTHENTICATION being off 
+2026-10-28 09:33:34 [32minfo[39m [queue-worker:processJob]: 🐂 Job done 01a181db-3cda-736b-976e-2691999d5f55 
+2026-10-28 09:33:34 [34mdebug[39m [ScrapeURL:]: Executed transformers. 
+2026-10-28 09:33:34 [34mdebug[39m [scrapeURL/metrics:]: scrapeURL metrics 
+2026-10-28 09:33:34 [32minfo[39m [log_job:robustInsert]: Skipping job log due to USE_DB_AUTHENTICATION being off 
+2026-10-28 09:33:34 [32minfo[39m [queue-worker:processJob]: 🐂 Job done 01a181db-3b7f-765c-8cac-e882e70440a3 
+2026-10-28 09:33:34 [34mdebug[39m [queue-worker:processJobInternal]: Job succeeded -- putting result in Redis 
+2026-10-28 09:33:34 [32minfo[39m [:scrapeController]: Done with waitForJob 
+2026-10-28 09:33:34 [32minfo[39m [:scrapeController]: Removed job from queue 
+2026-10-28 09:33:34 [32minfo[39m [:scrapeController]: Request metrics 
+2026-10-28 09:33:34 [32minfo[39m [:POST]: v1 request completed 
+2026-10-28 09:33:34 [34mdebug[39m [queue-worker:processJobInternal]: Job succeeded -- putting result in Redis 
+2026-10-28 09:33:34 [34mdebug[39m [queue-worker:processJobInternal]: Job succeeded -- putting result in Redis 
+2026-10-28 09:33:34 [32minfo[39m [:scrapeController]: Done with waitForJob 
+2026-10-28 09:33:34 [32minfo[39m [:scrapeController]: Removed job from queue 
+2026-10-28 09:33:34 [32minfo[39m [:scrapeController]: Request metrics 
+2026-10-28 09:33:34 [32minfo[39m [:POST]: v1 request completed 
+2026-10-28 09:33:34 [34mdebug[39m [:scrapeController]: Scrape 01a181db-9897-777c-815b-46c6d9c0753c starting 
+2026-10-28 09:33:34 [32minfo[39m [log_job:robustInsert]: Skipping job log due to USE_DB_AUTHENTICATION being off 
+2026-10-28 09:33:34 [34mdebug[39m [:]: Bypassing concurrency limit for bypass 
+2026-10-28 09:33:34 [34mdebug[39m [:scrapeController]: Scrape 01a181db-989c-75f8-80fa-14a61fea052c starting 
+2026-10-28 09:33:34 [32minfo[39m [log_job:robustInsert]: Skipping job log due to USE_DB_AUTHENTICATION being off 
+2026-10-28 09:33:34 [34mdebug[39m [:]: Bypassing concurrency limit for bypass 
+2026-10-28 09:33:34 [32minfo[39m [:scrapeController]: Done with waitForJob 
+2026-10-28 09:33:34 [32minfo[39m [:scrapeController]: Removed job from queue 
+2026-10-28 09:33:34 [32minfo[39m [:scrapeController]: Request metrics 
+2026-10-28 09:33:34 [32minfo[39m [:POST]: v1 request completed 
+2026-10-28 09:33:34 [34mdebug[39m [:scrapeController]: Scrape 01a181db-98a4-710a-9c05-3d53dca71609 starting 
+2026-10-28 09:33:34 [32minfo[39m [log_job:robustInsert]: Skipping job log due to USE_DB_AUTHENTICATION being off 
+2026-10-28 09:33:34 [34mdebug[39m [:]: Bypassing concurrency limit for bypass 
+2026-10-28 09:33:34 [34mdebug[39m [:scrapeController]: Lock acquired for team: bypass 
+2026-10-28 09:33:34 [34mdebug[39m [:scrapeController]: Lock acquired for team: bypass 
+2026-10-28 09:33:34 [32minfo[39m [:scrapeController]: Done with waitForJob 
+2026-10-28 09:33:34 [32minfo[39m [:scrapeController]: Removed job from queue 
+2026-10-28 09:33:34 [32minfo[39m [:scrapeController]: Request metrics 
+2026-10-28 09:33:34 [32minfo[39m [:POST]: v1 request completed 
+2026-10-28 09:33:34 [32minfo[39m [:scrapeController]: Done with waitForJob 
+2026-10-28 09:33:34 [32minfo[39m [:scrapeController]: Removed job from queue 
+2026-10-28 09:33:34 [32minfo[39m [:scrapeController]: Request metrics 
+2026-10-28 09:33:34 [32minfo[39m [:POST]: v1 request completed 
+2026-10-28 09:33:34 [34mdebug[39m [:scrapeController]: Scrape 01a181db-98b4-70c1-bc1e-c14c1cb7ddab starting 
+2026-10-28 09:33:34 [32minfo[39m [log_job:robustInsert]: Skipping job log due to USE_DB_AUTHENTICATION being off 
+2026-10-28 09:33:34 [34mdebug[39m [:]: Bypassing concurrency limit for bypass 
+2026-10-28 09:33:34 [34mdebug[39m [:scrapeController]: Lock acquired for team: bypass 
+2026-10-28 09:33:34 [34mdebug[39m [:scrapeController]: Scrape 01a181db-98bc-72a4-ac2f-fed8c33a7f85 starting 
+2026-10-28 09:33:34 [32minfo[39m [log_job:robustInsert]: Skipping job log due to USE_DB_AUTHENTICATION being off 
+2026-10-28 09:33:34 [34mdebug[39m [:]: Bypassing concurrency limit for bypass 
+2026-10-28 09:33:34 [34mdebug[39m [:scrapeController]: Scrape 01a181db-98c2-74cc-82a8-d2d23020ddd8 starting 
+2026-10-28 09:33:34 [32minfo[39m [log_job:robustInsert]: Skipping job log due to USE_DB_AUTHENTICATION being off 
+2026-10-28 09:33:34 [34mdebug[39m [:]: Bypassing concurrency limit for bypass 
+2026-10-28 09:33:34 [34mdebug[39m [:scrapeController]: Lock acquired for team: bypass 
+2026-10-28 09:33:34 [34mdebug[39m [:scrapeController]: Lock acquired for team: bypass 
+2026-10-28 09:33:34 [34mdebug[39m [:scrapeController]: Lock acquired for team: bypass 
+2026-10-28 09:33:34 [32minfo[39m [queue-worker:processJob]: 🐂 Worker taking job 01a181db-9897-777c-815b-46c6d9c0753c 
+2026-10-28 09:33:34 [32minfo[39m [runWebscraper:runWebScraper]: runWebScraper called 
+2026-10-28 09:33:34 [32minfo[39m [runWebscraper:runWebScraper]: running scrapeURL... 
+2026-10-28 09:33:34 [32minfo[39m [queue-worker:processJob]: 🐂 Worker taking job 01a181db-989c-75f8-80fa-14a61fea052c 
+2026-10-28 09:33:34 [32minfo[39m [runWebscraper:runWebScraper]: runWebScraper called 
+2026-10-28 09:33:34 [32minfo[39m [runWebscraper:runWebScraper]: running scrapeURL... 
+2026-10-28 09:33:34 [32minfo[39m [ScrapeURL:]: scrapeURL entered 
+2026-10-28 09:33:34 [32minfo[39m [ScrapeURL:]: Scraping URL "https://luottobiili.fi/auto/land-rover-range-rover-evoque-2/"... 
+2026-10-28 09:33:34 [32minfo[39m [ScrapeURL:]: scrapeURL entered 
+2026-10-28 09:33:34 [32minfo[39m [ScrapeURL:]: Scraping URL "https://zyk.99.com.cn/lidong/1598839.htm"... 
+2026-10-28 09:33:34 [32minfo[39m [ScrapeURL:]: Selected engines 
+2026-10-28 09:33:34 [32minfo[39m [ScrapeURL:]: Selected engines 
+2026-10-28 09:33:34 [32minfo[39m [ScrapeURL:]: Scraping via playwright... 
+2026-10-28 09:33:34 [32minfo[39m [ScrapeURL:]: Scraping via playwright... 
+2026-10-28 09:33:34 [32minfo[39m [queue-worker:processJob]: 🐂 Worker taking job 01a181db-98a4-710a-9c05-3d53dca71609 
+2026-10-28 09:33:34 [32minfo[39m [runWebscraper:runWebScraper]: runWebScraper called 
+2026-10-28 09:33:34 [32minfo[39m [runWebscraper:runWebScraper]: running scrapeURL... 
+2026-10-28 09:33:34 [32minfo[39m [ScrapeURL:]: scrapeURL entered 
+2026-10-28 09:33:34 [32minfo[39m [ScrapeURL:]: Scraping URL "https://slate.com/culture/2026/10/wildwood-movie-laika-studios-coraline-oscars-family-2026.html"... 
+2026-10-28 09:33:34 [32minfo[39m [ScrapeURL:]: Selected engines 
+2026-10-28 09:33:34 [32minfo[39m [ScrapeURL:]: Scraping via playwright... 
+2026-10-28 09:33:34 [32minfo[39m [queue-worker:processJob]: 🐂 Worker taking job 01a181db-98b4-70c1-bc1e-c14c1cb7ddab 
+2026-10-28 09:33:34 [32minfo[39m [runWebscraper:runWebScraper]: runWebScraper called 
+2026-10-28 09:33:34 [32minfo[39m [runWebscraper:runWebScraper]: running scrapeURL... 
+2026-10-28 09:33:34 [32minfo[39m [ScrapeURL:]: scrapeURL entered 
+2026-10-28 09:33:34 [32minfo[39m [ScrapeURL:]: Scraping URL "https://www.boundlesstheater.com/about"... 
+2026-10-28 09:33:34 [32minfo[39m [ScrapeURL:]: Selected engines 
+2026-10-28 09:33:34 [32minfo[39m [ScrapeURL:]: Scraping via playwright... 
+2026-10-28 09:33:34 [32minfo[39m [queue-worker:processJob]: 🐂 Worker taking job 01a181db-98bc-72a4-ac2f-fed8c33a7f85 
+2026-10-28 09:33:34 [32minfo[39m [runWebscraper:runWebScraper]: runWebScraper called 
+2026-10-28 09:33:34 [32minfo[39m [runWebscraper:runWebScraper]: running scrapeURL... 
+2026-10-28 09:33:34 [32minfo[39m [queue-worker:processJob]: 🐂 Worker taking job 01a181db-98c2-74cc-82a8-d2d23020ddd8 
+2026-10-28 09:33:34 [32minfo[39m [runWebscraper:runWebScraper]: runWebScraper called 
+2026-10-28 09:33:34 [32minfo[39m [runWebscraper:runWebScraper]: running scrapeURL... 
+2026-10-28 09:33:34 [32minfo[39m [ScrapeURL:]: scrapeURL entered 
+2026-10-28 09:33:34 [32minfo[39m [ScrapeURL:]: Scraping URL "https://docs.railway.com/guides/host-documentation-site"... 
+2026-10-28 09:33:34 [32minfo[39m [ScrapeURL:]: scrapeURL entered 
+2026-10-28 09:33:34 [32minfo[39m [ScrapeURL:]: Scraping URL "https://mubeen.masarat.sa/"... 
+2026-10-28 09:33:34 [32minfo[39m [ScrapeURL:]: Selected engines 
+2026-10-28 09:33:34 [32minfo[39m [ScrapeURL:]: Selected engines 
+2026-10-28 09:33:34 [32minfo[39m [ScrapeURL:]: Scraping via playwright... 
+2026-10-28 09:33:34 [32minfo[39m [ScrapeURL:]: Scraping via playwright... 
+2026-10-28 09:33:34 [34mdebug[39m [ScrapeURL:scrapeURLWithFetch]: Decoded fetched HTML using detected charset 
+2026-10-28 09:33:34 [32minfo[39m [ScrapeURL:]: Scrape via fetch deemed successful. 
+2026-10-28 09:33:35 [34mdebug[39m [ScrapeURL:]: Executed transformers. 
+2026-10-28 09:33:35 [34mdebug[39m [scrapeURL/metrics:]: scrapeURL metrics 
+2026-10-28 09:33:35 [32minfo[39m [log_job:robustInsert]: Skipping job log due to USE_DB_AUTHENTICATION being off 
+2026-10-28 09:33:35 [32minfo[39m [queue-worker:processJob]: 🐂 Job done 01a181db-1a45-752e-bc7e-2f4964e85e00 
+2026-10-28 09:33:35 [34mdebug[39m [queue-worker:processJobInternal]: Job succeeded -- putting result in Redis 
+2026-10-28 09:33:35 [32minfo[39m [:scrapeController]: Done with waitForJob 
+2026-10-28 09:33:35 [32minfo[39m [:scrapeController]: Removed job from queue 
+2026-10-28 09:33:35 [32minfo[39m [:scrapeController]: Request metrics 
+2026-10-28 09:33:35 [32minfo[39m [:POST]: v1 request completed 
+2026-10-28 09:33:35 [34mdebug[39m [:scrapeController]: Scrape 01a181db-99c2-723b-91d5-335972faa4d4 starting 
+2026-10-28 09:33:35 [32minfo[39m [log_job:robustInsert]: Skipping job log due to USE_DB_AUTHENTICATION being off 
+2026-10-28 09:33:35 [34mdebug[39m [:]: Bypassing concurrency limit for bypass 
+2026-10-28 09:33:35 [34mdebug[39m [:scrapeController]: Lock acquired for team: bypass 
+2026-10-28 09:33:35 [32minfo[39m [queue-worker:processJob]: 🐂 Worker taking job 01a181db-99c2-723b-91d5-335972faa4d4 
+2026-10-28 09:33:35 [32minfo[39m [runWebscraper:runWebScraper]: runWebScraper called 
+2026-10-28 09:33:35 [32minfo[39m [runWebscraper:runWebScraper]: running scrapeURL... 
+2026-10-28 09:33:35 [32minfo[39m [ScrapeURL:]: scrapeURL entered 
+2026-10-28 09:33:35 [32minfo[39m [ScrapeURL:]: Scraping URL "https://edu.kara.or.kr/bbs/content.php?co_id=provision"... 
+2026-10-28 09:33:35 [32minfo[39m [ScrapeURL:]: Selected engines 
+2026-10-28 09:33:35 [32minfo[39m [ScrapeURL:]: Scraping via playwright... 
+2026-10-28 09:33:35 [32minfo[39m [ScrapeURL:]: Waterfalling to next engine... 
+2026-10-28 09:33:35 [32minfo[39m [ScrapeURL:]: Scraping via fetch... 
+/opt/benchmark-entrypoint.sh: line 53:   133 Killed                  ( cd /app && node dist/src/index.js )

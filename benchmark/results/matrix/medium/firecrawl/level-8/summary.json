@@ -1,16 +1,16 @@
 {
-  "avg_f1": 0.452832556889171,
-  "avg_precision": 0.4646039194669608,
-  "avg_recall": 0.45129172878193946,
+  "avg_f1": 0.8468190041235596,
+  "avg_precision": 0.853325205969349,
+  "avg_recall": 0.8440145256646449,
   "concurrency": 8,
-  "coverage_recall_10pct": 0.609,
+  "coverage_recall_10pct": 0.909,
   "engine": "firecrawl",
-  "latency_ms_p50_all": 2629.227,
-  "latency_ms_p50_success": 2975.17,
-  "latency_ms_p95_all": 10281.252699999992,
-  "latency_ms_p95_success": 9554.749999999982,
-  "pages_per_second_this_run": 1.8927378446382905,
-  "success_rate": 0.657,
+  "latency_ms_p50_all": 3794.0665,
+  "latency_ms_p50_success": 3804.208,
+  "latency_ms_p95_all": 30342.953499999996,
+  "latency_ms_p95_success": 30157.5395,
+  "pages_per_second_this_run": 1.1306380759745995,
+  "success_rate": 0.931,
   "urls": 1000,
-  "wall_seconds_this_run": 528.335185368
+  "wall_seconds_this_run": 884.456327139
 }

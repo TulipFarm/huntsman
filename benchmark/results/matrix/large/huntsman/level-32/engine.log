@@ -1,99 +1,67 @@
-2026/10/26 04:19:50 INFO Huntsman ready address=0.0.0.0:8080 workers=32 perHost=32 cacheTTL=1h0m0s allowPrivate=false
-$time=1792988393994 $scope=note $level=note $msg="server running" address=127.0.0.1:9253 max_connections=848 max_browser_connections=16
-$time=1792988399146 $scope=note $level=note $msg="server running" address=127.0.0.1:9226 max_connections=848 max_browser_connections=16
-$time=1792988399156 $scope=note $level=note $msg="server running" address=127.0.0.1:9240 max_connections=848 max_browser_connections=16
-$time=1792988399166 $scope=note $level=note $msg="server running" address=127.0.0.1:9224 max_connections=848 max_browser_connections=16
-$time=1792988399168 $scope=note $level=note $msg="server running" address=127.0.0.1:9252 max_connections=848 max_browser_connections=16
-$time=1792988399176 $scope=note $level=note $msg="server running" address=127.0.0.1:9248 max_connections=848 max_browser_connections=16
-$time=1792988399189 $scope=note $level=note $msg="server running" address=127.0.0.1:9249 max_connections=848 max_browser_connections=16
-$time=1792988399191 $scope=note $level=note $msg="server running" address=127.0.0.1:9227 max_connections=848 max_browser_connections=16
-$time=1792988399204 $scope=note $level=note $msg="server running" address=127.0.0.1:9242 max_connections=848 max_browser_connections=16
-$time=1792988399239 $scope=note $level=note $msg="server running" address=127.0.0.1:9241 max_connections=848 max_browser_connections=16
-$time=1792988399241 $scope=note $level=note $msg="server running" address=127.0.0.1:9238 max_connections=848 max_browser_connections=16
-$time=1792988399258 $scope=note $level=note $msg="server running" address=127.0.0.1:9230 max_connections=848 max_browser_connections=16
-$time=1792988399264 $scope=note $level=note $msg="server running" address=127.0.0.1:9232 max_connections=848 max_browser_connections=16
-$time=1792988399278 $scope=note $level=note $msg="server running" address=127.0.0.1:9250 max_connections=848 max_browser_connections=16
-$time=1792988399288 $scope=note $level=note $msg="server running" address=127.0.0.1:9239 max_connections=848 max_browser_connections=16
-$time=1792988399313 $scope=note $level=note $msg="server running" address=127.0.0.1:9251 max_connections=848 max_browser_connections=16
-$time=1792988399336 $scope=note $level=note $msg="server running" address=127.0.0.1:9234 max_connections=848 max_browser_connections=16
-$time=1792988399352 $scope=note $level=note $msg="server running" address=127.0.0.1:9236 max_connections=848 max_browser_connections=16
-$time=1792988399356 $scope=note $level=note $msg="server running" address=127.0.0.1:9225 max_connections=848 max_browser_connections=16
-$time=1792988399359 $scope=note $level=note $msg="server running" address=127.0.0.1:9246 max_connections=848 max_browser_connections=16
-$time=1792988399381 $scope=note $level=note $msg="server running" address=127.0.0.1:9231 max_connections=848 max_browser_connections=16
-$time=1792988399418 $scope=note $level=note $msg="server running" address=127.0.0.1:9237 max_connections=848 max_browser_connections=16
-$time=1792988399433 $scope=note $level=note $msg="server running" address=127.0.0.1:9235 max_connections=848 max_browser_connections=16
-$time=1792988399452 $scope=note $level=note $msg="server running" address=127.0.0.1:9222 max_connections=848 max_browser_connections=16
-$time=1792988399480 $scope=note $level=note $msg="server running" address=127.0.0.1:9223 max_connections=848 max_browser_connections=16
-$time=1792988399500 $scope=note $level=note $msg="server running" address=127.0.0.1:9233 max_connections=848 max_browser_connections=16
-$time=1792988399503 $scope=note $level=note $msg="server running" address=127.0.0.1:9247 max_connections=848 max_browser_connections=16
-$time=1792988399511 $scope=note $level=note $msg="server running" address=127.0.0.1:9245 max_connections=848 max_browser_connections=16
-$time=1792988399527 $scope=note $level=note $msg="server running" address=127.0.0.1:9229 max_connections=848 max_browser_connections=16
-$time=1792988399559 $scope=note $level=note $msg="server running" address=127.0.0.1:9228 max_connections=848 max_browser_connections=16
-$time=1792988399560 $scope=note $level=note $msg="server running" address=127.0.0.1:9244 max_connections=848 max_browser_connections=16
-$time=1792988399587 $scope=note $level=note $msg="server running" address=127.0.0.1:9243 max_connections=848 max_browser_connections=16
-2026/10/26 04:20:00 WARN scrape failed job=70f7d9c976a41809f80a30eec6e86776 error="page produced empty Markdown"
-2026/10/26 04:20:05 WARN scrape failed job=aae49f399b7421325b05f143da936cbc error="page produced empty Markdown"
-2026/10/26 04:20:05 WARN scrape failed job=8a6aded0d04fb4429a0b331a1b2c488d error="navigate: page load error CouldntResolveHost"
-2026/10/26 04:20:07 WARN scrape failed job=2757b744e8a9c1377f0bdd97ccd0507c error="page produced empty Markdown"
-2026/10/26 04:20:10 WARN scrape failed job=681c9e2e5b84bdf642d0574bd3af56e9 error="page produced empty Markdown"
-2026/10/26 04:20:11 WARN scrape failed job=5e1f9399ed690b12c41dcb45e9160e93 error="page produced empty Markdown"
-2026/10/26 04:20:12 WARN scrape failed job=de36cdcd3f396f67c23a94fbaf69d212 error="navigate: page load error CouldntResolveHost"
-2026/10/26 04:20:15 WARN scrape failed job=f3d273a8c9bb21d785aac9c8bd35447a error="page produced empty Markdown"
-2026/10/26 04:20:18 WARN scrape failed job=3a70263a29f64ae3545fe0ca156ad852 error="page produced empty Markdown"
-2026/10/26 04:20:21 WARN scrape failed job=df29ce98fdaf165278e8f832b1fc7767 error="navigate: page load error SslConnectError"
-2026/10/26 04:20:21 WARN scrape failed job=99c69eddbc53df4a8cf1966f41d37256 error="page produced empty Markdown"
-2026/10/26 04:20:22 WARN scrape failed job=fefd2185ddf84f01d131af514765f123 error="page produced empty Markdown"
-2026/10/26 04:20:26 WARN scrape failed job=cf1ca526dd301b3b7e3800df614ac6e6 error="page produced empty Markdown"
-2026/10/26 04:20:26 WARN scrape failed job=f1fa6c7c77e32f8dfbb7d7326a2ba78b error="navigate: page load error SslConnectError"
-2026/10/26 04:20:29 WARN scrape failed job=0b472af410950829fe9490819d740be3 error="page produced empty Markdown"
-2026/10/26 04:20:31 WARN scrape failed job=216917e631ee9280380ac20682c06ada error="navigate: page load error net::ERR_TIMED_OUT"
-2026/10/26 04:20:34 WARN scrape failed job=6f6ae98644b4978e6547c6353a624e6a error="navigate: page load error CouldntResolveHost"
-2026/10/26 04:20:37 WARN scrape failed job=a6d94fd8d3b0052c76f1f9b6d62b7343 error="navigate: page load error net::ERR_TIMED_OUT"
-2026/10/26 04:20:38 WARN scrape failed job=f6747c9b42913a35379cf349f98ffa43 error="page produced empty Markdown"
-2026/10/26 04:20:38 WARN scrape failed job=e3a4ff1d75ccb2bf4d02018a6c7e7214 error="navigate: page load error CouldntConnect"
-2026/10/26 04:20:39 WARN scrape failed job=41a7c2d57f25e17a2682a60e280bb0a7 error="navigate: context canceled"
-2026/10/26 04:20:40 WARN scrape failed job=c37ce6b84cca6c6134a2003c77d8f059 error="page produced empty Markdown"
-2026/10/26 04:20:41 WARN scrape failed job=04c8188cf22f9fde72eca5e7ac5fdbfd error="page produced empty Markdown"
-2026/10/26 04:20:42 WARN scrape failed job=2c60078ad7c9ac18092a77145cecd91f error="page produced empty Markdown"
-2026/10/26 04:20:43 WARN scrape failed job=33b145db06c32686065a7b7a1d810380 error="navigate: page load error CouldntResolveHost"
-2026/10/26 04:20:44 WARN scrape failed job=f38e35f04eae3fe109b6abb5baefeefd error="fetch PDF: Get \"http://library.qiangtu.com/download/793/pdf/793.pdf\": EOF"
-2026/10/26 04:20:45 WARN scrape failed job=6019bd33aff6d1be04bbf151eedde0a2 error="navigate: page load error net::ERR_TIMED_OUT"
-2026/10/26 04:20:45 WARN scrape failed job=13976e197a6434210eaffc7b19208322 error="navigate: page load error CouldntResolveHost"
-2026/10/26 04:20:45 WARN scrape failed job=852441c5eb31ec889afa9c341e8fbc67 error="fetch PDF: Get \"https://www.sersc.org/journals/IJSEA/vol14_no2/38.pdf\": dial tcp: lookup www.sersc.org on 172.31.0.2:53: no such host"
-2026/10/26 04:20:46 WARN scrape failed job=8bcb0c4255e8c2549c83fbe84deeecc6 error="page produced empty Markdown"
-2026/10/26 04:20:47 WARN scrape failed job=7d5eb279826e6e14a3ae21bd6f029e6b error="navigate: page load error CouldntResolveHost"
-2026/10/26 04:20:47 WARN scrape failed job=b8653b19d4d435c1b7252543ec175f6d error="page produced empty Markdown"
-2026/10/26 04:20:48 WARN scrape failed job=a122a514708caed1bdfb797542dcebaa error="navigate: page load error CouldntResolveHost"
-2026/10/26 04:20:51 WARN scrape failed job=37273778deb9ddd3a3b5c20edf8a9b36 error="page produced empty Markdown"
-2026/10/26 04:20:51 WARN scrape failed job=8f8fea8056b48ff0aa444e6fb0beb13f error="navigate: page load error net::ERR_TIMED_OUT"
-2026/10/26 04:20:55 WARN scrape failed job=38915fe05bfad4b139d2ea2ccad06327 error="page produced empty Markdown"
-2026/10/26 04:20:56 WARN scrape failed job=e5e1e4096e30e7bcfe4b6b1183e34635 error="page produced empty Markdown"
-2026/10/26 04:20:57 WARN scrape failed job=b3faa715e8fe1845cf8f034a2e078bfb error="navigate: page load error net::ERR_TIMED_OUT"
-2026/10/26 04:20:57 WARN scrape failed job=01297fc28380e38cc73e5aefc9b6ae3d error="page produced empty Markdown"
-2026/10/26 04:20:59 WARN scrape failed job=9ae950a36bae37328ad42774193c2fde error="navigate: page load error CouldntResolveHost"
-2026/10/26 04:21:00 WARN scrape failed job=da6bfc5455018d4b39229ad5531dcc6e error="navigate: page load error net::ERR_TIMED_OUT"
-$time=1792988461320 $scope=app $level=error $msg="JS heap limit reached" $page=47 initial_limit=121634816 current_limit=121634816 tearing_down=false
-$time=1792988461321 $scope=app $level=error $msg="JS heap limit script" $page=47 url=https://dash.plotly.com/dash-ag-grid/column-definitions page_url=https://dash.plotly.com/dash-ag-grid/column-definitions stack="; createDynamicBean (https://dash.plotly.com/_dash-component-suites/dash_ag_grid/dash_ag_grid.v35_2_0m1792615575.min.js:4:353367); createTooltipFeature (https://dash.plotly.com/_dash-component-suites/dash_ag_grid/dash_ag_grid.v35_2_0m1792615575.min.js:63:28518); enableCellTooltipFeature (https://dash.plotly.com/_dash-component-suites/dash_ag_grid/dash_ag_grid.v35_2_0m1792615575.min.js:63:27432); enableTooltipFeature (https://dash.plotly.com/_dash-component-suites/dash_ag_grid/dash_ag_grid.v35_2_0m1792615575.min.js:22:58275); addFeatures (https://dash.plotly.com/_dash-component-suites/dash_ag_grid/dash_ag_grid.v35_2_0m1792615575.min.js:22:57386); setComp (https://dash.plotly.com/_dash-component-suites/dash_ag_grid/dash_ag_grid.v35_2_0m1792615575.min.js:22:58861); <anonymous> (https://dash.plotly.com/_dash-component-suites/dash_ag_grid/async-community.js:143:49666); <anonymous> (https://dash.plotly.com/_dash-component-suites/dash_ag_grid/async-community.js:143:49775); Lf (https://dash.plotly.com/_dash-component-suites/dash/deps/react-dom@18.v4_3_0m1792615575.3.1.min.js:165:287); Ji (https://dash.plotly.com/_dash-component-suites/dash/deps/react-dom@18.v4_3_0m1792615575.3.1.min.js:181:339); Hi (https://dash.plotly.com/_dash-component-suites/dash/deps/react-dom@18.v4_3_0m1792615575.3.1.min.js:179:278); Hi (https://dash.plotly.com/_dash-component-suites/dash/deps/react-dom@18.v4_3_0m1792615575.3.1.min.js:179:175)"
-$time=1792988461458 $scope=frame $level=error $msg="navigation done" $page=47 url=https://dash.plotly.com/dash-ag-grid/column-definitions
-2026/10/26 04:21:02 WARN scrape failed job=7c19b3c28447e5f8dbbf2abaeb592ad4 error="page produced empty Markdown"
-2026/10/26 04:21:02 WARN scrape failed job=7b34a68e29dc04274ab3f5f73e5013a5 error="page produced empty Markdown"
-2026/10/26 04:21:04 WARN scrape failed job=2a307d412f604e8d691b955da8bbf2f5 error="navigate: page load error CouldntResolveHost"
-2026/10/26 04:21:04 WARN scrape failed job=8e9bf14c219d9d153dca06cfa42b57be error="page produced empty Markdown"
-2026/10/26 04:21:06 WARN scrape failed job=3a597536bb87d607634fd8b191daabf3 error="navigate: page load error CouldntResolveHost"
-2026/10/26 04:21:07 WARN scrape failed job=be8239fa66aa9f52a9078fb881232036 error="page produced empty Markdown"
-2026/10/26 04:21:08 WARN scrape failed job=5942dd5c6eab3c624c45b405fb85b701 error="navigate: page load error net::ERR_TIMED_OUT"
-2026/10/26 04:21:08 WARN scrape failed job=63cab1cb5464b268c39609f4d51e3133 error="page produced empty Markdown"
-2026/10/26 04:21:09 WARN scrape failed job=a4d412514362fd4ac31963feb369a8c9 error="navigate: page load error net::ERR_TIMED_OUT"
-2026/10/26 04:21:12 WARN scrape failed job=ebabc9c7e430a0da0275274ddaaa642b error="navigate: page load error net::ERR_TIMED_OUT"
-2026/10/26 04:21:15 WARN scrape failed job=72d2b2a7d7c984d714dd49d875843557 error="page produced empty Markdown"
-2026/10/26 04:21:15 WARN scrape failed job=a17708a617b7d2ccf17a8725c3de2352 error="navigate: page load error net::ERR_TIMED_OUT"
-2026/10/26 04:21:17 WARN scrape failed job=b4aa18f8c93653a59328d63c43b12958 error="target returned HTTP 403"
-2026/10/26 04:21:18 WARN scrape failed job=8f5ad3b8c5193990fce8cea75a9e8cfa error="navigate: page load error net::ERR_TIMED_OUT"
-2026/10/26 04:21:18 WARN scrape failed job=667f70022ab197a93e0fe207fdf05c62 error="navigate: page load error CouldntResolveHost"
-2026/10/26 04:21:18 WARN scrape failed job=4f621394c4cef6a5f7a86d8ff75c7041 error="page produced empty Markdown"
-2026/10/26 04:21:19 WARN scrape failed job=1de84cc3c79402174b24f1c7c98efb27 error="page produced empty Markdown"
-2026/10/26 04:21:21 WARN scrape failed job=bc2d8df107f2cf3eb034c75f3bf602d2 error="PDF has no extractable text"
-2026/10/26 04:21:22 WARN scrape failed job=d0e95a5e1bf9146a285fbeefebb7dfbe error="page produced empty Markdown"
-2026/10/26 04:21:37 WARN scrape failed job=f1b96bb4057b1595a9f38aad77627b42 error="navigate: page load error net::ERR_TIMED_OUT"
-2026/10/26 04:21:39 WARN scrape failed job=81f2b851ef5edf9bff933ebe07ed1330 error="navigate: page load error net::ERR_TIMED_OUT"
-2026/10/26 04:21:43 WARN scrape failed job=da07929c863753fbb1f2e208e735d2b2 error="navigate: page load error net::ERR_TIMED_OUT"
+2026/10/28 07:40:52 INFO Huntsman ready address=0.0.0.0:8080 workers=32 perHost=32 cacheTTL=1h0m0s allowPrivate=false
+$time=1793173256028 $scope=note $level=note $msg="server running" address=127.0.0.1:9246 max_connections=848 max_browser_connections=16
+$time=1793173261306 $scope=note $level=note $msg="server running" address=127.0.0.1:9245 max_connections=848 max_browser_connections=16
+$time=1793173261309 $scope=note $level=note $msg="server running" address=127.0.0.1:9233 max_connections=848 max_browser_connections=16
+$time=1793173261320 $scope=note $level=note $msg="server running" address=127.0.0.1:9250 max_connections=848 max_browser_connections=16
+$time=1793173261326 $scope=note $level=note $msg="server running" address=127.0.0.1:9243 max_connections=848 max_browser_connections=16
+$time=1793173261345 $scope=note $level=note $msg="server running" address=127.0.0.1:9232 max_connections=848 max_browser_connections=16
+$time=1793173261359 $scope=note $level=note $msg="server running" address=127.0.0.1:9240 max_connections=848 max_browser_connections=16
+$time=1793173261369 $scope=note $level=note $msg="server running" address=127.0.0.1:9230 max_connections=848 max_browser_connections=16
+$time=1793173261393 $scope=note $level=note $msg="server running" address=127.0.0.1:9247 max_connections=848 max_browser_connections=16
+$time=1793173261398 $scope=note $level=note $msg="server running" address=127.0.0.1:9242 max_connections=848 max_browser_connections=16
+$time=1793173261418 $scope=note $level=note $msg="server running" address=127.0.0.1:9239 max_connections=848 max_browser_connections=16
+$time=1793173261427 $scope=note $level=note $msg="server running" address=127.0.0.1:9237 max_connections=848 max_browser_connections=16
+$time=1793173261429 $scope=note $level=note $msg="server running" address=127.0.0.1:9226 max_connections=848 max_browser_connections=16
+$time=1793173261475 $scope=note $level=note $msg="server running" address=127.0.0.1:9228 max_connections=848 max_browser_connections=16
+$time=1793173261481 $scope=note $level=note $msg="server running" address=127.0.0.1:9231 max_connections=848 max_browser_connections=16
+$time=1793173261496 $scope=note $level=note $msg="server running" address=127.0.0.1:9244 max_connections=848 max_browser_connections=16
+$time=1793173261501 $scope=note $level=note $msg="server running" address=127.0.0.1:9224 max_connections=848 max_browser_connections=16
+$time=1793173261503 $scope=note $level=note $msg="server running" address=127.0.0.1:9234 max_connections=848 max_browser_connections=16
+$time=1793173261537 $scope=note $level=note $msg="server running" address=127.0.0.1:9238 max_connections=848 max_browser_connections=16
+$time=1793173261554 $scope=note $level=note $msg="server running" address=127.0.0.1:9227 max_connections=848 max_browser_connections=16
+$time=1793173261569 $scope=note $level=note $msg="server running" address=127.0.0.1:9235 max_connections=848 max_browser_connections=16
+$time=1793173261574 $scope=note $level=note $msg="server running" address=127.0.0.1:9223 max_connections=848 max_browser_connections=16
+2026/10/28 07:41:01 WARN scrape failed job=43af3b728eda1b8bbfbbace0df71f115 error="navigate: page load error CouldntResolveHost"
+$time=1793173261596 $scope=note $level=note $msg="server running" address=127.0.0.1:9229 max_connections=848 max_browser_connections=16
+$time=1793173261607 $scope=note $level=note $msg="server running" address=127.0.0.1:9251 max_connections=848 max_browser_connections=16
+$time=1793173261617 $scope=note $level=note $msg="server running" address=127.0.0.1:9236 max_connections=848 max_browser_connections=16
+$time=1793173261646 $scope=note $level=note $msg="server running" address=127.0.0.1:9241 max_connections=848 max_browser_connections=16
+$time=1793173261651 $scope=note $level=note $msg="server running" address=127.0.0.1:9248 max_connections=848 max_browser_connections=16
+$time=1793173261656 $scope=note $level=note $msg="server running" address=127.0.0.1:9249 max_connections=848 max_browser_connections=16
+$time=1793173261665 $scope=note $level=note $msg="server running" address=127.0.0.1:9225 max_connections=848 max_browser_connections=16
+$time=1793173261679 $scope=note $level=note $msg="server running" address=127.0.0.1:9222 max_connections=848 max_browser_connections=16
+$time=1793173263210 $scope=note $level=note $msg="server running" address=127.0.0.1:9253 max_connections=848 max_browser_connections=16
+$time=1793173264024 $scope=note $level=note $msg="server running" address=127.0.0.1:9252 max_connections=848 max_browser_connections=16
+2026/10/28 07:41:15 WARN scrape failed job=470e42645adb9d77a28488cf46ce4f21 error="page produced empty Markdown"
+2026/10/28 07:41:16 WARN scrape failed job=46ec4060fb372b957b56be5cddfe4eb8 error="fetch PDF: Get \"https://meccnar.gov.gm/sites/default/files/2021-04/GAMBIA%20NATIONAL%20CLIMATE%20CHANGE%20POLICY.pdf\": tls: failed to verify certificate: x509: certificate signed by unknown authority"
+2026/10/28 07:41:19 WARN scrape failed job=0a65553881e60e48b7a278ea0dd61576 error="parse PDF: unsupported PDF: encryption version V=4; <</CF <</StdCF <</AuthEvent /DocOpen /CFM /V2 /Length 16>>>> /Filter /Standard /Length 128 /O \"ѭ\\x17y\\xd24T\\x99Z\\xa2\\xa5٘\\x88\\xd6ч\\xc2A\\xf7\\x9d\\xb7\\b?|\\x9a\\x8c.\\xef\\xdcb\\x18\" /P -1324 /R 4 /StmF /StdCF /StrF /StdCF /U \"\\xfc\\x8d\\xe1{\\xf1\\x80-\\x8b\\xc3\\x0451\\x98\\x16xd\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\" /V 4>>"
+2026/10/28 07:41:29 WARN scrape failed job=e2a72462fc7ceaa07e38d4f63ea4611a error="page produced empty Markdown"
+2026/10/28 07:41:31 WARN scrape failed job=5e3ceaf2c31d8b5713b162a5fd14922e error="navigate: page load error net::ERR_TIMED_OUT"
+2026/10/28 07:41:32 WARN scrape failed job=c77d37f9a54f9a05492827c5bb524cc8 error="page produced empty Markdown"
+2026/10/28 07:41:32 WARN scrape failed job=284e7481f76e2749f09b610bfe05b276 error="navigate: page load error net::ERR_TIMED_OUT"
+2026/10/28 07:41:33 WARN scrape failed job=374ff635977c6ddfdf6918bf42707dcb error="fetch PDF: Get \"https://prac.im.pwr.edu.pl/~downar/polish/materialy/ANALIZA2/Wahanie%20skonczone%20a%20calka%20Riemanna-Stieltjesa.pdf\": tls: failed to verify certificate: x509: certificate signed by unknown authority"
+2026/10/28 07:41:44 WARN scrape failed job=6c89fdede2e374189b5920a456d58d7e error="navigate: page load error ResponseTooLarge"
+2026/10/28 07:41:47 WARN scrape failed job=cc6a68c97df16fb5adad4dfb467f675b error="fetch PDF: Get \"https://jca.gov.jm/wp-content/uploads/2022/12/DRM-Enforcement-Measures-No_-2-Order-2020-1-March-24-2020.x86258.pdf\": dial tcp 63.143.89.246:443: i/o timeout"
+2026/10/28 07:41:48 WARN scrape failed job=e4d1e14c18a3ae0800a2318f076063c1 error="page produced empty Markdown"
+2026/10/28 07:41:51 WARN scrape failed job=5db2220145e20930ba49e488833cb10b error="page produced empty Markdown"
+2026/10/28 07:41:54 WARN scrape failed job=85eab33a3a276559b10dbeb5cb351460 error="PDF has no extractable text"
+2026/10/28 07:41:56 WARN scrape failed job=520d486c9f27e94b97d0d1d554943e80 error="page produced empty Markdown"
+2026/10/28 07:41:57 WARN scrape failed job=5f4c35facd1ce30f29a3d5e88cb20802 error="navigate: page load error ResponseTooLarge"
+2026/10/28 07:42:00 WARN scrape failed job=4552706fcc38285870f51c5d5a57eb7b error="navigate: page load error net::ERR_TIMED_OUT"
+2026/10/28 07:42:04 WARN scrape failed job=bab22775e0f5689266474d5d2be87f34 error="navigate: page load error net::ERR_TIMED_OUT"
+2026/10/28 07:42:20 WARN scrape failed job=1761d2fe236b04676208672c641d5387 error="navigate: page load error GotNothing"
+2026/10/28 07:42:24 WARN scrape failed job=08bb6ae0a9eb7bb22f305c4aabd57f48 error="navigate: page load error Http2Stream"
+2026/10/28 07:42:27 WARN scrape failed job=b19f0fbac5984ed4d94ae4c1acfc25e1 error="navigate: page load error net::ERR_TIMED_OUT"
+2026/10/28 07:42:31 WARN scrape failed job=92ec0cc6e04d7d68e97fd40cff85f680 error="read PDF: context deadline exceeded"
+2026/10/28 07:42:33 WARN scrape failed job=8060e73272d04d4b8b9a3345958b5b65 error="navigate: context canceled"
+2026/10/28 07:42:36 WARN scrape failed job=fd6f0bef362312b238b14c2fc1e7f5ca error="page produced empty Markdown"
+2026/10/28 07:42:41 WARN scrape failed job=ebf8ec25211c0521e69df850f09719b5 error="navigate: page load error net::ERR_TIMED_OUT"
+2026/10/28 07:42:44 WARN scrape failed job=08dcde5eb59f21092adc0e0713ed69da error="extract HTML: context canceled"
+2026/10/28 07:42:45 WARN scrape failed job=a00db65f941fa64d259d5d5de2b0e9b6 error="page produced empty Markdown"
+2026/10/28 07:42:45 WARN scrape failed job=da9de8d933b14d879ec0bcb031bd7d34 error="navigate: context canceled"
+2026/10/28 07:42:46 WARN scrape failed job=bfbda28543e6000d72fc3b5680b18299 error="page produced empty Markdown"
+2026/10/28 07:43:00 WARN scrape failed job=cae0305e3f554f7c837609862cce4670 error="navigate: page load error net::ERR_TIMED_OUT"
+2026/10/28 07:43:00 WARN scrape failed job=952a06ff603c3bdb98182143509eacaf error="navigate: page load error net::ERR_TIMED_OUT"
+2026/10/28 07:43:09 WARN scrape failed job=8945966592fe26b0f9ccc3c10d00219a error="page produced empty Markdown"
+2026/10/28 07:43:13 WARN scrape failed job=4da6c8d15a108d8b9e900b75f1f6dbcd error="page produced empty Markdown"
+2026/10/28 07:43:38 WARN scrape failed job=5b6b05ad6bd2a29291b45572c3fb3291 error="navigate: page load error net::ERR_TIMED_OUT"

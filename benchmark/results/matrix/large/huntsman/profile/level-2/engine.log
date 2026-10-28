@@ -1,4 +1,0 @@
-2026/10/26 04:26:43 INFO Huntsman ready address=0.0.0.0:8080 workers=2 perHost=2 cacheTTL=1h0m0s allowPrivate=false
-$time=1792988806812 $scope=note $level=note $msg="server running" address=127.0.0.1:9223 max_connections=848 max_browser_connections=16
-$time=1792988811968 $scope=note $level=note $msg="server running" address=127.0.0.1:9222 max_connections=848 max_browser_connections=16
-2026/10/26 04:28:42 WARN scrape failed job=978a5d4e96b40b1d49d0c5455494cc40 error="navigate: page load error net::ERR_TIMED_OUT"

@@ -1,88 +1,88 @@
 latest: Pulling from unclecode/crawl4ai
 f7a4467ce1df: Pulling fs layer
-163c741a70d3: Pulling fs layer
-bcc0eda7996a: Pulling fs layer
-ecbed7df0ff7: Pulling fs layer
-959b399bb1cb: Pulling fs layer
-9f52e000b3f6: Pulling fs layer
-e079bf2c9e94: Pulling fs layer
-52978e48820a: Pulling fs layer
-4f4fb700ef54: Pulling fs layer
-c46e542c07c9: Pulling fs layer
-b35f8f33218c: Pulling fs layer
-7ef4909567d1: Pulling fs layer
-d8f806453741: Pulling fs layer
-4b4004ad7799: Pulling fs layer
-532f252ba807: Pulling fs layer
-4f4fb700ef54: Pulling fs layer
-787793965808: Pulling fs layer
-9c1aca5b4523: Pulling fs layer
-e0e2571e536f: Pulling fs layer
-8550c39cb79b: Pulling fs layer
-f94dca2aeb60: Pulling fs layer
-0bd801e5f6e3: Pulling fs layer
-a8bd4d0b8356: Pulling fs layer
-a4c1e8b8fbe2: Pulling fs layer
-0b94859bbc5c: Pulling fs layer
-9a3d268d15a7: Pulling fs layer
-e21e192cee44: Pulling fs layer
-d705102f4440: Pulling fs layer
-d442c3b1feed: Pulling fs layer
-76294804daeb: Pulling fs layer
 c75f989a229d: Pulling fs layer
+163c741a70d3: Pulling fs layer
+76294804daeb: Pulling fs layer
+ecbed7df0ff7: Pulling fs layer
+9f52e000b3f6: Pulling fs layer
+52978e48820a: Pulling fs layer
+c46e542c07c9: Pulling fs layer
+7ef4909567d1: Pulling fs layer
+4b4004ad7799: Pulling fs layer
+4f4fb700ef54: Pulling fs layer
+9c1aca5b4523: Pulling fs layer
+8550c39cb79b: Pulling fs layer
+d8f806453741: Pulling fs layer
+0bd801e5f6e3: Pulling fs layer
+a4c1e8b8fbe2: Pulling fs layer
+9a3d268d15a7: Pulling fs layer
+d705102f4440: Pulling fs layer
+bcc0eda7996a: Pulling fs layer
+959b399bb1cb: Pulling fs layer
+e079bf2c9e94: Pulling fs layer
+4f4fb700ef54: Pulling fs layer
+b35f8f33218c: Pulling fs layer
+a8bd4d0b8356: Pulling fs layer
+532f252ba807: Pulling fs layer
+787793965808: Pulling fs layer
+e0e2571e536f: Pulling fs layer
+f94dca2aeb60: Pulling fs layer
+d442c3b1feed: Pulling fs layer
+0b94859bbc5c: Pulling fs layer
+e21e192cee44: Pulling fs layer
 2faf9993cef2: Pulling fs layer
-44136fa355b3: Download complete
-4f4fb700ef54: Already exists
-f7a4467ce1df: Download complete
-621a6b790e4b: Download complete
-959b399bb1cb: Download complete
-a8bd4d0b8356: Download complete
-a4c1e8b8fbe2: Download complete
-163c741a70d3: Download complete
 ecbed7df0ff7: Download complete
-9f52e000b3f6: Download complete
-9a3d268d15a7: Download complete
-e21e192cee44: Download complete
-52978e48820a: Download complete
-bcc0eda7996a: Download complete
-0bd801e5f6e3: Download complete
-76294804daeb: Download complete
-d8f806453741: Download complete
-8550c39cb79b: Download complete
 2faf9993cef2: Download complete
+163c741a70d3: Download complete
+52978e48820a: Download complete
+9a3d268d15a7: Download complete
+f7a4467ce1df: Download complete
+bcc0eda7996a: Download complete
+a4c1e8b8fbe2: Download complete
+9f52e000b3f6: Download complete
+4f4fb700ef54: Download complete
+8550c39cb79b: Download complete
+0bd801e5f6e3: Download complete
+959b399bb1cb: Download complete
 0b94859bbc5c: Download complete
+a8bd4d0b8356: Download complete
+44136fa355b3: Download complete
+e21e192cee44: Download complete
+621a6b790e4b: Download complete
+d8f806453741: Download complete
 7ef4909567d1: Download complete
+76294804daeb: Download complete
 4b4004ad7799: Download complete
 d705102f4440: Download complete
-9c1aca5b4523: Download complete
 c75f989a229d: Download complete
+9c1aca5b4523: Download complete
 e079bf2c9e94: Download complete
 c75f989a229d: Pull complete
 c46e542c07c9: Download complete
 163c741a70d3: Pull complete
-76294804daeb: Pull complete
 b35f8f33218c: Download complete
+d442c3b1feed: Download complete
+76294804daeb: Pull complete
 ecbed7df0ff7: Pull complete
+f94dca2aeb60: Download complete
 9f52e000b3f6: Pull complete
 52978e48820a: Pull complete
-d442c3b1feed: Download complete
 787793965808: Download complete
-f94dca2aeb60: Download complete
-e0e2571e536f: Download complete
 c46e542c07c9: Pull complete
-7ef4909567d1: Pull complete
-4b4004ad7799: Pull complete
+e0e2571e536f: Download complete
 532f252ba807: Download complete
+7ef4909567d1: Pull complete
+4f4fb700ef54: Pull complete
+4b4004ad7799: Pull complete
 9c1aca5b4523: Pull complete
 8550c39cb79b: Pull complete
-0bd801e5f6e3: Pull complete
 a4c1e8b8fbe2: Pull complete
+0bd801e5f6e3: Pull complete
 9a3d268d15a7: Pull complete
 d705102f4440: Pull complete
 bcc0eda7996a: Pull complete
 959b399bb1cb: Pull complete
 e079bf2c9e94: Pull complete
-4f4fb700ef54: Pull complete
 b35f8f33218c: Pull complete
 d8f806453741: Pull complete
 532f252ba807: Pull complete

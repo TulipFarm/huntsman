@@ -1,0 +1,224 @@
+2026/10/28 07:50:56 INFO Huntsman ready address=0.0.0.0:8080 workers=192 perHost=64 cacheTTL=1h0m0s allowPrivate=false
+$time=1793173860017 $scope=note $level=note $msg="server running" address=127.0.0.1:9287 max_connections=848 max_browser_connections=16
+$time=1793173865191 $scope=note $level=note $msg="server running" address=127.0.0.1:9277 max_connections=848 max_browser_connections=16
+$time=1793173865208 $scope=note $level=note $msg="server running" address=127.0.0.1:9301 max_connections=848 max_browser_connections=16
+$time=1793173865231 $scope=note $level=note $msg="server running" address=127.0.0.1:9258 max_connections=848 max_browser_connections=16
+$time=1793173865243 $scope=note $level=note $msg="server running" address=127.0.0.1:9366 max_connections=848 max_browser_connections=16
+$time=1793173865258 $scope=note $level=note $msg="server running" address=127.0.0.1:9280 max_connections=848 max_browser_connections=16
+$time=1793173865283 $scope=note $level=note $msg="server running" address=127.0.0.1:9286 max_connections=848 max_browser_connections=16
+$time=1793173865315 $scope=note $level=note $msg="server running" address=127.0.0.1:9246 max_connections=848 max_browser_connections=16
+$time=1793173865325 $scope=note $level=note $msg="server running" address=127.0.0.1:9266 max_connections=848 max_browser_connections=16
+$time=1793173865350 $scope=note $level=note $msg="server running" address=127.0.0.1:9309 max_connections=848 max_browser_connections=16
+$time=1793173865377 $scope=note $level=note $msg="server running" address=127.0.0.1:9288 max_connections=848 max_browser_connections=16
+$time=1793173865391 $scope=note $level=note $msg="server running" address=127.0.0.1:9377 max_connections=848 max_browser_connections=16
+$time=1793173865423 $scope=note $level=note $msg="server running" address=127.0.0.1:9413 max_connections=848 max_browser_connections=16
+$time=1793173865442 $scope=note $level=note $msg="server running" address=127.0.0.1:9240 max_connections=848 max_browser_connections=16
+$time=1793173865455 $scope=note $level=note $msg="server running" address=127.0.0.1:9318 max_connections=848 max_browser_connections=16
+$time=1793173865483 $scope=note $level=note $msg="server running" address=127.0.0.1:9262 max_connections=848 max_browser_connections=16
+$time=1793173865501 $scope=note $level=note $msg="server running" address=127.0.0.1:9231 max_connections=848 max_browser_connections=16
+$time=1793173865528 $scope=note $level=note $msg="server running" address=127.0.0.1:9340 max_connections=848 max_browser_connections=16
+$time=1793173865530 $scope=note $level=note $msg="server running" address=127.0.0.1:9264 max_connections=848 max_browser_connections=16
+2026/10/28 07:51:05 WARN scrape failed job=da05ba05ba51ece270ccbae65dc15ede error="navigate: page load error CouldntResolveHost"
+$time=1793173865564 $scope=note $level=note $msg="server running" address=127.0.0.1:9283 max_connections=848 max_browser_connections=16
+$time=1793173865589 $scope=note $level=note $msg="server running" address=127.0.0.1:9235 max_connections=848 max_browser_connections=16
+$time=1793173865608 $scope=note $level=note $msg="server running" address=127.0.0.1:9224 max_connections=848 max_browser_connections=16
+$time=1793173865630 $scope=note $level=note $msg="server running" address=127.0.0.1:9342 max_connections=848 max_browser_connections=16
+$time=1793173865636 $scope=note $level=note $msg="server running" address=127.0.0.1:9251 max_connections=848 max_browser_connections=16
+$time=1793173865674 $scope=note $level=note $msg="server running" address=127.0.0.1:9252 max_connections=848 max_browser_connections=16
+$time=1793173865701 $scope=note $level=note $msg="server running" address=127.0.0.1:9329 max_connections=848 max_browser_connections=16
+$time=1793173865705 $scope=note $level=note $msg="server running" address=127.0.0.1:9259 max_connections=848 max_browser_connections=16
+$time=1793173865739 $scope=note $level=note $msg="server running" address=127.0.0.1:9317 max_connections=848 max_browser_connections=16
+$time=1793173865783 $scope=note $level=note $msg="server running" address=127.0.0.1:9348 max_connections=848 max_browser_connections=16
+$time=1793173865833 $scope=note $level=note $msg="server running" address=127.0.0.1:9272 max_connections=848 max_browser_connections=16
+$time=1793173865893 $scope=note $level=note $msg="server running" address=127.0.0.1:9394 max_connections=848 max_browser_connections=16
+$time=1793173865897 $scope=note $level=note $msg="server running" address=127.0.0.1:9410 max_connections=848 max_browser_connections=16
+$time=1793173865925 $scope=note $level=note $msg="server running" address=127.0.0.1:9228 max_connections=848 max_browser_connections=16
+$time=1793173865966 $scope=note $level=note $msg="server running" address=127.0.0.1:9320 max_connections=848 max_browser_connections=16
+$time=1793173866017 $scope=note $level=note $msg="server running" address=127.0.0.1:9347 max_connections=848 max_browser_connections=16
+$time=1793173866032 $scope=note $level=note $msg="server running" address=127.0.0.1:9295 max_connections=848 max_browser_connections=16
+$time=1793173866114 $scope=note $level=note $msg="server running" address=127.0.0.1:9374 max_connections=848 max_browser_connections=16
+$time=1793173866122 $scope=note $level=note $msg="server running" address=127.0.0.1:9271 max_connections=848 max_browser_connections=16
+$time=1793173866125 $scope=note $level=note $msg="server running" address=127.0.0.1:9406 max_connections=848 max_browser_connections=16
+$time=1793173866168 $scope=note $level=note $msg="server running" address=127.0.0.1:9238 max_connections=848 max_browser_connections=16
+$time=1793173866212 $scope=note $level=note $msg="server running" address=127.0.0.1:9331 max_connections=848 max_browser_connections=16
+$time=1793173866261 $scope=note $level=note $msg="server running" address=127.0.0.1:9396 max_connections=848 max_browser_connections=16
+$time=1793173866298 $scope=note $level=note $msg="server running" address=127.0.0.1:9409 max_connections=848 max_browser_connections=16
+$time=1793173866368 $scope=note $level=note $msg="server running" address=127.0.0.1:9405 max_connections=848 max_browser_connections=16
+$time=1793173866410 $scope=note $level=note $msg="server running" address=127.0.0.1:9359 max_connections=848 max_browser_connections=16
+$time=1793173866413 $scope=note $level=note $msg="server running" address=127.0.0.1:9253 max_connections=848 max_browser_connections=16
+$time=1793173866434 $scope=note $level=note $msg="server running" address=127.0.0.1:9233 max_connections=848 max_browser_connections=16
+$time=1793173866507 $scope=note $level=note $msg="server running" address=127.0.0.1:9327 max_connections=848 max_browser_connections=16
+$time=1793173866611 $scope=note $level=note $msg="server running" address=127.0.0.1:9263 max_connections=848 max_browser_connections=16
+$time=1793173866784 $scope=note $level=note $msg="server running" address=127.0.0.1:9385 max_connections=848 max_browser_connections=16
+$time=1793173866878 $scope=note $level=note $msg="server running" address=127.0.0.1:9404 max_connections=848 max_browser_connections=16
+$time=1793173866889 $scope=note $level=note $msg="server running" address=127.0.0.1:9265 max_connections=848 max_browser_connections=16
+$time=1793173867039 $scope=note $level=note $msg="server running" address=127.0.0.1:9411 max_connections=848 max_browser_connections=16
+$time=1793173867087 $scope=note $level=note $msg="server running" address=127.0.0.1:9226 max_connections=848 max_browser_connections=16
+$time=1793173867106 $scope=note $level=note $msg="server running" address=127.0.0.1:9395 max_connections=848 max_browser_connections=16
+$time=1793173867112 $scope=note $level=note $msg="server running" address=127.0.0.1:9303 max_connections=848 max_browser_connections=16
+$time=1793173867129 $scope=note $level=note $msg="server running" address=127.0.0.1:9302 max_connections=848 max_browser_connections=16
+$time=1793173867197 $scope=note $level=note $msg="server running" address=127.0.0.1:9358 max_connections=848 max_browser_connections=16
+$time=1793173867252 $scope=note $level=note $msg="server running" address=127.0.0.1:9398 max_connections=848 max_browser_connections=16
+$time=1793173867287 $scope=note $level=note $msg="server running" address=127.0.0.1:9323 max_connections=848 max_browser_connections=16
+$time=1793173867355 $scope=note $level=note $msg="server running" address=127.0.0.1:9376 max_connections=848 max_browser_connections=16
+$time=1793173867420 $scope=note $level=note $msg="server running" address=127.0.0.1:9362 max_connections=848 max_browser_connections=16
+2026/10/28 07:51:07 WARN scrape failed job=443b56d7c7e5a6fdfa269ad136e9d284 error="fetch PDF: Get \"https://meccnar.gov.gm/sites/default/files/2021-04/GAMBIA%20NATIONAL%20CLIMATE%20CHANGE%20POLICY.pdf\": tls: failed to verify certificate: x509: certificate signed by unknown authority"
+$time=1793173867576 $scope=note $level=note $msg="server running" address=127.0.0.1:9285 max_connections=848 max_browser_connections=16
+$time=1793173867649 $scope=note $level=note $msg="server running" address=127.0.0.1:9243 max_connections=848 max_browser_connections=16
+$time=1793173867681 $scope=note $level=note $msg="server running" address=127.0.0.1:9225 max_connections=848 max_browser_connections=16
+$time=1793173867700 $scope=note $level=note $msg="server running" address=127.0.0.1:9247 max_connections=848 max_browser_connections=16
+$time=1793173867744 $scope=note $level=note $msg="server running" address=127.0.0.1:9412 max_connections=848 max_browser_connections=16
+$time=1793173867779 $scope=note $level=note $msg="server running" address=127.0.0.1:9304 max_connections=848 max_browser_connections=16
+$time=1793173867816 $scope=note $level=note $msg="server running" address=127.0.0.1:9250 max_connections=848 max_browser_connections=16
+$time=1793173867822 $scope=note $level=note $msg="server running" address=127.0.0.1:9369 max_connections=848 max_browser_connections=16
+$time=1793173867858 $scope=note $level=note $msg="server running" address=127.0.0.1:9336 max_connections=848 max_browser_connections=16
+$time=1793173867918 $scope=note $level=note $msg="server running" address=127.0.0.1:9352 max_connections=848 max_browser_connections=16
+$time=1793173867948 $scope=note $level=note $msg="server running" address=127.0.0.1:9273 max_connections=848 max_browser_connections=16
+$time=1793173867950 $scope=note $level=note $msg="server running" address=127.0.0.1:9232 max_connections=848 max_browser_connections=16
+$time=1793173868012 $scope=note $level=note $msg="server running" address=127.0.0.1:9296 max_connections=848 max_browser_connections=16
+$time=1793173868090 $scope=note $level=note $msg="server running" address=127.0.0.1:9297 max_connections=848 max_browser_connections=16
+$time=1793173868122 $scope=note $level=note $msg="server running" address=127.0.0.1:9324 max_connections=848 max_browser_connections=16
+$time=1793173868224 $scope=note $level=note $msg="server running" address=127.0.0.1:9237 max_connections=848 max_browser_connections=16
+2026/10/28 07:51:08 WARN scrape failed job=7f140d7ae1e7ad9873d36840663980d7 error="page produced empty Markdown"
+$time=1793173868293 $scope=note $level=note $msg="server running" address=127.0.0.1:9270 max_connections=848 max_browser_connections=16
+$time=1793173868377 $scope=note $level=note $msg="server running" address=127.0.0.1:9364 max_connections=848 max_browser_connections=16
+$time=1793173868445 $scope=note $level=note $msg="server running" address=127.0.0.1:9305 max_connections=848 max_browser_connections=16
+$time=1793173868487 $scope=note $level=note $msg="server running" address=127.0.0.1:9223 max_connections=848 max_browser_connections=16
+$time=1793173868531 $scope=note $level=note $msg="server running" address=127.0.0.1:9407 max_connections=848 max_browser_connections=16
+$time=1793173868595 $scope=note $level=note $msg="server running" address=127.0.0.1:9321 max_connections=848 max_browser_connections=16
+$time=1793173868680 $scope=note $level=note $msg="server running" address=127.0.0.1:9282 max_connections=848 max_browser_connections=16
+$time=1793173868682 $scope=note $level=note $msg="server running" address=127.0.0.1:9242 max_connections=848 max_browser_connections=16
+$time=1793173868711 $scope=note $level=note $msg="server running" address=127.0.0.1:9333 max_connections=848 max_browser_connections=16
+$time=1793173868793 $scope=note $level=note $msg="server running" address=127.0.0.1:9335 max_connections=848 max_browser_connections=16
+$time=1793173868895 $scope=note $level=note $msg="server running" address=127.0.0.1:9307 max_connections=848 max_browser_connections=16
+$time=1793173868972 $scope=note $level=note $msg="server running" address=127.0.0.1:9379 max_connections=848 max_browser_connections=16
+$time=1793173869116 $scope=note $level=note $msg="server running" address=127.0.0.1:9349 max_connections=848 max_browser_connections=16
+$time=1793173869122 $scope=note $level=note $msg="server running" address=127.0.0.1:9300 max_connections=848 max_browser_connections=16
+$time=1793173869512 $scope=note $level=note $msg="server running" address=127.0.0.1:9378 max_connections=848 max_browser_connections=16
+$time=1793173869520 $scope=note $level=note $msg="server running" address=127.0.0.1:9230 max_connections=848 max_browser_connections=16
+$time=1793173869659 $scope=note $level=note $msg="server running" address=127.0.0.1:9381 max_connections=848 max_browser_connections=16
+$time=1793173869722 $scope=note $level=note $msg="server running" address=127.0.0.1:9354 max_connections=848 max_browser_connections=16
+$time=1793173869746 $scope=note $level=note $msg="server running" address=127.0.0.1:9330 max_connections=848 max_browser_connections=16
+$time=1793173869793 $scope=note $level=note $msg="server running" address=127.0.0.1:9337 max_connections=848 max_browser_connections=16
+$time=1793173869870 $scope=note $level=note $msg="server running" address=127.0.0.1:9334 max_connections=848 max_browser_connections=16
+$time=1793173869893 $scope=note $level=note $msg="server running" address=127.0.0.1:9372 max_connections=848 max_browser_connections=16
+$time=1793173869968 $scope=note $level=note $msg="server running" address=127.0.0.1:9397 max_connections=848 max_browser_connections=16
+$time=1793173869988 $scope=note $level=note $msg="server running" address=127.0.0.1:9399 max_connections=848 max_browser_connections=16
+$time=1793173870060 $scope=note $level=note $msg="server running" address=127.0.0.1:9325 max_connections=848 max_browser_connections=16
+$time=1793173870094 $scope=note $level=note $msg="server running" address=127.0.0.1:9291 max_connections=848 max_browser_connections=16
+$time=1793173870222 $scope=note $level=note $msg="server running" address=127.0.0.1:9367 max_connections=848 max_browser_connections=16
+$time=1793173870277 $scope=note $level=note $msg="server running" address=127.0.0.1:9370 max_connections=848 max_browser_connections=16
+$time=1793173870294 $scope=note $level=note $msg="server running" address=127.0.0.1:9315 max_connections=848 max_browser_connections=16
+$time=1793173870421 $scope=note $level=note $msg="server running" address=127.0.0.1:9268 max_connections=848 max_browser_connections=16
+$time=1793173870517 $scope=note $level=note $msg="server running" address=127.0.0.1:9355 max_connections=848 max_browser_connections=16
+$time=1793173870547 $scope=note $level=note $msg="server running" address=127.0.0.1:9365 max_connections=848 max_browser_connections=16
+2026/10/28 07:51:10 WARN scrape failed job=a826c0a86c76ef6a4c288aba43e1b3f5 error="page produced empty Markdown"
+$time=1793173870611 $scope=note $level=note $msg="server running" address=127.0.0.1:9403 max_connections=848 max_browser_connections=16
+$time=1793173870613 $scope=note $level=note $msg="server running" address=127.0.0.1:9326 max_connections=848 max_browser_connections=16
+$time=1793173870691 $scope=note $level=note $msg="server running" address=127.0.0.1:9260 max_connections=848 max_browser_connections=16
+$time=1793173870721 $scope=note $level=note $msg="server running" address=127.0.0.1:9241 max_connections=848 max_browser_connections=16
+$time=1793173870793 $scope=note $level=note $msg="server running" address=127.0.0.1:9346 max_connections=848 max_browser_connections=16
+$time=1793173870824 $scope=note $level=note $msg="server running" address=127.0.0.1:9308 max_connections=848 max_browser_connections=16
+$time=1793173870841 $scope=note $level=note $msg="server running" address=127.0.0.1:9313 max_connections=848 max_browser_connections=16
+$time=1793173870938 $scope=note $level=note $msg="server running" address=127.0.0.1:9255 max_connections=848 max_browser_connections=16
+2026/10/28 07:51:10 WARN scrape failed job=8ede15715af218682f04e19ae8654e4e error="parse PDF: unsupported PDF: encryption version V=4; <</CF <</StdCF <</AuthEvent /DocOpen /CFM /V2 /Length 16>>>> /Filter /Standard /Length 128 /O \"ѭ\\x17y\\xd24T\\x99Z\\xa2\\xa5٘\\x88\\xd6ч\\xc2A\\xf7\\x9d\\xb7\\b?|\\x9a\\x8c.\\xef\\xdcb\\x18\" /P -1324 /R 4 /StmF /StdCF /StrF /StdCF /U \"\\xfc\\x8d\\xe1{\\xf1\\x80-\\x8b\\xc3\\x0451\\x98\\x16xd\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\" /V 4>>"
+$time=1793173870978 $scope=note $level=note $msg="server running" address=127.0.0.1:9386 max_connections=848 max_browser_connections=16
+$time=1793173871045 $scope=note $level=note $msg="server running" address=127.0.0.1:9400 max_connections=848 max_browser_connections=16
+$time=1793173871055 $scope=note $level=note $msg="server running" address=127.0.0.1:9341 max_connections=848 max_browser_connections=16
+$time=1793173871071 $scope=note $level=note $msg="server running" address=127.0.0.1:9343 max_connections=848 max_browser_connections=16
+$time=1793173871161 $scope=note $level=note $msg="server running" address=127.0.0.1:9310 max_connections=848 max_browser_connections=16
+$time=1793173871195 $scope=note $level=note $msg="server running" address=127.0.0.1:9229 max_connections=848 max_browser_connections=16
+$time=1793173871200 $scope=note $level=note $msg="server running" address=127.0.0.1:9267 max_connections=848 max_browser_connections=16
+$time=1793173871272 $scope=note $level=note $msg="server running" address=127.0.0.1:9292 max_connections=848 max_browser_connections=16
+$time=1793173871320 $scope=note $level=note $msg="server running" address=127.0.0.1:9319 max_connections=848 max_browser_connections=16
+$time=1793173871387 $scope=note $level=note $msg="server running" address=127.0.0.1:9392 max_connections=848 max_browser_connections=16
+$time=1793173871408 $scope=note $level=note $msg="server running" address=127.0.0.1:9275 max_connections=848 max_browser_connections=16
+$time=1793173871445 $scope=note $level=note $msg="server running" address=127.0.0.1:9269 max_connections=848 max_browser_connections=16
+$time=1793173871446 $scope=note $level=note $msg="server running" address=127.0.0.1:9281 max_connections=848 max_browser_connections=16
+$time=1793173871455 $scope=note $level=note $msg="server running" address=127.0.0.1:9338 max_connections=848 max_browser_connections=16
+$time=1793173871497 $scope=note $level=note $msg="server running" address=127.0.0.1:9371 max_connections=848 max_browser_connections=16
+$time=1793173871506 $scope=note $level=note $msg="server running" address=127.0.0.1:9353 max_connections=848 max_browser_connections=16
+$time=1793173871507 $scope=note $level=note $msg="server running" address=127.0.0.1:9328 max_connections=848 max_browser_connections=16
+$time=1793173871588 $scope=note $level=note $msg="server running" address=127.0.0.1:9290 max_connections=848 max_browser_connections=16
+$time=1793173871634 $scope=note $level=note $msg="server running" address=127.0.0.1:9383 max_connections=848 max_browser_connections=16
+$time=1793173871733 $scope=note $level=note $msg="server running" address=127.0.0.1:9391 max_connections=848 max_browser_connections=16
+$time=1793173871745 $scope=note $level=note $msg="server running" address=127.0.0.1:9312 max_connections=848 max_browser_connections=16
+$time=1793173871758 $scope=note $level=note $msg="server running" address=127.0.0.1:9408 max_connections=848 max_browser_connections=16
+$time=1793173871834 $scope=note $level=note $msg="server running" address=127.0.0.1:9339 max_connections=848 max_browser_connections=16
+$time=1793173871842 $scope=note $level=note $msg="server running" address=127.0.0.1:9239 max_connections=848 max_browser_connections=16
+$time=1793173872032 $scope=note $level=note $msg="server running" address=127.0.0.1:9393 max_connections=848 max_browser_connections=16
+$time=1793173872049 $scope=note $level=note $msg="server running" address=127.0.0.1:9276 max_connections=848 max_browser_connections=16
+$time=1793173872055 $scope=note $level=note $msg="server running" address=127.0.0.1:9345 max_connections=848 max_browser_connections=16
+$time=1793173872097 $scope=note $level=note $msg="server running" address=127.0.0.1:9244 max_connections=848 max_browser_connections=16
+$time=1793173872100 $scope=note $level=note $msg="server running" address=127.0.0.1:9257 max_connections=848 max_browser_connections=16
+$time=1793173872118 $scope=note $level=note $msg="server running" address=127.0.0.1:9389 max_connections=848 max_browser_connections=16
+$time=1793173872176 $scope=note $level=note $msg="server running" address=127.0.0.1:9261 max_connections=848 max_browser_connections=16
+$time=1793173872202 $scope=note $level=note $msg="server running" address=127.0.0.1:9245 max_connections=848 max_browser_connections=16
+$time=1793173872378 $scope=note $level=note $msg="server running" address=127.0.0.1:9363 max_connections=848 max_browser_connections=16
+$time=1793173872379 $scope=note $level=note $msg="server running" address=127.0.0.1:9322 max_connections=848 max_browser_connections=16
+$time=1793173872489 $scope=note $level=note $msg="server running" address=127.0.0.1:9361 max_connections=848 max_browser_connections=16
+$time=1793173872529 $scope=note $level=note $msg="server running" address=127.0.0.1:9227 max_connections=848 max_browser_connections=16
+$time=1793173872678 $scope=note $level=note $msg="server running" address=127.0.0.1:9274 max_connections=848 max_browser_connections=16
+$time=1793173872684 $scope=note $level=note $msg="server running" address=127.0.0.1:9368 max_connections=848 max_browser_connections=16
+$time=1793173872691 $scope=note $level=note $msg="server running" address=127.0.0.1:9380 max_connections=848 max_browser_connections=16
+$time=1793173872727 $scope=note $level=note $msg="server running" address=127.0.0.1:9388 max_connections=848 max_browser_connections=16
+$time=1793173872731 $scope=note $level=note $msg="server running" address=127.0.0.1:9222 max_connections=848 max_browser_connections=16
+$time=1793173872750 $scope=note $level=note $msg="server running" address=127.0.0.1:9249 max_connections=848 max_browser_connections=16
+$time=1793173872879 $scope=note $level=note $msg="server running" address=127.0.0.1:9351 max_connections=848 max_browser_connections=16
+$time=1793173872905 $scope=note $level=note $msg="server running" address=127.0.0.1:9316 max_connections=848 max_browser_connections=16
+$time=1793173872937 $scope=note $level=note $msg="server running" address=127.0.0.1:9236 max_connections=848 max_browser_connections=16
+$time=1793173873165 $scope=note $level=note $msg="server running" address=127.0.0.1:9306 max_connections=848 max_browser_connections=16
+$time=1793173873183 $scope=note $level=note $msg="server running" address=127.0.0.1:9278 max_connections=848 max_browser_connections=16
+$time=1793173873214 $scope=note $level=note $msg="server running" address=127.0.0.1:9298 max_connections=848 max_browser_connections=16
+$time=1793173873215 $scope=note $level=note $msg="server running" address=127.0.0.1:9314 max_connections=848 max_browser_connections=16
+$time=1793173873233 $scope=note $level=note $msg="server running" address=127.0.0.1:9293 max_connections=848 max_browser_connections=16
+$time=1793173873269 $scope=note $level=note $msg="server running" address=127.0.0.1:9373 max_connections=848 max_browser_connections=16
+$time=1793173873274 $scope=note $level=note $msg="server running" address=127.0.0.1:9350 max_connections=848 max_browser_connections=16
+$time=1793173873278 $scope=note $level=note $msg="server running" address=127.0.0.1:9284 max_connections=848 max_browser_connections=16
+$time=1793173873298 $scope=note $level=note $msg="server running" address=127.0.0.1:9387 max_connections=848 max_browser_connections=16
+$time=1793173873309 $scope=note $level=note $msg="server running" address=127.0.0.1:9384 max_connections=848 max_browser_connections=16
+$time=1793173873322 $scope=note $level=note $msg="server running" address=127.0.0.1:9360 max_connections=848 max_browser_connections=16
+$time=1793173873435 $scope=note $level=note $msg="server running" address=127.0.0.1:9254 max_connections=848 max_browser_connections=16
+$time=1793173873459 $scope=note $level=note $msg="server running" address=127.0.0.1:9279 max_connections=848 max_browser_connections=16
+$time=1793173873547 $scope=note $level=note $msg="server running" address=127.0.0.1:9401 max_connections=848 max_browser_connections=16
+$time=1793173873601 $scope=note $level=note $msg="server running" address=127.0.0.1:9289 max_connections=848 max_browser_connections=16
+$time=1793173873602 $scope=note $level=note $msg="server running" address=127.0.0.1:9299 max_connections=848 max_browser_connections=16
+$time=1793173873606 $scope=note $level=note $msg="server running" address=127.0.0.1:9294 max_connections=848 max_browser_connections=16
+$time=1793173873872 $scope=note $level=note $msg="server running" address=127.0.0.1:9332 max_connections=848 max_browser_connections=16
+$time=1793173878061 $scope=note $level=note $msg="server running" address=127.0.0.1:9402 max_connections=848 max_browser_connections=16
+$time=1793173878763 $scope=note $level=note $msg="server running" address=127.0.0.1:9344 max_connections=848 max_browser_connections=16
+2026/10/28 07:51:18 WARN scrape failed job=ffe303a552a0ddda8cf859d11795c3f5 error="page produced empty Markdown"
+$time=1793173879154 $scope=note $level=note $msg="server running" address=127.0.0.1:9390 max_connections=848 max_browser_connections=16
+$time=1793173879184 $scope=note $level=note $msg="server running" address=127.0.0.1:9234 max_connections=848 max_browser_connections=16
+$time=1793173879260 $scope=note $level=note $msg="server running" address=127.0.0.1:9375 max_connections=848 max_browser_connections=16
+2026/10/28 07:51:19 WARN scrape failed job=eea8fbbb4c7aedf7788bbdeee96677f3 error="page produced empty Markdown"
+$time=1793173880314 $scope=note $level=note $msg="server running" address=127.0.0.1:9357 max_connections=848 max_browser_connections=16
+2026/10/28 07:51:20 WARN scrape failed job=826f7ed169126d8a6ed915d837cf52c9 error="fetch PDF: Get \"https://prac.im.pwr.edu.pl/~downar/polish/materialy/ANALIZA2/Wahanie%20skonczone%20a%20calka%20Riemanna-Stieltjesa.pdf\": tls: failed to verify certificate: x509: certificate signed by unknown authority"
+$time=1793173880849 $scope=note $level=note $msg="server running" address=127.0.0.1:9256 max_connections=848 max_browser_connections=16
+$time=1793173881768 $scope=note $level=note $msg="server running" address=127.0.0.1:9311 max_connections=848 max_browser_connections=16
+$time=1793173881839 $scope=note $level=note $msg="server running" address=127.0.0.1:9248 max_connections=848 max_browser_connections=16
+2026/10/28 07:51:25 WARN scrape failed job=ba8be53e1e763b3a1a8a4e4054235902 error="navigate: page load error ResponseTooLarge"
+$time=1793173885728 $scope=note $level=note $msg="server running" address=127.0.0.1:9382 max_connections=848 max_browser_connections=16
+2026/10/28 07:51:28 WARN scrape failed job=af2f53440593569c35e46e1f14aee8ff error="page produced empty Markdown"
+2026/10/28 07:51:30 WARN scrape failed job=b4818edbdaf8236caf6ecc0aaf5d40b5 error="page produced empty Markdown"
+2026/10/28 07:51:31 WARN scrape failed job=416f5d580904bf7f38bdd49cda15e73c error="PDF has no extractable text"
+2026/10/28 07:51:33 WARN scrape failed job=5f32b67055201a10103d21f4098b1ebb error="page produced empty Markdown"
+2026/10/28 07:51:35 WARN scrape failed job=3337b3f1c9cbc17679b3379e68602895 error="navigate: page load error net::ERR_TIMED_OUT"
+2026/10/28 07:51:35 WARN scrape failed job=de8630e34f5ac8cd77891bc3afd66a75 error="navigate: page load error ResponseTooLarge"
+2026/10/28 07:51:37 WARN scrape failed job=2ecba384d48a586f75473e3557f389f3 error="fetch PDF: Get \"https://jca.gov.jm/wp-content/uploads/2022/12/DRM-Enforcement-Measures-No_-2-Order-2020-1-March-24-2020.x86258.pdf\": dial tcp 63.143.89.246:443: i/o timeout"
+2026/10/28 07:51:41 WARN scrape failed job=118756f85fe3c514ed7c59c23f4a3148 error="navigate: page load error net::ERR_TIMED_OUT"
+$time=1793173904075 $scope=note $level=note $msg="server running" address=127.0.0.1:9356 max_connections=848 max_browser_connections=16
+2026/10/28 07:51:46 WARN scrape failed job=0ec10d8b1ee1ba4c9734d4fdac7965a2 error="navigate: page load error Http2Stream"
+2026/10/28 07:51:48 WARN scrape failed job=c054827542f23417e6bcd1b8055fe3d9 error="navigate: page load error net::ERR_TIMED_OUT"
+2026/10/28 07:51:56 WARN scrape failed job=36517bd2d19d7b2bcfeeafea2e70a046 error="navigate: page load error GotNothing"
+2026/10/28 07:51:58 WARN scrape failed job=31d2280c805364f253eb57ca5b4fc086 error="page produced empty Markdown"
+2026/10/28 07:52:00 WARN scrape failed job=7e825b4027554d800a2b3c7e20dfad63 error="page produced empty Markdown"
+2026/10/28 07:52:01 WARN scrape failed job=1c6de53d961187020353295ca6e21634 error="page produced empty Markdown"
+2026/10/28 07:52:09 WARN scrape failed job=41d7104e74baf9fe1f21d1d3d7a51457 error="navigate: page load error net::ERR_TIMED_OUT"
+2026/10/28 07:52:09 WARN scrape failed job=9fb55110a52a9408555b78f51b306928 error="page produced empty Markdown"
+2026/10/28 07:52:12 WARN scrape failed job=4304c474d84f67c72edf4e05e93a7ead error="extract HTML: context canceled"
+2026/10/28 07:52:18 WARN scrape failed job=9aaff036da60d0e87a5a2ca7b82b3c44 error="navigate: page load error net::ERR_TIMED_OUT"
+2026/10/28 07:52:18 WARN scrape failed job=586706ae6c7a85a6f05e2b1c6ce46ce1 error="navigate: page load error net::ERR_TIMED_OUT"
+2026/10/28 07:52:29 WARN scrape failed job=f47c54a5f688fbb2327975a5ae2b71e8 error="navigate: context canceled"
+2026/10/28 07:52:38 WARN scrape failed job=0b20ad04e3113b215c59947d91fe36ea error="navigate: page load error net::ERR_TIMED_OUT"
+2026/10/28 07:52:38 WARN scrape failed job=b0ef484c5faf76dddf384d6add6a4f74 error="navigate: page load error net::ERR_TIMED_OUT"

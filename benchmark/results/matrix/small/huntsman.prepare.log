@@ -1,98 +1,97 @@
-#0 building with "desktop-linux" instance using docker driver
+#0 building with "default" instance using docker driver
 
 #1 [internal] load build definition from Dockerfile
-#1 transferring dockerfile: 2.11kB 0.0s done
+#1 transferring dockerfile: 2.33kB done
 #1 DONE 0.0s
 
-#2 [internal] load metadata for docker.io/lightpanda/browser@sha256:5d1d724c476957d8c2f8393a51fd089477523b0e5aa9c783c48688785d934fb9
-#2 DONE 0.1s
+#2 [internal] load metadata for docker.io/library/debian:trixie-slim
+#2 ...
 
-#3 [internal] load metadata for docker.io/library/golang:1.25-trixie
-#3 DONE 1.8s
+#3 [internal] load metadata for docker.io/library/golang:1.27-trixie
+#3 DONE 0.3s
 
-#4 [internal] load metadata for docker.io/library/debian:trixie-slim
-#4 DONE 1.8s
+#4 [internal] load metadata for docker.io/lightpanda/browser@sha256:5d1d724c476957d8c2f8393a51fd089477523b0e5aa9c783c48688785d934fb9
+#4 DONE 0.3s
+
+#2 [internal] load metadata for docker.io/library/debian:trixie-slim
+#2 DONE 0.3s
 
 #5 [internal] load .dockerignore
-#5 transferring context: 99B done
+#5 transferring context: 107B done
 #5 DONE 0.0s
 
-#6 [browser 1/1] FROM docker.io/lightpanda/browser@sha256:5d1d724c476957d8c2f8393a51fd089477523b0e5aa9c783c48688785d934fb9
-#6 resolve docker.io/lightpanda/browser@sha256:5d1d724c476957d8c2f8393a51fd089477523b0e5aa9c783c48688785d934fb9 0.0s done
+#6 [build 1/6] FROM docker.io/library/golang:1.27-trixie@sha256:c124b9ad3452f46061b5054607d26ea51730dae5372c5e469920063ba2bc6dcc
+#6 resolve docker.io/library/golang:1.27-trixie@sha256:c124b9ad3452f46061b5054607d26ea51730dae5372c5e469920063ba2bc6dcc 0.0s done
 #6 DONE 0.0s
 
-#7 [runtime 1/6] FROM docker.io/library/debian:trixie-slim@sha256:62bd423aeee912639ca8ee681c2b762cb3e25137e0a92b20be455898a9f034ad
-#7 resolve docker.io/library/debian:trixie-slim@sha256:62bd423aeee912639ca8ee681c2b762cb3e25137e0a92b20be455898a9f034ad 0.0s done
-#7 DONE 0.0s
+#7 [runtime 6/7] ADD https://easylist.to/easylist/easylist.txt https://easylist.to/easylist/easyprivacy.txt     https://secure.fanboy.co.nz/fanboy-cookiemonster.txt /usr/share/huntsman/filters/
+#7 DONE 0.1s
 
-#8 [build 1/6] FROM docker.io/library/golang:1.25-trixie@sha256:2c4c60ef415fbfa5e90300722293bef36c5e63fae17570ce18f580af933dbd73
-#8 resolve docker.io/library/golang:1.25-trixie@sha256:2c4c60ef415fbfa5e90300722293bef36c5e63fae17570ce18f580af933dbd73 0.0s done
-#8 DONE 0.0s
+#8 [runtime 1/7] FROM docker.io/library/debian:trixie-slim@sha256:89c1ea91e897f0fe0a3731595330bc45b8bdef4047464a07116f891a94054b31
+#8 resolve docker.io/library/debian:trixie-slim@sha256:89c1ea91e897f0fe0a3731595330bc45b8bdef4047464a07116f891a94054b31 0.0s done
+#8 DONE 0.1s
 
-#9 [internal] load build context
-#9 transferring context: 90.45kB 0.0s done
-#9 DONE 0.0s
+#9 [browser 1/1] FROM docker.io/lightpanda/browser@sha256:5d1d724c476957d8c2f8393a51fd089477523b0e5aa9c783c48688785d934fb9
+#9 resolve docker.io/lightpanda/browser@sha256:5d1d724c476957d8c2f8393a51fd089477523b0e5aa9c783c48688785d934fb9 0.0s done
+#9 DONE 0.1s
 
-#10 [build 2/6] WORKDIR /src
-#10 CACHED
+#10 [internal] load build context
+#10 transferring context: 2.13kB done
+#10 DONE 0.0s
 
-#11 [build 3/6] COPY go.mod go.sum ./
-#11 CACHED
+#11 [runtime 6/7] ADD https://easylist.to/easylist/easylist.txt https://easylist.to/easylist/easyprivacy.txt     https://secure.fanboy.co.nz/fanboy-cookiemonster.txt /usr/share/huntsman/filters/
+#11 DONE 0.1s
 
-#12 [build 4/6] RUN --mount=type=bind,from=gomodcache,target=/gomodcache     if [ -d /gomodcache/cache/download ]; then export GOPROXY=file:///gomodcache/cache/download,https://proxy.golang.org,direct; fi;     go mod download
-#12 CACHED
+#12 [runtime 6/7] ADD https://easylist.to/easylist/easylist.txt https://easylist.to/easylist/easyprivacy.txt     https://secure.fanboy.co.nz/fanboy-cookiemonster.txt /usr/share/huntsman/filters/
+#12 DONE 0.2s
 
-#13 [build 5/6] COPY . .
-#13 DONE 0.2s
+#11 [runtime 6/7] ADD https://easylist.to/easylist/easylist.txt https://easylist.to/easylist/easyprivacy.txt     https://secure.fanboy.co.nz/fanboy-cookiemonster.txt /usr/share/huntsman/filters/
+#11 DONE 0.1s
 
-#14 [runtime 5/6] ADD https://easylist.to/easylist/easylist.txt https://easylist.to/easylist/easyprivacy.txt     https://secure.fanboy.co.nz/fanboy-cookiemonster.txt /usr/share/huntsman/filters/
-#14 ...
+#7 [runtime 6/7] ADD https://easylist.to/easylist/easylist.txt https://easylist.to/easylist/easyprivacy.txt     https://secure.fanboy.co.nz/fanboy-cookiemonster.txt /usr/share/huntsman/filters/
+#7 CACHED
 
-#15 [runtime 5/6] ADD https://easylist.to/easylist/easylist.txt https://easylist.to/easylist/easyprivacy.txt     https://secure.fanboy.co.nz/fanboy-cookiemonster.txt /usr/share/huntsman/filters/
-#15 DONE 1.2s
+#13 [build 3/6] COPY go.mod go.sum ./
+#13 CACHED
 
-#15 [runtime 5/6] ADD https://easylist.to/easylist/easylist.txt https://easylist.to/easylist/easyprivacy.txt     https://secure.fanboy.co.nz/fanboy-cookiemonster.txt /usr/share/huntsman/filters/
-#15 DONE 1.2s
+#14 [runtime 2/7] RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates libstdc++6     && rm -rf /var/lib/apt/lists/*     && useradd --uid 10001 --create-home huntsman     && mkdir /data && chown huntsman /data
+#14 CACHED
 
-#16 [build 6/6] RUN CGO_ENABLED=0 go build -trimpath -ldflags="-s -w" -o /out/huntsman ./cmd/huntsman     && CGO_ENABLED=0 go build -trimpath -ldflags="-s -w" -o /out/bench ./benchmark/fixture/bench     && CGO_ENABLED=0 go build -trimpath -ldflags="-s -w" -o /out/fixture ./benchmark/fixture/server
-#16 ...
+#15 [runtime 3/7] COPY --from=browser /bin/lightpanda /usr/local/bin/lightpanda
+#15 CACHED
 
-#17 [runtime 5/6] ADD https://easylist.to/easylist/easylist.txt https://easylist.to/easylist/easyprivacy.txt     https://secure.fanboy.co.nz/fanboy-cookiemonster.txt /usr/share/huntsman/filters/
-#17 DONE 1.4s
+#16 [build 6/6] RUN export CGO_ENABLED=0 GOOS=linux GOARCH=arm64     && go build -trimpath -ldflags="-s -w" -o /out/huntsman ./src/cmd/huntsman     && go build -trimpath -ldflags="-s -w" -o /out/bench ./benchmark/fixture/bench     && go build -trimpath -ldflags="-s -w" -o /out/fixture ./benchmark/fixture/server
+#16 CACHED
 
-#17 [runtime 5/6] ADD https://easylist.to/easylist/easylist.txt https://easylist.to/easylist/easyprivacy.txt     https://secure.fanboy.co.nz/fanboy-cookiemonster.txt /usr/share/huntsman/filters/
-#17 DONE 1.4s
+#17 [build 5/6] COPY . .
+#17 CACHED
 
-#14 [runtime 5/6] ADD https://easylist.to/easylist/easylist.txt https://easylist.to/easylist/easyprivacy.txt     https://secure.fanboy.co.nz/fanboy-cookiemonster.txt /usr/share/huntsman/filters/
-#14 DONE 1.4s
-
-#16 [build 6/6] RUN CGO_ENABLED=0 go build -trimpath -ldflags="-s -w" -o /out/huntsman ./cmd/huntsman     && CGO_ENABLED=0 go build -trimpath -ldflags="-s -w" -o /out/bench ./benchmark/fixture/bench     && CGO_ENABLED=0 go build -trimpath -ldflags="-s -w" -o /out/fixture ./benchmark/fixture/server
-#16 DONE 24.0s
-
-#18 [runtime 2/6] RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates libstdc++6     && rm -rf /var/lib/apt/lists/*     && useradd --uid 10001 --create-home huntsman     && mkdir /data && chown huntsman /data
+#18 [build 4/6] RUN --mount=type=bind,from=gomodcache,target=/gomodcache     if [ -d /gomodcache/cache/download ]; then export GOPROXY=file:///gomodcache/cache/download,https://proxy.golang.org,direct; fi;     go mod download
 #18 CACHED
 
-#19 [runtime 3/6] COPY --from=browser /bin/lightpanda /usr/local/bin/lightpanda
+#19 [build 2/6] WORKDIR /src
 #19 CACHED
 
-#20 [runtime 4/6] COPY --from=build /out/ /usr/local/bin/
+#20 [runtime 4/7] COPY --from=build /out/ /usr/local/bin/
 #20 CACHED
 
-#21 [runtime 5/6] ADD https://easylist.to/easylist/easylist.txt https://easylist.to/easylist/easyprivacy.txt     https://secure.fanboy.co.nz/fanboy-cookiemonster.txt /usr/share/huntsman/filters/
-#21 DONE 0.3s
+#21 [runtime 5/7] COPY LICENSE NOTICE /usr/share/doc/huntsman/
+#21 CACHED
 
-#22 [runtime 6/6] RUN chmod -R a+rX /usr/share/huntsman
-#22 DONE 0.3s
+#22 [runtime 6/7] ADD https://easylist.to/easylist/easylist.txt https://easylist.to/easylist/easyprivacy.txt     https://secure.fanboy.co.nz/fanboy-cookiemonster.txt /usr/share/huntsman/filters/
+#22 DONE 0.1s
 
-#23 exporting to image
-#23 exporting layers
-#23 exporting layers 0.3s done
-#23 exporting manifest sha256:731945cec8c7a977b7b4a8752eae43f3620057958c40c0b206e2ce840b4e506d done
-#23 exporting config sha256:2016de6226d677bc4c5c1840b5c121ec4fb000b60102689354f4700819ace18b done
-#23 exporting attestation manifest sha256:f5190fb1df038a9f10d7f79d3d29a38a81e697c4f0562acab3186badb0ce75ad 0.0s done
-#23 exporting manifest list sha256:e8f4e8ad3b17a5c9c449affae2604e539cf276b54eb5a5e29fe90c4d50538c83 0.0s done
-#23 naming to docker.io/library/huntsman:bench done
-#23 unpacking to docker.io/library/huntsman:bench 0.1s done
-#23 DONE 0.5s
+#23 [runtime 7/7] RUN chmod -R a+rX /usr/share/huntsman
+#23 DONE 0.2s
 
-View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/k4ars6euxvqbi5035o4hzg1v0
+#24 exporting to image
+#24 exporting layers
+#24 exporting layers 0.3s done
+#24 exporting manifest sha256:b6ddbf8ef24fb85590f6c396fec303f53a00394ba3b7dd7aa0f85bfefae87102 0.0s done
+#24 exporting config sha256:4d360e3e1e1b8bc7a992fcb511f8c095b746a155f3aac1ecc1a76f7f6bf99e08 0.0s done
+#24 exporting attestation manifest sha256:41d00ae37661b4ad21816a13e0e2ab79770c59709f96c4fdebb15c205212213c 0.0s done
+#24 exporting manifest list sha256:0108902bccd4963c74c43a9382fd19a165a8d1edf6aa905604233f67fd299329 0.0s done
+#24 naming to docker.io/library/huntsman:bench
+#24 naming to docker.io/library/huntsman:bench done
+#24 unpacking to docker.io/library/huntsman:bench 0.1s done
+#24 DONE 0.5s

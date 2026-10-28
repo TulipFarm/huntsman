@@ -25,7 +25,8 @@ Chrome.
 
 ## Why Huntsman
 
-- **Fast and light.** On the same 8-vCPU machine it sustains 3.3× Firecrawl's throughput with half its memory.
+- **Fast and light.** On the same 8-vCPU machine it scrapes 4× as many pages per second as Firecrawl, and a 2-vCPU
+  machine handles 45 pages at once.
 - **Clean Markdown.** It keeps the main content and drops navigation, footers, ads and cookie banners, using
   Firecrawl's `onlyMainContent` rules and the EasyList filters.
 - **Drop-in API.** Requests and responses follow Firecrawl's `/v1` shapes, so most clients only need a new base URL.
@@ -124,20 +125,23 @@ such as [SearXNG](https://github.com/searxng/searxng) if you need one.
 
 ## Benchmarks
 
-1,000 URLs from Firecrawl's
-[scrape-content-dataset-v1](https://huggingface.co/datasets/firecrawl/scrape-content-dataset-v1), on an AWS Graviton
-`c7g.2xlarge` (8 vCPU), each engine self-hosted on the same machine:
+The most pages each engine can scrape at once, on AWS Graviton (ARM) machines, each engine self-hosted on its own
+machine. The input is 1,000 URLs sampled from the test split of
+[huntsman-scrape-dataset-v1](dataset/huntsman-v1/README.md). Each cell shows the most pages at once that passed, pages
+per second at that level, and the success rate.
 
-| Engine | Max sustained concurrency | Pages / s | Content F1 | Peak memory (8 in flight) |
-|---|---:|---:|---:|---:|
-| **Huntsman** | **64** | **11.84** | **0.475** | **1.61 GB** |
-| Firecrawl | 32 | 3.55 | 0.449 | 3.06 GB |
-| Crawl4AI | 16 | 1.93 | 0.425 | — |
-| Spider | 16 | 1.17 | 0.413 | — |
+| Machine | Huntsman | Firecrawl | Crawl4AI |
+|---|---|---|---|
+| Small (2 vCPU, 4 GB) | **45** · 4.58/s · 90.9% | 8 · 0.91/s · 92.5% | failed even at 2 |
+| Medium (4 vCPU, 8 GB) | **75** · 7.74/s · 91.8% | 15 · 1.58/s · 92.2% | 15 · 1.35/s · 80.6% |
+| Large (8 vCPU, 16 GB) | **129** · 11.54/s · 90.8% | 43 · 2.90/s · 92.3% | 22 · 1.62/s · 81.8% |
 
-On 2 vCPU, Huntsman sustains 4.52 pages/s against Firecrawl's 1.23. Each figure is a single run against live sites,
-with `robots.txt` checks off for every engine and Firecrawl in scrape-only mode. Methods, every machine size and the
-raw numbers are in [benchmark/README.md](benchmark/README.md).
+A level passes if the engine doesn't crash or run out of memory, its success rate stays within 10 points of its best
+level, and its median page time stays under 3× the time at 8 pages at once. A binary search finds the exact limit.
+Huntsman stopped on page time each time, with every CPU core in use; it never crashed and never ran out of memory.
+Each figure is a single run against live sites, with `robots.txt` checks off for every engine and Firecrawl in
+scrape-only mode. Methods and raw numbers are in [benchmark/README.md](benchmark/README.md) and
+[benchmark/results/](benchmark/results/).
 
 The repository also contains [huntsman-scrape-dataset-v1](dataset/huntsman-v1/README.md): 10,000 URLs balanced across
 63 languages, script direction, rendering, page type, region and topic, with the pipeline that builds it.
@@ -169,6 +173,7 @@ All settings are environment variables.
 src/         the scraper: cmd/huntsman (server) and internal/engine
 benchmark/   speed, memory and accuracy against Firecrawl, Crawl4AI and Spider
 dataset/     URL benchmark datasets and the scorer, eval.py
+site/        the huntsman.tulipfarm.ai landing page (Astro)
 ```
 
 ## Development

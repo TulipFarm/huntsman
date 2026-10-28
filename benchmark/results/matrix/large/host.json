@@ -1,5 +1,5 @@
 {
-  "size": "large",
+  "size": "large_crawl4ai",
   "vcpus": 8,
   "mem_bytes": 16425984000,
   "cpu": "Neoverse-V1",

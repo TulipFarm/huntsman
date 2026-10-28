@@ -1,0 +1,38 @@
+{
+  "best_pages_per_second": null,
+  "best_throughput_level": null,
+  "engine": "crawl4ai",
+  "levels": [
+    {
+      "avg_f1": 0.7249267548080209,
+      "avg_precision": 0.7311624138102722,
+      "avg_recall": 0.7237660079489013,
+      "concurrency": 8,
+      "container_memory_limit_bytes": 3179343872,
+      "coverage_recall_10pct": 0.775,
+      "cpu_cores_avg": 1.3808781893004152,
+      "cpu_cores_peak": 1.998,
+      "engine": "crawl4ai",
+      "latency_ms_p50_all": 5593.63,
+      "latency_ms_p50_success": 5918.806500000001,
+      "latency_ms_p95_all": 43979.2576,
+      "latency_ms_p95_success": 19458.18485,
+      "level": 8,
+      "mem_bytes_avg": 1888823685.3728395,
+      "mem_bytes_peak": 3179089920,
+      "mem_bytes_peak_cgroup": 3179368448,
+      "oom_killed": true,
+      "oom_kills": 1,
+      "pages_per_second_this_run": 0.8235151599471136,
+      "passed": false,
+      "reason": "engine crashed or ran out of memory",
+      "restarts": 0,
+      "still_running": true,
+      "success_rate": 0.8,
+      "urls": 1000,
+      "wall_seconds_this_run": 1214.306728809
+    }
+  ],
+  "max_sustainable_concurrency": null,
+  "urls": 1000
+}

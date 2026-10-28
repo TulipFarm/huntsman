@@ -1,0 +1,300 @@
+2026-10-28 09:21:19 [32minfo[39m [log_job:robustInsert]: Skipping job log due to USE_DB_AUTHENTICATION being off 
+2026-10-28 09:21:19 [34mdebug[39m [:]: Bypassing concurrency limit for bypass 
+2026-10-28 09:21:19 [34mdebug[39m [:scrapeController]: Lock acquired for team: bypass 
+2026-10-28 09:21:19 [32minfo[39m [queue-worker:processJob]: 🐂 Worker taking job 01a181d0-60a8-706c-a33f-690e69125e46 
+2026-10-28 09:21:19 [32minfo[39m [runWebscraper:runWebScraper]: runWebScraper called 
+2026-10-28 09:21:19 [32minfo[39m [runWebscraper:runWebScraper]: running scrapeURL... 
+2026-10-28 09:21:19 [32minfo[39m [ScrapeURL:]: scrapeURL entered 
+2026-10-28 09:21:19 [32minfo[39m [ScrapeURL:]: Scraping URL "https://martoyo.vn/san-pham/bom-loc-hoa-chat-dat-trong-be-hfi-101-104/"... 
+2026-10-28 09:21:19 [32minfo[39m [ScrapeURL:]: Selected engines 
+2026-10-28 09:21:19 [32minfo[39m [ScrapeURL:]: Scraping via playwright... 
+2026-10-28 09:21:19 [34mdebug[39m [ScrapeURL:]: Skipping markdown conversion for quality check due to large HTML size 
+2026-10-28 09:21:20 [32minfo[39m [ScrapeURL:]: Scrape via playwright deemed successful. 
+2026-10-28 09:21:20 [34mdebug[39m [ScrapeURL:scrapeURLWithFetch]: Decoded fetched HTML using detected charset 
+2026-10-28 09:21:20 [32minfo[39m [ScrapeURL:]: Scrape via fetch deemed successful. 
+2026-10-28 09:21:20 [34mdebug[39m [ScrapeURL:]: Executed transformers. 
+2026-10-28 09:21:20 [34mdebug[39m [scrapeURL/metrics:]: scrapeURL metrics 
+2026-10-28 09:21:20 [32minfo[39m [log_job:robustInsert]: Skipping job log due to USE_DB_AUTHENTICATION being off 
+2026-10-28 09:21:20 [32minfo[39m [queue-worker:processJob]: 🐂 Job done 01a181cf-ea5e-735e-a272-cd6ee94634bc 
+2026-10-28 09:21:20 [32minfo[39m [ScrapeURL:]: Scrape via playwright deemed unsuccessful due to proxy inadequacy. Adding stealthProxy flag. 
+2026-10-28 09:21:20 [33mwarn[39m [ScrapeURL:]: scrapeURL retrying after handled error {"module":"ScrapeURL","scrapeId":"01a181d0-24d4-7664-884c-61dfe9a6c697","scrapeURL":"https://www.omio.com/cs/vlaky/jizdni-rady","zeroDataRetention":false,"teamId":"bypass","team_id":"bypass","reason":"feature_toggle","retryStats":{"totalAttempts":1,"addFeatureAttempts":1,"removeFeatureAttempts":0,"pdfAntibotAttempts":0,"documentAntibotAttempts":0,"pdfFetchProxyAttempts":0,"documentFetchProxyAttempts":0},"lastError":"New feature flags have been discovered: stealthProxy"}
+2026-10-28 09:21:20 [34mdebug[39m [ScrapeURL:]: More feature flags requested by scraper: adding stealthProxy 
+2026-10-28 09:21:20 [32minfo[39m [ScrapeURL:]: Scraping URL "https://www.omio.com/cs/vlaky/jizdni-rady"... 
+2026-10-28 09:21:20 [32minfo[39m [ScrapeURL:]: Selected engines 
+2026-10-28 09:21:20 [32minfo[39m [ScrapeURL:]: Scraping via pdf... 
+2026-10-28 09:21:20 [34mdebug[39m [queue-worker:processJobInternal]: Job succeeded -- putting result in Redis 
+2026-10-28 09:21:20 [32minfo[39m [:scrapeController]: Done with waitForJob 
+2026-10-28 09:21:20 [32minfo[39m [:scrapeController]: Removed job from queue 
+2026-10-28 09:21:20 [32minfo[39m [:scrapeController]: Request metrics 
+2026-10-28 09:21:20 [32minfo[39m [:POST]: v1 request completed 
+2026-10-28 09:21:20 [34mdebug[39m [:scrapeController]: Scrape 01a181d0-63c3-7487-820b-e07339e40f96 starting 
+2026-10-28 09:21:20 [32minfo[39m [log_job:robustInsert]: Skipping job log due to USE_DB_AUTHENTICATION being off 
+2026-10-28 09:21:20 [34mdebug[39m [:]: Bypassing concurrency limit for bypass 
+2026-10-28 09:21:20 [34mdebug[39m [:scrapeController]: Lock acquired for team: bypass 
+2026-10-28 09:21:20 [32minfo[39m [queue-worker:processJob]: 🐂 Worker taking job 01a181d0-63c3-7487-820b-e07339e40f96 
+2026-10-28 09:21:20 [32minfo[39m [runWebscraper:runWebScraper]: runWebScraper called 
+2026-10-28 09:21:20 [32minfo[39m [runWebscraper:runWebScraper]: running scrapeURL... 
+2026-10-28 09:21:20 [32minfo[39m [ScrapeURL:]: scrapeURL entered 
+2026-10-28 09:21:20 [32minfo[39m [ScrapeURL:]: Scraping URL "https://kame.co.id/label/label-clear"... 
+2026-10-28 09:21:20 [32minfo[39m [ScrapeURL:]: Selected engines 
+2026-10-28 09:21:20 [32minfo[39m [ScrapeURL:]: Scraping via playwright... 
+2026-10-28 09:21:20 [32minfo[39m [ScrapeURL:]: Waterfalling to next engine... 
+2026-10-28 09:21:20 [32minfo[39m [ScrapeURL:]: Scraping via document... 
+2026-10-28 09:21:20 [32minfo[39m [ScrapeURL:]: Waterfalling to next engine... 
+2026-10-28 09:21:20 [34mdebug[39m [scrapeURL/metrics:]: scrapeURL metrics 
+2026-10-28 09:21:20 [33mwarn[39m [ScrapeURL:]: scrapeURL: All scraping engines failed! {"module":"ScrapeURL","scrapeId":"01a181d0-24d4-7664-884c-61dfe9a6c697","scrapeURL":"https://www.omio.com/cs/vlaky/jizdni-rady","zeroDataRetention":false,"teamId":"bypass","team_id":"bypass","error":{"code":"SCRAPE_ALL_ENGINES_FAILED","fallbackList":["pdf","document"],"name":"Error","message":"All scraping engines failed to retrieve content from this URL. Engines tried: [pdf, document]. This usually happens when: (1) The URL is invalid or the page doesn't exist (404), (2) The website is blocking automated access, (3) The website is down or unreachable, (4) The page requires authentication. Double check the URL is correct and accessible in a browser. Check your server logs for more detailed error information from each engine.","stack":"Error: All scraping engines failed to retrieve content from this URL. Engines tried: [pdf, document]. This usually happens when: (1) The URL is invalid or the page doesn't exist (404), (2) The website is blocking automated access, (3) The website is down or unreachable, (4) The page requires authentication. Double check the URL is correct and accessible in a browser. Check your server logs for more detailed error information from each engine.\n    at /app/dist/src/scraper/scrapeURL/index.js:640:19\n    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at async /app/dist/src/lib/otel-tracer.js:188:28\n    at async zeroDataRetention (/app/dist/src/scraper/scrapeURL/index.js:939:30)\n    at async /app/dist/src/lib/otel-tracer.js:188:28\n    at async runWebScraper (/app/dist/src/main/runWebScraper.js:61:24)\n    at async startWebScraperPipeline (/app/dist/src/main/runWebScraper.js:9:12)\n    at async processJob (/app/dist/src/services/worker/scrape-worker.js:306:24)\n    at async processJobWithTracing (/app/dist/src/services/worker/scrape-worker.js:1374:36)\n    at async /app/dist/src/controllers/v1/scrape.js:221:25"}}
+2026-10-28 09:21:20 [31merror[39m [queue-worker:processJob]: 🐂 Job errored 01a181d0-24d4-7664-884c-61dfe9a6c697 - Error: All scraping engines failed to retrieve content from this URL. Engines tried: [pdf, document]. This usually happens when: (1) The URL is invalid or the page doesn't exist (404), (2) The website is blocking automated access, (3) The website is down or unreachable, (4) The page requires authentication. Double check the URL is correct and accessible in a browser. Check your server logs for more detailed error information from each engine. {"module":"queue-worker","method":"processJob","jobId":"01a181d0-24d4-7664-884c-61dfe9a6c697","scrapeId":"01a181d0-24d4-7664-884c-61dfe9a6c697","teamId":"bypass","zeroDataRetention":false,"error":{"code":"SCRAPE_ALL_ENGINES_FAILED","fallbackList":["pdf","document"],"name":"Error","message":"All scraping engines failed to retrieve content from this URL. Engines tried: [pdf, document]. This usually happens when: (1) The URL is invalid or the page doesn't exist (404), (2) The website is blocking automated access, (3) The website is down or unreachable, (4) The page requires authentication. Double check the URL is correct and accessible in a browser. Check your server logs for more detailed error information from each engine.","stack":"Error: All scraping engines failed to retrieve content from this URL. Engines tried: [pdf, document]. This usually happens when: (1) The URL is invalid or the page doesn't exist (404), (2) The website is blocking automated access, (3) The website is down or unreachable, (4) The page requires authentication. Double check the URL is correct and accessible in a browser. Check your server logs for more detailed error information from each engine.\n    at /app/dist/src/scraper/scrapeURL/index.js:640:19\n    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at async /app/dist/src/lib/otel-tracer.js:188:28\n    at async zeroDataRetention (/app/dist/src/scraper/scrapeURL/index.js:939:30)\n    at async /app/dist/src/lib/otel-tracer.js:188:28\n    at async runWebScraper (/app/dist/src/main/runWebScraper.js:61:24)\n    at async startWebScraperPipeline (/app/dist/src/main/runWebScraper.js:9:12)\n    at async processJob (/app/dist/src/services/worker/scrape-worker.js:306:24)\n    at async processJobWithTracing (/app/dist/src/services/worker/scrape-worker.js:1374:36)\n    at async /app/dist/src/controllers/v1/scrape.js:221:25"}}
+2026-10-28 09:21:20 [31merror[39m [queue-worker:processJob]: All scraping engines failed to retrieve content from this URL. Engines tried: [pdf, document]. This usually happens when: (1) The URL is invalid or the page doesn't exist (404), (2) The website is blocking automated access, (3) The website is down or unreachable, (4) The page requires authentication. Double check the URL is correct and accessible in a browser. Check your server logs for more detailed error information from each engine. {"module":"queue-worker","method":"processJob","jobId":"01a181d0-24d4-7664-884c-61dfe9a6c697","scrapeId":"01a181d0-24d4-7664-884c-61dfe9a6c697","teamId":"bypass","zeroDataRetention":false,"code":"SCRAPE_ALL_ENGINES_FAILED","fallbackList":["pdf","document"],"stack":"Error: All scraping engines failed to retrieve content from this URL. Engines tried: [pdf, document]. This usually happens when: (1) The URL is invalid or the page doesn't exist (404), (2) The website is blocking automated access, (3) The website is down or unreachable, (4) The page requires authentication. Double check the URL is correct and accessible in a browser. Check your server logs for more detailed error information from each engine.\n    at /app/dist/src/scraper/scrapeURL/index.js:640:19\n    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at async /app/dist/src/lib/otel-tracer.js:188:28\n    at async zeroDataRetention (/app/dist/src/scraper/scrapeURL/index.js:939:30)\n    at async /app/dist/src/lib/otel-tracer.js:188:28\n    at async runWebScraper (/app/dist/src/main/runWebScraper.js:61:24)\n    at async startWebScraperPipeline (/app/dist/src/main/runWebScraper.js:9:12)\n    at async processJob (/app/dist/src/services/worker/scrape-worker.js:306:24)\n    at async processJobWithTracing (/app/dist/src/services/worker/scrape-worker.js:1374:36)\n    at async /app/dist/src/controllers/v1/scrape.js:221:25"}
+2026-10-28 09:21:20 [31merror[39m [queue-worker:processJob]: Error: All scraping engines failed to retrieve content from this URL. Engines tried: [pdf, document]. This usually happens when: (1) The URL is invalid or the page doesn't exist (404), (2) The website is blocking automated access, (3) The website is down or unreachable, (4) The page requires authentication. Double check the URL is correct and accessible in a browser. Check your server logs for more detailed error information from each engine.
+    at /app/dist/src/scraper/scrapeURL/index.js:640:19
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async /app/dist/src/lib/otel-tracer.js:188:28
+    at async zeroDataRetention (/app/dist/src/scraper/scrapeURL/index.js:939:30)
+    at async /app/dist/src/lib/otel-tracer.js:188:28
+    at async runWebScraper (/app/dist/src/main/runWebScraper.js:61:24)
+    at async startWebScraperPipeline (/app/dist/src/main/runWebScraper.js:9:12)
+    at async processJob (/app/dist/src/services/worker/scrape-worker.js:306:24)
+    at async processJobWithTracing (/app/dist/src/services/worker/scrape-worker.js:1374:36)
+    at async /app/dist/src/controllers/v1/scrape.js:221:25 {"module":"queue-worker","method":"processJob","jobId":"01a181d0-24d4-7664-884c-61dfe9a6c697","scrapeId":"01a181d0-24d4-7664-884c-61dfe9a6c697","teamId":"bypass","zeroDataRetention":false}
+2026-10-28 09:21:20 [34mdebug[39m [queue-worker:processJob]: Logging job to DB... 
+2026-10-28 09:21:20 [32minfo[39m [log_job:robustInsert]: Skipping job log due to USE_DB_AUTHENTICATION being off 
+2026-10-28 09:21:20 [33mwarn[39m [queue-worker:processJobInternal]: Job failed {"module":"queue-worker","method":"processJobInternal","jobId":"01a181d0-24d4-7664-884c-61dfe9a6c697","scrapeId":"01a181d0-24d4-7664-884c-61dfe9a6c697","zeroDataRetention":false,"error":{"code":"SCRAPE_ALL_ENGINES_FAILED","fallbackList":["pdf","document"],"level":"error","name":"Error","message":"All scraping engines failed to retrieve content from this URL. Engines tried: [pdf, document]. This usually happens when: (1) The URL is invalid or the page doesn't exist (404), (2) The website is blocking automated access, (3) The website is down or unreachable, (4) The page requires authentication. Double check the URL is correct and accessible in a browser. Check your server logs for more detailed error information from each engine.","stack":"Error: All scraping engines failed to retrieve content from this URL. Engines tried: [pdf, document]. This usually happens when: (1) The URL is invalid or the page doesn't exist (404), (2) The website is blocking automated access, (3) The website is down or unreachable, (4) The page requires authentication. Double check the URL is correct and accessible in a browser. Check your server logs for more detailed error information from each engine.\n    at /app/dist/src/scraper/scrapeURL/index.js:640:19\n    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at async /app/dist/src/lib/otel-tracer.js:188:28\n    at async zeroDataRetention (/app/dist/src/scraper/scrapeURL/index.js:939:30)\n    at async /app/dist/src/lib/otel-tracer.js:188:28\n    at async runWebScraper (/app/dist/src/main/runWebScraper.js:61:24)\n    at async startWebScraperPipeline (/app/dist/src/main/runWebScraper.js:9:12)\n    at async processJob (/app/dist/src/services/worker/scrape-worker.js:306:24)\n    at async processJobWithTracing (/app/dist/src/services/worker/scrape-worker.js:1374:36)\n    at async /app/dist/src/controllers/v1/scrape.js:221:25"}}
+2026-10-28 09:21:20 [31merror[39m [:scrapeController]: Error in scrapeController {"method":"scrapeController","jobId":"01a181d0-24d4-7664-884c-61dfe9a6c697","noq":true,"scrapeId":"01a181d0-24d4-7664-884c-61dfe9a6c697","teamId":"bypass","team_id":"bypass","zeroDataRetention":false,"version":"v1","error":{"code":"SCRAPE_ALL_ENGINES_FAILED","fallbackList":["pdf","document"],"level":"error","name":"Error","message":"All scraping engines failed to retrieve content from this URL. Engines tried: [pdf, document]. This usually happens when: (1) The URL is invalid or the page doesn't exist (404), (2) The website is blocking automated access, (3) The website is down or unreachable, (4) The page requires authentication. Double check the URL is correct and accessible in a browser. Check your server logs for more detailed error information from each engine.","stack":"Error: All scraping engines failed to retrieve content from this URL. Engines tried: [pdf, document]. This usually happens when: (1) The URL is invalid or the page doesn't exist (404), (2) The website is blocking automated access, (3) The website is down or unreachable, (4) The page requires authentication. Double check the URL is correct and accessible in a browser. Check your server logs for more detailed error information from each engine.\n    at /app/dist/src/scraper/scrapeURL/index.js:640:19\n    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at async /app/dist/src/lib/otel-tracer.js:188:28\n    at async zeroDataRetention (/app/dist/src/scraper/scrapeURL/index.js:939:30)\n    at async /app/dist/src/lib/otel-tracer.js:188:28\n    at async runWebScraper (/app/dist/src/main/runWebScraper.js:61:24)\n    at async startWebScraperPipeline (/app/dist/src/main/runWebScraper.js:9:12)\n    at async processJob (/app/dist/src/services/worker/scrape-worker.js:306:24)\n    at async processJobWithTracing (/app/dist/src/services/worker/scrape-worker.js:1374:36)\n    at async /app/dist/src/controllers/v1/scrape.js:221:25"}}
+2026-10-28 09:21:20 [34mdebug[39m [:scrapeController]: Scrape 01a181d0-643f-7502-ae5c-3bdef3c0a14b starting 
+2026-10-28 09:21:20 [32minfo[39m [log_job:robustInsert]: Skipping job log due to USE_DB_AUTHENTICATION being off 
+2026-10-28 09:21:20 [34mdebug[39m [:]: Bypassing concurrency limit for bypass 
+2026-10-28 09:21:20 [34mdebug[39m [:scrapeController]: Lock acquired for team: bypass 
+2026-10-28 09:21:20 [32minfo[39m [queue-worker:processJob]: 🐂 Worker taking job 01a181d0-643f-7502-ae5c-3bdef3c0a14b 
+2026-10-28 09:21:20 [32minfo[39m [runWebscraper:runWebScraper]: runWebScraper called 
+2026-10-28 09:21:20 [32minfo[39m [runWebscraper:runWebScraper]: running scrapeURL... 
+2026-10-28 09:21:20 [32minfo[39m [ScrapeURL:]: scrapeURL entered 
+2026-10-28 09:21:20 [32minfo[39m [ScrapeURL:]: Scraping URL "https://bitdrift.io/podcast/beyond-the-noise/episode-22"... 
+2026-10-28 09:21:20 [32minfo[39m [ScrapeURL:]: Selected engines 
+2026-10-28 09:21:20 [32minfo[39m [ScrapeURL:]: Scraping via playwright... 
+2026-10-28 09:21:23 [32minfo[39m [ScrapeURL:]: Scrape via playwright deemed successful. 
+2026-10-28 09:21:23 [34mdebug[39m [ScrapeURL:]: Executed transformers. 
+2026-10-28 09:21:23 [34mdebug[39m [scrapeURL/metrics:]: scrapeURL metrics 
+2026-10-28 09:21:23 [32minfo[39m [log_job:robustInsert]: Skipping job log due to USE_DB_AUTHENTICATION being off 
+2026-10-28 09:21:23 [32minfo[39m [queue-worker:processJob]: 🐂 Job done 01a181d0-2e7d-71fc-8ae5-d7c8436c0542 
+2026-10-28 09:21:23 [34mdebug[39m [queue-worker:processJobInternal]: Job succeeded -- putting result in Redis 
+2026-10-28 09:21:23 [32minfo[39m [:scrapeController]: Done with waitForJob 
+2026-10-28 09:21:23 [32minfo[39m [:scrapeController]: Removed job from queue 
+2026-10-28 09:21:23 [32minfo[39m [:scrapeController]: Request metrics 
+2026-10-28 09:21:23 [32minfo[39m [:POST]: v1 request completed 
+2026-10-28 09:21:23 [34mdebug[39m [:scrapeController]: Scrape 01a181d0-7089-7627-999f-436a535ce2e8 starting 
+2026-10-28 09:21:23 [32minfo[39m [log_job:robustInsert]: Skipping job log due to USE_DB_AUTHENTICATION being off 
+2026-10-28 09:21:23 [34mdebug[39m [:]: Bypassing concurrency limit for bypass 
+2026-10-28 09:21:23 [34mdebug[39m [:scrapeController]: Lock acquired for team: bypass 
+2026-10-28 09:21:23 [32minfo[39m [queue-worker:processJob]: 🐂 Worker taking job 01a181d0-7089-7627-999f-436a535ce2e8 
+2026-10-28 09:21:23 [32minfo[39m [runWebscraper:runWebScraper]: runWebScraper called 
+2026-10-28 09:21:23 [32minfo[39m [runWebscraper:runWebScraper]: running scrapeURL... 
+2026-10-28 09:21:23 [32minfo[39m [ScrapeURL:]: scrapeURL entered 
+2026-10-28 09:21:23 [32minfo[39m [ScrapeURL:]: Scraping URL "https://www.flashscore.bg/player/djokovic-novak/AZg49Et9/"... 
+2026-10-28 09:21:23 [32minfo[39m [ScrapeURL:]: Selected engines 
+2026-10-28 09:21:23 [32minfo[39m [ScrapeURL:]: Scraping via playwright... 
+2026-10-28 09:21:23 [34mdebug[39m [ScrapeURL:]: Executed transformers. 
+2026-10-28 09:21:23 [34mdebug[39m [scrapeURL/metrics:]: scrapeURL metrics 
+2026-10-28 09:21:23 [32minfo[39m [log_job:robustInsert]: Skipping job log due to USE_DB_AUTHENTICATION being off 
+2026-10-28 09:21:23 [32minfo[39m [queue-worker:processJob]: 🐂 Job done 01a181d0-0f2e-7774-a5a5-eca4d3e7bb51 
+2026-10-28 09:21:23 [34mdebug[39m [queue-worker:processJobInternal]: Job succeeded -- putting result in Redis 
+2026-10-28 09:21:23 [32minfo[39m [:scrapeController]: Done with waitForJob 
+2026-10-28 09:21:23 [32minfo[39m [:scrapeController]: Removed job from queue 
+2026-10-28 09:21:23 [32minfo[39m [:scrapeController]: Request metrics 
+2026-10-28 09:21:23 [32minfo[39m [:POST]: v1 request completed 
+2026-10-28 09:21:23 [34mdebug[39m [:scrapeController]: Scrape 01a181d0-70c0-75cc-bcd7-626d8477ce8d starting 
+2026-10-28 09:21:23 [32minfo[39m [log_job:robustInsert]: Skipping job log due to USE_DB_AUTHENTICATION being off 
+2026-10-28 09:21:23 [34mdebug[39m [:]: Bypassing concurrency limit for bypass 
+2026-10-28 09:21:23 [34mdebug[39m [:scrapeController]: Lock acquired for team: bypass 
+2026-10-28 09:21:23 [32minfo[39m [queue-worker:processJob]: 🐂 Worker taking job 01a181d0-70c0-75cc-bcd7-626d8477ce8d 
+2026-10-28 09:21:23 [32minfo[39m [runWebscraper:runWebScraper]: runWebScraper called 
+2026-10-28 09:21:23 [32minfo[39m [runWebscraper:runWebScraper]: running scrapeURL... 
+2026-10-28 09:21:23 [32minfo[39m [ScrapeURL:]: scrapeURL entered 
+2026-10-28 09:21:23 [32minfo[39m [ScrapeURL:]: Scraping URL "http://www.bumboo.it/"... 
+2026-10-28 09:21:23 [32minfo[39m [ScrapeURL:]: Selected engines 
+2026-10-28 09:21:23 [32minfo[39m [ScrapeURL:]: Scraping via playwright... 
+2026-10-28 09:21:26 [32minfo[39m [ScrapeURL:]: Scrape via playwright deemed successful. 
+2026-10-28 09:21:26 [34mdebug[39m [ScrapeURL:]: Executed transformers. 
+2026-10-28 09:21:26 [34mdebug[39m [scrapeURL/metrics:]: scrapeURL metrics 
+2026-10-28 09:21:26 [32minfo[39m [log_job:robustInsert]: Skipping job log due to USE_DB_AUTHENTICATION being off 
+2026-10-28 09:21:26 [32minfo[39m [queue-worker:processJob]: 🐂 Job done 01a181d0-26a4-7130-84f9-d0588c5a85cb 
+2026-10-28 09:21:26 [34mdebug[39m [queue-worker:processJobInternal]: Job succeeded -- putting result in Redis 
+2026-10-28 09:21:26 [32minfo[39m [:scrapeController]: Done with waitForJob 
+2026-10-28 09:21:26 [32minfo[39m [:scrapeController]: Removed job from queue 
+2026-10-28 09:21:26 [32minfo[39m [:scrapeController]: Request metrics 
+2026-10-28 09:21:26 [32minfo[39m [:POST]: v1 request completed 
+2026-10-28 09:21:26 [34mdebug[39m [:scrapeController]: Scrape 01a181d0-7bd5-700a-ad1e-22dbe1af1e7f starting 
+2026-10-28 09:21:26 [32minfo[39m [log_job:robustInsert]: Skipping job log due to USE_DB_AUTHENTICATION being off 
+2026-10-28 09:21:26 [34mdebug[39m [:]: Bypassing concurrency limit for bypass 
+2026-10-28 09:21:26 [34mdebug[39m [:scrapeController]: Lock acquired for team: bypass 
+2026-10-28 09:21:26 [32minfo[39m [queue-worker:processJob]: 🐂 Worker taking job 01a181d0-7bd5-700a-ad1e-22dbe1af1e7f 
+2026-10-28 09:21:26 [32minfo[39m [runWebscraper:runWebScraper]: runWebScraper called 
+2026-10-28 09:21:26 [32minfo[39m [runWebscraper:runWebScraper]: running scrapeURL... 
+2026-10-28 09:21:26 [32minfo[39m [ScrapeURL:]: scrapeURL entered 
+2026-10-28 09:21:26 [32minfo[39m [ScrapeURL:]: Scraping URL "https://citizen.mv/7347"... 
+2026-10-28 09:21:26 [32minfo[39m [ScrapeURL:]: Selected engines 
+2026-10-28 09:21:26 [32minfo[39m [ScrapeURL:]: Scraping via playwright... 
+2026-10-28 09:21:26 [34mdebug[39m [ScrapeURL:]: Skipping markdown conversion for quality check due to large HTML size 
+2026-10-28 09:21:26 [32minfo[39m [ScrapeURL:]: Scrape via playwright deemed successful. 
+2026-10-28 09:21:26 [34mdebug[39m [ScrapeURL:]: Executed transformers. 
+2026-10-28 09:21:26 [34mdebug[39m [scrapeURL/metrics:]: scrapeURL metrics 
+2026-10-28 09:21:26 [32minfo[39m [log_job:robustInsert]: Skipping job log due to USE_DB_AUTHENTICATION being off 
+2026-10-28 09:21:26 [32minfo[39m [queue-worker:processJob]: 🐂 Job done 01a181d0-0dbc-769f-ae1b-3c6cd9354ad7 
+2026-10-28 09:21:26 [34mdebug[39m [queue-worker:processJobInternal]: Job succeeded -- putting result in Redis 
+2026-10-28 09:21:26 [32minfo[39m [:scrapeController]: Done with waitForJob 
+2026-10-28 09:21:26 [32minfo[39m [:scrapeController]: Removed job from queue 
+2026-10-28 09:21:26 [32minfo[39m [:scrapeController]: Request metrics 
+2026-10-28 09:21:26 [32minfo[39m [:POST]: v1 request completed 
+2026-10-28 09:21:26 [34mdebug[39m [:scrapeController]: Scrape 01a181d0-7cc1-74a1-bfdc-44093c928006 starting 
+2026-10-28 09:21:26 [32minfo[39m [log_job:robustInsert]: Skipping job log due to USE_DB_AUTHENTICATION being off 
+2026-10-28 09:21:26 [34mdebug[39m [:]: Bypassing concurrency limit for bypass 
+2026-10-28 09:21:26 [34mdebug[39m [:scrapeController]: Lock acquired for team: bypass 
+2026-10-28 09:21:26 [32minfo[39m [queue-worker:processJob]: 🐂 Worker taking job 01a181d0-7cc1-74a1-bfdc-44093c928006 
+2026-10-28 09:21:26 [32minfo[39m [runWebscraper:runWebScraper]: runWebScraper called 
+2026-10-28 09:21:26 [32minfo[39m [runWebscraper:runWebScraper]: running scrapeURL... 
+2026-10-28 09:21:26 [32minfo[39m [ScrapeURL:]: scrapeURL entered 
+2026-10-28 09:21:26 [32minfo[39m [ScrapeURL:]: Scraping URL "https://www.erisci.com/ac40-klinik-odyometre"... 
+2026-10-28 09:21:26 [32minfo[39m [ScrapeURL:]: Selected engines 
+2026-10-28 09:21:26 [32minfo[39m [ScrapeURL:]: Scraping via playwright... 
+2026-10-28 09:21:28 [32minfo[39m [ScrapeURL:]: Waterfalling to next engine... 
+2026-10-28 09:21:28 [32minfo[39m [ScrapeURL:]: Scraping via fetch... 
+2026-10-28 09:21:28 [34mdebug[39m [ScrapeURL:scrapeURLWithFetch]: Decoded fetched HTML using detected charset 
+2026-10-28 09:21:28 [32minfo[39m [ScrapeURL:]: Scrape via fetch deemed successful. 
+2026-10-28 09:21:28 [34mdebug[39m [ScrapeURL:]: Executed transformers. 
+2026-10-28 09:21:28 [34mdebug[39m [scrapeURL/metrics:]: scrapeURL metrics 
+2026-10-28 09:21:28 [32minfo[39m [log_job:robustInsert]: Skipping job log due to USE_DB_AUTHENTICATION being off 
+2026-10-28 09:21:28 [32minfo[39m [queue-worker:processJob]: 🐂 Job done 01a181d0-08f4-74f7-b231-94f8bcb67ab5 
+2026-10-28 09:21:28 [34mdebug[39m [queue-worker:processJobInternal]: Job succeeded -- putting result in Redis 
+2026-10-28 09:21:28 [32minfo[39m [:scrapeController]: Done with waitForJob 
+2026-10-28 09:21:28 [32minfo[39m [:scrapeController]: Removed job from queue 
+2026-10-28 09:21:28 [32minfo[39m [:scrapeController]: Request metrics 
+2026-10-28 09:21:28 [32minfo[39m [:POST]: v1 request completed 
+2026-10-28 09:21:28 [34mdebug[39m [:scrapeController]: Scrape 01a181d0-8365-75ea-b8e6-62eccc6c81ee starting 
+2026-10-28 09:21:28 [32minfo[39m [log_job:robustInsert]: Skipping job log due to USE_DB_AUTHENTICATION being off 
+2026-10-28 09:21:28 [34mdebug[39m [:]: Bypassing concurrency limit for bypass 
+2026-10-28 09:21:28 [34mdebug[39m [:scrapeController]: Lock acquired for team: bypass 
+2026-10-28 09:21:28 [32minfo[39m [queue-worker:processJob]: 🐂 Worker taking job 01a181d0-8365-75ea-b8e6-62eccc6c81ee 
+2026-10-28 09:21:28 [32minfo[39m [runWebscraper:runWebScraper]: runWebScraper called 
+2026-10-28 09:21:28 [32minfo[39m [runWebscraper:runWebScraper]: running scrapeURL... 
+2026-10-28 09:21:28 [32minfo[39m [ScrapeURL:]: scrapeURL entered 
+2026-10-28 09:21:28 [32minfo[39m [ScrapeURL:]: Scraping URL "https://www.handelsblatt.com/dpa/demografischer-wandel-personalmangel-im-mittelstand-ein-drittel-bangt-um-existenz/30250062.html"... 
+2026-10-28 09:21:28 [32minfo[39m [ScrapeURL:]: Selected engines 
+2026-10-28 09:21:28 [32minfo[39m [ScrapeURL:]: Scraping via playwright... 
+2026-10-28 09:21:37 [32minfo[39m [ScrapeURL:]: Waterfalling to next engine... 
+2026-10-28 09:21:37 [32minfo[39m [ScrapeURL:]: Scraping via fetch... 
+2026-10-28 09:21:38 [32minfo[39m [ScrapeURL:]: Waterfalling to next engine... 
+2026-10-28 09:21:38 [32minfo[39m [ScrapeURL:]: Scraping via fetch... 
+2026-10-28 09:21:38 [34mdebug[39m [ScrapeURL:scrapeURLWithFetch]: Decoded fetched HTML using detected charset 
+2026-10-28 09:21:38 [34mdebug[39m [ScrapeURL:]: Skipping markdown conversion for quality check due to large HTML size 
+2026-10-28 09:21:38 [32minfo[39m [ScrapeURL:]: Scrape via fetch deemed successful. 
+2026-10-28 09:21:38 [34mdebug[39m [ScrapeURL:scrapeURLWithFetch]: Decoded fetched HTML using detected charset 
+2026-10-28 09:21:38 [34mdebug[39m [ScrapeURL:]: Skipping markdown conversion for quality check due to large HTML size 
+2026-10-28 09:21:38 [32minfo[39m [ScrapeURL:]: Scrape via fetch deemed successful. 
+2026-10-28 09:21:38 [32minfo[39m [ScrapeURL:]: Waterfalling to next engine... 
+2026-10-28 09:21:38 [32minfo[39m [ScrapeURL:]: Scraping via fetch... 
+2026-10-28 09:21:39 [34mdebug[39m [ScrapeURL:]: Executed transformers. 
+2026-10-28 09:21:39 [34mdebug[39m [scrapeURL/metrics:]: scrapeURL metrics 
+2026-10-28 09:21:39 [32minfo[39m [log_job:robustInsert]: Skipping job log due to USE_DB_AUTHENTICATION being off 
+2026-10-28 09:21:39 [32minfo[39m [queue-worker:processJob]: 🐂 Job done 01a181d0-339a-7672-8ba9-89bf37f87ea8 
+2026-10-28 09:21:39 [34mdebug[39m [ScrapeURL:]: Executed transformers. 
+2026-10-28 09:21:39 [34mdebug[39m [scrapeURL/metrics:]: scrapeURL metrics 
+2026-10-28 09:21:39 [32minfo[39m [log_job:robustInsert]: Skipping job log due to USE_DB_AUTHENTICATION being off 
+2026-10-28 09:21:39 [32minfo[39m [queue-worker:processJob]: 🐂 Job done 01a181d0-3217-71cb-bc4a-d95b0cf56623 
+2026-10-28 09:21:39 [32minfo[39m [ScrapeURL:]: Scrape via playwright deemed successful. 
+2026-10-28 09:21:39 [34mdebug[39m [queue-worker:processJobInternal]: Job succeeded -- putting result in Redis 
+2026-10-28 09:21:39 [34mdebug[39m [queue-worker:processJobInternal]: Job succeeded -- putting result in Redis 
+2026-10-28 09:21:39 [32minfo[39m [:scrapeController]: Done with waitForJob 
+2026-10-28 09:21:39 [32minfo[39m [:scrapeController]: Removed job from queue 
+2026-10-28 09:21:39 [32minfo[39m [:scrapeController]: Request metrics 
+2026-10-28 09:21:39 [32minfo[39m [:POST]: v1 request completed 
+2026-10-28 09:21:39 [34mdebug[39m [ScrapeURL:]: Executed transformers. 
+2026-10-28 09:21:39 [34mdebug[39m [scrapeURL/metrics:]: scrapeURL metrics 
+2026-10-28 09:21:39 [32minfo[39m [log_job:robustInsert]: Skipping job log due to USE_DB_AUTHENTICATION being off 
+2026-10-28 09:21:39 [32minfo[39m [queue-worker:processJob]: 🐂 Job done 01a181d0-60a8-706c-a33f-690e69125e46 
+2026-10-28 09:21:39 [32minfo[39m [:scrapeController]: Done with waitForJob 
+2026-10-28 09:21:39 [32minfo[39m [:scrapeController]: Removed job from queue 
+2026-10-28 09:21:39 [32minfo[39m [:scrapeController]: Request metrics 
+2026-10-28 09:21:39 [32minfo[39m [:POST]: v1 request completed 
+2026-10-28 09:21:39 [34mdebug[39m [:scrapeController]: Scrape 01a181d0-af4b-775f-b232-9ce18f292b81 starting 
+2026-10-28 09:21:39 [32minfo[39m [log_job:robustInsert]: Skipping job log due to USE_DB_AUTHENTICATION being off 
+2026-10-28 09:21:39 [34mdebug[39m [:]: Bypassing concurrency limit for bypass 
+2026-10-28 09:21:39 [34mdebug[39m [queue-worker:processJobInternal]: Job succeeded -- putting result in Redis 
+2026-10-28 09:21:39 [34mdebug[39m [:scrapeController]: Scrape 01a181d0-af60-77cf-9441-36bd438100af starting 
+2026-10-28 09:21:39 [32minfo[39m [log_job:robustInsert]: Skipping job log due to USE_DB_AUTHENTICATION being off 
+2026-10-28 09:21:39 [34mdebug[39m [:]: Bypassing concurrency limit for bypass 
+2026-10-28 09:21:39 [34mdebug[39m [:scrapeController]: Lock acquired for team: bypass 
+2026-10-28 09:21:39 [34mdebug[39m [:scrapeController]: Lock acquired for team: bypass 
+2026-10-28 09:21:39 [32minfo[39m [:scrapeController]: Done with waitForJob 
+2026-10-28 09:21:39 [32minfo[39m [:scrapeController]: Removed job from queue 
+2026-10-28 09:21:39 [32minfo[39m [:scrapeController]: Request metrics 
+2026-10-28 09:21:39 [32minfo[39m [:POST]: v1 request completed 
+2026-10-28 09:21:39 [34mdebug[39m [:scrapeController]: Scrape 01a181d0-af7d-71e2-a23e-4e293c02f7e4 starting 
+2026-10-28 09:21:39 [32minfo[39m [log_job:robustInsert]: Skipping job log due to USE_DB_AUTHENTICATION being off 
+2026-10-28 09:21:39 [34mdebug[39m [:]: Bypassing concurrency limit for bypass 
+2026-10-28 09:21:39 [32minfo[39m [queue-worker:processJob]: 🐂 Worker taking job 01a181d0-af4b-775f-b232-9ce18f292b81 
+2026-10-28 09:21:39 [32minfo[39m [runWebscraper:runWebScraper]: runWebScraper called 
+2026-10-28 09:21:39 [32minfo[39m [runWebscraper:runWebScraper]: running scrapeURL... 
+2026-10-28 09:21:39 [34mdebug[39m [:scrapeController]: Lock acquired for team: bypass 
+2026-10-28 09:21:39 [32minfo[39m [ScrapeURL:]: scrapeURL entered 
+2026-10-28 09:21:39 [32minfo[39m [ScrapeURL:]: Scraping URL "https://jbstavern.com/why-jbs"... 
+2026-10-28 09:21:39 [32minfo[39m [ScrapeURL:]: Selected engines 
+2026-10-28 09:21:39 [32minfo[39m [ScrapeURL:]: Scraping via playwright... 
+2026-10-28 09:21:39 [32minfo[39m [queue-worker:processJob]: 🐂 Worker taking job 01a181d0-af60-77cf-9441-36bd438100af 
+2026-10-28 09:21:39 [32minfo[39m [runWebscraper:runWebScraper]: runWebScraper called 
+2026-10-28 09:21:39 [32minfo[39m [runWebscraper:runWebScraper]: running scrapeURL... 
+2026-10-28 09:21:39 [32minfo[39m [ScrapeURL:]: scrapeURL entered 
+2026-10-28 09:21:39 [32minfo[39m [ScrapeURL:]: Scraping URL "https://www.papillote.dm/what-to-expect"... 
+2026-10-28 09:21:39 [32minfo[39m [ScrapeURL:]: Selected engines 
+2026-10-28 09:21:39 [32minfo[39m [ScrapeURL:]: Scraping via playwright... 
+2026-10-28 09:21:39 [32minfo[39m [queue-worker:processJob]: 🐂 Worker taking job 01a181d0-af7d-71e2-a23e-4e293c02f7e4 
+2026-10-28 09:21:39 [32minfo[39m [runWebscraper:runWebScraper]: runWebScraper called 
+2026-10-28 09:21:39 [32minfo[39m [runWebscraper:runWebScraper]: running scrapeURL... 
+2026-10-28 09:21:39 [32minfo[39m [ScrapeURL:]: scrapeURL entered 
+2026-10-28 09:21:39 [32minfo[39m [ScrapeURL:]: Scraping URL "https://www.aquaholicboatcharters.com/about-2"... 
+2026-10-28 09:21:39 [32minfo[39m [ScrapeURL:]: Selected engines 
+2026-10-28 09:21:39 [32minfo[39m [ScrapeURL:]: Scraping via playwright... 
+2026-10-28 09:21:39 [34mdebug[39m [ScrapeURL:scrapeURLWithFetch]: Decoded fetched HTML using detected charset 
+2026-10-28 09:21:39 [33mwarn[39m [ScrapeURL:]: Scrape via fetch deemed unsuccessful. {"module":"ScrapeURL","scrapeId":"01a181d0-3583-71cb-88b1-404bf1ba1eef","scrapeURL":"https://testes.jornaldeangola.ao/","zeroDataRetention":false,"teamId":"bypass","team_id":"bypass","factors":{"isLongEnough":false,"isGoodStatusCode":true,"hasNoPageError":true},"length":14747}
+2026-10-28 09:21:40 [32minfo[39m [ScrapeURL:]: Scrape via playwright deemed successful. 
+2026-10-28 09:21:40 [34mdebug[39m [ScrapeURL:]: Executed transformers. 
+2026-10-28 09:21:40 [34mdebug[39m [scrapeURL/metrics:]: scrapeURL metrics 
+2026-10-28 09:21:40 [32minfo[39m [log_job:robustInsert]: Skipping job log due to USE_DB_AUTHENTICATION being off 
+2026-10-28 09:21:40 [32minfo[39m [queue-worker:processJob]: 🐂 Job done 01a181d0-3583-71cb-88b1-404bf1ba1eef 
+2026-10-28 09:21:40 [34mdebug[39m [queue-worker:processJobInternal]: Job succeeded -- putting result in Redis 
+2026-10-28 09:21:40 [32minfo[39m [:scrapeController]: Done with waitForJob 
+2026-10-28 09:21:40 [32minfo[39m [:scrapeController]: Removed job from queue 
+2026-10-28 09:21:40 [32minfo[39m [:scrapeController]: Request metrics 
+2026-10-28 09:21:40 [32minfo[39m [:POST]: v1 request completed 
+2026-10-28 09:21:40 [34mdebug[39m [:scrapeController]: Scrape 01a181d0-b289-71f3-b52c-d34ed54317c4 starting 
+2026-10-28 09:21:40 [32minfo[39m [log_job:robustInsert]: Skipping job log due to USE_DB_AUTHENTICATION being off 
+2026-10-28 09:21:40 [34mdebug[39m [:]: Bypassing concurrency limit for bypass 
+2026-10-28 09:21:40 [34mdebug[39m [:scrapeController]: Lock acquired for team: bypass 
+2026-10-28 09:21:40 [32minfo[39m [queue-worker:processJob]: 🐂 Worker taking job 01a181d0-b289-71f3-b52c-d34ed54317c4 
+2026-10-28 09:21:40 [32minfo[39m [runWebscraper:runWebScraper]: runWebScraper called 
+2026-10-28 09:21:40 [32minfo[39m [runWebscraper:runWebScraper]: running scrapeURL... 
+2026-10-28 09:21:40 [32minfo[39m [ScrapeURL:]: scrapeURL entered 
+2026-10-28 09:21:40 [32minfo[39m [ScrapeURL:]: Scraping URL "https://www.livelifelively.co/terms"... 
+2026-10-28 09:21:40 [32minfo[39m [ScrapeURL:]: Selected engines 
+2026-10-28 09:21:40 [32minfo[39m [ScrapeURL:]: Scraping via playwright... 
+2026-10-28 09:21:41 [34mdebug[39m [ScrapeURL:]: Skipping markdown conversion for quality check due to large HTML size 
+2026-10-28 09:21:41 [32minfo[39m [ScrapeURL:]: Scrape via playwright deemed successful. 
+2026-10-28 09:21:41 [34mdebug[39m [ScrapeURL:]: Executed transformers. 
+2026-10-28 09:21:41 [34mdebug[39m [scrapeURL/metrics:]: scrapeURL metrics 
+2026-10-28 09:21:41 [32minfo[39m [log_job:robustInsert]: Skipping job log due to USE_DB_AUTHENTICATION being off 
+2026-10-28 09:21:41 [32minfo[39m [queue-worker:processJob]: 🐂 Job done 01a181d0-643f-7502-ae5c-3bdef3c0a14b 
+2026-10-28 09:21:41 [34mdebug[39m [queue-worker:processJobInternal]: Job succeeded -- putting result in Redis 
+2026-10-28 09:21:41 [32minfo[39m [:scrapeController]: Done with waitForJob 
+2026-10-28 09:21:41 [32minfo[39m [:scrapeController]: Removed job from queue 
+2026-10-28 09:21:41 [32minfo[39m [:scrapeController]: Request metrics 
+2026-10-28 09:21:41 [32minfo[39m [:POST]: v1 request completed 
+2026-10-28 09:21:41 [34mdebug[39m [:scrapeController]: Scrape 01a181d0-b75a-772e-85ac-f31741fb892b starting 
+2026-10-28 09:21:41 [32minfo[39m [log_job:robustInsert]: Skipping job log due to USE_DB_AUTHENTICATION being off 
+2026-10-28 09:21:41 [34mdebug[39m [:]: Bypassing concurrency limit for bypass 
+2026-10-28 09:21:41 [34mdebug[39m [:scrapeController]: Lock acquired for team: bypass 
+2026-10-28 09:21:41 [32minfo[39m [queue-worker:processJob]: 🐂 Worker taking job 01a181d0-b75a-772e-85ac-f31741fb892b 
+2026-10-28 09:21:41 [32minfo[39m [runWebscraper:runWebScraper]: runWebScraper called 
+2026-10-28 09:21:41 [32minfo[39m [runWebscraper:runWebScraper]: running scrapeURL... 
+2026-10-28 09:21:41 [32minfo[39m [ScrapeURL:]: scrapeURL entered 
+2026-10-28 09:21:41 [32minfo[39m [ScrapeURL:]: Scraping URL "https://www.sahyadriprakashan.com/product-page/%E0%A4%95%E0%A4%A3%E0%A4%B5-kanvu"... 
+2026-10-28 09:21:41 [32minfo[39m [ScrapeURL:]: Selected engines 
+2026-10-28 09:21:41 [32minfo[39m [ScrapeURL:]: Scraping via playwright... 
+/opt/benchmark-entrypoint.sh: line 53:   132 Killed                  ( cd /app && node dist/src/index.js )

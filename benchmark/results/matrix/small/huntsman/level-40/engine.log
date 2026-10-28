@@ -1,0 +1,88 @@
+2026/10/28 07:03:46 INFO Huntsman ready address=0.0.0.0:8080 workers=40 perHost=40 cacheTTL=1h0m0s allowPrivate=false
+$time=1793171029162 $scope=note $level=note $msg="server running" address=127.0.0.1:9246 max_connections=848 max_browser_connections=16
+$time=1793171034626 $scope=note $level=note $msg="server running" address=127.0.0.1:9228 max_connections=848 max_browser_connections=16
+$time=1793171034679 $scope=note $level=note $msg="server running" address=127.0.0.1:9260 max_connections=848 max_browser_connections=16
+$time=1793171034782 $scope=note $level=note $msg="server running" address=127.0.0.1:9237 max_connections=848 max_browser_connections=16
+$time=1793171034847 $scope=note $level=note $msg="server running" address=127.0.0.1:9240 max_connections=848 max_browser_connections=16
+$time=1793171034862 $scope=note $level=note $msg="server running" address=127.0.0.1:9254 max_connections=848 max_browser_connections=16
+$time=1793171034954 $scope=note $level=note $msg="server running" address=127.0.0.1:9222 max_connections=848 max_browser_connections=16
+$time=1793171035015 $scope=note $level=note $msg="server running" address=127.0.0.1:9226 max_connections=848 max_browser_connections=16
+$time=1793171035240 $scope=note $level=note $msg="server running" address=127.0.0.1:9224 max_connections=848 max_browser_connections=16
+$time=1793171035301 $scope=note $level=note $msg="server running" address=127.0.0.1:9234 max_connections=848 max_browser_connections=16
+$time=1793171035311 $scope=note $level=note $msg="server running" address=127.0.0.1:9238 max_connections=848 max_browser_connections=16
+$time=1793171035411 $scope=note $level=note $msg="server running" address=127.0.0.1:9258 max_connections=848 max_browser_connections=16
+$time=1793171035449 $scope=note $level=note $msg="server running" address=127.0.0.1:9244 max_connections=848 max_browser_connections=16
+$time=1793171035523 $scope=note $level=note $msg="server running" address=127.0.0.1:9242 max_connections=848 max_browser_connections=16
+$time=1793171035567 $scope=note $level=note $msg="server running" address=127.0.0.1:9252 max_connections=848 max_browser_connections=16
+$time=1793171035582 $scope=note $level=note $msg="server running" address=127.0.0.1:9231 max_connections=848 max_browser_connections=16
+$time=1793171035619 $scope=note $level=note $msg="server running" address=127.0.0.1:9241 max_connections=848 max_browser_connections=16
+$time=1793171035643 $scope=note $level=note $msg="server running" address=127.0.0.1:9253 max_connections=848 max_browser_connections=16
+$time=1793171035798 $scope=note $level=note $msg="server running" address=127.0.0.1:9233 max_connections=848 max_browser_connections=16
+$time=1793171035827 $scope=note $level=note $msg="server running" address=127.0.0.1:9247 max_connections=848 max_browser_connections=16
+$time=1793171035868 $scope=note $level=note $msg="server running" address=127.0.0.1:9256 max_connections=848 max_browser_connections=16
+$time=1793171035913 $scope=note $level=note $msg="server running" address=127.0.0.1:9257 max_connections=848 max_browser_connections=16
+2026/10/28 07:03:55 WARN scrape failed job=adf28f5b6c6e2d6b7e86536e7a6e0eec error="navigate: page load error CouldntResolveHost"
+$time=1793171035945 $scope=note $level=note $msg="server running" address=127.0.0.1:9243 max_connections=848 max_browser_connections=16
+$time=1793171035958 $scope=note $level=note $msg="server running" address=127.0.0.1:9251 max_connections=848 max_browser_connections=16
+$time=1793171036049 $scope=note $level=note $msg="server running" address=127.0.0.1:9229 max_connections=848 max_browser_connections=16
+$time=1793171036061 $scope=note $level=note $msg="server running" address=127.0.0.1:9235 max_connections=848 max_browser_connections=16
+$time=1793171036110 $scope=note $level=note $msg="server running" address=127.0.0.1:9261 max_connections=848 max_browser_connections=16
+$time=1793171036116 $scope=note $level=note $msg="server running" address=127.0.0.1:9225 max_connections=848 max_browser_connections=16
+$time=1793171036131 $scope=note $level=note $msg="server running" address=127.0.0.1:9232 max_connections=848 max_browser_connections=16
+$time=1793171036150 $scope=note $level=note $msg="server running" address=127.0.0.1:9250 max_connections=848 max_browser_connections=16
+$time=1793171036186 $scope=note $level=note $msg="server running" address=127.0.0.1:9259 max_connections=848 max_browser_connections=16
+$time=1793171036326 $scope=note $level=note $msg="server running" address=127.0.0.1:9223 max_connections=848 max_browser_connections=16
+$time=1793171036359 $scope=note $level=note $msg="server running" address=127.0.0.1:9249 max_connections=848 max_browser_connections=16
+$time=1793171036459 $scope=note $level=note $msg="server running" address=127.0.0.1:9248 max_connections=848 max_browser_connections=16
+$time=1793171036467 $scope=note $level=note $msg="server running" address=127.0.0.1:9245 max_connections=848 max_browser_connections=16
+$time=1793171036468 $scope=note $level=note $msg="server running" address=127.0.0.1:9230 max_connections=848 max_browser_connections=16
+$time=1793171036514 $scope=note $level=note $msg="server running" address=127.0.0.1:9255 max_connections=848 max_browser_connections=16
+$time=1793171036707 $scope=note $level=note $msg="server running" address=127.0.0.1:9239 max_connections=848 max_browser_connections=16
+$time=1793171039043 $scope=note $level=note $msg="server running" address=127.0.0.1:9227 max_connections=848 max_browser_connections=16
+$time=1793171042510 $scope=note $level=note $msg="server running" address=127.0.0.1:9236 max_connections=848 max_browser_connections=16
+2026/10/28 07:04:15 WARN scrape failed job=8894733f16063a596836563fe049b2b2 error="page produced empty Markdown"
+2026/10/28 07:04:17 WARN scrape failed job=41cea6e8759547fc033b2da2fb6dbd23 error="extract HTML: context canceled"
+2026/10/28 07:04:18 WARN scrape failed job=7ed41ced158aae85cbfcf8cdf22968fb error="fetch PDF: Get \"https://meccnar.gov.gm/sites/default/files/2021-04/GAMBIA%20NATIONAL%20CLIMATE%20CHANGE%20POLICY.pdf\": tls: failed to verify certificate: x509: certificate signed by unknown authority"
+2026/10/28 07:04:21 WARN scrape failed job=c75c7de461c7e9a814a9871014f153f9 error="navigate: context canceled"
+2026/10/28 07:04:21 WARN scrape failed job=a5c92546a7b7adb4400e9860a4a676c2 error="parse PDF: unsupported PDF: encryption version V=4; <</CF <</StdCF <</AuthEvent /DocOpen /CFM /V2 /Length 16>>>> /Filter /Standard /Length 128 /O \"ѭ\\x17y\\xd24T\\x99Z\\xa2\\xa5٘\\x88\\xd6ч\\xc2A\\xf7\\x9d\\xb7\\b?|\\x9a\\x8c.\\xef\\xdcb\\x18\" /P -1324 /R 4 /StmF /StdCF /StrF /StdCF /U \"\\xfc\\x8d\\xe1{\\xf1\\x80-\\x8b\\xc3\\x0451\\x98\\x16xd\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\" /V 4>>"
+2026/10/28 07:04:26 WARN scrape failed job=17f9c414172c7c01ec3ec964128146f6 error="navigate: page load error net::ERR_TIMED_OUT"
+2026/10/28 07:04:28 WARN scrape failed job=aa6f528f25853ba09c891aec115ed981 error="navigate: context canceled"
+2026/10/28 07:04:28 WARN scrape failed job=4ec30d4100d9e0d14aa04f87cc500ac5 error="navigate: context canceled"
+2026/10/28 07:04:40 WARN scrape failed job=cb6b8c6aef664485f9611c0ab5ada383 error="page produced empty Markdown"
+2026/10/28 07:04:41 WARN scrape failed job=60be36fa98bf350172876b15bd1fd988 error="fetch PDF: Get \"https://prac.im.pwr.edu.pl/~downar/polish/materialy/ANALIZA2/Wahanie%20skonczone%20a%20calka%20Riemanna-Stieltjesa.pdf\": tls: failed to verify certificate: x509: certificate signed by unknown authority"
+2026/10/28 07:04:50 WARN scrape failed job=4a1ac1d461efc23eea4d9b6556565f6b error="fetch PDF: Get \"https://jca.gov.jm/wp-content/uploads/2022/12/DRM-Enforcement-Measures-No_-2-Order-2020-1-March-24-2020.x86258.pdf\": dial tcp 63.143.89.246:443: i/o timeout"
+2026/10/28 07:04:53 WARN scrape failed job=838788fc072d37420d6c23400ab777a1 error="navigate: page load error net::ERR_TIMED_OUT"
+2026/10/28 07:04:54 WARN scrape failed job=5d718f89968927e4a17e0fe2414480be error="readiness: context canceled"
+2026/10/28 07:04:55 WARN scrape failed job=135f32fcdfc52cc5644e87ded4aa8320 error="navigate: page load error ResponseTooLarge"
+2026/10/28 07:04:59 WARN scrape failed job=d14e31ee3a10a88d44546bc753540057 error="navigate: page load error net::ERR_TIMED_OUT"
+2026/10/28 07:05:04 WARN scrape failed job=dfedd9dcd3b0990026b558a2383e54be error="navigate: context canceled"
+2026/10/28 07:05:05 WARN scrape failed job=7b1eca1a033fe41658c4de7dc1e138b4 error="page produced empty Markdown"
+2026/10/28 07:05:06 WARN scrape failed job=4f0743acc23d018dbd03d087f1c53dd4 error="navigate: page load error net::ERR_TIMED_OUT"
+2026/10/28 07:05:09 WARN scrape failed job=32653190d86ee856abec57f09ace6b40 error="navigate: page load error net::ERR_TIMED_OUT"
+2026/10/28 07:05:09 WARN scrape failed job=8d1fcf5b9bde8642ee7c41d08aabc982 error="page produced empty Markdown"
+2026/10/28 07:05:12 WARN scrape failed job=8897334d84bbf8d7117666b4af5a3778 error="PDF has no extractable text"
+2026/10/28 07:05:12 WARN scrape failed job=d6e62921ba868a2a70342f192a114220 error="navigate: page load error net::ERR_TIMED_OUT"
+2026/10/28 07:05:15 WARN scrape failed job=98967614ee174660e38ec62be4d48bac error="navigate: page load error Http2Stream"
+2026/10/28 07:05:19 WARN scrape failed job=c33eb11db943b025d48019fde0526238 error="navigate: page load error ResponseTooLarge"
+2026/10/28 07:05:19 WARN scrape failed job=bf82dbe6fd2343ef82d1696c84937f0b error="read PDF: context deadline exceeded"
+2026/10/28 07:05:24 WARN scrape failed job=0b4549e8cf99627f8928bf5e425f87ff error="page produced empty Markdown"
+2026/10/28 07:05:27 WARN scrape failed job=db065b1c221a96a8484a6da2d2a3b1b8 error="page produced empty Markdown"
+2026/10/28 07:05:42 WARN scrape failed job=b6ead1e9d3111ac781385ee73301a43b error="navigate: page load error GotNothing"
+2026/10/28 07:05:47 WARN scrape failed job=1c768112abbb32e73c21de6c447098d2 error="navigate: context canceled"
+2026/10/28 07:05:54 WARN scrape failed job=9e7a0bc398bfba3541dc457966303f8a error="navigate: page load error net::ERR_TIMED_OUT"
+2026/10/28 07:06:01 WARN scrape failed job=979959765d3c8a96309a20609dc95e64 error="navigate: page load error Http2Stream"
+2026/10/28 07:06:18 WARN scrape failed job=a6421480172febafa2064a0073a70612 error="navigate: page load error net::ERR_TIMED_OUT"
+2026/10/28 07:06:21 WARN scrape failed job=c629c763a96b9da1c56076ce6beb32b7 error="readiness: context canceled"
+2026/10/28 07:06:28 WARN scrape failed job=02f95c97b8b7b92e914229967b0b2a14 error="navigate: context canceled"
+2026/10/28 07:06:29 WARN scrape failed job=20682f509d59c07eb484ba5758797bb6 error="readiness: context canceled"
+2026/10/28 07:06:31 WARN scrape failed job=a7769099c92c5c8a4f92101eb1a54f78 error="navigate: context canceled"
+2026/10/28 07:06:33 WARN scrape failed job=a1c366cbc25b385c15a492b7467eecc4 error="page produced empty Markdown"
+2026/10/28 07:06:34 WARN scrape failed job=30802d05d2e529ccdc89a1a7037f6c32 error="navigate: page load error net::ERR_TIMED_OUT"
+2026/10/28 07:06:34 WARN scrape failed job=f7fdc78c2267408312fdd207db2cb9b5 error="page produced empty Markdown"
+2026/10/28 07:06:35 WARN scrape failed job=56ecc0b27c1b3b3a09cd2f1a970408c9 error="page produced empty Markdown"
+2026/10/28 07:06:43 WARN scrape failed job=7fa3f018cbd3653ed2aebfd3b067de28 error="page produced empty Markdown"
+2026/10/28 07:06:48 WARN scrape failed job=64c481e5c6633142e563c3fd0044497e error="navigate: page load error net::ERR_TIMED_OUT"
+2026/10/28 07:06:56 WARN scrape failed job=c6fc2a61992f365c13f1875df08697a4 error="page produced empty Markdown"
+2026/10/28 07:06:57 WARN scrape failed job=82ec6b0e419a9e7516488b6e78689695 error="navigate: context canceled"
+2026/10/28 07:07:12 WARN scrape failed job=92b7e9c21ec3a26adb6a910284d32559 error="page produced empty Markdown"
+2026/10/28 07:07:38 WARN scrape failed job=1912efe53a68c3c562a1f29ba7856057 error="navigate: page load error net::ERR_TIMED_OUT"
