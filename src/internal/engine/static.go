@@ -41,7 +41,24 @@ func needsStatic(r Request, doc *Document, err error) bool {
 	if err != nil {
 		return r.WaitSelector == "" && !strings.Contains(err.Error(), "RobotsBlocked")
 	}
-	return doc.Metadata.StatusCode >= 400 || challenged(doc)
+	return doc.Metadata.StatusCode >= 400 || challenged(doc) || crashed(doc)
+}
+
+// crashPhrases are the error screens frameworks render when their scripts throw in the browser.
+var crashPhrases = []string{"this page couldn't load", "application error: a client-side exception has occurred"}
+
+// crashed reports whether a short page is a framework's client-side error screen rather than the server's HTML.
+func crashed(doc *Document) bool {
+	if len(doc.Markdown) > 2000 {
+		return false
+	}
+	text := strings.ReplaceAll(strings.ToLower(doc.Metadata.Title+" "+doc.Markdown), "’", "'")
+	for _, phrase := range crashPhrases {
+		if strings.Contains(text, phrase) {
+			return true
+		}
+	}
+	return false
 }
 
 var challengePhrases = []string{"access denied", "attention required", "just a moment", "verify you are a human",
