@@ -10,6 +10,7 @@ import LiveScrape from '../components/LiveScrape.astro';
 import { machines } from '../data/benchmarks';
 
 const repo = 'https://github.com/TulipFarm/huntsman';
+const dataset = 'https://huggingface.co/datasets/tulipfarmai/huntsman-scrape-dataset-v1';
 const image = 'ghcr.io/tulipfarm/huntsman';
 
 const run = `docker run -d --name huntsman -p 127.0.0.1:8080:8080 \\
@@ -111,6 +112,7 @@ const huntsman = machines.map((m) => ({
         <a href="#benchmarks">Benchmarks</a>
         <a href="#start">Get started</a>
         <a href="#api">API</a>
+        <a href={dataset}>Dataset</a>
         <a href={repo}>GitHub</a>
       </nav>
     </header>
