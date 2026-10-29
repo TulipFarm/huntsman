@@ -64,7 +64,7 @@ const endpoints = [
 ];
 
 const settings = [
-  ['HUNTSMAN_WORKERS', '4', 'Pages scraped at once. The default is safe for any machine; raise it to use yours fully (see step 3 above).'],
+  ['HUNTSMAN_WORKERS', '16 per CPU', 'Pages scraped at once, capped at one per 96 MB of memory. Container limits count (see step 3 above).'],
   ['HUNTSMAN_PER_HOST', '2', 'Most pages scraped at once from a single site, so one site isn’t flooded. Max 64.'],
   ['HUNTSMAN_TOKEN', 'empty', 'Bearer token; empty turns auth off'],
   ['HUNTSMAN_TOKENS', 'empty', 'Named keys, name:token,... One per client, so you can revoke one without the others'],
@@ -174,8 +174,9 @@ const huntsman = machines.map((m) => ({
             <div class="step-text">
               <h3>Size it for your machine</h3>
               <p>
-                <code>HUNTSMAN_WORKERS</code> sets how many pages are scraped at once. It defaults to 4 so Huntsman runs
-                safely anywhere; these are the highest values that held up in the benchmark above. Memory grows over runs of many hours, so leave headroom for
+                <code>HUNTSMAN_WORKERS</code> sets how many pages are scraped at once. By default Huntsman sizes it
+                to the machine: 16 per CPU core, capped at one per 96 MB of memory, so 2 vCPU and 4 GB gets 32. Set it
+                yourself to go further; these are the highest values that held up in the benchmark above. Memory grows over runs of many hours, so leave headroom for
                 long-running servers.
               </p>
               <table class="sizes">

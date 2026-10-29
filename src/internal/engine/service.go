@@ -55,7 +55,8 @@ func (s *Service) Start(ctx context.Context, renderers []Renderer) {
 					select {
 					case <-ctx.Done():
 					case <-s.wake:
-					case <-time.After(25 * time.Millisecond):
+					// Every queue change sends a wake-up; this poll is only a safety net, kept slow so idle workers cost nothing.
+					case <-time.After(time.Second):
 					}
 					continue
 				}

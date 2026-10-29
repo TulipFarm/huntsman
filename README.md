@@ -153,7 +153,7 @@ All settings are environment variables.
 | Variable | Default | Meaning |
 |---|---|---|
 | `HUNTSMAN_ADDR` | `127.0.0.1:8080` (`0.0.0.0:8080` in Docker) | Listen address |
-| `HUNTSMAN_WORKERS` | `4` | Browser instances, i.e. pages rendered at once |
+| `HUNTSMAN_WORKERS` | 16 per CPU, capped at memory ÷ 96 MB | Browser instances, i.e. pages rendered at once. Container CPU and memory limits count |
 | `HUNTSMAN_PER_HOST` | `2` | Concurrent pages per host |
 | `HUNTSMAN_QUEUE_CAPACITY` | `10000` | Queued jobs before `429` |
 | `HUNTSMAN_CACHE_TTL` | `1h` | Default result cache age (max `168h`) |

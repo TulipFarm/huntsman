@@ -33,7 +33,7 @@ func integer(name string, fallback, min, max int) (int, error) {
 }
 
 func run() error {
-	workers, err := integer("HUNTSMAN_WORKERS", 4, 1, 1024)
+	workers, err := integer("HUNTSMAN_WORKERS", defaultWorkers(), 1, maxWorkers)
 	if err != nil {
 		return err
 	}
