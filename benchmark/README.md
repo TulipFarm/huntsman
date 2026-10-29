@@ -51,7 +51,8 @@ Requirements: Go, Docker with arm64 build support, Pulumi, and AWS credentials i
 # 1. Create the machines. Writes their addresses to benchmark/.env and waits until Docker is ready.
 go run ./benchmark/cmd/bench provision
 
-# 2. Run. Output streams live, prefixed by machine; results land in benchmark/results/matrix/<machine>/<engine>/.
+# 2. Run. For huntsman-v1, fetch its data first: hf download tulipfarmai/huntsman-scrape-dataset-v1 --repo-type dataset --include "data/*" --local-dir dataset/huntsman-v1
+# Then run. Output streams live, prefixed by machine; results land in benchmark/results/matrix/<machine>/<engine>/.
 go run ./benchmark/cmd/bench run --machine all --engine all
 go run ./benchmark/cmd/bench run --machine small --engine firecrawl --levels 1,2,4
 go run ./benchmark/cmd/bench run --machine small --engine huntsman --phases profile

@@ -187,6 +187,10 @@ same split, from the most over-filled buckets. No bucket that the previous versi
 and human-reviewed rows are never removed. It writes `out/v<version>_added.csv` and `out/v<version>_dropped.csv`.
 Links to the dataset always point at its main page, never at a version tag.
 
+The data files are not committed to Git; Hugging Face holds every version. Before running a step that reads the
+previous version (`01_candidates.py`, `09_liveness.py`, `10_extend.py`), fetch it with
+`hf download tulipfarmai/huntsman-scrape-dataset-v1 --repo-type dataset --include "data/*" --local-dir dataset/huntsman-v1`.
+
 ### Versions
 
 - **1.0** (2026-10-27): first release.
@@ -203,7 +207,7 @@ dataset/huntsman-v1/
   DATASHEET.md     counts per bucket (generated)
   SPEC.md          this file
   quotas.yaml      every minimum/maximum above, read by 06_select.py
-  data/            the CSV and dev/test parquet (generated)
+  data/            the CSV and dev/test parquet (generated, gitignored; published on Hugging Face)
   pipeline/        01_candidates.py … 10_extend.py, run.sh
   review/          review sample and report; local review UI (index.html, gitignored)
   out/             candidates, cache, snapshots, state.db (gitignored)

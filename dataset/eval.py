@@ -136,7 +136,11 @@ MULTI_DIMS = ["media", "difficulty"]
 
 
 def load_tasks(limit=0, dataset=None, split=None):
-    tasks = list(csv.DictReader(Path(dataset or DATASET).open(encoding="utf-8")))
+    path = Path(dataset or DATASET)
+    if not path.exists():
+        sys.exit(f"{path} not found. huntsman-v1's data is on Hugging Face; fetch it with: "
+                 'hf download tulipfarmai/huntsman-scrape-dataset-v1 --repo-type dataset --include "data/*" --local-dir dataset/huntsman-v1')
+    tasks = list(csv.DictReader(path.open(encoding="utf-8")))
     if split:
         tasks = [t for t in tasks if t.get("split") == split]
     return tasks[:limit] if limit else tasks
