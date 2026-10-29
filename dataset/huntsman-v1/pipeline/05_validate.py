@@ -90,7 +90,7 @@ def final_render_mode(tags, data, label):
 def cmd_verify(args):
     conn = db()
     rows = conn.execute("SELECT l.url, l.label, t.tags FROM labels l JOIN tags t USING (url) WHERE l.ok = 1 "
-                        "AND l.url NOT IN (SELECT url FROM verdicts" + (" WHERE reason NOT LIKE 'call_failed%'" if args.retry_failed else "") + ")").fetchall()
+                        "AND l.url NOT IN (SELECT url FROM verdicts" + (" WHERE reason IS NULL OR reason NOT LIKE 'call_failed%'" if args.retry_failed else "") + ")").fetchall()
     todo = [(r["url"], json.loads(r["tags"]), json.loads(r["label"])) for r in rows]
     if args.limit:
         todo = todo[:args.limit]

@@ -47,9 +47,13 @@ def export_rows(conn):
     return sorted(out, key=lambda r: r["id"])
 
 
-def datasheet(rows):
+SOURCES = ["commoncrawl", "tranco", "search", "tulipfarm"]
+
+
+def datasheet(rows, extra=()):
+    """extra: Markdown lines added after the column list (e.g. a version note)."""
     lines = ["# huntsman-scrape-dataset-v1 datasheet", "",
-             f"Generated {dt.date.today().isoformat()}. Design and method: SPEC.md.", "",
+             f"Generated {dt.date.today().isoformat()}. Design and method: SPEC.md.", "", *extra,
              "Columns: " + ", ".join(f"`{c}`" for c in COLUMNS) + ". `media` and `difficulty` are `;`-separated "
              "(empty difficulty = clean).", ""]
     return "\n".join(lines + dimension_tables(rows))
@@ -77,11 +81,14 @@ def write_splits(src, duckdb):
             f"ORDER BY CAST(id AS INTEGER)) TO '{DATA / split}.parquet' (FORMAT parquet, COMPRESSION zstd)")
 
 
-def hf_card(rows):
+def hf_card(rows, created=None, versions=()):
+    """versions: (version, date, change) tuples, oldest first; the last one is the current version."""
     langs = sorted({r["language"] for r in rows if r["language"]})
     configs = ("- config_name: default\n  data_files:\n  - split: test\n    path: data/test.parquet\n"
                "  - split: dev\n    path: data/dev.parquet")
-    created = dt.date.today().isoformat()
+    created = created or dt.date.today().isoformat()
+    sources = [s for s in SOURCES if any(r["source"] == s for r in rows)]
+    version = f" Version {versions[-1][0]}, updated {versions[-1][1]}." if versions else ""
     lines = ["---", "license: cc-by-4.0", "language:"] + [f"- {l}" for l in langs] + [
         "multilinguality: multilingual", "size_categories:", "- 1K<n<10K", "task_categories:", "- text-retrieval",
         "pretty_name: Huntsman Scrape Dataset v1", "tags:", "- scrape", "- web-scraping", "- benchmark", "- boilerplate-removal", "configs:", configs, "---", "",
@@ -94,7 +101,7 @@ def hf_card(rows):
         f"spec are in [`dataset/huntsman-v1/`]({REPO}/tree/main/dataset/huntsman-v1).", "",
         "## Overview", "",
         f"{len(rows):,} rows, {len(langs)} languages, {len({r['country'] for r in rows if r['country']})} countries, "
-        f"{len({r['domain'] for r in rows})} domains. Created {created}.", "",
+        f"{len({r['domain'] for r in rows})} domains. Created {created}.{version}", "",
         "```python", "from datasets import load_dataset", "",
         'ds = load_dataset("tulipfarmai/huntsman-scrape-dataset-v1", split="test")', "```", "",
         "Use `dev` for tuning and report scores on `test`. `data/huntsman-scrape-dataset-v1.csv` holds both splits "
@@ -108,7 +115,7 @@ def hf_card(rows):
         "- `language`, `lang_tier`, `script`, `direction` (`ltr` / `rtl` / `mixed`)",
         "- `region`, `country`", "- `render_mode` (`static` / `ssr` / `csr`), `platform`",
         "- `page_type`, `topic`", "- `media`, `difficulty`: `;`-separated lists (empty difficulty = clean)",
-        "- `source` (`commoncrawl` / `tranco` / `search`), `review` (`none` / `llm_review` / `human`)",
+        "- `source` (" + " / ".join(f"`{s}`" for s in sources) + "), `review` (`none` / `llm_review` / `human`)",
         "- `domain`, `final_url`, `http_status`, `fetched_at`", "",
         "## How it was built", "",
         "Candidates come from the Common Crawl index, the Tranco top list and targeted search for rare buckets. Each "
@@ -116,11 +123,15 @@ def hf_card(rows):
         "verbatim on the page) and verified by a second LLM. Most pages were re-rendered after 24 h to drop unstable "
         "pages. Right-to-left and long-tail-language rows get an extra LLM review, and a stratified 500-row sample "
         "was spot-checked by a third LLM. No human review.", "",
+        *(["Source `tulipfarm` holds the pages of tulipfarm.ai, the site of Huntsman's publisher, from its sitemaps. "
+           "It is exempt from the 3-URLs-per-domain limit, and its publisher location is set to the United States "
+           "because the pages don't state one.", ""] if "tulipfarm" in sources else []),
         "## Limitations", "", f"**Created**: {created}", "",
         "- URLs may become unavailable, and content may be updated or removed",
         "- Snippets are short excerpts of third-party pages; full page content is not included",
         "- Scanned PDFs are excluded (no OCR)",
         "- Rare languages may have fewer rows than their quota", "",
+        *(["## Versions", ""] + [f"- **{v}** ({d}): {c}" for v, d, c in versions] + [""] if versions else []),
         "## License", "",
         "The dataset (labels, metadata and selection) is released under "
         "[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). The `truth_text` and `lie_text` snippets are short "

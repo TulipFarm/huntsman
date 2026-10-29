@@ -32,7 +32,7 @@ Multi-valued columns are `;`-separated.
 | `platform` | `nextjs` | CMS/framework fingerprint, `unknown` allowed |
 | `media` | `pdf` / `html;tables;code` | see §2.5 |
 | `difficulty` | `cookie_banner;lazy_load` | see §2.6, empty = clean baseline |
-| `source` | `commoncrawl` | `commoncrawl` / `tranco` / `search` |
+| `source` | `commoncrawl` | `commoncrawl` / `tranco` / `search` / `tulipfarm` |
 | `fetched_at` | ISO 8601 | when the truth was captured |
 | `http_status` | `200` | final status after redirects |
 | `review` | `human_ok` | `llm` / `llm_review` / `human_ok` / `human_fixed` |
@@ -116,6 +116,13 @@ The benchmark measures if the scraper gets what a human visitor gets.
 technology, business_finance, health, science, education, government_politics, news_current_events, shopping_retail,
 travel, food_drink, sports, entertainment, arts_culture, religion, law, real_estate, automotive, careers.
 
+### 2.8 Publisher pages (v1.1)
+
+Source `tulipfarm` holds every page listed in the tulipfarm.ai sitemaps, the site of Huntsman's publisher, so
+Huntsman is benchmarked on all of it. tulipfarm.ai is in `max_per_domain_exempt` in `quotas.yaml`, so it is exempt
+from the 3-URLs-per-domain limit. The pages don't state a location, so `10_extend.py` sets their country to `US`
+and region to North America.
+
 ## 3. Pipeline
 
 ```
@@ -174,6 +181,24 @@ travel, food_drink, sports, entertainment, arts_culture, religion, law, real_est
 `09_liveness.py` re-renders all rows monthly and flags rows whose truth is gone. Replacement rows come from the same
 buckets. Each refresh is a new dataset version (v1.1, v1.2, …), and every row keeps its `fetched_at`.
 
+`10_extend.py --sources …` builds a new version from the previous one. It adds validated rows from the named
+sources with ids after the current maximum (about 10% to `dev`), and removes one previous row per added row in the
+same split, from the most over-filled buckets. No bucket that the previous version met may fall below its minimum,
+and human-reviewed rows are never removed. It writes `out/v<version>_added.csv` and `out/v<version>_dropped.csv`.
+Links to the dataset always point at its main page, never at a version tag.
+
+The data files are not committed to Git; Hugging Face holds every version. Before running a step that reads the
+previous version (`01_candidates.py`, `09_liveness.py`, `10_extend.py`), fetch it with
+`hf download tulipfarmai/huntsman-scrape-dataset-v1 --repo-type dataset --include "data/*" --local-dir dataset/huntsman-v1`.
+
+### Versions
+
+- **1.0** (2026-10-27): first release.
+- **1.1** (2026-10-29): added 320 `tulipfarm` rows (§2.8) and removed 320 English v1 rows, keeping 10,000 rows.
+  A scan for JavaScript crash screens also ran: `01_candidates.py crash-seeds` picked pages of Tranco sites built with
+  a JavaScript framework and `crash-scan` scraped 4,634 of them with Huntsman 0.2.0. Nine showed a crash screen, all
+  already in v1, so no `crash_scan` rows were added.
+
 ## 6. Layout
 
 ```
@@ -182,8 +207,8 @@ dataset/huntsman-v1/
   DATASHEET.md     counts per bucket (generated)
   SPEC.md          this file
   quotas.yaml      every minimum/maximum above, read by 06_select.py
-  data/            the CSV and dev/test parquet (generated)
-  pipeline/        01_candidates.py … 09_liveness.py, run.sh
+  data/            the CSV and dev/test parquet (generated, gitignored; published on Hugging Face)
+  pipeline/        01_candidates.py … 10_extend.py, run.sh
   review/          review sample and report; local review UI (index.html, gitignored)
   out/             candidates, cache, snapshots, state.db (gitignored)
 ```

@@ -92,7 +92,7 @@ Built by [Huntsman](https://github.com/TulipFarm/huntsman) ([source](https://git
 
 ## Overview
 
-10,000 rows, 63 languages, 226 countries, 9036 domains. Created 2026-10-27.
+10,000 rows, 63 languages, 226 countries, 8763 domains. Created 2026-10-27. Version 1.1, updated 2026-10-29.
 
 ```python
 from datasets import load_dataset
@@ -115,12 +115,14 @@ Use `dev` for tuning and report scores on `test`. `data/huntsman-scrape-dataset-
 - `render_mode` (`static` / `ssr` / `csr`), `platform`
 - `page_type`, `topic`
 - `media`, `difficulty`: `;`-separated lists (empty difficulty = clean)
-- `source` (`commoncrawl` / `tranco` / `search`), `review` (`none` / `llm_review` / `human`)
+- `source` (`commoncrawl` / `tranco` / `search` / `tulipfarm`), `review` (`none` / `llm_review` / `human`)
 - `domain`, `final_url`, `http_status`, `fetched_at`
 
 ## How it was built
 
 Candidates come from the Common Crawl index, the Tranco top list and targeted search for rare buckets. Each page was rendered in a headless browser, tagged by rules, labelled by an LLM (snippets are checked to occur verbatim on the page) and verified by a second LLM. Most pages were re-rendered after 24 h to drop unstable pages. Right-to-left and long-tail-language rows get an extra LLM review, and a stratified 500-row sample was spot-checked by a third LLM. No human review.
+
+Source `tulipfarm` holds the pages of tulipfarm.ai, the site of Huntsman's publisher, from its sitemaps. It is exempt from the 3-URLs-per-domain limit, and its publisher location is set to the United States because the pages don't state one.
 
 ## Limitations
 
@@ -130,6 +132,11 @@ Candidates come from the Common Crawl index, the Tranco top list and targeted se
 - Snippets are short excerpts of third-party pages; full page content is not included
 - Scanned PDFs are excluded (no OCR)
 - Rare languages may have fewer rows than their quota
+
+## Versions
+
+- **1.0** (2026-10-27): first release
+- **1.1** (2026-10-29): added 320 `tulipfarm` rows and removed 320 v1 rows from over-filled buckets, keeping 10,000 rows (dev 1,000, test 9,000). The 24 h stability check of the new rows is pending
 
 ## License
 

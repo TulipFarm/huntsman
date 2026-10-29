@@ -2,14 +2,23 @@
 
   01_candidates.py cc       sample Common Crawl's columnar index (by language, mime, ccTLD) plus Tranco top sites
   01_candidates.py search   fill under-quota buckets from out/gaps.json with local Firecrawl search
+  01_candidates.py tulipfarm       every page in the tulipfarm.ai sitemaps (source tulipfarm, v1.1)
+  01_candidates.py crash-seeds     pages of Tranco sites built with a JavaScript framework -> out/crash_seeds.txt
+  01_candidates.py crash-scan --urls FILE   scrape with a local Huntsman, log crash screens -> out/crash_scan.jsonl
+  01_candidates.py crash-insert    crash screens not in v1 -> candidates (source crash_scan), out/crash_scan.csv
 """
 import argparse
+import asyncio
+import collections
 import concurrent.futures as cf
 import csv
 import gzip
+import hashlib
+import html
 import io
 import json
 import random
+import re
 import shutil
 import sys
 import tarfile
@@ -17,13 +26,15 @@ import time
 import urllib.request
 import zipfile
 from pathlib import Path
+from urllib.parse import urljoin, urlsplit, urlunsplit
 
-from common import (LANGS, OUT, QUOTAS, REGION_OF, FIRECRAWL_CSV, LABEL_MODEL, copilot, db, parse_json_reply,
-                    registered_domain)
+from common import (CRASH_MAX_CHARS, DATASET_CSV, LANGS, OUT, QUOTAS, REGION_OF, FIRECRAWL_CSV, LABEL_MODEL, copilot,
+                    crash_phrase, db, domain_cap, parse_json_reply, registered_domain)
 
 CRAWL = "CC-MAIN-2026-39"
 CC_BASE = "https://data.commoncrawl.org/"
 SEARCH_ENDPOINT = "http://127.0.0.1:3002/v1/search"
+HUNTSMAN_SCAN_ENDPOINT = "http://127.0.0.1:18282/v1/scrape"
 BLOCKLISTS = ["adult", "gambling", "malware", "phishing", "dating"]
 OVERSAMPLE = 3.5
 OFFICE_MIMES = ["application/vnd.openxmlformats-officedocument.wordprocessingml.document",
@@ -72,6 +83,189 @@ def tranco_domains(top=20000):
 
 def v1_urls():
     return {r["url"] for r in csv.DictReader(FIRECRAWL_CSV.open(encoding="utf-8"))}
+
+
+def dataset_rows():
+    return list(csv.DictReader(DATASET_CSV.open(encoding="utf-8")))
+
+
+def normalize_url(url):
+    parts = urlsplit(url.strip())
+    return urlunsplit((parts.scheme.lower(), parts.netloc.lower(), parts.path or "/", parts.query, ""))
+
+
+def http_get(url, timeout=30):
+    req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 (compatible; huntsman-scrape-dataset-v1/1.0)"})
+    with urllib.request.urlopen(req, timeout=timeout) as r:
+        return r.status, r.geturl(), r.headers.get("content-type") or "", r.read()
+
+
+def sitemap_urls(url, depth=0):
+    """Every <loc> of a sitemap, expanding sitemap indexes. Returns [] if the URL redirects to another host or is
+    not an XML sitemap."""
+    try:
+        status, final, ctype, body = http_get(url)
+    except Exception as e:
+        print(f"  sitemap {url}: {e}", file=sys.stderr)
+        return []
+    text = body.decode("utf-8", "replace")
+    if status != 200 or urlsplit(final).netloc != urlsplit(url).netloc or "html" in ctype or not re.search(r"<(urlset|sitemapindex)\b", text):
+        return []
+    locs = [html.unescape(l.strip()) for l in re.findall(r"<loc>\s*([^<]+?)\s*</loc>", text)]
+    if "<sitemapindex" in text and depth < 3:
+        return [u for loc in locs for u in sitemap_urls(loc, depth + 1)]
+    return locs
+
+
+def cmd_tulipfarm(args):
+    """Every page in the tulipfarm.ai sitemaps, plus the homepage of each listed host that has no sitemap."""
+    urls = []
+    for host in ["tulipfarm.ai"] + [f"{h}.tulipfarm.ai" for h in args.hosts.split(",")]:
+        locs = sitemap_urls(f"https://{host}/sitemap.xml")
+        if locs:
+            print(f"  {host}: {len(locs)} sitemap URLs", file=sys.stderr)
+            urls += locs
+            continue
+        try:
+            status, final, _, _ = http_get(f"https://{host}/")
+        except Exception as e:  # 4xx/5xx raise HTTPError, unknown hosts raise URLError
+            print(f"  {host}: skipped ({e})", file=sys.stderr)
+            continue
+        if status == 200 and urlsplit(final).netloc == host:
+            print(f"  {host}: homepage", file=sys.stderr)
+            urls.append(f"https://{host}/")
+        else:
+            print(f"  {host}: skipped (status {status}, final {final})", file=sys.stderr)
+    urls = sorted({normalize_url(u) for u in urls if urlsplit(u).scheme in ("http", "https")})
+    (OUT / "tulipfarm_urls.txt").write_text("\n".join(urls) + "\n")
+    conn, exclude = db(), v1_urls() | {r["url"] for r in dataset_rows()}
+    print(f"{len(urls)} URLs -> out/tulipfarm_urls.txt; added",
+          insert(conn, [{"url": u, "source": "tulipfarm"} for u in urls], set(), exclude), "candidates")
+
+
+FRAMEWORK_MARKERS = [("nextjs", ("/_next/", "__NEXT_DATA__", "self.__next_f")), ("nuxt", ("__NUXT__", "/_nuxt/")),
+                     ("remix", ("__remixContext", "__reactRouterContext")), ("sveltekit", ("__sveltekit", "data-sveltekit")),
+                     ("gatsby", ("___gatsby",)), ("angular", ("ng-version", "<app-root")),
+                     ("spa", ('<div id="root"></div>', '<div id="app"></div>', '<div id="root">', '<div id="app">'))]
+
+
+async def _seed_pages(domains, concurrency):
+    import httpx
+    sem = asyncio.Semaphore(concurrency)
+    found = []
+
+    async def one(client, domain):
+        async with sem:
+            try:
+                r = await client.get(f"https://{domain}/", timeout=15)
+            except Exception:
+                return
+            if r.status_code != 200 or "html" not in r.headers.get("content-type", ""):
+                return
+            page = r.text[:400000]
+            fw = next((name for name, marks in FRAMEWORK_MARKERS if any(m in page for m in marks)), None)
+            if not fw:
+                return
+            base = str(r.url)
+            host = urlsplit(base).netloc
+            links = []
+            for href in re.findall(r'href="([^"#]+)"', page):
+                u = urljoin(base, html.unescape(href))
+                p = urlsplit(u)
+                if p.netloc == host and p.path.count("/") >= 2 and not re.search(r"\.(css|js|png|jpe?g|svg|ico|xml|json|webp|woff2?)$", p.path, re.I):
+                    links.append(normalize_url(u))
+            found.append((fw, [normalize_url(base)] + sorted(set(links), key=lambda u: hashlib.sha1(u.encode()).hexdigest())[:2]))
+
+    async with httpx.AsyncClient(follow_redirects=True, verify=False, http2=True,
+                                 headers={"User-Agent": "Mozilla/5.0 (compatible; huntsman-scrape-dataset-v1/1.0)"}) as client:
+        await asyncio.gather(*(one(client, d) for d in domains))
+    return found
+
+
+def cmd_crash_seeds(args):
+    """Pages from Tranco sites built with a JavaScript framework (homepage + 2 inner pages), for crash-scan."""
+    blocked = blocked_domains()
+    domains = [d for d in tranco_domains(args.offset + args.top)[args.offset:] if registered_domain("https://" + d)[0] not in blocked]
+    print(f"probing {len(domains)} Tranco homepages", file=sys.stderr)
+    found = asyncio.run(_seed_pages(domains, args.concurrency))
+    print("frameworks:", collections.Counter(fw for fw, _ in found).most_common(), file=sys.stderr)
+    urls = [u for _, us in found for u in us]
+    with (OUT / "crash_seeds.txt").open("a") as f:
+        f.write("".join(u + "\n" for u in urls))
+    print(f"appended {len(urls)} URLs from {len(found)} framework sites -> out/crash_seeds.txt")
+
+
+def cmd_crash_scan(args):
+    """Scrape URLs with a local Huntsman and record its markdown length and any framework crash phrase.
+    Huntsman only picks candidates here; it never makes labels."""
+    log = OUT / "crash_scan.jsonl"
+    # a URL counts as scanned once Huntsman answered, with a page or with its own error (e.g. RobotsBlocked);
+    # network errors and bare 5xx (e.g. a DNS outage) are retried
+    done = {r["url"] for r in map(json.loads, log.open()) if r.get("ok") or r.get("answered")} if log.exists() else set()
+    urls = list(dict.fromkeys(u.strip() for u in Path(args.urls).read_text().split() if u.strip()))
+    todo = [u for u in urls if u not in done]
+    print(f"scanning {len(todo)} URLs ({len(urls) - len(todo)} already scanned)", file=sys.stderr)
+    lock = __import__("threading").Lock()
+
+    def scan(url):
+        rec = {"url": url}
+        req = urllib.request.Request(args.endpoint, data=json.dumps({"url": url, "maxAge": 0}).encode(),
+                                     headers={"Content-Type": "application/json"})
+        try:
+            with urllib.request.urlopen(req, timeout=120) as r:
+                d = json.load(r)
+            md = (d.get("data") or {}).get("markdown") or ""
+            meta = (d.get("data") or {}).get("metadata") or {}
+            rec.update(ok=bool(d.get("success")), status=meta.get("statusCode"), engine=meta.get("engine"),
+                       chars=len(md), phrase=crash_phrase(md), head=md[:CRASH_MAX_CHARS])
+        except urllib.error.HTTPError as e:
+            try:
+                body = json.loads(e.read()).get("error") or ""
+            except Exception:
+                body = ""
+            rec.update(ok=False, error=f"HTTP {e.code}: {body[:150]}", answered=bool(body))
+        except Exception as e:
+            rec.update(ok=False, error=f"{type(e).__name__}: {str(e)[:150]}")
+        with lock:
+            with log.open("a") as f:
+                f.write(json.dumps(rec, ensure_ascii=False) + "\n")
+        return rec
+
+    n = crashes = 0
+    with cf.ThreadPoolExecutor(args.concurrency) as pool:
+        for rec in pool.map(scan, todo):
+            n += 1
+            crashes += bool(rec.get("phrase"))
+            if n % 100 == 0:
+                print(f"  scanned {n}/{len(todo)}, {crashes} crash screens", file=sys.stderr, flush=True)
+    print(f"scanned {n}, {crashes} crash screens -> out/crash_scan.jsonl")
+
+
+def cmd_crash_insert(args):
+    """Turn crash-scan results into crash_scan candidates (new URLs only, <= max_per_domain per domain with v1)."""
+    recs = {}
+    for line in (OUT / "crash_scan.jsonl").open():
+        r = json.loads(line)
+        r["phrase"] = crash_phrase(r.get("head") or "") if r.get("chars", 0) <= CRASH_MAX_CHARS else None
+        recs[r["url"]] = r
+    crashes = [r for r in recs.values() if r["phrase"]]
+    v1 = {r["url"]: r for r in dataset_rows()}
+    dom = collections.Counter(r["domain"] for r in v1.values())
+    blocked, firecrawl = blocked_domains(), v1_urls()
+    with (OUT / "crash_scan.csv").open("w", newline="") as f:
+        w = csv.writer(f)
+        w.writerow(["url", "phrase", "chars", "in_v1", "candidate"])
+        new = []
+        for r in sorted(crashes, key=lambda r: hashlib.sha1(r["url"].encode()).hexdigest()):
+            domain = registered_domain(r["url"])[0]
+            take = (r["url"] not in v1 and r["url"] not in firecrawl and domain not in blocked
+                    and dom[domain] < domain_cap(domain) and len(new) < args.max)
+            if take:
+                dom[domain] += 1
+                new.append({"url": r["url"], "source": "crash_scan", "hint_bucket": f"crash:{r['phrase']}"})
+            w.writerow([r["url"], r["phrase"], r["chars"], int(r["url"] in v1), int(take)])
+    print(f"{len(recs)} scanned, {len(crashes)} crash screens ({sum(r['url'] in v1 for r in crashes)} already in v1); "
+          f"added", insert(db(), new, blocked, firecrawl | set(v1)), "candidates -> out/crash_scan.csv")
 
 
 def insert(conn, rows, blocked, exclude):
@@ -310,8 +504,22 @@ def main():
     p.add_argument("--max-buckets", type=int, default=200)
     p.add_argument("--gaps", default="gaps.json", help="gaps file in out/ (gaps.json or gaps_pre.json)")
     p.add_argument("--workers", type=int, default=6)
+    p = sub.add_parser("tulipfarm")
+    p.add_argument("--hosts", default="docs,blog,app,api,stg,sprout,huntsman,try,huntsman-api,www",
+                   help="tulipfarm.ai subdomains to read a sitemap from, or else take the homepage of")
+    p = sub.add_parser("crash-seeds")
+    p.add_argument("--top", type=int, default=20000, help="Tranco domains to probe")
+    p.add_argument("--offset", type=int, default=0, help="skip this many top Tranco domains")
+    p.add_argument("--concurrency", type=int, default=48)
+    p = sub.add_parser("crash-scan")
+    p.add_argument("--urls", required=True, help="file with one URL per line")
+    p.add_argument("--endpoint", default=HUNTSMAN_SCAN_ENDPOINT, help="a local Huntsman /v1/scrape, never production")
+    p.add_argument("--concurrency", type=int, default=8)
+    p = sub.add_parser("crash-insert")
+    p.add_argument("--max", type=int, default=150, help="most crash pages to add as candidates")
     args = ap.parse_args()
-    {"cc": cmd_cc, "search": cmd_search}[args.cmd](args)
+    {"cc": cmd_cc, "search": cmd_search, "tulipfarm": cmd_tulipfarm, "crash-seeds": cmd_crash_seeds,
+     "crash-scan": cmd_crash_scan, "crash-insert": cmd_crash_insert}[args.cmd](args)
 
 
 if __name__ == "__main__":

@@ -3,6 +3,9 @@
 total: 10000
 dev_size: 1000
 max_per_domain: 3
+# registered domains with no per-domain limit. tulipfarm.ai (source `tulipfarm`, added in v1.1) is the publisher's
+# own site, included in full so Huntsman is benchmarked on every page of it (SPEC.md §2.8)
+max_per_domain_exempt: [tulipfarm.ai]
 # languages are targets: the selector stops adding a language once it reaches its target
 language_targets:
   en: 2000

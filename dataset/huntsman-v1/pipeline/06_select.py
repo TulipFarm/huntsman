@@ -15,7 +15,7 @@ import sys
 
 import yaml
 
-from common import OUT, PAGE_TYPES, TOPICS, bucket_keys, db
+from common import OUT, PAGE_TYPES, TOPICS, bucket_keys, db, domain_cap
 from rows import REGIONS, RENDER_MODES, TIERS, final_rows, pre_rows
 
 ROOT = OUT.parent
@@ -68,7 +68,6 @@ def select(rows, q, total, pre):
                     caps[f"{dim}:{r[dim]}"] = int(q["max_share"][dim] * total)
         caps["page_type:other"] = int(q["max_share"]["page_type:other"] * total)
     caps.update(lang_caps)
-    max_dom = q["max_per_domain"]
     count, dom = collections.Counter(), collections.Counter()
     keys = [bucket_keys(r) for r in rows]
     for r, k in zip(rows, keys):
@@ -78,7 +77,7 @@ def select(rows, q, total, pre):
 
     def allowed(i):
         r = rows[i]
-        return dom[r["domain"]] < max_dom and all(count[k] < caps[k] for k in rows[i]["_keys"] if k in caps)
+        return dom[r["domain"]] < domain_cap(r["domain"], q) and all(count[k] < caps[k] for k in rows[i]["_keys"] if k in caps)
 
     def gain(i):
         return sum((mins[k] - count[k]) / mins[k] for k in rows[i]["_keys"] if k in mins and count[k] < mins[k])
@@ -130,7 +129,7 @@ def select(rows, q, total, pre):
         lang_left = {k for k in lang_caps}
         def allowed_over(i):
             r = rows[i]
-            return dom[r["domain"]] < max_dom and all(count[k] < caps[k] for k in r["_keys"] if k in caps and k not in lang_left)
+            return dom[r["domain"]] < domain_cap(r["domain"], q) and all(count[k] < caps[k] for k in r["_keys"] if k in caps and k not in lang_left)
         for l in by_lang:
             by_lang[l] = [i for i in by_lang[l] if i not in used]
         while len(chosen) < total:

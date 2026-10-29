@@ -20,6 +20,8 @@
 /benchmark/aws/Pulumi.*.yaml
 /.pristine/
 /dataset/huntsman-v1/out/
+/dataset/huntsman-v1/data/
+/dataset/huntsman-v1/.cache/
 /dataset/huntsman-v1/review/index.html
 /dataset/huntsman-v1/pipeline/.tmp/
 .venv/
