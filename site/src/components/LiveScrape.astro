@@ -159,8 +159,9 @@ const examples = [
         body: JSON.stringify({ url }),
         signal: controller.signal,
       });
-      const data = (await res.json().catch(() => ({ error: 'Something went wrong. Try again.' }))) as Result;
-      if (!res.ok || data.error) throw new Error(data.error ?? 'Something went wrong. Try again.');
+      const fallback = res.status === 429 ? 'Too many scrapes. Wait a few seconds and try again.' : 'Something went wrong. Try again.';
+      const data = (await res.json().catch(() => ({ error: fallback }))) as Result;
+      if (!res.ok || data.error) throw new Error(data.error ?? fallback);
 
       text = data.markdown;
       const facts = [

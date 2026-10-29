@@ -1,6 +1,7 @@
-import type { APIRoute } from 'astro';
-
-export const prerender = false;
+interface Env {
+  HUNTSMAN_URL?: string;
+  HUNTSMAN_TOKEN?: string;
+}
 
 const MAX_URL = 2048;
 const MAX_MARKDOWN = 60_000;
@@ -8,6 +9,7 @@ const SCRAPE_TIMEOUT_MS = 30_000;
 const RATE_LIMIT = 10;
 const RATE_WINDOW_MS = 60_000;
 
+// Per isolate, so only a backstop; the zone's rate limiting rule on huntsman.tulipfarm.ai is the real limit.
 const recent = new Map<string, number[]>();
 
 function limited(ip: string) {
@@ -55,8 +57,13 @@ type ScrapeResponse = {
   };
 };
 
-export const POST: APIRoute = async ({ request, clientAddress }) => {
+export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
   const asText = !(request.headers.get('content-type') ?? '').includes('application/json');
+
+  // The zone's rate limiting rule only sees huntsman.tulipfarm.ai, so don't spend scrapes on *.pages.dev.
+  if (new URL(request.url).hostname.endsWith('.pages.dev')) {
+    return reply({ error: 'Try the live demo on https://huntsman.tulipfarm.ai.' }, 403, asText);
+  }
 
   let input: unknown;
   try {
@@ -68,15 +75,15 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
   const url = normalize(input);
   if (!url) return reply({ error: 'Enter a full web address, like https://example.com.' }, 400, asText);
 
-  const base = process.env.HUNTSMAN_URL;
+  const base = env.HUNTSMAN_URL;
   if (!base) return reply({ error: 'The live demo isn’t connected to a Huntsman server right now.' }, 503, asText);
 
-  if (limited(clientAddress)) {
+  if (limited(request.headers.get('CF-Connecting-IP') ?? 'unknown')) {
     return reply({ error: 'That’s 10 scrapes in a minute. Wait a moment, or run your own Huntsman below.' }, 429, asText);
   }
 
   const headers: Record<string, string> = { 'Content-Type': 'application/json' };
-  if (process.env.HUNTSMAN_TOKEN) headers.Authorization = `Bearer ${process.env.HUNTSMAN_TOKEN}`;
+  if (env.HUNTSMAN_TOKEN) headers.Authorization = `Bearer ${env.HUNTSMAN_TOKEN}`;
 
   const started = performance.now();
   let res: Response;
