@@ -269,3 +269,22 @@ func testPDF(text string) []byte {
 	fmt.Fprintf(&out, "trailer\n<< /Size %d /Root 1 0 R >>\nstartxref\n%d\n%%%%EOF\n", len(objects)+1, xref)
 	return out.Bytes()
 }
+
+func TestNeedsStaticOnClientCrash(t *testing.T) {
+	long := strings.Repeat("Article text. ", 200) + "This page couldn't load"
+	for name, tc := range map[string]struct {
+		title, markdown string
+		want            bool
+	}{
+		"curly apostrophe": {"", "This page couldn’t load\n\nReload", true},
+		"next.js error":    {"", "Application error: a client-side exception has occurred (see the browser console)", true},
+		"crash in title":   {"This page couldn't load", "", true},
+		"normal page":      {"Home", "# Welcome\n\nHello", false},
+		"long page":        {"", long, false},
+	} {
+		doc := &Document{Markdown: tc.markdown, Metadata: Metadata{Title: tc.title, StatusCode: 200}}
+		if got := needsStatic(Request{}, doc, nil); got != tc.want {
+			t.Errorf("%s: needsStatic = %v, want %v", name, got, tc.want)
+		}
+	}
+}
