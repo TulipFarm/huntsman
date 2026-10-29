@@ -128,7 +128,7 @@ such as [SearXNG](https://github.com/searxng/searxng) if you need one.
 
 The most pages each engine can scrape at once, on AWS Graviton (ARM) machines, each engine self-hosted on its own
 machine. The input is 1,000 URLs sampled from the test split of
-[huntsman-scrape-dataset-v1](https://huggingface.co/datasets/tulipfarmai/huntsman-scrape-dataset-v1). Each cell shows the most pages at once that passed, pages
+[huntsman-scrape-dataset-v1 v1.0](https://huggingface.co/datasets/tulipfarmai/huntsman-scrape-dataset-v1/tree/v1.0). Each cell shows the most pages at once that passed, pages
 per second at that level, and the success rate.
 
 | Machine | Huntsman | Firecrawl | Crawl4AI |
