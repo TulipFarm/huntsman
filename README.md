@@ -7,6 +7,7 @@
   <a href="https://github.com/TulipFarm/huntsman/releases"><img alt="Release" src="https://img.shields.io/github/v/release/TulipFarm/huntsman?sort=semver&color=2f9e6b"></a>
   <a href="https://github.com/TulipFarm/huntsman/pkgs/container/huntsman"><img alt="Container image" src="https://img.shields.io/badge/ghcr.io-tulipfarm%2Fhuntsman-2f9e6b?logo=docker&logoColor=white"></a>
   <a href="go.mod"><img alt="Go version" src="https://img.shields.io/github/go-mod/go-version/TulipFarm/huntsman?filename=go.mod&color=2f9e6b"></a>
+  <a href="https://huggingface.co/datasets/tulipfarmai/huntsman-scrape-dataset-v1"><img alt="Dataset on Hugging Face" src="https://img.shields.io/badge/Hugging%20Face-huntsman--scrape--dataset--v1-2f9e6b?logo=huggingface&logoColor=white"></a>
   <a href="LICENSE"><img alt="License: Apache-2.0" src="https://img.shields.io/badge/license-Apache--2.0-2f9e6b"></a>
 </p>
 
@@ -127,7 +128,7 @@ such as [SearXNG](https://github.com/searxng/searxng) if you need one.
 
 The most pages each engine can scrape at once, on AWS Graviton (ARM) machines, each engine self-hosted on its own
 machine. The input is 1,000 URLs sampled from the test split of
-[huntsman-scrape-dataset-v1](dataset/huntsman-v1/README.md). Each cell shows the most pages at once that passed, pages
+[huntsman-scrape-dataset-v1](https://huggingface.co/datasets/tulipfarmai/huntsman-scrape-dataset-v1). Each cell shows the most pages at once that passed, pages
 per second at that level, and the success rate.
 
 | Machine | Huntsman | Firecrawl | Crawl4AI |
@@ -143,8 +144,9 @@ Each figure is a single run against live sites, with `robots.txt` checks off for
 scrape-only mode. Methods and raw numbers are in [benchmark/README.md](benchmark/README.md) and
 [benchmark/results/](benchmark/results/).
 
-The repository also contains [huntsman-scrape-dataset-v1](dataset/huntsman-v1/README.md): 10,000 URLs balanced across
-63 languages, script direction, rendering, page type, region and topic, with the pipeline that builds it.
+[huntsman-scrape-dataset-v1](https://huggingface.co/datasets/tulipfarmai/huntsman-scrape-dataset-v1) is on Hugging Face under CC BY 4.0: 10,000 URLs balanced across 63 languages,
+script direction, rendering, page type, region and topic. The pipeline that builds it is in
+[dataset/huntsman-v1/](dataset/huntsman-v1/README.md).
 
 ## Configuration
 

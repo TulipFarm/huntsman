@@ -4,6 +4,7 @@ import { machines, ratio } from '../data/benchmarks';
 const fmt = (n: number, digits = 1) => n.toFixed(digits);
 const defaultMachine = 'large';
 const repo = 'https://github.com/TulipFarm/huntsman';
+const dataset = 'https://huggingface.co/datasets/tulipfarmai/huntsman-scrape-dataset-v1';
 ---
 
 <section class="board" id="benchmarks" aria-labelledby="bench-title">
@@ -72,7 +73,7 @@ const repo = 'https://github.com/TulipFarm/huntsman';
     <summary>How we measured</summary>
     <p>
       1,000 random URLs from the test split of{' '}
-      <a href={`${repo}/tree/main/dataset/huntsman-v1`}>huntsman-scrape-dataset-v1</a>, scraped live on ARM cloud
+      <a href={dataset}>huntsman-scrape-dataset-v1</a>, scraped live on ARM cloud
       machines with each engine self-hosted alone. A binary search found each engine’s exact limit: a level passes if
       the engine doesn’t crash, success stays within 10 points of its best level, and the median page takes under 3×
       as long as at 8 pages. Firecrawl ran in scrape-only mode on the small machine. One run per level;{' '}
