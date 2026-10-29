@@ -19,7 +19,7 @@ from urllib.parse import urlsplit
 import httpx
 from selectolax.lexbor import LexborHTMLParser as HTMLParser
 
-from common import cache_path, db, write_gz_json, smart_tokenize
+from common import cache_path, crash_phrase, db, write_gz_json, smart_tokenize
 
 RAW_UA = "Mozilla/5.0 (compatible; huntsman-scrape-dataset-v1/1.0)"
 BROWSER_UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/{v} Safari/537.36"
@@ -260,6 +260,8 @@ class Fetcher:
         head = (rendered.get("title") or "") + " " + text[:1500]
         if len(smart_tokenize(text)) < 300 and CHALLENGE_RE.search(head):
             return {"ok": 0, "reason": "challenge_in_browser", "fetched_at": now, "meta": meta}
+        if crash_phrase(text):
+            return {"ok": 0, "reason": "crash_in_browser", "fetched_at": now, "meta": meta}
         if len(smart_tokenize(text)) < 80:
             return {"ok": 0, "reason": "too_little_text", "fetched_at": now, "meta": meta}
         return {"ok": 1, "reason": None, "fetched_at": now, "meta": meta, "http_status": status,

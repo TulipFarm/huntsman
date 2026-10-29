@@ -18,6 +18,7 @@ SNAPSHOTS = OUT / "snapshots"
 DB_PATH = OUT / "state.db"
 QUOTAS = yaml.safe_load((ROOT / "quotas.yaml").read_text())
 FIRECRAWL_CSV = ROOT.parent / "firecrawl-v1" / "scrape-content-dataset-v1.csv"
+DATASET_CSV = ROOT / "data" / "huntsman-scrape-dataset-v1.csv"
 
 LABEL_MODEL = "claude-sonnet-5.5"
 VERIFY_MODEL = "gpt-5.6-terra"
@@ -80,6 +81,29 @@ for _region, _codes in {
 # ccTLDs that are mostly used as generic vanity domains, so they say nothing about the publisher's country
 VANITY_CCTLDS = {"io", "co", "ai", "me", "tv", "ly", "fm", "gg", "to", "ws", "cc", "nu", "sh", "ac", "vc", "la", "so",
                  "eu", "su"}
+
+
+# Error screens that front-end frameworks show when the page's JavaScript throws during rendering. Each phrase was
+# checked on a real page. A page whose markdown is this short and holds one of them shows a crash screen, not content.
+CRASH_PHRASES = [
+    ("nextjs", r"application error: a client-side exception has occurred"),
+    ("nextjs", r"this page couldn[’']t load"),
+]
+CRASH_RE = re.compile("|".join(f"({p})" for _, p in CRASH_PHRASES), re.I)
+CRASH_MAX_CHARS = 2000
+
+
+def crash_phrase(text):
+    """The framework crash phrase in a short page text, or None."""
+    if not text or len(text) > CRASH_MAX_CHARS:
+        return None
+    m = CRASH_RE.search(text)
+    return m.group(0).lower().replace("’", "'") if m else None
+
+
+def domain_cap(domain, q=QUOTAS):
+    """Most URLs allowed from one registered domain: max_per_domain, unlimited for max_per_domain_exempt."""
+    return float("inf") if domain in (q.get("max_per_domain_exempt") or []) else q["max_per_domain"]
 
 
 def db():
