@@ -7,7 +7,10 @@ file per `dev` / `test` split in data/, README.md (the Hugging Face dataset card
 counts, and copies the cached snapshot (blocks + raw text, screenshot, rendered HTML) of every selected row to
 out/snapshots/. --prune-cache deletes cache files of rows that were not selected.
 
-Publish with `hf upload tulipfarmai/huntsman-scrape-dataset-v1 . --repo-type dataset --include README.md "data/*"`.
+Publish from dataset/huntsman-v1 with `hf upload tulipfarmai/huntsman-scrape-dataset-v1 . . --repo-type dataset
+--include README.md --include "data/*.csv" --include "data/*.parquet"`, then tag it with
+`hf repos tag create tulipfarmai/huntsman-scrape-dataset-v1 v<version> --repo-type dataset`. Pass one pattern per
+--include and both path arguments: otherwise the hf CLI reads a pattern as the destination path.
 Snapshots are never published.
 """
 import argparse
