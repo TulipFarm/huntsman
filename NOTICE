@@ -17,6 +17,14 @@ separate process and talks to it over the Chrome DevTools Protocol. Its
 complete source code is available at the URL above.
 
 --------------------------------------------------------------------------------
+chromedp v0.21.0, patched (third_party/chromedp/)
+https://github.com/chromedp/chromedp
+License: MIT (see third_party/chromedp/LICENSE)
+
+A copy of chromedp v0.21.0 with one change, described in
+third_party/chromedp/PATCHES.md.
+
+--------------------------------------------------------------------------------
 EasyList, EasyPrivacy and Fanboy's Cookiemonster filter lists (Docker image only)
 https://easylist.to
 License: GNU General Public License v3.0 or Creative Commons

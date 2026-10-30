@@ -7,6 +7,7 @@ FROM --platform=$BUILDPLATFORM golang:1.27-trixie AS build
 ARG TARGETOS TARGETARCH
 WORKDIR /src
 COPY go.mod go.sum ./
+COPY third_party/ third_party/
 RUN --mount=type=bind,from=gomodcache,target=/gomodcache \
     if [ -d /gomodcache/cache/download ]; then export GOPROXY=file:///gomodcache/cache/download,https://proxy.golang.org,direct; fi; \
     go mod download
