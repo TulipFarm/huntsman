@@ -7,9 +7,9 @@ const repo = 'https://github.com/TulipFarm/huntsman';
 const dataset = 'https://huggingface.co/datasets/tulipfarmai/huntsman-scrape-dataset-v1';
 ---
 
-<section class="board" id="benchmarks" aria-labelledby="bench-title">
+<div class="board">
   <div class="head">
-    <h2 id="bench-title">Pages scraped at once</h2>
+    <h3>Pages scraped at once</h3>
     <fieldset class="switch">
       <legend class="visually-hidden">Machine size</legend>
       {
@@ -80,7 +80,7 @@ const dataset = 'https://huggingface.co/datasets/tulipfarmai/huntsman-scrape-dat
       <a href={`${repo}/blob/main/benchmark/README.md`}>methods and raw results</a>.
     </p>
   </details>
-</section>
+</div>
 
 <style>
   .board {
@@ -97,7 +97,7 @@ const dataset = 'https://huggingface.co/datasets/tulipfarmai/huntsman-scrape-dat
     gap: var(--space-4);
   }
 
-  h2 {
+  h3 {
     font-size: 1.0625rem;
     font-weight: 600;
     letter-spacing: -0.01em;
