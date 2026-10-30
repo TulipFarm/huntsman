@@ -4,6 +4,17 @@ const examples = [
   { label: 'Hacker News', url: 'https://news.ycombinator.com' },
   { label: 'example.com', url: 'https://example.com' },
 ];
+
+// Real Huntsman output for tulipfarm.ai, shown until the visitor scrapes something.
+const sample: [string, string?][][] = [
+  [['# One platform to build and run your business operations with agents.', 'h']],
+  [],
+  [['Open source. Connected records, decisions, and actions across operations. Bring your existing tools and replace them at your own pace.']],
+  [],
+  [['[Sign up for Cloud]', 'a'], ['(https://app.tulipfarm.ai/register?utm_source=tulipfarm.ai&utm_medium=website&utm_campaign=signup&utm_content=home_hero)', 'u']],
+  [],
+  [['[Try it yourself]', 'a'], ['(https://tulipfarm.ai/try/)', 'u'], [' '], ['[view source]', 'a'], ['(https://github.com/TulipFarm/tulipfarm)', 'u']],
+];
 ---
 
 <section class="live" aria-labelledby="live-title">
@@ -41,17 +52,15 @@ const examples = [
 
   <div class="sheet" data-state="idle">
     <div class="bar">
-      <p class="status" role="status" aria-live="polite" data-status>Markdown appears here</p>
+      <p class="status" role="status" aria-live="polite" data-status>
+        <span class="title">Example: tulipfarm.ai</span>
+        <span class="facts">6,622 tokens · 84,800 as HTML</span>
+      </p>
       <span class="timer" aria-hidden="true" data-timer></span>
-      <button type="button" class="copy" data-copy hidden>Copy</button>
+      <button type="button" class="copy" data-copy-md hidden>Copy</button>
     </div>
     <div class="out" data-out tabindex="0" aria-label="Scraped Markdown">
-      <div class="idle" data-idle>
-        <p>
-          Paste a link and Huntsman fetches it live, renders any JavaScript, and strips ads, trackers and cookie
-          banners. You get back just the page’s content as Markdown.
-        </p>
-      </div>
+      <pre class="md" data-idle>{sample.map((line) => <span>{line.map(([text, kind]) => (kind ? <span class={kind}>{text}</span> : text))}{'\n'}</span>)}</pre>
       <pre class="md" data-md hidden></pre>
     </div>
   </div>
@@ -78,7 +87,7 @@ const examples = [
   const sheet = document.querySelector<HTMLElement>('.sheet')!;
   const status = sheet.querySelector<HTMLElement>('[data-status]')!;
   const timer = sheet.querySelector<HTMLElement>('[data-timer]')!;
-  const copy = sheet.querySelector<HTMLButtonElement>('[data-copy]')!;
+  const copy = sheet.querySelector<HTMLButtonElement>('[data-copy-md]')!;
   const idle = sheet.querySelector<HTMLElement>('[data-idle]')!;
   const md = sheet.querySelector<HTMLElement>('[data-md]')!;
   const examples = document.querySelector<HTMLElement>('[data-examples]')!;
@@ -86,7 +95,8 @@ const examples = [
   examples.hidden = false;
   let controller: AbortController | null = null;
   let tick = 0;
-  let text = '';
+  let text = idle.textContent ?? '';
+  copy.hidden = !navigator.clipboard;
 
   const host = (u: string) => {
     try {
@@ -237,7 +247,7 @@ const examples = [
   .ask {
     display: flex;
     gap: var(--space-2);
-    margin-top: var(--space-6);
+    margin-top: var(--space-3);
     padding: var(--space-1);
     border: 1px solid var(--border-strong);
     border-radius: var(--radius-md);
@@ -439,21 +449,14 @@ const examples = [
 
   .out {
     flex: 1;
-    min-height: 320px;
-    max-height: 460px;
+    min-height: 240px;
+    max-height: 420px;
     overflow: auto;
     overscroll-behavior: contain;
   }
 
   .out:focus-visible {
     outline-offset: -2px;
-  }
-
-  .idle {
-    padding: var(--space-6) var(--space-4);
-    color: var(--text-muted);
-    font-size: 0.9375rem;
-    max-width: 52ch;
   }
 
   [data-state='loading'] .out {
