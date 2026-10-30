@@ -1,6 +1,6 @@
 # Patched chromedp v0.21.0
 
-This is chromedp v0.21.0 without its tests, docs and agent files, plus one fix. `go.mod` at the repository root points `github.com/chromedp/chromedp` here with a `replace` directive. Drop this copy and the `replace` once an upstream release includes the fix.
+This is chromedp v0.21.0 without its tests, docs and agent files, plus one fix. `go.mod` at the repository root points `github.com/chromedp/chromedp` here with a `replace` directive. Drop this copy and the `replace` once an upstream release includes the fix ([chromedp/chromedp#1644](https://github.com/chromedp/chromedp/pull/1644)).
 
 ## `target.go`: clear the root node after invalidating it
 
