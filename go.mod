@@ -4,12 +4,12 @@ go 1.27
 
 require (
 	github.com/JohannesKaufmann/html-to-markdown/v2 v2.5.2
-	github.com/bogdanfinn/fhttp v0.7.2
-	github.com/bogdanfinn/tls-client v1.17.1
-	github.com/chromedp/cdproto v0.158.5
+	github.com/bogdanfinn/fhttp v0.7.3
+	github.com/bogdanfinn/tls-client v1.18.0
+	github.com/chromedp/cdproto v0.158.6
 	github.com/chromedp/chromedp v0.21.0
 	github.com/ledongthuc/pdf v0.0.0-20261020125853-5e46805f718e
-	golang.org/x/net v0.61.0
+	golang.org/x/net v0.62.0
 	modernc.org/sqlite v1.61.0
 )
 
@@ -18,9 +18,9 @@ require (
 	github.com/andybalholm/brotli v1.2.7 // indirect
 	github.com/bdandy/go-errors v1.2.2 // indirect
 	github.com/bdandy/go-socks4 v1.2.3 // indirect
-	github.com/bogdanfinn/quic-go-utls v1.0.12-utls // indirect
+	github.com/bogdanfinn/quic-go-utls v1.0.13-utls // indirect
 	github.com/bogdanfinn/utls v1.8.2-barnius // indirect
-	github.com/bogdanfinn/websocket v1.5.8-barnius // indirect
+	github.com/bogdanfinn/websocket v1.5.9-barnius // indirect
 	github.com/dustin/go-humanize v1.1.0 // indirect
 	github.com/go-json-experiment/json v0.0.0-20260820222146-c27c302e5fc3 // indirect
 	github.com/google/uuid v1.6.0 // indirect
