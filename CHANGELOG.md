@@ -3,6 +3,16 @@
 All notable changes to Huntsman. Versions follow [Semantic Versioning](https://semver.org), and each release is
 published as `ghcr.io/tulipfarm/huntsman:<version>`.
 
+## [0.2.2](https://github.com/TulipFarm/huntsman/releases/tag/v0.2.2) - 2026-11-04
+
+### Documentation
+
+- **dataset:** Fix the Hugging Face publish command ([#12](https://github.com/TulipFarm/huntsman/pull/12))
+
+### Dependencies
+
+- Use chromedp v0.22.0 and drop the patched copy ([#17](https://github.com/TulipFarm/huntsman/pull/17))
+
 ## [0.2.1](https://github.com/TulipFarm/huntsman/releases/tag/v0.2.1) - 2026-10-30
 
 ### Features
