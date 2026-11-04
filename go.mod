@@ -6,8 +6,8 @@ require (
 	github.com/JohannesKaufmann/html-to-markdown/v2 v2.5.2
 	github.com/bogdanfinn/fhttp v0.7.2
 	github.com/bogdanfinn/tls-client v1.17.1
-	github.com/chromedp/cdproto v0.158.5
-	github.com/chromedp/chromedp v0.21.0
+	github.com/chromedp/cdproto v0.159.0
+	github.com/chromedp/chromedp v0.22.0
 	github.com/ledongthuc/pdf v0.0.0-20261020125853-5e46805f718e
 	golang.org/x/net v0.61.0
 	modernc.org/sqlite v1.61.0
@@ -38,5 +38,3 @@ require (
 	modernc.org/mathutil v1.7.1 // indirect
 	modernc.org/memory v1.12.1 // indirect
 )
-
-replace github.com/chromedp/chromedp => ./third_party/chromedp

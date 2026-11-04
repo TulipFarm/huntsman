@@ -18,8 +18,10 @@ github.com/bogdanfinn/utls v1.8.2-barnius h1:ypYWUe4gklEgdBYP+cZAfoG/hhVUMG6ot/p
 github.com/bogdanfinn/utls v1.8.2-barnius/go.mod h1:piJQqN3RvYCC1Bvh5kqhaAhJ+DC1i7PRJDfPKiZsiF8=
 github.com/bogdanfinn/websocket v1.5.8-barnius h1:0iEeiWHpPZ3ObhIvrzZb6heBFAY3STLZuZmcDiwRZ98=
 github.com/bogdanfinn/websocket v1.5.8-barnius/go.mod h1:NeZ76jYsBuK7tgJkcuSl+lXn0RRjM2f3XYT4Wa09UcQ=
-github.com/chromedp/cdproto v0.158.5 h1:KBaaESG33oLvC/O7D3wQPBL0vsO91xoT6DkUvswj42Q=
-github.com/chromedp/cdproto v0.158.5/go.mod h1:h68JaIuFr9o3yiayxEYhBdvaxgYO3shDrPSYhNlyfu0=
+github.com/chromedp/cdproto v0.159.0 h1:wepTaKq5AGTwIxXh6h5bESQcvcfnSb2ItnFChA62/b8=
+github.com/chromedp/cdproto v0.159.0/go.mod h1:h68JaIuFr9o3yiayxEYhBdvaxgYO3shDrPSYhNlyfu0=
+github.com/chromedp/chromedp v0.22.0 h1:LmiA4TMBsfNG5ZwioC4n+aInRdnu9NCtHryKab2N3Aw=
+github.com/chromedp/chromedp v0.22.0/go.mod h1:hJcPsoPrgxu4ulIXhO1WmtKjosCD8jbZh0+TeVFsod8=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/dustin/go-humanize v1.1.0 h1:dbKTrvD0klcbBV/h4AWJdMuZogJACoMlvWIWZ5b2xWg=
