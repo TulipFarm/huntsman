@@ -19,10 +19,11 @@
   <a href="#development">Development</a>
 </p>
 
-Huntsman is a small, self-hosted web scraper that turns any page into clean Markdown for LLMs and search. It renders
-JavaScript with [Lightpanda](https://github.com/lightpanda-io/browser), strips ads, trackers and cookie banners, and
-serves a Firecrawl-compatible `/v1/scrape` API from one Go binary and one container. No Redis, no Playwright, no
-Chrome.
+Huntsman is a small, self-hosted web scraper that turns any page into clean Markdown for LLMs, agents and search. It
+renders JavaScript with [Lightpanda](https://github.com/lightpanda-io/browser), strips ads, trackers and cookie banners,
+and serves a Firecrawl-compatible `/v1/scrape` API and an MCP server from one Go binary. Run it on your machine and
+Claude Code, Codex, Copilot or Cursor can read the web for a fraction of the tokens raw HTML costs. No Redis, no
+Playwright, no Chrome.
 
 ## Why Huntsman
 
@@ -40,7 +41,24 @@ Chrome.
 
 ## Quick start
 
-Run the published image, for `linux/amd64` or `linux/arm64`:
+On macOS or Linux, install Huntsman with Lightpanda and the filter lists, and run it in the background:
+
+```sh
+curl -fsSL https://huntsman.tulipfarm.ai/install.sh | sh
+```
+
+Or ask your agent to do it, and to connect itself and your other agents:
+
+```text
+Read https://huntsman.tulipfarm.ai/install.md and install Huntsman for me.
+```
+
+The script installs into `~/.huntsman`, adds the `huntsman` command to `~/.local/bin` and starts a login service
+(launchd on macOS, systemd on Linux). It needs no sudo. Manage it with `huntsman start`, `stop`, `restart`, `status`,
+`logs`, `update` and `uninstall`; put settings in `~/.huntsman/env`. See the
+[install guide](https://huntsman.tulipfarm.ai/install) for details.
+
+On Windows, or for servers, run the published image for `linux/amd64` or `linux/arm64`:
 
 ```sh
 docker run -d --name huntsman -p 127.0.0.1:8080:8080 -v huntsman-data:/data ghcr.io/tulipfarm/huntsman:latest
@@ -94,6 +112,7 @@ docker compose up -d --build
 | `GET /v1/jobs/{id}` | Status and result of a queued job |
 | `POST /v1/crawl` | Crawl a site: `{"url", "limit", "maxDepth", "scrapeOptions"}` |
 | `GET /v1/crawl/{id}?offset=N` | Crawl progress and pages |
+| `POST /mcp` | [MCP](https://modelcontextprotocol.io) server for AI agents |
 | `GET /health` | Liveness and storage check |
 
 **Scrape options:** `url`, `formats` (only `markdown`), `waitFor` (ms), `waitSelector`, `timeout` (ms), `maxAge`
@@ -117,6 +136,41 @@ curl -s 'localhost:8080/v1/crawl/<id>?offset=0'
 ```
 
 </details>
+
+### Use with AI agents (MCP)
+
+Huntsman has a built-in [MCP](https://modelcontextprotocol.io) server at `/mcp`, using the Streamable HTTP transport, so
+agents such as Claude, Copilot and Cursor can scrape the web without a separate MCP server. It offers five tools:
+
+| Tool | What it does |
+|---|---|
+| `scrape` | Scrape one URL and return Markdown, links and metadata |
+| `batch_scrape` | Queue 1–1,000 URLs and return one job per URL |
+| `crawl` | Start a crawl and return its id |
+| `get_job` | Status and result of a queued job |
+| `get_crawl` | Crawl progress and pages, paged with `offset` |
+
+To connect a local install, run `claude mcp add --transport http --scope user huntsman http://127.0.0.1:8080/mcp`.
+The [agent setup guide](https://huntsman.tulipfarm.ai/agents) covers Codex, Copilot, VS Code, Cursor, Windsurf, Gemini
+CLI and Claude Desktop.
+
+It uses the same bearer tokens as the REST API. Most clients take a URL and headers, for example in `.mcp.json` or
+`.vscode/mcp.json`:
+
+```json
+{
+  "mcpServers": {
+    "huntsman": {
+      "type": "http",
+      "url": "http://localhost:8080/mcp",
+      "headers": { "Authorization": "Bearer <token>" }
+    }
+  }
+}
+```
+
+With Claude Code: `claude mcp add --transport http huntsman http://localhost:8080/mcp --header "Authorization: Bearer <token>"`.
+Set `HUNTSMAN_MCP=false` to turn the endpoint off.
 
 ### Coming from Firecrawl
 
@@ -150,7 +204,8 @@ script direction, rendering, page type, region and topic. The pipeline that buil
 
 ## Configuration
 
-All settings are environment variables.
+All settings are environment variables. With the install script, put them in `~/.huntsman/env` and run
+`huntsman restart`; it sets `HUNTSMAN_WORKERS=8` there.
 
 | Variable | Default | Meaning |
 |---|---|---|
@@ -162,11 +217,12 @@ All settings are environment variables.
 | `HUNTSMAN_TOKEN` | empty | Bearer token; empty disables auth |
 | `HUNTSMAN_TOKENS` | empty | Named tokens, `name:token,...`, instead of `HUNTSMAN_TOKEN` |
 | `HUNTSMAN_OBEY_ROBOTS` | `true` | Respect `robots.txt` |
+| `HUNTSMAN_MCP` | `true` | Serve the MCP endpoint at `/mcp` |
 | `HUNTSMAN_ALLOW_PRIVATE` | `false` | Allow private and loopback addresses |
 | `HUNTSMAN_IDLE_MS` | `200` | Network-idle wait before extracting |
-| `HUNTSMAN_ADBLOCK_LISTS` | EasyList, EasyPrivacy, Fanboy Cookiemonster in Docker | Comma-separated filter list files |
-| `HUNTSMAN_DB` | `data/huntsman.db` | SQLite queue and cache |
-| `HUNTSMAN_BROWSER` | `lightpanda` | Browser binary |
+| `HUNTSMAN_ADBLOCK_LISTS` | EasyList, EasyPrivacy, Fanboy Cookiemonster in Docker and the install script | Comma-separated filter list files |
+| `HUNTSMAN_DB` | `data/huntsman.db` (`~/.huntsman/data/huntsman.db` with the install script) | SQLite queue and cache |
+| `HUNTSMAN_BROWSER` | `lightpanda` (the bundled binary with the install script) | Browser binary |
 | `HUNTSMAN_BROWSER_PORT` | `9222` | First CDP port; worker *i* uses port + *i* |
 
 ## Repository layout
@@ -175,7 +231,9 @@ All settings are environment variables.
 src/         the scraper: cmd/huntsman (server) and internal/engine
 benchmark/   speed, memory and accuracy against Firecrawl, Crawl4AI and Spider
 dataset/     URL benchmark datasets and the scorer, eval.py
-site/        the huntsman.tulipfarm.ai landing page (Astro)
+site/        the huntsman.tulipfarm.ai landing page (Astro), install.sh and install.md
+packaging/   the huntsman command shipped in release archives
+scripts/     package.sh builds the release archives
 ```
 
 ## Development
@@ -206,7 +264,9 @@ The command checks that CI passed on `main`, shows the changes and next version,
 2. Runs the Docker test suite.
 3. Publishes `ghcr.io/tulipfarm/huntsman` for `linux/amd64` and `linux/arm64`, tagged `X.Y.Z`, `X.Y` and `latest`,
    with a provenance attestation and an SBOM.
-4. Pushes the commit and tag, and creates the GitHub release.
+4. Builds `huntsman-<os>-<arch>.tar.gz` for macOS and Linux on `amd64` and `arm64` with
+   [scripts/package.sh](scripts/package.sh), bundling Lightpanda and the filter lists.
+5. Pushes the commit and tag, and creates the GitHub release with the archives and their checksums.
 
 The script then watches the run until it finishes.
 
@@ -218,7 +278,7 @@ Issues and pull requests are welcome. Read [CONTRIBUTING.md](CONTRIBUTING.md) an
 
 ## License
 
-Huntsman is licensed under [Apache-2.0](LICENSE). The Docker image also ships third-party components under their own
+Huntsman is licensed under [Apache-2.0](LICENSE). The Docker image and release archives also ship third-party components under their own
 licenses: the Lightpanda browser (AGPL-3.0, unmodified, run as a separate process) and the EasyList filter lists
 (GPLv3 / CC BY-SA 3.0). The Firecrawl dataset is MIT and the Huntsman dataset is CC BY 4.0. See [NOTICE](NOTICE) for
 details.

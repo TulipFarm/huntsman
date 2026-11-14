@@ -18,6 +18,8 @@ type Service struct {
 	DefaultAge time.Duration
 	PerHost    int
 	Keys       []Key
+	MCP        bool
+	Version    string
 	mu         sync.Mutex
 	changed    chan struct{}
 	wake       chan struct{}
@@ -206,6 +208,9 @@ func (s *Service) Handler() http.Handler {
 		}
 		writeJSON(w, 200, result)
 	})
+	if s.MCP {
+		mux.Handle("/mcp", http.NewCrossOriginProtection().Handler(s.mcpHandler()))
+	}
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if r.URL.Path == "/health" {
 			mux.ServeHTTP(w, r)
@@ -224,7 +229,10 @@ func (s *Service) Handler() http.Handler {
 }
 
 func (s *Service) storeError(w http.ResponseWriter, err error) {
+	var invalid invalidError
 	switch {
+	case errors.As(err, &invalid):
+		failure(w, 400, err)
 	case errors.Is(err, ErrFull):
 		w.Header().Set("Retry-After", "1")
 		failure(w, 429, err)
@@ -236,47 +244,98 @@ func (s *Service) storeError(w http.ResponseWriter, err error) {
 	}
 }
 
+// invalidError marks a request the client has to fix, as opposed to a storage failure.
+type invalidError struct{ error }
+
+func (e invalidError) Unwrap() error { return e.error }
+
+// runScrape serves one URL from the cache or the queue and waits up to the request timeout. A cached result has no
+// job ID; a job still running at the deadline comes back with status "pending".
+func (s *Service) runScrape(ctx context.Context, req Request) (Job, error) {
+	if err := req.Normalize(s.DefaultAge); err != nil {
+		return Job{}, invalidError{err}
+	}
+	doc, err := s.Store.Cached(req)
+	if err != nil {
+		return Job{}, err
+	}
+	if doc != nil {
+		return Job{Status: "completed", Data: doc, Cached: true}, nil
+	}
+	jobs, err := s.Store.Submit([]Request{req})
+	if err != nil {
+		return Job{}, err
+	}
+	s.notify()
+	ctx, cancel := context.WithTimeout(ctx, time.Duration(req.Timeout)*time.Millisecond)
+	defer cancel()
+	j, err := s.wait(ctx, jobs[0].ID)
+	if errors.Is(err, context.DeadlineExceeded) || errors.Is(err, context.Canceled) {
+		return Job{ID: jobs[0].ID, Status: "pending"}, nil
+	}
+	return j, err
+}
+
+func (s *Service) submitBatch(urls []string, options Request) ([]Job, error) {
+	if len(urls) < 1 || len(urls) > 1000 {
+		return nil, invalidError{errors.New("urls must contain 1..1000 entries")}
+	}
+	requests := make([]Request, 0, len(urls))
+	for _, u := range urls {
+		item := options
+		item.URL = u
+		if err := item.Normalize(s.DefaultAge); err != nil {
+			return nil, invalidError{err}
+		}
+		requests = append(requests, item)
+	}
+	jobs, err := s.Store.Submit(requests)
+	if err != nil {
+		return nil, err
+	}
+	s.notify()
+	return jobs, nil
+}
+
+func (s *Service) submitCrawl(req CrawlRequest) (string, error) {
+	if req.Limit == 0 {
+		req.Limit = 100
+	}
+	req.ScrapeOptions.URL = req.URL
+	if err := req.ScrapeOptions.Normalize(s.DefaultAge); err != nil {
+		return "", invalidError{err}
+	}
+	req.URL = req.ScrapeOptions.URL
+	if req.Limit < 1 || req.Limit > 1000 || req.MaxDepth < 0 || req.MaxDepth > 10 {
+		return "", invalidError{errors.New("crawl limit must be 1..1000 and maxDepth 0..10")}
+	}
+	id, err := s.Store.StartCrawl(req)
+	if err != nil {
+		return "", err
+	}
+	s.notify()
+	return id, nil
+}
+
 func (s *Service) scrape(w http.ResponseWriter, r *http.Request) {
 	var req Request
 	if err := decode(w, r, &req); err != nil {
 		failure(w, 400, err)
 		return
 	}
-	if err := req.Normalize(s.DefaultAge); err != nil {
-		failure(w, 400, err)
-		return
-	}
-	doc, err := s.Store.Cached(req)
-	if err != nil {
+	j, err := s.runScrape(r.Context(), req)
+	switch {
+	case err != nil:
 		s.storeError(w, err)
-		return
-	}
-	if doc != nil {
-		writeJSON(w, 200, map[string]any{"success": true, "data": doc, "cached": true})
-		return
-	}
-	jobs, err := s.Store.Submit([]Request{req})
-	if err != nil {
-		s.storeError(w, err)
-		return
-	}
-	s.notify()
-	ctx, cancel := context.WithTimeout(r.Context(), time.Duration(req.Timeout)*time.Millisecond)
-	defer cancel()
-	j, err := s.wait(ctx, jobs[0].ID)
-	if err != nil {
-		if errors.Is(err, context.DeadlineExceeded) || errors.Is(err, context.Canceled) {
-			writeJSON(w, 202, map[string]any{"success": true, "id": jobs[0].ID, "status": "pending"})
-		} else {
-			s.storeError(w, err)
-		}
-		return
-	}
-	if j.Status == "failed" {
+	case j.Status == "pending":
+		writeJSON(w, 202, map[string]any{"success": true, "id": j.ID, "status": "pending"})
+	case j.Status == "failed":
 		writeJSON(w, 502, map[string]any{"success": false, "id": j.ID, "error": j.Error})
-		return
+	case j.ID == "":
+		writeJSON(w, 200, map[string]any{"success": true, "data": j.Data, "cached": true})
+	default:
+		writeJSON(w, 200, map[string]any{"success": true, "id": j.ID, "data": j.Data, "cached": j.Cached})
 	}
-	writeJSON(w, 200, map[string]any{"success": true, "id": j.ID, "data": j.Data, "cached": j.Cached})
 }
 
 func (s *Service) batch(w http.ResponseWriter, r *http.Request) {
@@ -288,26 +347,11 @@ func (s *Service) batch(w http.ResponseWriter, r *http.Request) {
 		failure(w, 400, err)
 		return
 	}
-	if len(req.URLs) < 1 || len(req.URLs) > 1000 {
-		failure(w, 400, errors.New("urls must contain 1..1000 entries"))
-		return
-	}
-	requests := make([]Request, 0, len(req.URLs))
-	for _, u := range req.URLs {
-		item := req.Options
-		item.URL = u
-		if err := item.Normalize(s.DefaultAge); err != nil {
-			failure(w, 400, err)
-			return
-		}
-		requests = append(requests, item)
-	}
-	jobs, err := s.Store.Submit(requests)
+	jobs, err := s.submitBatch(req.URLs, req.Options)
 	if err != nil {
 		s.storeError(w, err)
 		return
 	}
-	s.notify()
 	writeJSON(w, 202, map[string]any{"success": true, "jobs": jobs})
 }
 
@@ -317,24 +361,10 @@ func (s *Service) crawl(w http.ResponseWriter, r *http.Request) {
 		failure(w, 400, err)
 		return
 	}
-	if req.Limit == 0 {
-		req.Limit = 100
-	}
-	req.ScrapeOptions.URL = req.URL
-	if err := req.ScrapeOptions.Normalize(s.DefaultAge); err != nil {
-		failure(w, 400, err)
-		return
-	}
-	req.URL = req.ScrapeOptions.URL
-	if req.Limit < 1 || req.Limit > 1000 || req.MaxDepth < 0 || req.MaxDepth > 10 {
-		failure(w, 400, errors.New("crawl limit must be 1..1000 and maxDepth 0..10"))
-		return
-	}
-	id, err := s.Store.StartCrawl(req)
+	id, err := s.submitCrawl(req)
 	if err != nil {
 		s.storeError(w, err)
 		return
 	}
-	s.notify()
 	writeJSON(w, 202, map[string]any{"success": true, "id": id})
 }

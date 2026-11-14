@@ -4,12 +4,14 @@ import { Code } from 'astro:components';
 interface Props {
   code: string;
   label: string;
-  lang?: 'bash' | 'json';
+  lang?: 'bash' | 'json' | 'toml' | 'text';
+  /** Wrap long lines instead of scrolling, for one-liners people read before copying. */
+  wrap?: boolean;
 }
-const { code, label, lang = 'bash' } = Astro.props;
+const { code, label, lang = 'bash', wrap = false } = Astro.props;
 ---
 
-<figure class="code">
+<figure class="code" data-wrap={wrap || undefined}>
   <figcaption>
     <span>{label}</span>
     <button type="button" class="copy" data-copy={code} hidden>
@@ -66,6 +68,11 @@ const { code, label, lang = 'bash' } = Astro.props;
     overflow-x: auto;
     line-height: 1.6;
     color: var(--text);
+  }
+
+  .code[data-wrap] :global(pre) {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
   }
 
   .copy {

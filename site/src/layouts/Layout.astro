@@ -1,0 +1,262 @@
+---
+import '@fontsource/instrument-serif/latin-400.css';
+import '@fontsource/instrument-serif/latin-400-italic.css';
+import '@fontsource-variable/inter/wght.css';
+import '@fontsource-variable/geist-mono/wght.css';
+import '../styles/global.css';
+import { repo } from '../data/site';
+
+interface Props {
+  title: string;
+  description: string;
+}
+const { title, description } = Astro.props;
+
+const links = [
+  ['For agents', '/agents'],
+  ['Install', '/install'],
+  ['Benchmarks', '/#benchmarks'],
+  ['API', '/#api'],
+  ['GitHub', repo],
+];
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta name="theme-color" content="#101113" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f6f7f4" media="(prefers-color-scheme: light)" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  </head>
+  <body>
+    <header class="wrap site-header">
+      <a class="brand" href="/" aria-label="Huntsman home">
+        <svg class="mark" aria-hidden="true" viewBox="0 0 32 32" width="28" height="28">
+          <g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M13 13 8 7 3 8M12.5 15.5 6 13l-4 3M13 18l-6 3-3 5M14.5 19.5 12 26l2 4"></path>
+            <path d="M19 13l5-6 5 1M19.5 15.5 26 13l4 3M19 18l6 3 3 5M17.5 19.5 20 26l-2 4"></path>
+          </g>
+          <ellipse cx="16" cy="13.5" rx="3.4" ry="3" fill="currentColor"></ellipse>
+          <ellipse cx="16" cy="20" rx="2.6" ry="3.6" fill="currentColor"></ellipse>
+        </svg>
+        <span>Huntsman</span>
+      </a>
+      <a class="maker" href="https://tulipfarm.ai">by TulipFarm.ai</a>
+      <nav aria-label="Main">
+        <ul class="links">
+          {
+            links.map(([label, href]) => (
+              <li>
+                <a href={href} aria-current={href === path ? 'page' : undefined}>
+                  {label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+        <a class="button primary small" href="/#start">Get started</a>
+        <details class="menu">
+          <summary aria-label="Menu">
+            <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>
+          </summary>
+          <ul>
+            {links.map(([label, href]) => <li><a href={href}>{label}</a></li>)}
+          </ul>
+        </details>
+      </nav>
+    </header>
+
+    <slot />
+
+    <footer class="wrap site-footer">
+      <p>
+        Apache-2.0. The install script and Docker image also ship Lightpanda (AGPL-3.0, run unmodified as a separate
+        process) and the EasyList filter lists. <a href={`${repo}/blob/main/NOTICE`}>Notices</a>
+      </p>
+      <p>Built by <a href="https://tulipfarm.ai">TulipFarm</a>.</p>
+    </footer>
+  </body>
+</html>
+
+<style>
+  .site-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-6);
+    padding-block: var(--space-6);
+  }
+
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    min-height: var(--control-h);
+    color: var(--text);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.0625rem;
+    letter-spacing: -0.01em;
+  }
+
+  .mark {
+    color: var(--accent);
+  }
+
+  .maker {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--control-h);
+    margin-left: calc(-1 * var(--space-3));
+    margin-right: auto;
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    white-space: nowrap;
+    text-decoration: none;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .maker:hover {
+      color: var(--text);
+    }
+  }
+
+  nav {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .links,
+  .menu ul {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  nav a:not(.button) {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--control-h);
+    padding-inline: var(--space-3);
+    border-radius: var(--radius-sm);
+    color: var(--text-muted);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: color var(--dur-fast) var(--ease-out), background-color var(--dur-fast) var(--ease-out);
+  }
+
+  nav a[aria-current='page'] {
+    color: var(--text);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    nav a:not(.button):hover {
+      color: var(--text);
+      background: var(--surface-2);
+    }
+  }
+
+  nav .button {
+    margin-left: var(--space-2);
+  }
+
+  .menu {
+    display: none;
+    position: relative;
+  }
+
+  .menu summary {
+    display: grid;
+    place-items: center;
+    width: var(--control-h);
+    height: var(--control-h);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    color: var(--text);
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .menu summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .menu[open] summary {
+    background: var(--surface-2);
+  }
+
+  .menu ul {
+    position: absolute;
+    right: 0;
+    top: calc(100% + var(--space-2));
+    z-index: 10;
+    flex-direction: column;
+    min-width: 12rem;
+    padding: var(--space-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    background: var(--surface);
+    box-shadow: 0 12px 32px -12px rgb(0 0 0 / 0.25);
+    transform-origin: top right;
+    animation: menu-in var(--dur-fast) var(--ease-out);
+  }
+
+  .menu ul a:not(.button) {
+    display: flex;
+    color: var(--text);
+  }
+
+  @keyframes menu-in {
+    from {
+      opacity: 0;
+      transform: scale(0.96);
+    }
+  }
+
+  .site-footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--space-4);
+    margin-top: var(--space-24);
+    padding-block: var(--space-8);
+    border-top: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: 0.875rem;
+  }
+
+  .site-footer p:first-child {
+    max-width: 70ch;
+  }
+
+  @media (max-width: 900px) {
+    .links {
+      display: none;
+    }
+
+    .menu {
+      display: block;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .maker {
+      display: none;
+    }
+
+    .brand {
+      margin-right: auto;
+    }
+  }
+</style>

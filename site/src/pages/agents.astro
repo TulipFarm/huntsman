@@ -1,0 +1,125 @@
+---
+import Guide from '../layouts/Guide.astro';
+import CodeBlock from '../components/CodeBlock.astro';
+import { agentPrompt, harnesses, mcpUrl } from '../data/site';
+
+const slug = (name: string) => name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+
+const instruction = 'To read a web page, use the huntsman MCP server’s scrape tool instead of the built-in web fetch.';
+const remote = `claude mcp add --transport http --scope user huntsman https://scraper.example.com/mcp \\
+  --header "Authorization: Bearer $HUNTSMAN_TOKEN"`;
+const remoteJson = `{
+  "mcpServers": {
+    "huntsman": {
+      "url": "https://scraper.example.com/mcp",
+      "headers": { "Authorization": "Bearer <token>" }
+    }
+  }
+}`;
+
+const tools = [
+  ['scrape', 'Read one page and return its main content as Markdown, with its links'],
+  ['batch_scrape', 'Start reading up to 1,000 pages. Returns one job ID per page.'],
+  ['crawl', 'Start following links across a site, up to a page limit and depth. Returns a crawl ID.'],
+  ['get_job', 'Progress and result of one batch_scrape page'],
+  ['get_crawl', 'Progress and pages of a crawl, 100 at a time'],
+];
+
+const toc: [string, string][] = [
+  ['ask', 'Let your agent do it'],
+  ...harnesses.map((h): [string, string] => [slug(h.name), h.name]),
+  ['default', 'Make it the default'],
+  ['tools', 'Tools'],
+  ['remote', 'Remote servers'],
+  ['trouble', 'Troubleshooting'],
+];
+---
+
+<Guide
+  title="Connect Huntsman to your agent"
+  description="Add Huntsman's MCP server to Claude Code, Codex, GitHub Copilot, VS Code, Cursor, Windsurf, Gemini CLI or Claude Desktop, so your agent reads web pages as clean Markdown."
+  heading="Connect Huntsman to your agent"
+  lead={`Huntsman is an MCP server at ${mcpUrl}. Add it to your agent once, and the agent can read any web page as clean Markdown. Install Huntsman first.`}
+  toc={toc}
+>
+  <p>
+    Not installed yet? See <a href="/install">Install Huntsman</a>, or let your agent do both.
+  </p>
+
+  <h2 id="ask">Let your agent do it</h2>
+  <p>
+    Paste this into Claude Code, Codex, Copilot, Cursor or any agent that can run commands. It follows{' '}
+    <a href="/install.md">install.md</a>: installs Huntsman, connects every agent it finds on your machine, and asks
+    before changing anything else.
+  </p>
+  <CodeBlock wrap code={agentPrompt} lang="text" label="Prompt" />
+
+  {
+    harnesses.map((h) => (
+      <>
+        <h2 id={slug(h.name)}>{h.name}</h2>
+        <p>{h.how}</p>
+        <CodeBlock wrap={!h.lang} code={h.code} lang={h.lang ?? 'bash'} label={h.lang === 'json' ? 'Config' : 'Terminal'} />
+      </>
+    ))
+  }
+  <p>Most agents load new MCP servers when they start, so restart yours after adding Huntsman.</p>
+
+  <h2 id="default">Make it the default</h2>
+  <p>
+    Most agents also have a built-in web fetch tool, and some prefer it. To have them use Huntsman instead, add this
+    line to your global agent instructions, such as <code>~/.claude/CLAUDE.md</code>, <code>~/.codex/AGENTS.md</code>{' '}
+    or <code>~/.gemini/GEMINI.md</code>:
+  </p>
+  <CodeBlock wrap code={instruction} lang="text" label="Instruction" />
+
+  <h2 id="tools">Tools</h2>
+  <p>Huntsman gives your agent five tools:</p>
+  <table>
+    <thead>
+      <tr><th scope="col">Tool</th><th scope="col">What it does</th></tr>
+    </thead>
+    <tbody>
+      {
+        tools.map(([name, what]) => (
+          <tr>
+            <th scope="row"><code>{name}</code></th>
+            <td>{what}</td>
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+  <p>
+    Pages are cached for an hour by default, so asking for the same page again is instant. Agents can pass{' '}
+    <code>maxAge: 0</code> to fetch a fresh copy.
+  </p>
+
+  <h2 id="remote">Remote servers</h2>
+  <p>
+    If Huntsman runs on another machine with <code>HUNTSMAN_TOKEN</code> set (see{' '}
+    <a href="/install#server">Run it on a server</a>), use its address and send the token as a header:
+  </p>
+  <CodeBlock code={remote} label="Claude Code" />
+  <CodeBlock code={remoteJson} lang="json" label="Cursor and most JSON configs" />
+
+  <h2 id="trouble">Troubleshooting</h2>
+  <ul>
+    <li>
+      <strong>The agent doesn’t list Huntsman’s tools.</strong> Run <code>huntsman status</code>. If it isn’t running,
+      run <code>huntsman start</code>. Then restart the agent.
+    </li>
+    <li>
+      <strong>Port 8080 was taken.</strong> If you set another port in <code>~/.huntsman/env</code>, use it in the MCP
+      address too.
+    </li>
+    <li>
+      <strong>A page comes back empty or blocked.</strong> Some sites block automated readers, or{' '}
+      <code>robots.txt</code> asks them to stay out. Huntsman respects it by default.
+    </li>
+    <li>
+      <strong>Your own dev server is blocked.</strong> Huntsman refuses private and loopback addresses unless you set{' '}
+      <code>HUNTSMAN_ALLOW_PRIVATE=true</code>.
+    </li>
+  </ul>
+</Guide>

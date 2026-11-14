@@ -6,3 +6,5 @@ dataset
 !benchmark/fixture
 *.db*
 .pristine
+dist
+site/node_modules

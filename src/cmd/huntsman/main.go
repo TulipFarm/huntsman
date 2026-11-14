@@ -17,6 +17,9 @@ import (
 	"github.com/tulipfarm/huntsman/src/internal/engine"
 )
 
+// version is set at release time with -ldflags "-X main.version=X.Y.Z".
+var version = "dev"
+
 func env(name, fallback string) string {
 	if value := os.Getenv(name); value != "" {
 		return value
@@ -65,6 +68,10 @@ func run() error {
 	if err != nil {
 		return err
 	}
+	mcpEnabled, err := strconv.ParseBool(env("HUNTSMAN_MCP", "true"))
+	if err != nil {
+		return err
+	}
 	var adblock []string
 	for _, list := range strings.Split(os.Getenv("HUNTSMAN_ADBLOCK_LISTS"), ",") {
 		if list = strings.TrimSpace(list); list != "" {
@@ -86,6 +93,8 @@ func run() error {
 		return err
 	}
 	svc := engine.NewService(store, age, perHost, keys)
+	svc.MCP = mcpEnabled
+	svc.Version = version
 	renderers := make([]engine.Renderer, workers)
 	for i := range renderers {
 		browser := engine.NewBrowser(ctx, env("HUNTSMAN_BROWSER", "lightpanda"), port+i, allowPrivate, obeyRobots, time.Duration(idle)*time.Millisecond)
@@ -103,8 +112,8 @@ func run() error {
 		WriteTimeout: 125 * time.Second, IdleTimeout: 30 * time.Second, MaxHeaderBytes: 16 << 10}
 	serverErrors := make(chan error, 1)
 	go func() { serverErrors <- srv.Serve(listener) }()
-	slog.Info("Huntsman ready", "address", addr, "workers", workers, "perHost", perHost, "cacheTTL", age, "allowPrivate", allowPrivate,
-		"keys", len(keys))
+	slog.Info("Huntsman ready", "version", version, "address", addr, "workers", workers, "perHost", perHost, "cacheTTL", age, "allowPrivate", allowPrivate,
+		"keys", len(keys), "mcp", mcpEnabled)
 	select {
 	case <-ctx.Done():
 	case err = <-svc.Errors():
@@ -123,6 +132,14 @@ func run() error {
 }
 
 func main() {
+	if len(os.Args) > 1 {
+		if os.Args[1] != "version" {
+			fmt.Fprintln(os.Stderr, "usage: huntsman [version]; settings are environment variables")
+			os.Exit(2)
+		}
+		fmt.Println(version)
+		return
+	}
 	if err := run(); err != nil {
 		slog.Error("Huntsman exited", "error", err)
 		os.Exit(1)

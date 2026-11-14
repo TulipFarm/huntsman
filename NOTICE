@@ -7,22 +7,26 @@ This product includes or distributes the third-party material listed below.
 Each item keeps its own license.
 
 --------------------------------------------------------------------------------
-Lightpanda browser (Docker image only)
+Lightpanda browser (Docker image and release archives only)
 https://github.com/lightpanda-io/browser
 License: GNU Affero General Public License v3.0
 
-The Docker image ships an unmodified Lightpanda binary, copied from the
-lightpanda/browser image pinned in the Dockerfile. Huntsman runs it as a
-separate process and talks to it over the Chrome DevTools Protocol. Its
-complete source code is available at the URL above.
+The Docker image and the release archives ship an unmodified Lightpanda
+binary: the image copies it from the lightpanda/browser image pinned in the
+Dockerfile, and the archives include the official release binary pinned in
+scripts/package.sh. Huntsman runs it as a separate process and talks to it
+over the Chrome DevTools Protocol. Its complete source code is available at
+the URL above.
 
 --------------------------------------------------------------------------------
-EasyList, EasyPrivacy and Fanboy's Cookiemonster filter lists (Docker image only)
+EasyList, EasyPrivacy and Fanboy's Cookiemonster filter lists (Docker image and
+release archives only)
 https://easylist.to
 License: GNU General Public License v3.0 or Creative Commons
 Attribution-ShareAlike 3.0, at your option
 
-The lists are downloaded unmodified when the Docker image is built.
+The lists are downloaded unmodified when the Docker image and the release
+archives are built.
 
 --------------------------------------------------------------------------------
 Firecrawl scrape-content-dataset-v1 (dataset/firecrawl-v1/) and the
