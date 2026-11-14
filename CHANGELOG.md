@@ -3,6 +3,12 @@
 All notable changes to Huntsman. Versions follow [Semantic Versioning](https://semver.org), and each release is
 published as `ghcr.io/tulipfarm/huntsman:<version>`.
 
+## [0.3.0](https://github.com/TulipFarm/huntsman/releases/tag/v0.3.0) - 2026-11-14
+
+### Features
+
+- Add an MCP server and a one-line native install for agents ([#21](https://github.com/TulipFarm/huntsman/pull/21))
+
 ## [0.2.2](https://github.com/TulipFarm/huntsman/releases/tag/v0.2.2) - 2026-11-04
 
 ### Documentation
