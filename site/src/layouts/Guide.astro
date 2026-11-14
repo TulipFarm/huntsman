@@ -1,0 +1,199 @@
+---
+import Layout from './Layout.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  heading: string;
+  lead: string;
+  toc: [id: string, label: string][];
+}
+const { title, description, heading, lead, toc } = Astro.props;
+---
+
+<Layout title={title} description={description}>
+  <main class="wrap guide">
+    <aside class="toc">
+      <nav aria-label="On this page">
+        <p>On this page</p>
+        <ol>
+          {toc.map(([id, label]) => <li><a href={`#${id}`}>{label}</a></li>)}
+        </ol>
+      </nav>
+    </aside>
+    <article class="prose">
+      <header>
+        <h1>{heading}</h1>
+        <p class="lead">{lead}</p>
+      </header>
+      <slot />
+    </article>
+  </main>
+</Layout>
+
+<style>
+  .guide {
+    display: grid;
+    grid-template-columns: minmax(0, 13rem) minmax(0, 46rem);
+    gap: var(--space-16);
+    justify-content: center;
+    padding-top: var(--space-12);
+  }
+
+  .toc nav {
+    position: sticky;
+    top: var(--space-6);
+    font-size: 0.875rem;
+  }
+
+  .toc p {
+    margin-bottom: var(--space-2);
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  .toc ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-left: 1px solid var(--border);
+  }
+
+  .toc a {
+    display: block;
+    margin-left: -1px;
+    padding: var(--space-1) var(--space-3);
+    border-left: 1px solid transparent;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .toc a:hover {
+      color: var(--text);
+      border-left-color: var(--border-strong);
+    }
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(2.5rem, 1.6rem + 3vw, 3.75rem);
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+  }
+
+  .lead {
+    margin-top: var(--space-4);
+    color: var(--text-muted);
+    font-size: 1.125rem;
+  }
+
+  .prose :global(h2) {
+    margin-top: var(--space-16);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--border);
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 2rem;
+    line-height: 1.15;
+    letter-spacing: -0.015em;
+  }
+
+  .prose :global(h3) {
+    margin-top: var(--space-8);
+    font-size: 1.125rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  .prose :global(:is(h2, h3) + *) {
+    margin-top: var(--space-3);
+  }
+
+  .prose :global(p),
+  .prose :global(ul),
+  .prose :global(ol),
+  .prose :global(table),
+  .prose :global(.code) {
+    margin-top: var(--space-4);
+  }
+
+  .prose :global(ul),
+  .prose :global(ol) {
+    padding-left: 1.25rem;
+  }
+
+  .prose :global(li + li) {
+    margin-top: var(--space-1);
+  }
+
+  .prose :global(table) {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9375rem;
+  }
+
+  .prose :global(th),
+  .prose :global(td) {
+    padding: var(--space-2) var(--space-4) var(--space-2) 0;
+    border-bottom: 1px solid var(--border);
+    text-align: left;
+    vertical-align: baseline;
+  }
+
+  .prose :global(thead th) {
+    color: var(--text-muted);
+    font-size: 0.8125rem;
+    font-weight: 500;
+  }
+
+  .prose :global(tbody th) {
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  .prose :global(.note) {
+    padding: var(--space-4);
+    border-radius: var(--radius-md);
+    background: var(--accent-soft);
+  }
+
+  @media (max-width: 900px) {
+    .guide {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-8);
+      padding-top: var(--space-6);
+    }
+
+    .toc {
+      order: 2;
+      display: none;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .prose :global(table:not(.keep)) :global(th),
+    .prose :global(table:not(.keep)) :global(td) {
+      display: block;
+      padding: 0;
+      border: 0;
+    }
+
+    .prose :global(table:not(.keep)) :global(thead) {
+      display: none;
+    }
+
+    .prose :global(table:not(.keep)) :global(tr) {
+      display: grid;
+      gap: var(--space-1);
+      padding-block: var(--space-3);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .prose :global(tbody th) {
+      white-space: normal;
+    }
+  }
+</style>

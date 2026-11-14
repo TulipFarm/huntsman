@@ -4,7 +4,7 @@ FROM ${LIGHTPANDA_IMAGE} AS browser
 FROM scratch AS gomodcache
 # Cross-compiles on the build machine, so multi-platform images need no emulation for Go.
 FROM --platform=$BUILDPLATFORM golang:1.27-trixie AS build
-ARG TARGETOS TARGETARCH
+ARG TARGETOS TARGETARCH VERSION=dev
 WORKDIR /src
 COPY go.mod go.sum ./
 RUN --mount=type=bind,from=gomodcache,target=/gomodcache \
@@ -12,7 +12,7 @@ RUN --mount=type=bind,from=gomodcache,target=/gomodcache \
     go mod download
 COPY . .
 RUN export CGO_ENABLED=0 GOOS=$TARGETOS GOARCH=$TARGETARCH \
-    && go build -trimpath -ldflags="-s -w" -o /out/huntsman ./src/cmd/huntsman \
+    && go build -trimpath -ldflags="-s -w -X main.version=${VERSION#v}" -o /out/huntsman ./src/cmd/huntsman \
     && go build -trimpath -ldflags="-s -w" -o /out/bench ./benchmark/fixture/bench \
     && go build -trimpath -ldflags="-s -w" -o /out/fixture ./benchmark/fixture/server
 

@@ -39,6 +39,25 @@ jobs:
           platforms: linux/amd64,linux/arm64
           tags: huntsman:ci
 
+  # Packages the Linux archive and installs it the way users do.
+  native:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-go@v7
+        with:
+          go-version-file: go.mod
+      - run: shellcheck packaging/huntsman.sh site/public/install.sh scripts/package.sh
+      - run: scripts/package.sh ci linux-amd64
+      - name: Install, scrape, uninstall
+        run: |
+          HUNTSMAN_RELEASE_URL="file://$PWD/dist" sh site/public/install.sh
+          ~/.local/bin/huntsman status
+          curl -fsS http://127.0.0.1:8080/v1/scrape -H 'Content-Type: application/json' \
+            -d '{"url":"https://example.com"}' | grep -q 'Example Domain'
+          ~/.local/bin/huntsman uninstall
+          test ! -e ~/.huntsman
+
   dataset:
     runs-on: ubuntu-latest
     steps:

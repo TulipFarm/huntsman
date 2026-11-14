@@ -1,8 +1,8 @@
 name: Release
 
 # Started from a laptop with `make release` (scripts/release.sh). One run checks that main passed CI, picks the
-# version from the commits, writes CHANGELOG.md, runs the Docker tests, publishes the images, pushes the release
-# commit and tag, and creates the GitHub release.
+# version from the commits, writes CHANGELOG.md, runs the Docker tests, builds the native archives that install.sh
+# downloads, publishes the images, pushes the release commit and tag, and creates the GitHub release.
 
 on:
   workflow_dispatch:
@@ -118,6 +118,14 @@ jobs:
         with:
           context: .
           target: test
+      - uses: actions/setup-go@v7
+        with:
+          go-version-file: go.mod
+      # macOS and Linux archives with Huntsman, Lightpanda and the filter lists, for install.sh.
+      - name: Native archives
+        env:
+          TAG: ${{ steps.version.outputs.tag }}
+        run: scripts/package.sh "${TAG#v}"
       - uses: docker/login-action@v4
         with:
           registry: ghcr.io
@@ -145,6 +153,7 @@ jobs:
           context: .
           platforms: linux/amd64,linux/arm64
           push: true
+          build-args: VERSION=${{ steps.version.outputs.tag }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           annotations: ${{ steps.meta.outputs.annotations }}
@@ -167,6 +176,12 @@ jobs:
           sed -i '1{/^## /d}' "$notes"
           cat >> "$notes" <<EOF
 
+          ### Install on macOS or Linux
+
+          \`\`\`sh
+          curl -fsSL https://huntsman.tulipfarm.ai/install.sh | sh
+          \`\`\`
+
           ### Container image
 
           \`\`\`sh
@@ -175,7 +190,8 @@ jobs:
 
           Platforms \`linux/amd64\` and \`linux/arm64\`. Digest: \`${DIGEST}\`
           EOF
-          gh release create "$TAG" --verify-tag --title "Huntsman ${TAG}" --notes-file "$notes"
+          gh release create "$TAG" --verify-tag --title "Huntsman ${TAG}" --notes-file "$notes" \
+            dist/huntsman-*.tar.gz dist/huntsman-checksums.txt
           {
             echo "Released [${TAG}](https://github.com/${GITHUB_REPOSITORY}/releases/tag/${TAG})"
             echo

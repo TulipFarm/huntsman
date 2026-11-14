@@ -1,0 +1,222 @@
+---
+import Guide from '../layouts/Guide.astro';
+import CodeBlock from '../components/CodeBlock.astro';
+import { machines } from '../data/benchmarks';
+import { docker, image, install, repo } from '../data/site';
+
+const pinned = `curl -fsSL https://huntsman.tulipfarm.ai/install.sh | HUNTSMAN_VERSION=v0.3.0 sh`;
+const noService = `curl -fsSL https://huntsman.tulipfarm.ai/install.sh | HUNTSMAN_NO_SERVICE=1 sh`;
+const check = `huntsman status
+curl -s localhost:8080/v1/scrape -H 'Content-Type: application/json' \\
+  -d '{"url": "https://example.com"}'`;
+const env = `# ~/.huntsman/env
+HUNTSMAN_ADDR=127.0.0.1:8080
+HUNTSMAN_WORKERS=8`;
+const server = `docker run -d --name huntsman --restart unless-stopped -p 8080:8080 \\
+  -v huntsman-data:/data \\
+  -e HUNTSMAN_TOKEN="$(openssl rand -hex 32)" \\
+  -e HUNTSMAN_WORKERS=64 \\
+  ${image}:latest`;
+const authed = `curl -s https://scraper.example.com/v1/scrape \\
+  -H "Authorization: Bearer $HUNTSMAN_TOKEN" \\
+  -H 'Content-Type: application/json' \\
+  -d '{"url": "https://example.com"}'`;
+
+const commands = [
+  ['huntsman status', 'Whether it is running, and its API and MCP addresses'],
+  ['huntsman start', 'Start now and at every login'],
+  ['huntsman stop', 'Stop, and don’t start at login'],
+  ['huntsman restart', 'Restart, for example after editing ~/.huntsman/env'],
+  ['huntsman logs', 'Follow the log'],
+  ['huntsman update', 'Install the latest release, keeping your settings and cache'],
+  ['huntsman run', 'Run in the foreground instead of as a service'],
+  ['huntsman uninstall', 'Stop it and delete ~/.huntsman'],
+];
+
+const files = [
+  ['~/.huntsman/env', 'Your settings'],
+  ['~/.huntsman/libexec/', 'The Huntsman server and the Lightpanda browser'],
+  ['~/.huntsman/filters/', 'EasyList, EasyPrivacy and Fanboy’s Cookiemonster filter lists'],
+  ['~/.huntsman/data/', 'Job queue and result cache (SQLite)'],
+  ['~/.huntsman/huntsman.log', 'Log'],
+  ['~/.local/bin/huntsman', 'The huntsman command'],
+];
+
+const settings = [
+  ['HUNTSMAN_ADDR', '127.0.0.1:8080', 'Listen address. Change the port if 8080 is taken.'],
+  ['HUNTSMAN_WORKERS', '8 (install script)', 'Pages rendered at once. Without the script: 16 per CPU, capped at one per 96 MB of memory.'],
+  ['HUNTSMAN_PER_HOST', '2', 'Pages fetched at once from one site, up to 64'],
+  ['HUNTSMAN_CACHE_TTL', '1h', 'How long a scraped page is reused, up to 168h'],
+  ['HUNTSMAN_TOKEN', 'empty', 'Bearer token every request must send. Empty turns auth off.'],
+  ['HUNTSMAN_TOKENS', 'empty', 'Named tokens, name:token,..., so you can revoke one client at a time'],
+  ['HUNTSMAN_OBEY_ROBOTS', 'true', 'Respect robots.txt'],
+  ['HUNTSMAN_MCP', 'true', 'Serve the MCP endpoint at /mcp'],
+  ['HUNTSMAN_ALLOW_PRIVATE', 'false', 'Allow scraping private and loopback addresses, such as your own dev server'],
+  ['HUNTSMAN_QUEUE_CAPACITY', '10000', 'Queued jobs before requests get 429'],
+  ['HUNTSMAN_IDLE_MS', '200', 'How long the network must be quiet before the page is read'],
+];
+
+const huntsman = machines.map((m) => ({ m, r: m.results.find((r) => r.engine === 'Huntsman')! }));
+
+const toc: [string, string][] = [
+  ['script', 'Install script'],
+  ['manage', 'Manage Huntsman'],
+  ['configuration', 'Configuration'],
+  ['docker', 'Docker'],
+  ['windows', 'Windows'],
+  ['server', 'Run it on a server'],
+  ['uninstall', 'Uninstall'],
+];
+---
+
+<Guide
+  title="Install Huntsman"
+  description="Install Huntsman on macOS or Linux with one command, or run it with Docker. Manage the background service, change settings, and run it on a server."
+  heading="Install Huntsman"
+  lead="Huntsman runs on your own machine, in the background, and your agents reach it at localhost. The install script is the quickest way on macOS and Linux; Docker works everywhere else."
+  toc={toc}
+>
+  <h2 id="script">Install script</h2>
+  <p>On macOS (Apple silicon or Intel) or Linux (x86-64 or ARM64):</p>
+  <CodeBlock wrap code={install} label="Terminal" />
+  <p>The script:</p>
+  <ul>
+    <li>
+      Downloads the latest release for your system from <a href={`${repo}/releases`}>GitHub</a> and checks its
+      SHA-256 checksum.
+    </li>
+    <li>
+      Puts Huntsman, the <a href="https://lightpanda.io">Lightpanda</a> browser it renders pages with, and the ad and
+      tracker filter lists in <code>~/.huntsman</code>, and the <code>huntsman</code> command in{' '}
+      <code>~/.local/bin</code>. It needs no sudo.
+    </li>
+    <li>
+      Starts Huntsman at <code>127.0.0.1:8080</code> as a background service that starts again at every login:
+      launchd on macOS, systemd on Linux. Only your machine can reach it.
+    </li>
+  </ul>
+  <p>Check that it works:</p>
+  <CodeBlock code={check} label="Terminal" />
+  <p>Then <a href="/agents">connect your agents</a>.</p>
+
+  <h3>Options</h3>
+  <p>Install a specific version, or install without starting the service:</p>
+  <CodeBlock wrap code={pinned} label="A specific version" />
+  <CodeBlock wrap code={noService} label="Without the background service" />
+  <p>
+    Running the script again upgrades Huntsman and keeps your settings and cache. On Linux without systemd, such as
+    inside a container, Huntsman runs as a plain background process until you log out. On a headless Linux server,
+    run <code>loginctl enable-linger</code> so the service keeps running after you log out.
+  </p>
+
+  <h2 id="manage">Manage Huntsman</h2>
+  <table>
+    <thead>
+      <tr><th scope="col">Command</th><th scope="col">What it does</th></tr>
+    </thead>
+    <tbody>
+      {
+        commands.map(([cmd, what]) => (
+          <tr>
+            <th scope="row"><code>{cmd}</code></th>
+            <td>{what}</td>
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+  <h3>Where things live</h3>
+  <table>
+    <thead>
+      <tr><th scope="col">Path</th><th scope="col">What it holds</th></tr>
+    </thead>
+    <tbody>
+      {
+        files.map(([path, what]) => (
+          <tr>
+            <th scope="row"><code>{path}</code></th>
+            <td>{what}</td>
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+
+  <h2 id="configuration">Configuration</h2>
+  <p>
+    Every setting is an environment variable. With the install script, set them in <code>~/.huntsman/env</code>, then
+    run <code>huntsman restart</code>. With Docker, pass them with <code>-e</code>.
+  </p>
+  <CodeBlock code={env} label="Settings file" />
+  <table>
+    <thead>
+      <tr><th scope="col">Variable</th><th scope="col">Default</th><th scope="col">Meaning</th></tr>
+    </thead>
+    <tbody>
+      {
+        settings.map(([name, def, what]) => (
+          <tr>
+            <th scope="row"><code>{name}</code></th>
+            <td><code>{def}</code></td>
+            <td>{what}</td>
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+  <p>If you change the port, use the new one in your agents’ MCP settings too.</p>
+
+  <h2 id="docker">Docker</h2>
+  <p>
+    The image runs on <code>linux/amd64</code> and <code>linux/arm64</code>, with the browser and filter lists
+    included. The volume keeps the job queue and cache across restarts.
+  </p>
+  <CodeBlock code={docker} label="Run Huntsman with Docker" />
+  <p>
+    It answers at the same address as the install script, <code>http://127.0.0.1:8080</code>, so the{' '}
+    <a href="/agents">agent setup</a> is the same. Docker Desktop gives containers a share of your memory, and Huntsman
+    sizes its workers to that share; set <code>HUNTSMAN_WORKERS</code> to change it.
+  </p>
+
+  <h2 id="windows">Windows</h2>
+  <p>
+    The browser Huntsman uses has no Windows build yet. Run the install script inside{' '}
+    <a href="https://learn.microsoft.com/windows/wsl/install">WSL</a>, or use <a href="#docker">Docker Desktop</a>.
+    Either way, your Windows agents reach Huntsman at <code>http://127.0.0.1:8080</code>.
+  </p>
+
+  <h2 id="server">Run it on a server</h2>
+  <p>
+    To share one Huntsman between machines or run big crawls, run the Docker image on a server. Set a token, since it
+    then listens beyond localhost, and size the workers to the machine.
+  </p>
+  <CodeBlock code={server} label="Run on a server" />
+  <CodeBlock code={authed} label="Call it with the token" />
+  <p>The most workers that held up in our benchmark, per machine size:</p>
+  <table class="keep">
+    <thead>
+      <tr><th scope="col">Machine</th><th scope="col">Tested max</th></tr>
+    </thead>
+    <tbody>
+      {
+        huntsman.map(({ m, r }) => (
+          <tr>
+            <th scope="row">{m.label}, {m.vcpu} vCPU · {m.memoryGB} GB</th>
+            <td><code>{r.maxConcurrency}</code></td>
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+  <p>
+    Memory grows over runs of many hours, so leave headroom on long-running servers. Agents connect with an{' '}
+    <code>Authorization: Bearer</code> header; see <a href="/agents#remote">remote servers</a>.
+  </p>
+
+  <h2 id="uninstall">Uninstall</h2>
+  <CodeBlock code="huntsman uninstall" label="Terminal" />
+  <p>
+    This stops the service and deletes <code>~/.huntsman</code> and the <code>huntsman</code> command. Remove the{' '}
+    <code>huntsman</code> entry from your agents’ MCP settings too. For Docker: <code>docker rm -f huntsman</code>.
+  </p>
+</Guide>

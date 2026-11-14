@@ -155,3 +155,52 @@ pre {
   clip-path: inset(50%);
   white-space: nowrap;
 }
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  height: var(--control-h);
+  padding-inline: var(--space-6);
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  font-size: 0.9375rem;
+  text-decoration: none;
+  transition: background-color var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out),
+    transform var(--dur-fast) var(--ease-out);
+}
+
+.button:active {
+  transform: scale(0.97);
+}
+
+.button.primary {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+.button.secondary {
+  border: 1px solid var(--border-strong);
+  color: var(--text);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .button.primary:hover {
+    background: var(--accent-hover);
+    text-decoration: none;
+  }
+
+  .button.secondary:hover {
+    background: var(--surface-2);
+    text-decoration: none;
+  }
+}
+
+.button.primary:active {
+  background: var(--accent-press);
+}
+
+.button.small {
+  height: 40px;
+  padding-inline: var(--space-4);
+}
