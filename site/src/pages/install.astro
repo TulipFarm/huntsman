@@ -12,6 +12,14 @@ curl -s localhost:8080/v1/scrape -H 'Content-Type: application/json' \\
 const env = `# ~/.huntsman/env
 HUNTSMAN_ADDR=127.0.0.1:8080
 HUNTSMAN_WORKERS=8`;
+const serverNative = `${install}
+cat >> ~/.huntsman/env <<EOF
+HUNTSMAN_ADDR=0.0.0.0:8080
+HUNTSMAN_TOKEN=$(openssl rand -hex 32)
+HUNTSMAN_WORKERS=64
+EOF
+loginctl enable-linger "$USER"
+huntsman restart`;
 const server = `docker run -d --name huntsman --restart unless-stopped -p 8080:8080 \\
   -v huntsman-data:/data \\
   -e HUNTSMAN_TOKEN="$(openssl rand -hex 32)" \\
@@ -187,11 +195,18 @@ const toc: [string, string][] = [
 
   <h2 id="server">Run it on a server</h2>
   <p>
-    To share one Huntsman between machines or run big crawls, run the Docker image on a server. Set a token, since it
-    then listens beyond localhost, and size the workers to the machine.
+    To share one Huntsman between machines or run big crawls, install the same binary on a Linux server. Then open it
+    to other machines, set a token since it now listens beyond localhost, and size the workers to the machine.{' '}
+    <code>enable-linger</code> keeps it running after you log out of SSH.
   </p>
-  <CodeBlock code={server} label="Run on a server" />
+  <CodeBlock code={serverNative} label="On the server" />
+  <p>
+    Your token is in <code>~/.huntsman/env</code>. Put Huntsman behind an HTTPS reverse proxy, such as Caddy or nginx,
+    and call it with the token:
+  </p>
   <CodeBlock code={authed} label="Call it with the token" />
+  <p>Prefer containers? Run the Docker image instead:</p>
+  <CodeBlock code={server} label="Or with Docker" />
   <p>The most workers that held up in our benchmark, per machine size:</p>
   <table class="keep">
     <thead>

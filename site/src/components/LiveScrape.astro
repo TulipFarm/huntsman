@@ -57,7 +57,7 @@ const sample: [string, string?][][] = [
         <span class="facts">6,622 tokens · 84,800 as HTML</span>
       </p>
       <span class="timer" aria-hidden="true" data-timer></span>
-      <button type="button" class="copy" data-copy-md hidden>Copy</button>
+      <button type="button" class="copy" data-copy-md hidden><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg><span data-copy-label>Copy</span></button>
     </div>
     <div class="out" data-out tabindex="0" aria-label="Scraped Markdown">
       <pre class="md" data-idle>{sample.map((line) => <span>{line.map(([text, kind]) => (kind ? <span class={kind}>{text}</span> : text))}{'\n'}</span>)}</pre>
@@ -88,6 +88,7 @@ const sample: [string, string?][][] = [
   const status = sheet.querySelector<HTMLElement>('[data-status]')!;
   const timer = sheet.querySelector<HTMLElement>('[data-timer]')!;
   const copy = sheet.querySelector<HTMLButtonElement>('[data-copy-md]')!;
+  const copyLabel = copy.querySelector<HTMLSpanElement>('[data-copy-label]')!;
   const idle = sheet.querySelector<HTMLElement>('[data-idle]')!;
   const md = sheet.querySelector<HTMLElement>('[data-md]')!;
   const examples = document.querySelector<HTMLElement>('[data-examples]')!;
@@ -221,11 +222,11 @@ const sample: [string, string?][][] = [
   copy.addEventListener('click', async () => {
     try {
       await navigator.clipboard.writeText(text);
-      copy.textContent = 'Copied';
+      copyLabel.textContent = 'Copied';
     } catch {
-      copy.textContent = 'Couldn’t copy';
+      copyLabel.textContent = 'Couldn’t copy';
     }
-    window.setTimeout(() => (copy.textContent = 'Copy'), 1600);
+    window.setTimeout(() => (copyLabel.textContent = 'Copy'), 1600);
   });
 
 </script>
@@ -420,6 +421,9 @@ const sample: [string, string?][][] = [
   }
 
   .copy {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
     height: 32px;
     padding: 0 var(--space-3);
     border: 1px solid var(--border);

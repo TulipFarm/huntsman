@@ -1,0 +1,24 @@
+---
+import { logos } from '../data/logos';
+
+interface Props {
+  name: string;
+  size?: number;
+}
+const { name, size = 16 } = Astro.props;
+const d = logos[name];
+---
+
+{
+  d && (
+    <svg class="logo" aria-hidden="true" width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
+      <path d={d} />
+    </svg>
+  )
+}
+
+<style>
+  .logo {
+    flex: none;
+  }
+</style>
