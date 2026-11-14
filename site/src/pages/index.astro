@@ -2,11 +2,27 @@
 import Layout from '../layouts/Layout.astro';
 import Benchmarks from '../components/Benchmarks.astro';
 import CodeBlock from '../components/CodeBlock.astro';
+import CopyField from '../components/CopyField.astro';
+import Icon from '../components/Icon.astro';
 import LiveScrape from '../components/LiveScrape.astro';
+import Logo from '../components/Logo.astro';
+import { brand } from '../data/logos';
+import { highlight } from '../lib/syntax';
 import { machines, ratio } from '../data/benchmarks';
 import { agentPrompt, harnesses, install, mcpUrl, repo } from '../data/site';
+import { latest, stars } from '../data/github';
 
 const claude = `claude mcp add --transport http --scope user huntsman ${mcpUrl}`;
+
+const serverOpen = `echo "HUNTSMAN_ADDR=0.0.0.0:8080" >> ~/.huntsman/env && echo "HUNTSMAN_TOKEN=$(openssl rand -hex 32)" >> ~/.huntsman/env && huntsman restart`;
+const remoteClaude = `claude mcp add --transport http --scope user huntsman https://<your-server>/mcp --header "Authorization: Bearer <your-token>"`;
+
+const ossLinks: ['code' | 'tag' | 'issue' | 'pull', string, string][] = [
+  ['code', 'Read the source', repo],
+  ['tag', 'Releases and changelog', `${repo}/releases`],
+  ['issue', 'Report a bug or ask for a feature', `${repo}/issues`],
+  ['pull', 'Contribute', `${repo}/blob/main/CONTRIBUTING.md`],
+];
 
 const scrape = `curl -s localhost:8080/v1/scrape \\
   -H 'Content-Type: application/json' \\
@@ -31,11 +47,6 @@ const crawl = `curl -s localhost:8080/v1/crawl \\
 # → {"success": true, "id": "…"}
 
 curl -s 'localhost:8080/v1/crawl/<id>?offset=0'`;
-
-const status = `$ huntsman status
-service  launchd
-status   running
-mcp      http://127.0.0.1:8080/mcp`;
 
 const tools = [
   ['scrape', 'Read one page as Markdown, with its links'],
@@ -86,544 +97,1127 @@ const markdown = `# Go 1.22 is released!
 Eli Bendersky, on behalf of the Go team
 6 February 2024
 
-Today the Go team is thrilled to release Go 1.22, which you can
-get by visiting the [download page](https://go.dev/dl/).`;
+Today the Go team is thrilled to release Go 1.22, which you can get by visiting the [download page](https://go.dev/dl/).`;
 
 const slug = (name: string) => name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
 
 const large = machines.find((m) => m.id === 'large')!;
 const inFlight = ratio(large, 'maxConcurrency')!.toFixed(1);
 const perSecond = ratio(large, 'pagesPerSecond')!.toFixed(1);
+
+const fmt = (n: number) => n.toLocaleString('en-US');
+const trackerStart = rawHead.length;
+const rawHtml = await highlight(rawHead + rawTracker + rawTail, 'html', [
+  { start: trackerStart, end: trackerStart + rawTracker.length, properties: { class: 'tracker' } },
+]);
+const markdownHtml = await highlight(markdown, 'md');
+const swapHtml = await highlight('- https://api.firecrawl.dev/v1/scrape\n+ http://localhost:8080/v1/scrape', 'diff');
 ---
 
 <Layout
   title="Huntsman: the web, read for your AI agents"
-  description="Give Claude Code, Codex, Copilot, Cursor and any MCP agent clean Markdown from any web page, without ads, trackers or markup. Fewer tokens per page. Runs on your machine, installs in one line."
+  description="Open-source web fetch for Claude Code, Codex, Copilot, Cursor and any MCP agent: clean Markdown from any page, without ads, trackers or markup. Runs on your machine or your server."
 >
   <main>
-    <section class="wrap hero" aria-labelledby="title">
-      <h1 id="title">Give your agents the <em>web</em>, without the junk.</h1>
-      <p class="sub">
-        Huntsman reads web pages for Claude Code, Codex, Copilot, Cursor and any agent that speaks MCP. It renders
-        JavaScript, blocks ads and trackers, and hands back just the content as Markdown, so each page costs your
-        agent a fraction of the tokens. Open source, and it runs on your own machine.
-      </p>
-
-      <div class="setup">
-        <div>
-          <h2>Ask your agent</h2>
-          <p>Paste this into Claude Code, Codex, Copilot or Cursor. It installs Huntsman and connects every agent you use.</p>
-          <CodeBlock wrap code={agentPrompt} lang="text" label="Prompt" />
-        </div>
-        <div>
-          <h2>Or install it yourself</h2>
-          <p>macOS and Linux. No sudo, runs in the background. Windows: <a href="/install#windows">WSL or Docker</a>.</p>
-          <CodeBlock wrap code={install} label="Terminal" />
-        </div>
+    <section class="hero" aria-labelledby="title">
+      <div class="clouds" aria-hidden="true">
+        <img class="cloud c1" src="/art/cloud-1.webp" alt="" width="241" height="130" />
+        <img class="cloud c2" src="/art/cloud-2.webp" alt="" width="232" height="127" />
+        <img class="cloud c3" src="/art/cloud-3.webp" alt="" width="104" height="56" />
+        <img class="cloud c4" src="/art/cloud-2.webp" alt="" width="232" height="127" />
       </div>
-
-      <p class="works">
-        Works with{' '}
-        {
-          harnesses.map((h, i) => (
-            <>
-              {i > 0 && (i === harnesses.length - 1 ? ' and ' : ', ')}
-              <a href={`/agents#${slug(h.name)}`}>{h.name}</a>
-            </>
-          ))
-        }.
-      </p>
-
-      <div class="try"><LiveScrape /></div>
-    </section>
-
-    <section class="wrap why" id="why" aria-labelledby="why-title">
-      <div class="section-head">
-        <h2 id="why-title">Your agent pays for every token it reads.</h2>
-        <p>
-          A raw page is mostly scripts, styles, menus and tracking code. Huntsman loads it in a real browser, stops ads
-          and trackers before they load, and keeps only what the page says.
+      <div class="wrap hero-inner">
+        <a class="oss-badge" href={repo}>
+          <Logo name="GitHub" size={16} />
+          <span>Open source · Apache-2.0</span>
+          {latest && <span class="badge-part badge-version"><Icon name="tag" size={14} /> {latest}</span>}
+          {stars && <span class="badge-part"><Icon name="star" size={14} /> {stars}</span>}
+        </a>
+        <h1 id="title">Give your agents the web, without the junk.</h1>
+        <p class="sub">
+          Huntsman is the web fetch tool for Claude Code, Codex, Copilot, Cursor and any MCP agent. It renders the
+          page, blocks ads and trackers, and hands back just the content as Markdown.
         </p>
-      </div>
-      <div class="flow">
-        <div class="flow-step">
-          <p class="flow-label">The page</p>
-          <figure class="artifact">
-            <figcaption>HTML · {htmlTokens.toLocaleString('en-US')} tokens</figcaption>
-            <pre class="raw" aria-hidden="true">{rawHead}<s class="tracker">{rawTracker}</s>{rawTail}</pre>
-          </figure>
-        </div>
-        <div class="flow-step blocked">
-          <p class="flow-label">In the browser</p>
-          <h3>No ads, trackers or cookie banners</h3>
-          <p>150,000+ blocklist rules stop them before they load.</p>
-          <dl class="out rule">
-            <dt>blocked</dt>
-            <dd>www.googletagmanager.com/gtm.js</dd>
-            <dt>rule</dt>
-            <dd class="add">||googletagmanager.com^</dd>
-            <dt>list</dt>
-            <dd>easyprivacy.txt:3716</dd>
-          </dl>
-        </div>
-        <div class="flow-step">
-          <p class="flow-label">Your agent gets</p>
-          <h3>{saved}% fewer tokens</h3>
-          <p>Navigation, footers and boilerplate are gone. The content stays.</p>
-          <figure class="artifact">
-            <figcaption>Markdown · {mdTokens.toLocaleString('en-US')} tokens</figcaption>
-            <pre>{markdown}</pre>
-          </figure>
-        </div>
-      </div>
 
-      <ul class="ops">
-        <li>
-          <div>
-            <h3>JavaScript sites and PDFs</h3>
-            <p>Single-page apps render. PDFs are read directly.</p>
+        <div class="paths">
+          <div class="path-tabs" role="tablist" aria-label="Where to install" hidden>
+            <button type="button" role="tab" id="tab-local" aria-controls="path-local" aria-selected="true">
+              <Icon name="laptop" size={16} /> For local agents
+            </button>
+            <button type="button" role="tab" id="tab-remote" aria-controls="path-remote" aria-selected="false" tabindex="-1">
+              <Icon name="server" size={16} /> For remote agents
+            </button>
           </div>
-          <table class="out">
-            <thead>
-              <tr><th scope="col">url</th><th scope="col">engine</th><th scope="col">time</th></tr>
-            </thead>
-            <tbody>
-              <tr><td>react.dev/learn</td><td>lightpanda</td><td>2.4s</td></tr>
-              <tr><td>arxiv.org/pdf/<wbr />1706.03762v7</td><td>pdf</td><td>0.95s</td></tr>
-            </tbody>
-          </table>
-        </li>
-        <li>
-          <div>
-            <h3>On your machine</h3>
-            <p>No account, API key or per-page bill. It starts at login and stays out of the way.</p>
+          <div class="path" role="tabpanel" id="path-local" aria-labelledby="tab-local">
+            <p class="path-label">Paste into your agent. It installs Huntsman and connects itself.</p>
+            <CopyField text={agentPrompt} label="Copy prompt" />
+            <p class="path-label">
+              Or run it yourself on macOS or Linux. No sudo, starts at login. Windows:{' '}
+              <a href="/install#windows">WSL or Docker</a>.
+            </p>
+            <CopyField text={install} label="Copy" prefix="$" />
           </div>
-          <pre class="out">{status}</pre>
-        </li>
-        <li>
-          <div>
-            <h3>Whole sites, not just pages</h3>
-            <p>Batch 1,000 URLs in one call, or crawl a site's docs.</p>
+          <div class="path" role="tabpanel" id="path-remote" aria-labelledby="tab-remote">
+            <p class="path-label">On your Linux server, install the same single binary.</p>
+            <CopyField text={install} label="Copy" prefix="$" />
+            <p class="path-label">Open it to other machines, with a token since it now listens beyond localhost.</p>
+            <CopyField text={serverOpen} label="Copy" prefix="$" />
+            <p class="path-label">
+              Then point each agent at its <code>/mcp</code> with that token, behind your HTTPS proxy.{' '}
+              <a href="/install#server">Server guide</a>.
+            </p>
+            <CopyField text={remoteClaude} label="Copy" prefix="$" />
           </div>
-          <div class="out">
-            <p><span class="muted">batch_scrape</span> 100 urls</p>
-            <div class="bar" aria-hidden="true"><span></span></div>
-            <p><span class="add">99 completed</span> · <span class="del">1 failed</span> · 1m 58s</p>
-          </div>
-        </li>
-        <li>
-          <div>
-            <h3>Swap in for Firecrawl</h3>
-            <p>Same <code>/v1</code> API for your own code. Change one base URL.</p>
-          </div>
-          <pre class="out"><span class="del">- https://api.firecrawl.dev/v1/scrape</span>{'\n'}<span class="add">+ http://localhost:8080/v1/scrape</span></pre>
-        </li>
-        <li>
-          <div>
-            <h3>Stays off your network</h3>
-            <p>Blocks internal addresses and respects <code>robots.txt</code>.</p>
-          </div>
-          <dl class="out rule">
-            <dt>url</dt>
-            <dd>http://169.254.169.254/latest/meta-data.pdf</dd>
-            <dt class="del">502</dt>
-            <dd>dial tcp 169.254.169.254:80: blocked private network address</dd>
-          </dl>
-        </li>
-      </ul>
-    </section>
+        </div>
 
-    <section class="wrap agents" id="agents" aria-labelledby="agents-title">
-      <div class="section-head">
-        <h2 id="agents-title">Works with your agent</h2>
-        <p>
-          Huntsman is an MCP server, so any agent that supports MCP can use it. Connect it once and the agent gets
-          these tools.
-        </p>
-      </div>
-      <div class="agents-grid">
-        <table class="ref tools">
-          <caption class="visually-hidden">MCP tools</caption>
-          <thead>
-            <tr><th scope="col">Tool</th><th scope="col">What it does</th></tr>
-          </thead>
-          <tbody>
+        <div class="hero-agents">
+          <span>Works with</span>
+          <ul>
             {
-              tools.map(([name, what]) => (
-                <tr>
-                  <th scope="row"><code>{name}</code></th>
-                  <td>{what}</td>
-                </tr>
+              harnesses.map((h, i) => (
+                <li style={`--brand: ${brand[h.name]}; --i: ${i}`}>
+                  <a href={`/agents#${slug(h.name)}`} title={h.name}>
+                    <Logo name={h.name} size={18} />
+                    <span class="visually-hidden">{h.name}</span>
+                  </a>
+                </li>
               ))
             }
-          </tbody>
-        </table>
-        <div>
-          <CodeBlock wrap code={claude} label="Connect Claude Code" />
-          <p class="guides">Setup for each agent:</p>
-          <ul class="harnesses">
-            {harnesses.map((h) => <li><a href={`/agents#${slug(h.name)}`}>{h.name}</a></li>)}
           </ul>
         </div>
       </div>
+      <img class="hero-art" src="/art/hero.webp" alt="" width="1536" height="1024" fetchpriority="high" decoding="async" />
     </section>
 
+    <section class="wrap scene-sec" id="why" aria-labelledby="why-title">
+      <header class="center-head">
+        <h2 id="why-title">Your agent pays for every token it reads.</h2>
+        <p>One real page, go.dev/blog/go1.22, with tokens counted the way models count them.</p>
+      </header>
+
+      <div class="scene">
+        <figure class="paper paper-raw">
+          <p class="paper-count"><span class="n" data-count={htmlTokens}>{fmt(htmlTokens)}</span> tokens</p>
+          <figcaption>The page as HTML: scripts, trackers, markup</figcaption>
+          <div class="paper-code" aria-hidden="true" set:html={rawHtml} />
+          <p class="visually-hidden">Raw HTML of the page: tracking scripts, metadata and markup.</p>
+        </figure>
+
+        <div class="machine">
+          <img src="/art/markdown.webp" alt="" width="800" height="800" loading="lazy" decoding="async" />
+          <p class="caught">
+            <Icon name="ban" size={14} />
+            <span>blocked <s>googletagmanager.com</s></span>
+          </p>
+          <p class="machine-note">
+            A real browser loads the page. 150,000+ blocklist rules stop ads, trackers and cookie banners before they
+            load.
+          </p>
+        </div>
+
+        <figure class="paper paper-md">
+          <p class="paper-count"><span class="n" data-count={mdTokens}>{fmt(mdTokens)}</span> tokens</p>
+          <figcaption>What your agent reads, as Markdown</figcaption>
+          <div class="paper-code" set:html={markdownHtml} />
+        </figure>
+      </div>
+
+      <p class="scene-foot">
+        <strong>{saved}% fewer tokens</strong> on this page. Single-page apps render, and PDFs are read directly.{' '}
+        <a href="#try">Try any page <Icon name="arrow" size={16} /></a>
+      </p>
+    </section>
+
+    <div class="wrap features">
+      <section class="feature" data-tone="peach" id="agents" aria-labelledby="agents-title">
+        <div class="feature-copy">
+          <h2 id="agents-title">Connect it once. <span class="ink">Every agent gets the web.</span></h2>
+          <p class="feature-text">
+            Huntsman is an MCP server at <code>{mcpUrl}</code>. Pick your agent and run its one-time setup.
+          </p>
+          <fieldset class="picker">
+            <legend class="visually-hidden">Agent</legend>
+            {
+              harnesses.map((h, i) => (
+                <>
+                  <input
+                    class="tab-in visually-hidden"
+                    type="radio"
+                    name="harness"
+                    id={`harness-${slug(h.name)}`}
+                    checked={i === 0}
+                  />
+                  <label class="tab" for={`harness-${slug(h.name)}`} style={`--brand: ${brand[h.name]}`}>
+                    <Logo name={h.name} />
+                    {h.name}
+                  </label>
+                  <div class="panel">
+                    <p class="how">{h.how}</p>
+                    <CodeBlock wrap={!h.lang} code={h.code} lang={h.lang ?? 'bash'} label={h.lang ? 'Config' : 'Terminal'} />
+                    <p class="more">
+                      <a href={`/agents#${slug(h.name)}`}>
+                        Full {h.name} setup <Icon name="arrow" size={16} />
+                      </a>
+                    </p>
+                  </div>
+                </>
+              ))
+            }
+          </fieldset>
+        </div>
+        <div class="feature-art"><img src="/art/agents.webp" alt="" width="800" height="800" loading="lazy" decoding="async" /></div>
+
+        <div class="tools">
+          <h3 class="tools-title"><Icon name="plug" size={16} /> Tools your agent gets</h3>
+          <ul>
+            {
+              tools.map(([name, what]) => (
+                <li>
+                  <code>{name}</code>
+                  <span>{what}</span>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </section>
+    </div>
+
+    <section class="wrap try" id="try" aria-labelledby="try-title">
+      <header class="center-head">
+        <h2 id="try-title">See it for yourself</h2>
+        <p>Paste any address and read exactly what your agent would get, with its token count.</p>
+      </header>
+      <div class="try-box"><LiveScrape /></div>
+    </section>
+
+    <div class="wrap features">
+      <section class="feature" data-tone="pink" aria-labelledby="crawl-title">
+        <div class="feature-copy">
+          <h2 id="crawl-title">Whole sites, <span class="ink">not just pages.</span></h2>
+          <p class="feature-text">Batch 1,000 URLs in one call, or crawl a site’s docs up to a page limit and depth.</p>
+          <div class="card out">
+            <p><span class="fn">batch_scrape</span> <span class="muted">100 urls</span></p>
+            <div class="bar" aria-hidden="true"><span class="bar-ok"></span><span class="bar-fail"></span></div>
+            <p>
+              <span class="ok"><Icon name="check" size={14} /> 99 completed</span>{' · '}
+              <span class="del">1 failed</span>{' · '}<span class="muted">1m 58s</span>
+            </p>
+          </div>
+          <p class="more"><a href="#api">Crawl API <Icon name="arrow" size={16} /></a></p>
+        </div>
+        <div class="feature-art"><img src="/art/crawl.webp" alt="" width="800" height="800" loading="lazy" decoding="async" /></div>
+      </section>
+
+      <section class="feature" data-tone="lime" aria-labelledby="safe-title">
+        <div class="feature-copy">
+          <h2 id="safe-title">Stays off <span class="ink">your network.</span></h2>
+          <p class="feature-text">Blocks internal addresses and respects <code>robots.txt</code>.</p>
+          <div class="card">
+            <dl class="out probe">
+              <dt>url</dt>
+              <dd>http://169.254.169.254/<wbr />latest/meta-data.pdf</dd>
+              <dt><span class="status-bad">502</span></dt>
+              <dd>dial tcp 169.254.169.254:80: blocked private network address</dd>
+            </dl>
+          </div>
+          <p class="more"><a href="#config">Configuration <Icon name="arrow" size={16} /></a></p>
+        </div>
+        <div class="feature-art"><img src="/art/blocking.webp" alt="" width="800" height="800" loading="lazy" decoding="async" /></div>
+      </section>
+    </div>
+
     <section class="wrap bench" id="benchmarks" aria-labelledby="bench-title">
-      <div class="section-head">
+      <header class="center-head">
         <h2 id="bench-title">Benchmarks</h2>
         <p>
-          Each engine self-hosted alone on the same ARM machine, scraping 1,000 live URLs at rising load. On
-          {large.vcpu} vCPU Huntsman keeps {inFlight}× the pages in flight of Firecrawl, at {perSecond}× the pages
-          per second.
+          Each engine self-hosted alone on the same ARM machine, scraping 1,000 live URLs at rising load. On{' '}
+          {large.vcpu} vCPU Huntsman keeps {inFlight}× the pages in flight of Firecrawl, at {perSecond}× the pages per
+          second. <a href={`${repo}/tree/main/benchmark`}>Run it yourself</a>.
         </p>
-      </div>
+      </header>
       <div class="bench-card"><Benchmarks /></div>
     </section>
 
-    <section class="wrap start" id="start" aria-labelledby="start-title">
-      <div class="section-head">
-        <h2 id="start-title">Get started</h2>
-        <p>From nothing to your agent reading clean pages in about a minute.</p>
+    <section class="wrap oss" id="open-source" aria-labelledby="oss-title">
+      <div class="oss-head">
+        <h2 id="oss-title">Open source, <span class="ink">top to bottom.</span></h2>
+        <p>
+          Apache-2.0 Go you can read, fork and run anywhere. No account, no API key, no per-page bill. Issues and pull
+          requests welcome.
+        </p>
       </div>
 
+      <div class="oss-grid">
+        <a class="repo" href={repo}>
+          <span class="repo-name"><Logo name="GitHub" size={24} /><span>TulipFarm/<strong>huntsman</strong></span></span>
+          <span class="repo-desc">Self-hosted web scraper with a Firecrawl-compatible API and an MCP server for AI agents.</span>
+          <span class="repo-meta">
+            <span><span class="go-dot" aria-hidden="true"></span>Go</span>
+            <span><Icon name="scale" size={14} /> Apache-2.0</span>
+            {stars && <span><Icon name="star" size={14} /> {stars} stars</span>}
+            {latest && <span><Icon name="tag" size={14} /> {latest}</span>}
+          </span>
+        </a>
+
+        <ul class="oss-links">
+          {
+            ossLinks.map(([icon, label, href]) => (
+              <li>
+                <a href={href}>
+                  <Icon name={icon} size={18} />
+                  <span>{label}</span>
+                  <Icon name="arrow" size={16} class="go" />
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+
+        <div class="built">
+          <h3>Built on open source</h3>
+          <dl>
+            <dt><a href="https://lightpanda.io">Lightpanda</a></dt>
+            <dd>The headless browser that renders each page. AGPL-3.0, run unmodified as a separate process.</dd>
+            <dt><a href="https://easylist.to">EasyList</a>, EasyPrivacy and Fanboy’s Cookiemonster</dt>
+            <dd>The filter lists that block ads, trackers and cookie banners.</dd>
+          </dl>
+        </div>
+
+        <div class="swap">
+          <h3><Icon name="swap" size={16} /> Already on Firecrawl?</h3>
+          <p>Same <code>/v1</code> API. Change one base URL in your code.</p>
+          <div class="out" set:html={swapHtml} />
+        </div>
+      </div>
+      <img class="oss-art" src="/art/machine.webp" alt="" width="1536" height="1024" loading="lazy" decoding="async" />
+    </section>
+
+    <section class="wrap start" id="start" aria-labelledby="start-title">
+      <header class="center-head">
+        <h2 id="start-title">Install it where your agents run</h2>
+        <p>On your laptop for the agents you use every day, or on a server for agents in CI and the cloud.</p>
+      </header>
       <ol class="steps">
         <li>
-          <div class="step-text">
-            <h3>Install Huntsman</h3>
-            <p>
-              One command on macOS or Linux, Apple silicon or Intel. It puts Huntsman, its browser and the filter
-              lists in <code>~/.huntsman</code>, checks the download, and runs it in the background at every login.
-              No sudo.
-            </p>
-            <p class="more"><a href="/install">Docker, Windows and settings</a></p>
-          </div>
-          <CodeBlock wrap code={install} label="Install" />
+          <p class="step-n"><Icon name="laptop" size={16} /> Local agents</p>
+          <h3>On your machine</h3>
+          <p>
+            One command on macOS or Linux. It puts Huntsman, its browser and the filter lists in{' '}
+            <code>~/.huntsman</code>, checks the download, and runs it at every login. Then add{' '}
+            <code>{mcpUrl}</code> to your agent.
+          </p>
+          <CodeBlock wrap code={install} label="Terminal" />
+          <CodeBlock wrap code={claude} label="Claude Code" />
+          <p class="more"><a href="/install">Install guide <Icon name="arrow" size={16} /></a></p>
         </li>
-
         <li>
-          <div class="step-text">
-            <h3>Connect your agent</h3>
-            <p>
-              Add Huntsman's MCP server, <code>{mcpUrl}</code>, to your agent. Or skip steps 1 and 2: paste the prompt
-              into your agent and it does both.
-            </p>
-            <p class="more"><a href="/agents">Setup for every agent</a></p>
-          </div>
-          <div class="stack">
-            <CodeBlock wrap code={claude} label="Claude Code" />
-            <CodeBlock wrap code={agentPrompt} lang="text" label="Or ask your agent" />
-          </div>
+          <p class="step-n"><Icon name="server" size={16} /> Remote agents</p>
+          <h3>On a server</h3>
+          <p>
+            Share one Huntsman between machines, or run big crawls. Install the same binary, then open it to other
+            machines with a token.
+          </p>
+          <CodeBlock wrap code={`${install}\n${serverOpen}`} label="On the server" />
+          <CodeBlock wrap code={remoteClaude} label="In your agent" />
+          <p class="more"><a href="/install#server">Server guide <Icon name="arrow" size={16} /></a></p>
         </li>
-
         <li>
-          <div class="step-text">
-            <h3>Or call it from code</h3>
-            <p>Send a URL to <code>/v1/scrape</code> and get back the page’s main content as Markdown, plus its links.</p>
-          </div>
-          <div class="stack">
-            <CodeBlock code={scrape} label="Scrape example.com" />
-            <CodeBlock code={response} lang="json" label="Example response, shortened" />
-          </div>
+          <p class="step-n"><Icon name="code" size={16} /> Your code</p>
+          <h3>From any language</h3>
+          <p>Send a URL to <code>/v1/scrape</code> and get back the page’s main content as Markdown, plus its links.</p>
+          <CodeBlock wrap code={scrape} label="Scrape example.com" />
+          <details class="mini">
+            <summary><Icon name="chevron" size={16} /> Example response</summary>
+            <CodeBlock code={response} lang="json" label="Response, shortened" />
+          </details>
         </li>
       </ol>
     </section>
 
     <section class="wrap reference" aria-labelledby="ref-title">
-      <h2 id="ref-title" class="ref-head">Reference</h2>
-      <div class="section-head sub-head" id="api">
-        <h3 id="api-title">API</h3>
-        <p>
-          Requests and responses follow Firecrawl’s <code>/v1</code> shapes, so most clients only need a new base
-          URL. Unknown fields are rejected, so typos fail loudly.
-        </p>
-      </div>
+      <h2 id="ref-title">Reference</h2>
+      <div class="ref-card">
+        <details class="disclosure" id="api">
+          <summary>
+            <span class="sum-title">API</span>
+            <span class="sum-desc">Firecrawl-compatible <code>/v1</code> endpoints, MCP and health</span>
+            <Icon name="chevron" class="sum-icon" />
+          </summary>
+          <div class="disclosure-body">
+            <p class="lede">
+              Requests and responses follow Firecrawl’s <code>/v1</code> shapes, so most clients only need a new base
+              URL. Unknown fields are rejected, so typos fail loudly.
+            </p>
+            <div class="ref-grid">
+              <div>
+                <table class="ref">
+                  <caption class="visually-hidden">Endpoints</caption>
+                  <thead>
+                    <tr><th scope="col">Endpoint</th><th scope="col">What it does</th></tr>
+                  </thead>
+                  <tbody>
+                    {
+                      endpoints.map(([method, path, what]) => (
+                        <tr>
+                          <th scope="row">
+                            <span class:list={['method', method.toLowerCase()]}>{method}</span> <code>{path}</code>
+                          </th>
+                          <td>{what}</td>
+                        </tr>
+                      ))
+                    }
+                  </tbody>
+                </table>
+                <p class="aside">
+                  <strong>Coming from Firecrawl?</strong> Keep calling <code>/v1/scrape</code>. Huntsman deliberately
+                  does less: it returns Markdown and links only, with no screenshots, HTML, JSON extraction, actions or
+                  search.
+                </p>
+              </div>
+              <div>
+                <h3 class="ref-title">Crawl a site</h3>
+                <CodeBlock wrap code={crawl} label="Start a crawl and read its pages" />
+              </div>
+            </div>
+          </div>
+        </details>
 
-      <div class="ref-grid">
-        <div>
-          <table class="ref">
-            <caption class="visually-hidden">Endpoints</caption>
-            <thead>
-              <tr><th scope="col">Endpoint</th><th scope="col">What it does</th></tr>
-            </thead>
-            <tbody>
-              {
-                endpoints.map(([method, path, what]) => (
-                  <tr>
-                    <th scope="row">
-                      <span class="method">{method}</span> <code>{path}</code>
-                    </th>
-                    <td>{what}</td>
-                  </tr>
-                ))
-              }
-            </tbody>
-          </table>
-          <p class="aside">
-            <strong>Coming from Firecrawl?</strong> Keep calling <code>/v1/scrape</code>. Huntsman deliberately does
-            less: it returns Markdown and links only, with no screenshots, HTML, JSON extraction, actions or search.
-          </p>
-        </div>
-        <div>
-          <h4 class="ref-title">Crawl a site</h4>
-          <CodeBlock code={crawl} label="Start a crawl and read its pages" />
-        </div>
+        <details class="disclosure" id="config">
+          <summary>
+            <span class="sum-title">Configuration</span>
+            <span class="sum-desc">Environment variables and their defaults</span>
+            <Icon name="chevron" class="sum-icon" />
+          </summary>
+          <div class="disclosure-body">
+            <p class="lede">
+              Everything is an environment variable. With the install script, set them in <code>~/.huntsman/env</code>
+              and run <code>huntsman restart</code>. The <a href="/install#configuration">install guide</a> has the full
+              list.
+            </p>
+            <table class="ref">
+              <caption class="visually-hidden">Common settings</caption>
+              <thead>
+                <tr><th scope="col">Variable</th><th scope="col">Default</th><th scope="col">Meaning</th></tr>
+              </thead>
+              <tbody>
+                {
+                  settings.map(([name, def, what]) => (
+                    <tr>
+                      <th scope="row"><code>{name}</code></th>
+                      <td><code>{def}</code></td>
+                      <td>{what}</td>
+                    </tr>
+                  ))
+                }
+              </tbody>
+            </table>
+          </div>
+        </details>
       </div>
-
-      <div class="section-head sub-head" id="config">
-        <h3 id="config-title">Configuration</h3>
-        <p>
-          Everything is an environment variable. With the install script, set them in <code>~/.huntsman/env</code>{' '}
-          and run <code>huntsman restart</code>. The <a href="/install#configuration">install guide</a> has the full
-          list.
-        </p>
-      </div>
-      <table class="ref">
-        <caption class="visually-hidden">Common settings</caption>
-        <thead>
-          <tr><th scope="col">Variable</th><th scope="col">Default</th><th scope="col">Meaning</th></tr>
-        </thead>
-        <tbody>
-          {
-            settings.map(([name, def, what]) => (
-              <tr>
-                <th scope="row"><code>{name}</code></th>
-                <td><code>{def}</code></td>
-                <td>{what}</td>
-              </tr>
-            ))
-          }
-        </tbody>
-      </table>
     </section>
 
     <section class="wrap closing" aria-labelledby="closing-title">
-      <div>
-        <h2 id="closing-title">Give your agents the web.</h2>
-        <p>Paste this into your agent. It installs Huntsman and connects itself.</p>
-        <div class="actions">
-          <a class="button primary" href="#start">Get started</a>
-          <a class="button secondary" href={repo}>
-            <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.53-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.71 1.26 3.37.96.1-.75.4-1.26.73-1.55-2.56-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5Z"></path></svg>
-            GitHub
-          </a>
-        </div>
+      <h2 id="closing-title">Give your agents the web.</h2>
+      <p>Paste this into your agent. It installs Huntsman and connects itself.</p>
+      <div class="closing-field"><CopyField text={agentPrompt} label="Copy prompt" /></div>
+      <div class="closing-actions">
+        <a class="button primary" href="/install">Install guide <Icon name="arrow" size={16} /></a>
+        <a class="button secondary" href={repo}>
+          <Logo name="GitHub" size={16} /> Star on GitHub{stars && <span class="count-pill">{stars}</span>}
+        </a>
       </div>
-      <CodeBlock wrap code={agentPrompt} lang="text" label="Prompt" />
     </section>
   </main>
 </Layout>
 
+<script>
+  // Opening #api or #config from the nav or a link expands that reference section.
+  const openFromHash = () => {
+    const el = document.getElementById(location.hash.slice(1));
+    if (el instanceof HTMLDetailsElement) el.open = true;
+  };
+  openFromHash();
+  window.addEventListener('hashchange', openFromHash);
+
+  // Install tabs. Without JavaScript both paths show, one after the other.
+  const tablist = document.querySelector<HTMLElement>('.path-tabs');
+  if (tablist) {
+    const tabs = [...tablist.querySelectorAll<HTMLButtonElement>('[role="tab"]')];
+    const select = (tab: HTMLButtonElement) => {
+      for (const t of tabs) {
+        const on = t === tab;
+        t.setAttribute('aria-selected', String(on));
+        t.tabIndex = on ? 0 : -1;
+        document.getElementById(t.getAttribute('aria-controls')!)!.hidden = !on;
+      }
+    };
+    tablist.hidden = false;
+    select(tabs[0]);
+    tablist.addEventListener('click', (e) => {
+      const tab = (e.target as Element).closest<HTMLButtonElement>('[role="tab"]');
+      if (tab) select(tab);
+    });
+    tablist.addEventListener('keydown', (e) => {
+      const i = tabs.indexOf(document.activeElement as HTMLButtonElement);
+      if (i < 0 || (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft')) return;
+      const next = tabs[(i + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length];
+      select(next);
+      next.focus();
+      e.preventDefault();
+    });
+  }
+  // Micro-motion: reveal sections as they scroll in and count the token totals up. Skipped entirely when the
+  // reader prefers reduced motion; without JavaScript everything is simply visible.
+  if (matchMedia('(prefers-reduced-motion: no-preference)').matches && 'IntersectionObserver' in window) {
+    const groups = [
+      '.center-head', '.scene > *', '.scene-foot', '.feature', '.try-box', '.bench-card', '.oss-head',
+      '.oss-grid > *', '.oss-art', '.steps > li', '.ref-card', '.closing > *', '.tools li',
+    ];
+    const items = document.querySelectorAll<HTMLElement>(groups.join(','));
+    const countUp = (el: HTMLElement) => {
+      const end = Number(el.dataset.count);
+      const start = performance.now();
+      const tick = (now: number) => {
+        const t = Math.min(1, (now - start) / 900);
+        el.textContent = Math.round(end * (1 - Math.pow(1 - t, 3))).toLocaleString('en-US');
+        if (t < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    };
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (!e.isIntersecting) continue;
+          const el = e.target as HTMLElement;
+          el.classList.add('in');
+          el.querySelectorAll<HTMLElement>('[data-count]').forEach(countUp);
+          io.unobserve(el);
+        }
+      },
+      { rootMargin: '0px 0px -8% 0px', threshold: 0.12 },
+    );
+    items.forEach((el) => {
+      const siblings = [...(el.parentElement?.children ?? [])].filter((c) => c.matches(groups.join(',')));
+      el.style.setProperty('--d', String(Math.max(0, siblings.indexOf(el))));
+      el.dataset.reveal = '';
+      io.observe(el);
+    });
+    document.documentElement.classList.add('motion');
+  }
+</script>
+
 <style>
-  .hero {
-    padding-block: var(--space-16) var(--space-12);
+  main {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-32);
+    padding-bottom: var(--space-24);
+  }
+
+  .center-head {
+    max-width: 46rem;
+    margin: 0 auto var(--space-12);
     text-align: center;
   }
 
-  h1 {
-    font-family: var(--font-display);
-    font-weight: 400;
-    font-size: clamp(2.75rem, 1.2rem + 4.6vw, 5.5rem);
-    line-height: 0.98;
-    letter-spacing: -0.025em;
+  .center-head h2,
+  .reference h2,
+  .closing h2 {
+    font-size: clamp(2rem, 1.3rem + 2.6vw, 3.5rem);
   }
 
-  h1 em {
-    color: var(--accent);
-  }
-
-  .sub {
-    max-width: 60ch;
-    margin: var(--space-6) auto 0;
+  .center-head p {
+    margin-top: var(--space-4);
     color: var(--text-muted);
-    font-size: 1.0625rem;
+    font-size: 1.125rem;
   }
 
-  .try {
-    display: flex;
-    margin-top: var(--space-12);
+  .more {
+    margin-top: var(--space-3);
+  }
+
+  .more a {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    font-weight: 500;
+  }
+
+  .ink {
+    color: var(--tone-ink, var(--text-muted));
+  }
+
+  .card {
     padding: var(--space-6);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-md);
     background: var(--surface);
-    box-shadow: 0 32px 64px -40px rgb(0 0 0 / 0.3);
-    text-align: left;
+    box-shadow: 0 1px 2px rgb(27 26 24 / 0.06);
   }
 
-  .try > :global(*) {
-    flex: 1;
+  /* Hero */
+  .hero {
+    position: relative;
+    display: grid;
+    gap: var(--space-12);
+    margin-top: calc(-1 * var(--header-h, 84px));
+    padding-top: calc(var(--header-h, 84px) + var(--space-12));
+    background: linear-gradient(to bottom, #f4f9fe 0%, #dcecf9 45%, #b4d6f0 78%, #8dbfe6 100%);
+    overflow: hidden;
+    isolation: isolate;
   }
 
-  .proof {
-    display: flex;
+  .clouds {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+  }
+
+  .cloud {
+    position: absolute;
+    height: auto;
+    opacity: 0.95;
+  }
+
+  .c1 {
+    top: 18%;
+    left: 4%;
+    width: clamp(120px, 15vw, 240px);
+  }
+
+  .c2 {
+    top: 9%;
+    right: 6%;
+    width: clamp(110px, 13vw, 210px);
+  }
+
+  .c3 {
+    top: 46%;
+    left: 12%;
+    width: clamp(60px, 6vw, 100px);
+  }
+
+  .c4 {
+    top: 52%;
+    right: 3%;
+    width: clamp(90px, 10vw, 170px);
+    transform: scaleX(-1);
+  }
+
+  .hero-inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: center;
+    gap: var(--space-6);
+    text-align: center;
+  }
+
+  .oss-badge {
+    display: inline-flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: var(--space-2) var(--space-8);
-    margin-top: var(--space-8);
-    font-size: 0.9375rem;
+    align-items: center;
+    gap: var(--space-2) var(--space-3);
+    min-height: 36px;
+    padding: 6px 14px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: var(--surface);
+    color: var(--text);
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: border-color var(--dur-fast) var(--ease-out);
   }
 
-  .proof strong {
-    color: var(--accent);
-    font-weight: 650;
+  .badge-part {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding-left: var(--space-3);
+    border-left: 1px solid var(--border);
+    color: var(--text-muted);
     font-variant-numeric: tabular-nums;
   }
 
-  .proof a {
-    color: var(--text-muted);
+  @media (hover: hover) and (pointer: fine) {
+    .oss-badge:hover {
+      border-color: var(--border-strong);
+    }
   }
 
-  .setup {
+  .hero h1 {
+    max-width: 15ch;
+    font-size: clamp(2.5rem, 1.2rem + 4.6vw, 5rem);
+    line-height: 1.02;
+    text-wrap: balance;
+  }
+
+  .sub {
+    max-width: 42rem;
+    color: var(--text-muted);
+    font-size: 1.1875rem;
+    text-wrap: pretty;
+  }
+
+  .paths {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
-    gap: var(--space-6);
-    max-width: 60rem;
-    margin: var(--space-12) auto 0;
-    padding: var(--space-6);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    background: var(--surface);
-    box-shadow: 0 32px 64px -40px rgb(0 0 0 / 0.3);
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-3);
+    width: min(100%, 44rem);
+    margin-top: var(--space-2);
     text-align: left;
   }
 
-  .setup h2 {
+  .path-tabs {
+    display: flex;
+    justify-self: center;
+    gap: 4px;
+    padding: 4px;
+    border-radius: 999px;
+    background: var(--surface-3);
+  }
+
+  .path-tabs button {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    min-height: 40px;
+    padding-inline: var(--space-4);
+    border: 0;
+    border-radius: 999px;
+    background: none;
+    color: var(--text-muted);
+    font: inherit;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
+  }
+
+  .path-tabs [aria-selected='true'] {
+    background: var(--surface);
+    color: var(--text);
+    box-shadow: 0 1px 3px rgb(27 26 24 / 0.12);
+  }
+
+  .path-tabs button:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  .path {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-3);
+  }
+
+  .path-tabs[hidden],
+  .path[hidden] {
+    display: none;
+  }
+
+  .path-label {
+    color: var(--text-muted);
+    font-size: 0.9375rem;
+  }
+
+  .path-label:not(:first-child) {
+    margin-top: var(--space-2);
+  }
+
+  .hero-agents {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: var(--space-3);
+    color: var(--text-muted);
+    font-size: 0.9375rem;
+  }
+
+  .hero-agents ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .hero-agents a {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--brand) 12%, #fff);
+    box-shadow: 0 0 0 1px color-mix(in srgb, var(--brand) 22%, transparent), 0 2px 6px -2px rgb(27 26 24 / 0.15);
+    color: var(--brand);
+    transition: transform var(--dur-fast) var(--ease-out), background-color var(--dur-fast) var(--ease-out);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .hero-agents a:hover {
+      transform: translateY(-3px) scale(1.08);
+      background: color-mix(in srgb, var(--brand) 20%, #fff);
+    }
+  }
+
+  .hero-art {
+    display: block;
+    width: 100%;
+    max-width: none;
+    height: clamp(260px, 36vw, 600px);
+    object-fit: cover;
+    object-position: 50% 0;
+    -webkit-mask-image: linear-gradient(to bottom, transparent, #000 14%);
+    mask-image: linear-gradient(to bottom, transparent, #000 14%);
+  }
+
+  /* Scene: raw page → Huntsman → Markdown */
+  .scene {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 17rem) minmax(0, 1fr);
+    gap: var(--space-8);
+    align-items: center;
+    padding: var(--space-12) var(--space-8);
+    border-radius: var(--radius-xl);
+    background: var(--peach-bg);
+  }
+
+  .paper {
+    display: grid;
+    gap: var(--space-2);
+    min-width: 0;
+    margin: 0;
+    padding: var(--space-6);
+    border-radius: var(--radius-lg);
+    background: var(--surface);
+    box-shadow:
+      inset 0 -3px 0 rgb(27 26 24 / 0.06),
+      0 2px 4px rgb(27 26 24 / 0.06),
+      0 18px 40px -18px rgb(120 60 20 / 0.35);
+  }
+
+  .paper-raw {
+    transform: rotate(-1.5deg);
+  }
+
+  .paper-md {
+    transform: rotate(1.25deg);
+  }
+
+  .paper-count {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    color: var(--text-muted);
+  }
+
+  .paper-count .n {
+    font-size: clamp(2.25rem, 1.6rem + 1.8vw, 3.25rem);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .paper-raw .n {
+    color: var(--danger);
+  }
+
+  .paper-md .n {
+    color: var(--accent);
+  }
+
+  .paper figcaption {
+    color: var(--text-muted);
+    font-size: 0.9375rem;
+  }
+
+  .paper-code {
+    margin-top: var(--space-2);
+    padding-top: var(--space-4);
+    border-top: 1px dashed var(--border);
+  }
+
+  .paper-code :global(pre) {
+    margin: 0;
+    background: transparent !important;
+    font-size: 0.75rem;
+    line-height: 1.6;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
+
+  .paper-raw .paper-code {
+    max-height: 15rem;
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(to bottom, #000 70%, transparent);
+    mask-image: linear-gradient(to bottom, #000 70%, transparent);
+  }
+
+  .paper-raw :global(.tracker) {
+    border-radius: 3px;
+    background: color-mix(in srgb, var(--danger) 12%, transparent);
+    color: var(--danger) !important;
+    text-decoration: line-through;
+  }
+
+  .machine {
+    display: grid;
+    justify-items: center;
+    gap: var(--space-3);
+    text-align: center;
+  }
+
+  .machine img {
+    width: 100%;
+    max-width: 17rem;
+    height: auto;
+    border-radius: 50%;
+  }
+
+  .caught {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    max-width: 100%;
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: var(--surface);
+    color: var(--danger);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    box-shadow: 0 1px 2px rgb(27 26 24 / 0.08);
+  }
+
+  .caught :global(.icon) {
+    flex: none;
+  }
+
+  .caught s {
+    overflow-wrap: anywhere;
+  }
+
+  .machine-note {
+    color: var(--peach-ink);
+    font-size: 0.9375rem;
+  }
+
+  .scene-foot {
+    margin-top: var(--space-8);
+    color: var(--text-muted);
+    font-size: 1.125rem;
+    text-align: center;
+    text-wrap: balance;
+  }
+
+  .scene-foot strong {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  .scene-foot a {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    font-weight: 500;
+  }
+
+  .fn {
+    color: var(--syn-function);
+  }
+
+  /* Try */
+  .try-box {
+    max-width: 52rem;
+    margin-inline: auto;
+  }
+
+  /* Feature blocks */
+  .features {
+    display: grid;
+    gap: var(--space-6);
+  }
+
+  .feature {
+    --tone-bg: var(--surface-2);
+    --tone-ink: var(--text);
+    display: grid;
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    gap: var(--space-12);
+    align-items: center;
+    padding: var(--space-16);
+    border-radius: var(--radius-xl);
+    background: var(--tone-bg);
+    scroll-margin-top: var(--space-24);
+  }
+
+  .feature[data-tone='peach'] {
+    --tone-bg: var(--peach-bg);
+    --tone-ink: var(--peach-ink);
+  }
+
+  .feature[data-tone='lime'] {
+    --tone-bg: var(--lime-bg);
+    --tone-ink: var(--lime-ink);
+  }
+
+  .feature[data-tone='pink'] {
+    --tone-bg: var(--pink-bg);
+    --tone-ink: var(--pink-ink);
+  }
+
+  .feature-copy {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-6);
+    min-width: 0;
+  }
+
+  .feature h2 {
+    font-size: clamp(2rem, 1.4rem + 2vw, 3.25rem);
+  }
+
+  .feature-text {
+    max-width: 48ch;
+    color: var(--text-muted);
+    font-size: 1.125rem;
+  }
+
+  .feature-text code {
+    overflow-wrap: break-word;
+  }
+
+  .feature-art img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-lg);
+  }
+
+  .feature-art {
+    align-self: center;
+  }
+
+  .tools {
+    grid-column: 1 / -1;
+  }
+
+  .tools-title {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-bottom: var(--space-4);
+    font-family: var(--font-body);
     font-size: 1rem;
     font-weight: 600;
-    letter-spacing: -0.01em;
+    letter-spacing: 0;
   }
 
-  .setup p {
-    margin-block: var(--space-1) var(--space-3);
-    color: var(--text-muted);
-    font-size: 0.9375rem;
-  }
-
-  .setup > div {
-    display: flex;
-    flex-direction: column;
-    min-width: 0;
-  }
-
-  .setup :global(.code) {
-    margin-top: auto;
-  }
-
-  .works {
-    margin-top: var(--space-6);
-    color: var(--text-muted);
-    font-size: 0.9375rem;
-  }
-
-  .works a {
-    color: var(--text);
-    text-decoration-color: var(--border-strong);
-  }
-
-  .bench-card {
-    padding: var(--space-8);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    background: var(--surface);
-  }
-
-  .section-head {
-    margin-bottom: var(--space-8);
-  }
-
-  .section-head h2 {
-    font-family: var(--font-display);
-    font-weight: 400;
-    font-size: clamp(2rem, 1.5rem + 1.8vw, 2.75rem);
-    line-height: 1.1;
-    letter-spacing: -0.015em;
-  }
-
-  .section-head p {
-    max-width: 62ch;
-    margin-top: var(--space-2);
-    color: var(--text-muted);
-  }
-
-  .bench,
-  .why,
-  .agents,
-  .start,
-  .reference {
-    padding-top: var(--space-24);
-  }
-
-  .flow {
+  .tools ul {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 19rem) minmax(0, 1fr);
-    margin-top: var(--space-12);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    background: var(--surface);
-    overflow: hidden;
-  }
-
-  .flow-step {
-    display: flex;
-    flex-direction: column;
+    grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
     gap: var(--space-3);
-    min-width: 0;
-    padding: var(--space-6);
-  }
-
-  .flow-step + .flow-step {
-    border-left: 1px solid var(--border);
-  }
-
-  .flow-step.blocked {
-    background: var(--accent-soft);
-  }
-
-  .flow-label,
-  .artifact figcaption {
-    font-family: var(--font-mono);
-    font-size: 0.6875rem;
-    font-weight: 500;
-    line-height: 1;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-  }
-
-  .flow h3,
-  .ops h3 {
-    font-size: 1.125rem;
-    font-weight: 600;
-    line-height: 1.3;
-    letter-spacing: -0.01em;
-  }
-
-  .flow h3 {
-    margin-top: var(--space-2);
-    font-size: 1.375rem;
-  }
-
-  .flow-step > p:not(.flow-label),
-  .ops li > div > p {
-    color: var(--text-muted);
-  }
-
-  .flow-step > p:not(.flow-label) {
-    margin-bottom: var(--space-2);
-  }
-
-  .artifact {
     margin: 0;
-    padding: var(--space-3) var(--space-4) var(--space-4);
-    border: 1px solid var(--border);
+    padding: 0;
+    list-style: none;
+  }
+
+  .tools li {
+    display: grid;
+    gap: var(--space-1);
+    padding: var(--space-4);
     border-radius: var(--radius-md);
-    background: var(--code-bg);
+    background: var(--surface);
+    font-size: 0.9375rem;
   }
 
-  .artifact figcaption {
+  .tools code {
+    padding: 0;
+    background: none;
+    color: var(--tone-ink);
+    font-weight: 600;
+  }
+
+  .tools li span {
+    color: var(--text-muted);
+  }
+
+  /* Agent picker */
+  .picker {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+
+  .tab {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    min-height: 40px;
+    padding-inline: var(--space-4);
+    border-radius: 999px;
+    background: var(--surface);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    cursor: pointer;
+    box-shadow: 0 0 0 1px var(--border);
+    transition: background-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
+  }
+
+  .tab :global(.logo) {
+    color: var(--brand, var(--text-muted));
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .tab:hover {
+      box-shadow: 0 0 0 1px var(--border-strong);
+    }
+  }
+
+  .tab-in:checked + .tab {
+    background: var(--ink);
+    color: var(--on-ink);
+    box-shadow: none;
+  }
+
+  .tab-in:checked + .tab :global(.logo) {
+    color: var(--on-ink);
+  }
+
+  .tab-in:focus-visible + .tab {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  .panel {
+    display: none;
+    order: 1;
+    flex-basis: 100%;
+    min-width: 0;
+    margin-top: var(--space-3);
+    padding: var(--space-4);
+    border-radius: var(--radius-md);
+    background: var(--surface);
+  }
+
+  .tab-in:checked + .tab + .panel {
+    display: block;
+  }
+
+  .how {
     margin-bottom: var(--space-3);
+    color: var(--text-muted);
   }
 
-  .artifact pre,
+  /* Proof artifacts */
   .out {
     margin: 0;
     font-family: var(--font-mono);
@@ -631,113 +1225,34 @@ const perSecond = ratio(large, 'pagesPerSecond')!.toFixed(1);
     line-height: 1.6;
   }
 
-  .artifact pre,
-  pre.out {
-    white-space: pre-wrap;
-    overflow-wrap: anywhere;
-  }
-
-  .raw {
-    color: var(--text-muted);
-  }
-
-  .tracker {
-    color: var(--danger);
-    text-decoration-thickness: 1.5px;
-  }
-
-  .rule {
-    display: grid;
-    grid-template-columns: auto minmax(0, 1fr);
-    gap: 0 var(--space-4);
-  }
-
-  .rule dt {
-    color: var(--text-muted);
-  }
-
-  .rule dd {
-    margin: 0;
-    overflow-wrap: anywhere;
-  }
-
-  .ops {
-    margin: var(--space-6) 0 0;
-    padding: 0;
-    list-style: none;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    background: var(--surface);
-  }
-
-  .ops li {
-    display: grid;
-    grid-template-columns: minmax(0, 18rem) minmax(0, 1fr);
-    gap: var(--space-8);
-    align-items: start;
-    padding: var(--space-6);
-  }
-
-  .ops li + li {
-    border-top: 1px solid var(--border);
-  }
-
-  .ops li > div > p {
-    margin-top: var(--space-1);
-  }
-
-  .ops .out {
-    max-width: min(40rem, 100%);
-    padding-top: 0.2rem;
-  }
-
-  .blocked .rule {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  .blocked .rule dd + dt {
-    margin-top: var(--space-2);
-  }
-
-  table.out {
-    display: block;
-    overflow-x: auto;
-    justify-self: start;
-    border-collapse: collapse;
-  }
-
-  table.out th {
-    font-weight: 400;
-    text-align: left;
-    color: var(--text-muted);
-  }
-
-  table.out th,
-  table.out td {
-    padding: 0 var(--space-6) 0 0;
-    vertical-align: top;
-  }
-
   .bar {
+    display: flex;
+    gap: 2px;
     height: 6px;
     margin: var(--space-2) 0;
     border-radius: 3px;
-    background: var(--surface-2);
     overflow: hidden;
   }
 
-  .bar span {
-    display: block;
-    width: 99%;
-    height: 100%;
+  .bar-ok {
+    flex: 99;
     background: var(--accent);
+  }
+
+  .bar-fail {
+    flex: 1;
+    min-width: 4px;
+    background: var(--danger);
   }
 
   .out .muted {
     color: var(--text-muted);
   }
 
-  .out .add {
+  .out .ok {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
     color: var(--accent);
   }
 
@@ -745,204 +1260,374 @@ const perSecond = ratio(large, 'pagesPerSecond')!.toFixed(1);
     color: var(--danger);
   }
 
-  .steps {
+  .probe {
     display: grid;
-    gap: var(--space-12);
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: var(--space-1) var(--space-4);
+  }
+
+  .probe dt {
+    color: var(--text-muted);
+  }
+
+  .probe dd {
     margin: 0;
-    padding: 0;
-    list-style: none;
-    counter-reset: step;
+    overflow-wrap: break-word;
   }
 
-  .steps > li {
+  .status-bad {
+    padding: 1px 6px;
+    border-radius: 4px;
+    background: color-mix(in srgb, var(--danger) 14%, transparent);
+    color: var(--danger);
+    font-weight: 600;
+  }
+
+  /* Open source */
+  .oss {
     display: grid;
-    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
     gap: var(--space-8);
-    align-items: start;
-    padding-top: var(--space-8);
-    border-top: 1px solid var(--border);
-    counter-increment: step;
+    padding: var(--space-16) var(--space-16) 0;
+    border-radius: var(--radius-xl);
+    background: var(--surface-2);
+    overflow: hidden;
   }
 
-  .step-text {
-    position: relative;
-    padding-left: var(--space-16);
-  }
-
-  .step-text h3 {
-    font-size: 1.25rem;
-    font-weight: 600;
-    line-height: 1.25;
-    letter-spacing: -0.01em;
-  }
-
-  .step-text::before {
-    content: counter(step);
-    position: absolute;
-    left: 0;
-    top: -0.2em;
-    color: var(--accent);
-    font-family: var(--font-display);
-    font-size: 3.25rem;
-    line-height: 1;
-  }
-
-  .step-text p {
-    margin-top: var(--space-3);
-    color: var(--text-muted);
-  }
-
-  .stack {
+  .oss-head {
     display: grid;
-    gap: var(--space-3);
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    gap: var(--space-12);
+    align-items: end;
   }
 
-  .sizes,
-  .ref {
-    width: 100%;
-    border-collapse: collapse;
-    font-variant-numeric: tabular-nums;
+  .oss h2 {
+    font-size: clamp(2rem, 1.4rem + 2vw, 3.25rem);
   }
 
-  .sizes {
-    margin-top: var(--space-4);
-  }
-
-  .sizes th,
-  .sizes td,
-  .ref th,
-  .ref td {
-    padding: var(--space-2) 0;
-    border-bottom: 1px solid var(--border);
-    text-align: left;
-    vertical-align: baseline;
-  }
-
-  .ref th,
-  .ref td {
-    padding: var(--space-3) var(--space-4) var(--space-3) 0;
-  }
-
-  .sizes thead th,
-  .ref thead th {
+  .oss-head p {
     color: var(--text-muted);
-    font-size: 0.8125rem;
-    font-weight: 500;
+    font-size: 1.125rem;
   }
 
-  .sizes tbody th,
-  .ref tbody th {
-    font-weight: 500;
+  .oss-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: var(--space-4);
   }
 
-  .sizes .num {
-    text-align: right;
-    font-family: var(--font-mono);
+  .repo,
+  .oss-links,
+  .built,
+  .swap {
+    min-width: 0;
+    border-radius: var(--radius-lg);
+    background: var(--surface);
+  }
+
+  .repo {
+    display: grid;
+    align-content: start;
+    gap: var(--space-3);
+    padding: var(--space-6);
+    color: var(--text);
+    text-decoration: none;
+    transition: box-shadow var(--dur-fast) var(--ease-out);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .repo:hover {
+      box-shadow: 0 0 0 1px var(--border-strong);
+    }
+  }
+
+  .repo-name {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    font-size: 1.25rem;
+    overflow-wrap: anywhere;
+  }
+
+  .repo-name strong {
     font-weight: 600;
-    color: var(--accent);
   }
 
-  .spec {
-    margin-left: var(--space-2);
+  .repo-desc {
+    color: var(--text-muted);
+  }
+
+  .repo-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-6);
+    margin-top: var(--space-2);
     color: var(--text-muted);
     font-size: 0.875rem;
-    font-weight: 400;
   }
 
-  .ref-head {
-    margin-bottom: var(--space-12);
-    font-family: var(--font-display);
-    font-weight: 400;
-    font-size: clamp(2rem, 1.5rem + 1.8vw, 2.75rem);
-    line-height: 1.1;
-    letter-spacing: -0.015em;
-  }
-
-  .sub-head h3 {
-    font-size: 1.375rem;
-    font-weight: 600;
-    letter-spacing: -0.01em;
-  }
-
-  #config {
-    margin-top: var(--space-16);
-  }
-
-  .closing {
-    display: grid;
-    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-    gap: var(--space-12);
+  .repo-meta > span {
+    display: inline-flex;
     align-items: center;
-    margin-top: var(--space-24);
-    padding: var(--space-12);
-    border-radius: var(--radius-lg);
-    background: var(--accent-soft);
+    gap: 6px;
   }
 
-  .closing h2 {
-    font-family: var(--font-display);
-    font-weight: 400;
-    font-size: clamp(2rem, 1.5rem + 1.8vw, 2.75rem);
-    line-height: 1.1;
-    letter-spacing: -0.015em;
+  .go-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #00add8;
   }
 
-  .closing p {
-    margin-top: var(--space-3);
+  .oss-links {
+    display: grid;
+    margin: 0;
+    padding: var(--space-2);
+    list-style: none;
+  }
+
+  .oss-links a {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: var(--space-3);
+    min-height: 48px;
+    padding-inline: var(--space-4);
+    border-radius: var(--radius-sm);
+    color: var(--text);
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  .oss-links :global(.icon) {
     color: var(--text-muted);
   }
 
-  .agents-grid {
+  .oss-links :global(.go) {
+    transition: transform var(--dur-fast) var(--ease-out);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .oss-links a:hover {
+      background: var(--surface-2);
+    }
+
+    .oss-links a:hover :global(.go) {
+      transform: translateX(3px);
+    }
+  }
+
+  .built,
+  .swap {
+    padding: var(--space-6);
+  }
+
+  .built h3,
+  .swap h3 {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-bottom: var(--space-3);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0;
+  }
+
+  .built dl {
     display: grid;
-    grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
-    gap: var(--space-12);
-    align-items: start;
+    gap: var(--space-1);
+    margin: 0;
   }
 
-  .tools code {
-    color: var(--accent);
-    background: none;
-    padding: 0;
+  .built dt {
+    font-weight: 500;
   }
 
-  .guides {
-    margin-top: var(--space-6);
+  .built dt:not(:first-child) {
+    margin-top: var(--space-3);
+  }
+
+  .built dd {
+    margin: 0;
     color: var(--text-muted);
     font-size: 0.9375rem;
   }
 
-  .harnesses {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-2);
-    margin: var(--space-2) 0 0;
+  .swap p {
+    margin-bottom: var(--space-3);
+    color: var(--text-muted);
+  }
+
+  .swap :global(pre) {
+    margin: 0;
+    background: transparent !important;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
+
+  .oss-art {
+    display: block;
+    aspect-ratio: 12 / 5;
+    object-fit: cover;
+    object-position: 50% 62%;
+    width: calc(100% + 2 * var(--space-16));
+    max-width: none;
+    height: auto;
+    margin-inline: calc(-1 * var(--space-16));
+  }
+
+  /* Benchmarks */
+  .bench-card {
+    padding: var(--space-8);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    background: var(--surface);
+  }
+
+  /* Get started */
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-4);
+    margin: 0;
     padding: 0;
     list-style: none;
   }
 
-  .harnesses a {
+  .steps > li {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    min-width: 0;
+    padding: var(--space-8);
+    border-radius: var(--radius-lg);
+    background: var(--surface-2);
+  }
+
+  .steps h3 {
+    font-size: 1.5rem;
+  }
+
+  .count-pill {
+    margin-left: var(--space-1);
+    padding: 1px 8px;
+    border-radius: 999px;
+    background: var(--surface-3);
+    font-size: 0.8125rem;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .step-n {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    color: var(--accent);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .steps > li > p:not(.more, .step-n) {
+    color: var(--text-muted);
+  }
+
+  .steps .more {
+    margin-top: 0;
+  }
+
+  .mini summary {
     display: inline-flex;
     align-items: center;
-    min-height: 36px;
-    padding-inline: var(--space-3);
-    border: 1px solid var(--border);
-    border-radius: 999px;
-    color: var(--text);
-    font-size: 0.875rem;
-    font-weight: 500;
-    text-decoration: none;
-    transition: border-color var(--dur-fast) var(--ease-out), background-color var(--dur-fast) var(--ease-out);
+    gap: var(--space-2);
+    min-height: var(--control-h);
+    color: var(--text-muted);
+    font-size: 0.9375rem;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .mini summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .mini summary :global(.icon) {
+    transform: rotate(-90deg);
+    transition: transform var(--dur-fast) var(--ease-out);
+  }
+
+  .mini[open] summary :global(.icon) {
+    transform: none;
+  }
+
+  /* Reference */
+  .reference h2 {
+    margin-bottom: var(--space-8);
+  }
+
+  .ref-card {
+    padding-inline: var(--space-8);
+    border-radius: var(--radius-xl);
+    background: var(--surface-2);
+  }
+
+  .disclosure + .disclosure {
+    border-top: 1px solid var(--border);
+  }
+
+  .disclosure {
+    scroll-margin-top: var(--space-24);
+  }
+
+  .disclosure summary {
+    display: grid;
+    grid-template-columns: minmax(0, 14rem) minmax(0, 1fr) auto;
+    gap: var(--space-4);
+    align-items: center;
+    min-height: 88px;
+    padding-block: var(--space-4);
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .disclosure summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .disclosure summary :global(.sum-icon) {
+    color: var(--text-muted);
+    transition: transform var(--dur-fast) var(--ease-out);
+  }
+
+  .disclosure[open] summary :global(.sum-icon) {
+    transform: rotate(180deg);
+  }
+
+  .sum-title {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 560;
+    letter-spacing: -0.02em;
   }
 
   @media (hover: hover) and (pointer: fine) {
-    .harnesses a:hover {
-      border-color: var(--accent);
-      background: var(--accent-soft);
+    .disclosure summary:hover .sum-title {
+      color: var(--accent);
     }
   }
 
-  .step-text .more {
-    margin-top: var(--space-3);
+  .sum-desc {
+    color: var(--text-muted);
+  }
+
+  .disclosure-body {
+    padding-bottom: var(--space-12);
+  }
+
+  .lede {
+    max-width: 66ch;
+    margin-bottom: var(--space-6);
+    color: var(--text-muted);
   }
 
   .ref-grid {
@@ -952,140 +1637,364 @@ const perSecond = ratio(large, 'pagesPerSecond')!.toFixed(1);
     align-items: start;
   }
 
+  .ref {
+    width: 100%;
+    border-collapse: collapse;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .ref th,
+  .ref td {
+    padding: var(--space-3) var(--space-4) var(--space-3) 0;
+    border-bottom: 1px solid var(--border);
+    text-align: left;
+    vertical-align: baseline;
+  }
+
+  .ref thead th {
+    color: var(--text-muted);
+    font-size: 0.8125rem;
+    font-weight: 500;
+  }
+
   .ref tbody th {
+    font-weight: 500;
     white-space: nowrap;
   }
 
   .method {
     display: inline-block;
-    min-width: 4ch;
-    color: var(--text-muted);
+    min-width: 5ch;
+    padding: 1px 6px;
+    border-radius: 4px;
     font-family: var(--font-mono);
     font-size: 0.75rem;
     font-weight: 600;
+    text-align: center;
+  }
+
+  .method.post {
+    background: var(--accent-soft);
+    color: var(--accent);
+  }
+
+  .method.get {
+    background: color-mix(in srgb, var(--syn-function) 12%, transparent);
+    color: var(--syn-function);
   }
 
   .ref-title {
     margin-bottom: var(--space-3);
+    font-family: var(--font-body);
     font-size: 1rem;
     font-weight: 600;
+    letter-spacing: 0;
   }
 
   .aside {
+    max-width: 70ch;
     margin-top: var(--space-6);
     padding: var(--space-4);
     border-radius: var(--radius-md);
-    background: var(--accent-soft);
-    max-width: 70ch;
+    background: var(--surface);
   }
 
-  @media (max-width: 960px) {
-    .flow {
-      grid-template-columns: minmax(0, 1fr);
+  /* Closing */
+  .closing {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: center;
+    gap: var(--space-4);
+    text-align: center;
+  }
+
+  .closing > p {
+    color: var(--text-muted);
+    font-size: 1.125rem;
+  }
+
+  .closing-field {
+    width: min(100%, 40rem);
+    text-align: left;
+    margin-top: var(--space-2);
+  }
+
+  .closing-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-3);
+    margin-top: var(--space-2);
+  }
+
+  /* Micro-motion */
+  .paper,
+  .tools li,
+  .repo,
+  .steps > li,
+  .feature-art img {
+    transition: transform 360ms var(--ease-out), translate 600ms var(--ease-out), opacity 600ms var(--ease-out),
+      box-shadow var(--dur-fast) var(--ease-out);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .paper:hover {
+      transform: rotate(0deg) translateY(-4px);
     }
 
-    .flow-step + .flow-step {
-      border-top: 1px solid var(--border);
-      border-left: 0;
+    .tools li:hover,
+    .repo:hover,
+    .steps > li:hover {
+      transform: translateY(-3px);
     }
 
-    .ops li {
-      grid-template-columns: minmax(0, 1fr);
-      gap: var(--space-4);
+    .feature-art img:hover {
+      transform: scale(1.025) rotate(-0.5deg);
+    }
+
+    .oss-badge:hover :global(.icon:last-child) {
+      animation: spin-star 700ms var(--ease-out);
     }
   }
 
-  @media (max-width: 640px) {
-    .flow-step,
-    .ops li {
-      padding: var(--space-4);
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-inner > * {
+      animation: rise 700ms var(--ease-out) both;
     }
 
-    .flow h3 {
-      font-size: 1.25rem;
+    .hero-inner > :nth-child(2) { animation-delay: 80ms; }
+    .hero-inner > :nth-child(3) { animation-delay: 160ms; }
+    .hero-inner > :nth-child(4) { animation-delay: 240ms; }
+    .hero-inner > :nth-child(5) { animation-delay: 320ms; }
+
+    .hero-agents li {
+      animation: pop 520ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+      animation-delay: calc(450ms + var(--i) * 55ms);
     }
 
-    .raw {
-      max-height: calc(12 * 1.6em);
-      overflow: hidden;
-      mask-image: linear-gradient(#000 60%, transparent);
+    .hero-art {
+      animation: settle 1200ms var(--ease-out) both;
+    }
+
+    .c1 { animation: drift 38s ease-in-out infinite alternate; }
+    .c2 { animation: drift 46s ease-in-out -12s infinite alternate-reverse; }
+    .c3 { animation: drift 30s ease-in-out -6s infinite alternate; }
+    .c4 { animation: drift 52s ease-in-out -20s infinite alternate-reverse; }
+
+    .machine img {
+      animation: bob 3.2s ease-in-out infinite alternate;
+    }
+
+    .path:not([hidden]) {
+      animation: fade-in 320ms var(--ease-out);
+    }
+
+    :global(html.motion) [data-reveal] {
+      opacity: 0;
+      translate: 0 18px;
+      transition: transform 360ms var(--ease-out), translate 700ms var(--ease-out), opacity 700ms var(--ease-out),
+        box-shadow var(--dur-fast) var(--ease-out);
+      transition-delay: 0s, calc(var(--d, 0) * 90ms), calc(var(--d, 0) * 90ms), 0s;
+    }
+
+    :global(html.motion) [data-reveal].in {
+      opacity: 1;
+      translate: 0 0;
+    }
+
+    .machine.in .caught {
+      animation: caught 700ms 650ms var(--ease-out) both;
     }
   }
 
-  @media (max-width: 860px) {
-    .agents-grid,
-    .steps > li,
-    .ref-grid,
-    .closing {
-      grid-template-columns: minmax(0, 1fr);
-      gap: var(--space-4);
-    }
-
-    .ref-grid {
-      gap: var(--space-12);
+  @keyframes rise {
+    from {
+      opacity: 0;
+      translate: 0 14px;
     }
   }
 
-  @media (max-width: 640px) {
-    .hero {
-      padding-block: var(--space-8);
-      text-align: left;
+  @keyframes pop {
+    from {
+      opacity: 0;
+      scale: 0.6;
     }
+  }
 
-    .proof {
-      align-items: flex-start;
+  @keyframes settle {
+    from {
+      opacity: 0;
+      translate: 0 24px;
     }
+  }
 
-    .try,
-    .setup,
-    .bench-card {
-      margin-inline: calc(-1 * var(--space-2));
-      padding: var(--space-4);
+  @keyframes drift {
+    from { translate: -24px 0; }
+    to { translate: 24px 4px; }
+  }
+
+  @keyframes bob {
+    from { translate: 0 0; rotate: -1deg; }
+    to { translate: 0 -8px; rotate: 1deg; }
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      translate: 0 6px;
     }
+  }
 
-    .proof {
-      flex-direction: column;
-      gap: var(--space-1);
-    }
+  @keyframes caught {
+    0% { opacity: 0; scale: 0.8; }
+    55% { opacity: 1; scale: 1.06; rotate: -2deg; }
+    75% { rotate: 2deg; }
+    100% { scale: 1; rotate: 0deg; }
+  }
 
-    .closing {
-      padding: var(--space-6);
-    }
+  @keyframes spin-star {
+    to { rotate: 144deg; }
+  }
 
-    .step-text {
-      padding-left: var(--space-12);
-    }
-
-    .step-text::before {
-      font-size: 2.5rem;
-    }
-
-    .actions .button {
-      flex: 1;
-      justify-content: center;
-    }
-
-
-    .ref th,
-    .ref td {
-      display: block;
-      padding: 0;
-      border: 0;
-    }
-
-    .ref thead {
+  @media (max-width: 1000px) {
+    .c3,
+    .c4 {
       display: none;
     }
 
-    .ref tr {
-      display: grid;
-      gap: var(--space-1);
-      padding-block: var(--space-3);
-      border-bottom: 1px solid var(--border);
+    main {
+      gap: var(--space-24);
+    }
+
+    .oss-head,
+    .ref-grid {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-8);
+    }
+
+    .feature {
+      grid-template-columns: minmax(0, 1fr);
+      padding: var(--space-12);
+    }
+
+    .feature-art {
+      order: -1;
+      max-width: 22rem;
+    }
+
+    .tools {
+      order: 2;
+    }
+
+    .scene {
+      grid-template-columns: minmax(0, 1fr);
+      justify-items: center;
+      padding: var(--space-8) var(--space-6);
+    }
+
+    .paper {
+      width: min(100%, 36rem);
+    }
+
+    .machine img {
+      max-width: 12rem;
+    }
+
+    .steps {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  @media (max-width: 760px) {
+    .clouds {
+      display: none;
+    }
+
+    .feature,
+    .oss {
+      padding: var(--space-8) var(--space-6);
+    }
+
+    .oss {
+      padding-bottom: 0;
+    }
+
+    .oss-grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .feature-art {
+      max-width: none;
+    }
+
+    .feature-art img {
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+    }
+
+    .oss-art {
+      width: calc(100% + 2 * var(--space-6));
+      margin-inline: calc(-1 * var(--space-6));
+    }
+
+    .bench-card {
+      padding: var(--space-4);
+    }
+
+    .ref-card {
+      padding-inline: var(--space-6);
+    }
+
+    .disclosure summary {
+      grid-template-columns: minmax(0, 1fr) auto;
+    }
+
+    .sum-desc {
+      grid-row: 2;
+      font-size: 0.9375rem;
     }
 
     .ref tbody th {
       white-space: normal;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .hero {
+      padding-top: var(--space-8);
+    }
+
+    .badge-version {
+      display: none;
+    }
+
+    .path-tabs button {
+      padding-inline: var(--space-3);
+      font-size: 0.875rem;
+    }
+
+    .hero-agents ul {
+      gap: 6px;
+    }
+
+    .hero-agents a {
+      width: 36px;
+      height: 36px;
+    }
+
+    .scene,
+    .feature,
+    .oss {
+      border-radius: var(--radius-lg);
+    }
+
+    .paper {
+      padding: var(--space-4);
+      transform: none;
+    }
+
+    .steps > li {
+      padding: var(--space-6);
     }
   }
 </style>

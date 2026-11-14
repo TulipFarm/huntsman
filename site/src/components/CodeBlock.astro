@@ -1,10 +1,11 @@
 ---
 import { Code } from 'astro:components';
+import { theme, type Lang } from '../lib/syntax';
 
 interface Props {
   code: string;
   label: string;
-  lang?: 'bash' | 'json' | 'toml' | 'text';
+  lang?: Lang;
   /** Wrap long lines instead of scrolling, for one-liners people read before copying. */
   wrap?: boolean;
 }
@@ -15,31 +16,17 @@ const { code, label, lang = 'bash', wrap = false } = Astro.props;
   <figcaption>
     <span>{label}</span>
     <button type="button" class="copy" data-copy={code} hidden>
-    <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+    <svg class="icon-copy" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+    <svg class="icon-done" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>
     <span data-label>Copy</span>
     </button>
   </figcaption>
-  <Code
-    code={code}
-    lang={lang}
-    themes={{ light: 'github-light', dark: 'github-dark' }}
-    defaultColor={false}
-  />
+  <Code code={code} lang={lang} theme={theme} />
 </figure>
 
 <style>
   .code :global(.astro-code) {
     background: transparent !important;
-  }
-
-  .code :global(.astro-code span) {
-    color: var(--shiki-light);
-  }
-
-  @media (prefers-color-scheme: dark) {
-    .code :global(.astro-code span) {
-      color: var(--shiki-dark);
-    }
   }
 
   .code {
@@ -116,6 +103,15 @@ const { code, label, lang = 'bash', wrap = false } = Astro.props;
 
   .copy[data-done] {
     color: var(--accent);
+  }
+
+  .icon-done,
+  .copy[data-done] .icon-copy {
+    display: none;
+  }
+
+  .copy[data-done] .icon-done {
+    display: block;
   }
 </style>
 

@@ -1,8 +1,8 @@
 :root {
-  color-scheme: light dark;
+  color-scheme: light;
 
-  --font-display: 'Instrument Serif', Georgia, serif;
-  --font-body: 'Inter Variable', system-ui, sans-serif;
+  --font-display: 'Onest Variable', system-ui, sans-serif;
+  --font-body: 'Onest Variable', system-ui, sans-serif;
   --font-mono: 'Geist Mono Variable', ui-monospace, monospace;
 
   --space-1: 4px;
@@ -14,53 +14,108 @@
   --space-12: 48px;
   --space-16: 64px;
   --space-24: 96px;
+  --space-32: 128px;
 
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 16px;
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
   --control-h: 44px;
 
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --dur-fast: 160ms;
   --dur-reveal: 480ms;
 
-  --bg: #f6f7f4;
+  /* Warm paper neutrals. */
+  --bg: #fefdfb;
   --surface: #ffffff;
-  --surface-2: #eef1ec;
-  --border: #d9dfd8;
-  --border-strong: #8d968f;
-  --text: #141815;
-  --text-muted: #4f5751;
+  --surface-2: #f4f3f0;
+  --surface-3: #ebe9e4;
+  --border: #e4e1da;
+  --border-strong: #8c877d;
+  --text: #1b1a18;
+  --text-muted: #5b574f;
+  --ink: #1b1a18;
+  --on-ink: #fefdfb;
   --accent: #1f7a43;
   --accent-hover: #186638;
   --accent-press: #12522c;
   --on-accent: #ffffff;
   --accent-soft: #e2f1e6;
-  --bar-other: #a9b1aa;
-  --code-bg: #eef1ec;
+  --bar-other: #b3ada2;
+  --code-bg: #faf9f6;
   --link: #1d5f99;
   --danger: #b42318;
+  --grass: #254b22;
+
+  /* Section tints: a pastel ground and an ink that reads on it (each ink at least 5:1). */
+  --blue-bg: #eef5ff;
+  --blue-ink: #2445d6;
+  --peach-bg: #fff1e9;
+  --peach-ink: #a8380b;
+  --lime-bg: #f6f9d4;
+  --lime-ink: #556100;
+  --pink-bg: #fdeef7;
+  --pink-ink: #a0106d;
+
+  /* Always-dark terminal panes (the agent session, command output). */
+  --term-bg: #1b1a18;
+  --term-bar: #24221f;
+  --term-border: #34312c;
+  --term-text: #f0eee9;
+  --term-muted: #a29d93;
+
+  /* Syntax colors on dark. Terminal panes always use these; the dark theme uses them everywhere. */
+  --syn-dark-fg: #e8ebe7;
+  --syn-dark-comment: #8f9791;
+  --syn-dark-punct: #9aa29c;
+  --syn-dark-keyword: #d0a8f5;
+  --syn-dark-string: #8fd9a4;
+  --syn-dark-number: #f2c27d;
+  --syn-dark-function: #8cc4f0;
+  --syn-dark-param: #f5ab84;
+  --syn-dark-tag: #f59a8e;
+  --syn-dark-attr: #f2c27d;
+  --syn-dark-property: #8cc4f0;
+  --syn-dark-heading: #8fd9a4;
+  --syn-dark-link: #8cc4f0;
+  --syn-dark-inserted: #8fd9a4;
+  --syn-dark-deleted: #f59a8e;
+
+  /* Syntax colors on light, each at least 4.5:1 on --code-bg. */
+  --syn-fg: #141815;
+  --syn-comment: #5c655f;
+  --syn-punct: #5c655f;
+  --syn-keyword: #7b33ad;
+  --syn-string: #1a6b3a;
+  --syn-number: #8f4c00;
+  --syn-function: #1b5a92;
+  --syn-param: #a3401a;
+  --syn-tag: #a8301f;
+  --syn-attr: #8f4c00;
+  --syn-property: #1b5a92;
+  --syn-heading: #1a6b3a;
+  --syn-link: #1b5a92;
+  --syn-inserted: #1a6b3a;
+  --syn-deleted: #b42318;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #101113;
-    --surface: #17191b;
-    --surface-2: #1f2225;
-    --border: #2b2f33;
-    --border-strong: #6b736d;
-    --text: #e8ebe7;
-    --text-muted: #a3aaa4;
-    --accent: #75ce8e;
-    --accent-hover: #8bd8a1;
-    --accent-press: #5fb878;
-    --on-accent: #0b1f12;
-    --accent-soft: #17291d;
-    --bar-other: #4c5350;
-    --code-bg: #141618;
-    --link: #8bb8d8;
-    --danger: #f2877a;
-  }
+.on-term {
+  --syn-fg: var(--syn-dark-fg);
+  --syn-comment: var(--syn-dark-comment);
+  --syn-punct: var(--syn-dark-punct);
+  --syn-keyword: var(--syn-dark-keyword);
+  --syn-string: var(--syn-dark-string);
+  --syn-number: var(--syn-dark-number);
+  --syn-function: var(--syn-dark-function);
+  --syn-param: var(--syn-dark-param);
+  --syn-tag: var(--syn-dark-tag);
+  --syn-attr: var(--syn-dark-attr);
+  --syn-property: var(--syn-dark-property);
+  --syn-heading: var(--syn-dark-heading);
+  --syn-link: var(--syn-dark-link);
+  --syn-inserted: var(--syn-dark-inserted);
+  --syn-deleted: var(--syn-dark-deleted);
 }
 
 *,
@@ -87,7 +142,7 @@ body {
   color: var(--text);
   font-family: var(--font-body);
   font-size: 1rem;
-  line-height: 1.6;
+  line-height: 1.55;
   -webkit-font-smoothing: antialiased;
   -webkit-tap-highlight-color: transparent;
   caret-color: var(--accent);
@@ -103,6 +158,10 @@ h1,
 h2,
 h3 {
   margin: 0;
+  font-family: var(--font-display);
+  font-weight: 560;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
   text-wrap: balance;
 }
 
@@ -143,7 +202,7 @@ pre {
 }
 
 .wrap {
-  width: min(1120px, 100% - 2 * var(--space-6));
+  width: min(1200px, 100% - 2 * var(--space-6));
   margin-inline: auto;
 }
 
@@ -162,10 +221,12 @@ pre {
   gap: var(--space-2);
   height: var(--control-h);
   padding-inline: var(--space-6);
-  border-radius: var(--radius-sm);
-  font-weight: 600;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font-weight: 540;
   font-size: 0.9375rem;
   text-decoration: none;
+  white-space: nowrap;
   transition: background-color var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out),
     transform var(--dur-fast) var(--ease-out);
 }
@@ -175,18 +236,19 @@ pre {
 }
 
 .button.primary {
-  background: var(--accent);
-  color: var(--on-accent);
+  background: var(--ink);
+  color: var(--on-ink);
 }
 
 .button.secondary {
-  border: 1px solid var(--border-strong);
+  border-color: var(--border);
+  background: var(--surface);
   color: var(--text);
 }
 
 @media (hover: hover) and (pointer: fine) {
   .button.primary:hover {
-    background: var(--accent-hover);
+    background: #3a3833;
     text-decoration: none;
   }
 
@@ -197,7 +259,7 @@ pre {
 }
 
 .button.primary:active {
-  background: var(--accent-press);
+  background: #000;
 }
 
 .button.small {

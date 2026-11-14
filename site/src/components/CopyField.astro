@@ -1,0 +1,142 @@
+---
+interface Props {
+  text: string;
+  label: string;
+  /** `glass` sits on the hero illustration; `light` on paper. */
+  tone?: 'light' | 'glass';
+  /** Prefix shown before the text, like `$` for a shell command. */
+  prefix?: string;
+}
+const { text, label, tone = 'light', prefix } = Astro.props;
+---
+
+<div class="field" data-tone={tone}>
+  <code class="field-text">{prefix && <span class="prefix" aria-hidden="true">{prefix} </span>}{text}</code>
+  <button type="button" class="field-copy" data-copy-field={text} data-idle={label} hidden>
+    <svg class="icon-copy" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+    <svg class="icon-done" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>
+    <span data-label>{label}</span>
+  </button>
+</div>
+
+<style>
+  .field {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    min-width: 0;
+    padding: var(--space-2) var(--space-2) var(--space-2) var(--space-4);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    background: var(--surface);
+    box-shadow: 0 8px 24px -16px rgb(27 26 24 / 0.35);
+  }
+
+  .field[data-tone='glass'] {
+    border-color: rgb(255 255 255 / 0.22);
+    background: rgb(12 30 12 / 0.42);
+    box-shadow: none;
+    color: #fff;
+  }
+
+  .field-text {
+    flex: 1;
+    min-width: 0;
+    padding-block: var(--space-2);
+    background: none;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    overflow-wrap: break-word;
+  }
+
+  .prefix {
+    opacity: 0.6;
+  }
+
+  .field-copy {
+    position: relative;
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    height: var(--control-h);
+    padding-inline: var(--space-4);
+    border: 0;
+    border-radius: var(--radius-sm);
+    background: var(--ink);
+    color: var(--on-ink);
+    font: 540 0.9375rem/1 var(--font-body);
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background-color var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
+  }
+
+  .field[data-tone='glass'] .field-copy {
+    background: #fff;
+    color: var(--ink);
+  }
+
+  .field-copy[hidden] {
+    display: none;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .field-copy:hover {
+      background: #3a3833;
+    }
+
+    .field[data-tone='glass'] .field-copy:hover {
+      background: #ecebe6;
+    }
+  }
+
+  .field-copy:active {
+    transform: scale(0.97);
+  }
+
+  .icon-done,
+  .field-copy[data-done] .icon-copy {
+    display: none;
+  }
+
+  .field-copy[data-done] .icon-done {
+    display: block;
+  }
+
+  @media (max-width: 520px) {
+    .field {
+      flex-direction: column;
+      align-items: stretch;
+      padding: var(--space-2);
+    }
+
+    .field-text {
+      padding-inline: var(--space-2);
+    }
+
+    .field-copy {
+      justify-content: center;
+    }
+  }
+</style>
+
+<script>
+  for (const button of document.querySelectorAll<HTMLButtonElement>('button[data-copy-field]')) {
+    if (!navigator.clipboard) continue;
+    button.hidden = false;
+    const label = button.querySelector('[data-label]')!;
+    button.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(button.dataset.copyField ?? '');
+        label.textContent = 'Copied';
+        button.dataset.done = '';
+      } catch {
+        label.textContent = 'Couldn’t copy';
+      }
+      setTimeout(() => {
+        label.textContent = button.dataset.idle ?? 'Copy';
+        delete button.dataset.done;
+      }, 1600);
+    });
+  }
+</script>

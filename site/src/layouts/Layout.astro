@@ -1,10 +1,10 @@
 ---
-import '@fontsource/instrument-serif/latin-400.css';
-import '@fontsource/instrument-serif/latin-400-italic.css';
-import '@fontsource-variable/inter/wght.css';
+import '@fontsource-variable/onest';
 import '@fontsource-variable/geist-mono/wght.css';
 import '../styles/global.css';
 import { repo } from '../data/site';
+import { stars } from '../data/github';
+import Logo from '../components/Logo.astro';
 
 interface Props {
   title: string;
@@ -13,11 +13,17 @@ interface Props {
 const { title, description } = Astro.props;
 
 const links = [
-  ['For agents', '/agents'],
-  ['Install', '/install'],
+  ['Agent setup', '/agents'],
   ['Benchmarks', '/#benchmarks'],
   ['API', '/#api'],
-  ['GitHub', repo],
+  ['Open source', '/#open-source'],
+];
+const menu = [...links, ['GitHub', repo], ['Install', '/install']];
+
+const footerCols: [string, [string, string][]][] = [
+  ['Huntsman', [['Agent setup', '/agents'], ['Install', '/install'], ['Benchmarks', '/#benchmarks'], ['Try it', '/#try']]],
+  ['Reference', [['API', '/#api'], ['Configuration', '/#config'], ['install.md', '/install.md'], ['install.sh', '/install.sh']]],
+  ['Open source', [['GitHub', repo], ['Contributing', `${repo}/blob/main/CONTRIBUTING.md`], ['Releases', `${repo}/releases`], ['Notices', `${repo}/blob/main/NOTICE`], ['TulipFarm', 'https://tulipfarm.ai']]],
 ];
 const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 ---
@@ -31,67 +37,114 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
     <meta name="description" content={description} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta name="theme-color" content="#101113" media="(prefers-color-scheme: dark)" />
-    <meta name="theme-color" content="#f6f7f4" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#fefdfb" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   </head>
   <body>
-    <header class="wrap site-header">
-      <a class="brand" href="/" aria-label="Huntsman home">
-        <svg class="mark" aria-hidden="true" viewBox="0 0 32 32" width="28" height="28">
-          <g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M13 13 8 7 3 8M12.5 15.5 6 13l-4 3M13 18l-6 3-3 5M14.5 19.5 12 26l2 4"></path>
-            <path d="M19 13l5-6 5 1M19.5 15.5 26 13l4 3M19 18l6 3 3 5M17.5 19.5 20 26l-2 4"></path>
-          </g>
-          <ellipse cx="16" cy="13.5" rx="3.4" ry="3" fill="currentColor"></ellipse>
-          <ellipse cx="16" cy="20" rx="2.6" ry="3.6" fill="currentColor"></ellipse>
-        </svg>
-        <span>Huntsman</span>
-      </a>
-      <a class="maker" href="https://tulipfarm.ai">by TulipFarm.ai</a>
-      <nav aria-label="Main">
-        <ul class="links">
-          {
-            links.map(([label, href]) => (
-              <li>
-                <a href={href} aria-current={href === path ? 'page' : undefined}>
-                  {label}
-                </a>
-              </li>
-            ))
-          }
-        </ul>
-        <a class="button primary small" href="/#start">Get started</a>
-        <details class="menu">
-          <summary aria-label="Menu">
-            <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>
-          </summary>
-          <ul>
-            {links.map(([label, href]) => <li><a href={href}>{label}</a></li>)}
+    <header class="site-header">
+      <div class="wrap bar">
+        <a class="brand" href="/" aria-label="Huntsman home">
+          <svg class="mark" aria-hidden="true" viewBox="0 0 32 32" width="28" height="28">
+            <g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M13 13 8 7 3 8M12.5 15.5 6 13l-4 3M13 18l-6 3-3 5M14.5 19.5 12 26l2 4"></path>
+              <path d="M19 13l5-6 5 1M19.5 15.5 26 13l4 3M19 18l6 3 3 5M17.5 19.5 20 26l-2 4"></path>
+            </g>
+            <ellipse cx="16" cy="13.5" rx="3.4" ry="3" fill="currentColor"></ellipse>
+            <ellipse cx="16" cy="20" rx="2.6" ry="3.6" fill="currentColor"></ellipse>
+          </svg>
+          <span>Huntsman</span>
+        </a>
+        <nav aria-label="Main">
+          <ul class="links">
+            {
+              links.map(([label, href]) => (
+                <li>
+                  <a href={href} aria-current={href === path ? 'page' : undefined}>
+                    {label}
+                  </a>
+                </li>
+              ))
+            }
           </ul>
-        </details>
-      </nav>
+        </nav>
+        <div class="actions">
+          <a class="button secondary small soft gh" href={repo}>
+            <Logo name="GitHub" size={16} />
+            <span>GitHub</span>
+            {stars && <span class="stars">{stars}</span>}
+          </a>
+          <a class="button primary small" href="/install">Install</a>
+          <details class="menu">
+            <summary aria-label="Menu">
+              <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>
+            </summary>
+            <ul>
+              {menu.map(([label, href]) => <li><a href={href}>{label}</a></li>)}
+            </ul>
+          </details>
+        </div>
+      </div>
     </header>
 
     <slot />
 
-    <footer class="wrap site-footer">
-      <p>
-        Apache-2.0. The install script and Docker image also ship Lightpanda (AGPL-3.0, run unmodified as a separate
-        process) and the EasyList filter lists. <a href={`${repo}/blob/main/NOTICE`}>Notices</a>
-      </p>
-      <p>Built by <a href="https://tulipfarm.ai">TulipFarm</a>.</p>
+    <footer class="site-footer">
+      <img class="footer-art" src="/art/footer.webp" alt="" width="1536" height="1024" loading="lazy" decoding="async" />
+      <div class="wrap footer-card">
+        <div class="footer-cols">
+          {
+            footerCols.map(([title, items]) => (
+              <div>
+                <h2 class="footer-title">{title}</h2>
+                <ul>
+                  {items.map(([label, href]) => <li><a href={href}>{label}</a></li>)}
+                </ul>
+              </div>
+            ))
+          }
+        </div>
+        <div class="footer-base">
+          <a class="brand" href="/" aria-label="Huntsman home">
+            <svg class="mark" aria-hidden="true" viewBox="0 0 32 32" width="32" height="32">
+              <g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M13 13 8 7 3 8M12.5 15.5 6 13l-4 3M13 18l-6 3-3 5M14.5 19.5 12 26l2 4"></path>
+                <path d="M19 13l5-6 5 1M19.5 15.5 26 13l4 3M19 18l6 3 3 5M17.5 19.5 20 26l-2 4"></path>
+              </g>
+              <ellipse cx="16" cy="13.5" rx="3.4" ry="3" fill="currentColor"></ellipse>
+              <ellipse cx="16" cy="20" rx="2.6" ry="3.6" fill="currentColor"></ellipse>
+            </svg>
+            <span>Huntsman</span>
+          </a>
+          <p class="license">
+            Apache-2.0. The install script and Docker image also ship Lightpanda (AGPL-3.0, run unmodified as a
+            separate process) and the EasyList filter lists.
+          </p>
+          <p>Built by <a href="https://tulipfarm.ai">TulipFarm</a>.</p>
+        </div>
+      </div>
     </footer>
   </body>
 </html>
 
 <style>
   .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    padding-block: var(--space-3);
+  }
+
+  .bar {
     display: flex;
     align-items: center;
-    justify-content: space-between;
     gap: var(--space-6);
-    padding-block: var(--space-6);
+    min-height: 60px;
+    padding: var(--space-2) var(--space-2) var(--space-2) var(--space-4);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    background: rgb(255 255 255 / 0.92);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 6px 24px -12px rgb(27 26 24 / 0.18);
   }
 
   .brand {
@@ -101,37 +154,17 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
     min-height: var(--control-h);
     color: var(--text);
     text-decoration: none;
-    font-weight: 600;
-    font-size: 1.0625rem;
-    letter-spacing: -0.01em;
+    font-weight: 620;
+    font-size: 1.125rem;
+    letter-spacing: -0.02em;
   }
 
   .mark {
     color: var(--accent);
   }
 
-  .maker {
-    display: inline-flex;
-    align-items: center;
-    min-height: var(--control-h);
-    margin-left: calc(-1 * var(--space-3));
-    margin-right: auto;
-    color: var(--text-muted);
-    font-size: 0.875rem;
-    white-space: nowrap;
-    text-decoration: none;
-  }
-
-  @media (hover: hover) and (pointer: fine) {
-    .maker:hover {
-      color: var(--text);
-    }
-  }
-
   nav {
-    display: flex;
-    align-items: center;
-    gap: var(--space-2);
+    margin-right: auto;
   }
 
   .links,
@@ -142,33 +175,59 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
     list-style: none;
   }
 
-  nav a:not(.button) {
+  nav a,
+  .menu a {
     display: inline-flex;
     align-items: center;
-    min-height: var(--control-h);
+    min-height: 40px;
     padding-inline: var(--space-3);
     border-radius: var(--radius-sm);
-    color: var(--text-muted);
+    color: var(--text);
     font-size: 0.9375rem;
-    font-weight: 500;
+    font-weight: 480;
     text-decoration: none;
     white-space: nowrap;
-    transition: color var(--dur-fast) var(--ease-out), background-color var(--dur-fast) var(--ease-out);
+    transition: background-color var(--dur-fast) var(--ease-out);
   }
 
   nav a[aria-current='page'] {
-    color: var(--text);
+    background: var(--surface-2);
   }
 
   @media (hover: hover) and (pointer: fine) {
-    nav a:not(.button):hover {
-      color: var(--text);
+    nav a:hover,
+    .menu a:hover {
       background: var(--surface-2);
+      text-decoration: none;
     }
   }
 
-  nav .button {
-    margin-left: var(--space-2);
+  .actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .button.soft {
+    border-color: transparent;
+    background: var(--surface-2);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .button.soft:hover {
+      background: var(--surface-3);
+    }
+  }
+
+  .gh {
+    gap: var(--space-2);
+  }
+
+  .stars {
+    padding-left: var(--space-2);
+    border-left: 1px solid var(--border-strong);
+    color: var(--text-muted);
+    font-variant-numeric: tabular-nums;
   }
 
   .menu {
@@ -181,8 +240,8 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
     place-items: center;
     width: var(--control-h);
     height: var(--control-h);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
+    border-radius: 999px;
+    background: var(--surface-2);
     color: var(--text);
     cursor: pointer;
     list-style: none;
@@ -193,28 +252,27 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
   }
 
   .menu[open] summary {
-    background: var(--surface-2);
+    background: var(--surface-3);
   }
 
   .menu ul {
     position: absolute;
     right: 0;
-    top: calc(100% + var(--space-2));
-    z-index: 10;
+    top: calc(100% + var(--space-3));
     flex-direction: column;
-    min-width: 12rem;
+    min-width: 13rem;
     padding: var(--space-2);
     border: 1px solid var(--border);
     border-radius: var(--radius-md);
     background: var(--surface);
-    box-shadow: 0 12px 32px -12px rgb(0 0 0 / 0.25);
+    box-shadow: 0 16px 40px -16px rgb(27 26 24 / 0.3);
     transform-origin: top right;
     animation: menu-in var(--dur-fast) var(--ease-out);
   }
 
-  .menu ul a:not(.button) {
+  .menu ul a {
     display: flex;
-    color: var(--text);
+    min-height: var(--control-h);
   }
 
   @keyframes menu-in {
@@ -225,38 +283,125 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
   }
 
   .site-footer {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: var(--space-4);
+    position: relative;
     margin-top: var(--space-24);
-    padding-block: var(--space-8);
+    padding-top: clamp(160px, 22vw, 340px);
+    padding-bottom: var(--space-12);
+    background: #87a647;
+    overflow: hidden;
+  }
+
+  .footer-art {
+    position: absolute;
+    inset: 0 0 auto;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 20%;
+  }
+
+  .footer-card {
+    position: relative;
+    display: grid;
+    gap: var(--space-12);
+    padding: var(--space-12);
+    border-radius: var(--radius-xl);
+    background: var(--surface-2);
+  }
+
+  .footer-cols {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-8);
+  }
+
+  .footer-title {
+    margin-bottom: var(--space-3);
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .footer-cols ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .footer-cols a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 36px;
+    color: var(--text-muted);
+    font-size: 0.9375rem;
+    text-decoration: none;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .footer-cols a:hover {
+      color: var(--text);
+      text-decoration: underline;
+    }
+  }
+
+  .footer-base {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: var(--space-8);
+    padding-top: var(--space-8);
     border-top: 1px solid var(--border);
     color: var(--text-muted);
     font-size: 0.875rem;
   }
 
-  .site-footer p:first-child {
-    max-width: 70ch;
+  .footer-base .brand {
+    font-size: 1.375rem;
   }
 
-  @media (max-width: 900px) {
-    .links {
+  .license {
+    max-width: 64ch;
+  }
+
+  .footer-base a:not(.brand) {
+    color: var(--text);
+  }
+
+  @media (max-width: 960px) {
+    .links,
+    .actions .soft {
       display: none;
     }
 
     .menu {
       display: block;
     }
+
+    .bar {
+      justify-content: space-between;
+    }
   }
 
-  @media (max-width: 480px) {
-    .maker {
-      display: none;
+  @media (max-width: 720px) {
+    .footer-card {
+      padding: var(--space-8) var(--space-6);
     }
 
-    .brand {
-      margin-right: auto;
+    .footer-cols {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .footer-base {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-4);
+    }
+  }
+
+  @media (max-width: 400px) {
+    .actions .primary {
+      display: none;
     }
   }
 </style>
