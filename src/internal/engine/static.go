@@ -87,7 +87,7 @@ func (b *Browser) fetchStatic(ctx context.Context, r Request) (*Document, error)
 	if err != nil {
 		return nil, err
 	}
-	defer client.CloseIdleConnections()
+	defer client.Close()
 	req, err := http.NewRequestWithContext(ctx, http.MethodGet, r.URL, nil)
 	if err != nil {
 		return nil, err
