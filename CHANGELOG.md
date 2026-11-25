@@ -3,6 +3,17 @@
 All notable changes to Huntsman. Versions follow [Semantic Versioning](https://semver.org), and each release is
 published as `ghcr.io/tulipfarm/huntsman:<version>`.
 
+## [0.4.0](https://github.com/TulipFarm/huntsman/releases/tag/v0.4.0) - 2026-11-25
+
+### Features
+
+- **site:** Redesign the landing page for agents and open source ([#22](https://github.com/TulipFarm/huntsman/pull/22))
+
+### Dependencies
+
+- Bump the go group across 1 directory with 6 updates ([#19](https://github.com/TulipFarm/huntsman/pull/19))
+- Upgrade Go modules, Lightpanda 1.0.5 and site packages ([#25](https://github.com/TulipFarm/huntsman/pull/25))
+
 ## [0.3.0](https://github.com/TulipFarm/huntsman/releases/tag/v0.3.0) - 2026-11-14
 
 ### Features
