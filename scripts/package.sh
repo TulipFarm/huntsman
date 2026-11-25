@@ -10,13 +10,13 @@ shift || true
 targets=("$@")
 [ ${#targets[@]} -gt 0 ] || targets=(darwin-arm64 darwin-amd64 linux-arm64 linux-amd64)
 
-lightpanda_version=1.0.4
+lightpanda_version=1.0.5
 lightpanda_sha256() {
   case "$1" in
-    lightpanda-aarch64-linux) echo f021d49a0b66d07bf2633f8e00870b9075293516f872695b0ca4aeb5848b6ea8 ;;
-    lightpanda-aarch64-macos) echo 83b0ba5ae31086b675fb3ba50644bda075a13bebabe46dc5f7543952bc41ae46 ;;
-    lightpanda-x86_64-linux) echo 7d22651129901203abdb95c64f49069c49e88f5211f4d8c4c6828c123c4adab4 ;;
-    lightpanda-x86_64-macos) echo 8c02127c6fc2a713d166349bf1b511d470c8fcd684681927c978cc8bb5952d55 ;;
+    lightpanda-aarch64-linux) echo 7527391c479f323eb9111b834b012d91a89057528c28ef027741b21739b12299 ;;
+    lightpanda-aarch64-macos) echo eec3781086ee512320a04b036f092806a8a959944ea78fc8f4fe7dfe215a84b4 ;;
+    lightpanda-x86_64-linux) echo 0ec21fa4867ab9e82b35285ff4ab0e7336c6c1d89f26fe991f27d73c8a678bd7 ;;
+    lightpanda-x86_64-macos) echo 2b75c9fee5c36d5d840f7938df6a532074bec03bf0485c3130b28597999a66fe ;;
     *) return 1 ;;
   esac
 }

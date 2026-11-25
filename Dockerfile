@@ -1,4 +1,4 @@
-ARG LIGHTPANDA_IMAGE=lightpanda/browser@sha256:5d1d724c476957d8c2f8393a51fd089477523b0e5aa9c783c48688785d934fb9
+ARG LIGHTPANDA_IMAGE=lightpanda/browser@sha256:c474699588315f2d5ba1574a0608feeaf29a31663b845b640d2dd87dd2781ce0
 FROM ${LIGHTPANDA_IMAGE} AS browser
 # Optional: --build-context gomodcache="$(go env GOMODCACHE)" reuses host modules offline.
 FROM scratch AS gomodcache
