@@ -238,7 +238,7 @@ func (b *Browser) Render(ctx context.Context, r Request) (*Document, error) {
 	}
 	// Bot protection often blocks or misroutes Lightpanda's fingerprint but not Chrome's, so retry the HTML without a browser.
 	static, staticErr := b.fetchStatic(ctx, r)
-	if staticErr == nil && (err != nil || static.Metadata.StatusCode < 400 && !challenged(static)) {
+	if staticErr == nil && static.Metadata.StatusCode < 400 && !challenged(static) {
 		return static, nil
 	}
 	return doc, err

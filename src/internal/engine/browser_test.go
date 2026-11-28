@@ -288,3 +288,18 @@ func TestNeedsStaticOnClientCrash(t *testing.T) {
 		}
 	}
 }
+
+func TestRenderDoesNotReturnStaticErrorOnBrowserFailure(t *testing.T) {
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "text/html")
+		w.WriteHeader(504)
+		fmt.Fprint(w, "<h1>504 Gateway Time-out</h1>")
+	}))
+	defer server.Close()
+	browser := NewBrowser(context.Background(), "/nonexistent-lightpanda-binary", 0, true, false, 0)
+	doc, err := browser.Render(context.Background(), request(t, server.URL))
+	if err == nil {
+		t.Fatalf("expected error when both browser and static fallback fail, got doc with status %d: %q",
+			doc.Metadata.StatusCode, doc.Markdown)
+	}
+}
