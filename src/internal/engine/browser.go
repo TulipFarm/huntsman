@@ -432,6 +432,9 @@ func estimateTokens(bytes int) int {
 
 func newDocument(md string, hrefs []string, title, source string, status int, engine string, rawHTMLBytes int) (*Document, error) {
 	if strings.TrimSpace(md) == "" {
+		if status >= 400 {
+			return nil, fmt.Errorf("page returned HTTP %d", status)
+		}
 		return nil, errors.New("page produced empty Markdown")
 	}
 	if len(md) > 2<<20 {

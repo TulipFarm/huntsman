@@ -72,6 +72,10 @@ function scrapeFailure(raw: string | undefined, targetUrl: string) {
   if (lower.includes('deadline exceeded') || lower.includes('timeout')) {
     return { error: `${host} timed out before finishing. Try again in a moment.`, retryable: true };
   }
+  const httpMatch = lower.match(/page returned http (\d{3})/);
+  if (httpMatch) {
+    return statusError(Number(httpMatch[1]));
+  }
   if (lower.includes('empty markdown')) {
     return { error: `${host} returned no readable content.`, retryable: false };
   }
