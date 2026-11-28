@@ -330,7 +330,7 @@ func (s *Service) scrape(w http.ResponseWriter, r *http.Request) {
 	case j.Status == "pending":
 		writeJSON(w, 202, map[string]any{"success": true, "id": j.ID, "status": "pending"})
 	case j.Status == "failed":
-		writeJSON(w, 502, map[string]any{"success": false, "id": j.ID, "error": j.Error})
+		writeJSON(w, 422, map[string]any{"success": false, "id": j.ID, "error": j.Error})
 	case j.ID == "":
 		writeJSON(w, 200, map[string]any{"success": true, "data": j.Data, "cached": true})
 	default:

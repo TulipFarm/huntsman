@@ -4,8 +4,10 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
+	"errors"
 	"net/http"
 	"net/http/httptest"
+	"strings"
 	"testing"
 	"time"
 )
@@ -89,5 +91,39 @@ func TestNamedKeys(t *testing.T) {
 		if w.Code != tc.status {
 			t.Fatalf("token %q: status=%d", tc.token, w.Code)
 		}
+	}
+}
+
+type failingRenderer struct{ err error }
+
+func (f failingRenderer) Render(context.Context, Request) (*Document, error) { return nil, f.err }
+func (failingRenderer) Close()                                               {}
+
+func TestFailedScrapeReturns422WithError(t *testing.T) {
+	svc := NewService(testStore(t, 10), time.Hour, 1, []Key{{"test", "test-key"}})
+	svc.Start(context.Background(), []Renderer{failingRenderer{err: errors.New("navigate: page load error RobotsBlocked")}})
+	defer svc.Close()
+	w := httptest.NewRecorder()
+	r := httptest.NewRequest(http.MethodPost, "/v1/scrape", bytes.NewBufferString(`{"url":"https://www.reddit.com/r/LocalLLaMA/"}`))
+	r.Header.Set("Authorization", "Bearer test-key")
+	svc.Handler().ServeHTTP(w, r)
+	if w.Code != http.StatusUnprocessableEntity {
+		t.Fatalf("expected 422, got %d: %s", w.Code, w.Body.String())
+	}
+	var body struct {
+		Success bool   `json:"success"`
+		Error   string `json:"error"`
+	}
+	if err := json.Unmarshal(w.Body.Bytes(), &body); err != nil {
+		t.Fatalf("invalid json: %v", err)
+	}
+	if body.Success || !strings.Contains(body.Error, "RobotsBlocked") {
+		t.Fatalf("unexpected body: %+v", body)
+	}
+}
+
+func TestEmptyNon200DocumentReportsStatus(t *testing.T) {
+	if _, err := newDocument("", nil, "", "https://httpbin.org/status/504", 504, "lightpanda", 0); err == nil || !strings.Contains(err.Error(), "HTTP 504") {
+		t.Fatalf("expected HTTP 504 error, got %v", err)
 	}
 }
