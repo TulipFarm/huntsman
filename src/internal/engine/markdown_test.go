@@ -63,3 +63,34 @@ func TestPresentationTableUnwraps(t *testing.T) {
 		t.Fatalf("presentation table text lost:\n%s", md)
 	}
 }
+
+func TestCleanLinks(t *testing.T) {
+	input := `<div>
+		<a href="#maincontent">Skip to main content</a>
+		<a href="https://example.com/#navigation">Skip to navigation</a>
+		<a href="/story-1" aria-label="Breaking story headline"></a>
+		<a href="/story-2" title="Fallback title headline"></a>
+		<a href="/empty-icon"><svg></svg></a>
+		<a href="/with-img"><img src="/pic.jpg" alt="Photo caption"></a>
+		<a href="/normal">Normal link</a>
+	</div>`
+	md, err := newConverter().ConvertString(input, converter.WithDomain("https://example.com"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, unwanted := range []string{"Skip to main content", "Skip to navigation", "[](https://example.com/empty-icon)", "/empty-icon"} {
+		if strings.Contains(md, unwanted) {
+			t.Fatalf("unwanted %q remained in:\n%s", unwanted, md)
+		}
+	}
+	for _, want := range []string{
+		"[Breaking story headline](https://example.com/story-1)",
+		"[Fallback title headline](https://example.com/story-2)",
+		"[![Photo caption](https://example.com/pic.jpg)](https://example.com/with-img)",
+		"[Normal link](https://example.com/normal)",
+	} {
+		if !strings.Contains(md, want) {
+			t.Fatalf("missing %q in:\n%s", want, md)
+		}
+	}
+}
