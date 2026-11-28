@@ -20,9 +20,6 @@ import (
 	"time"
 
 	"github.com/JohannesKaufmann/html-to-markdown/v2/converter"
-	"github.com/JohannesKaufmann/html-to-markdown/v2/plugin/base"
-	"github.com/JohannesKaufmann/html-to-markdown/v2/plugin/commonmark"
-	"github.com/JohannesKaufmann/html-to-markdown/v2/plugin/table"
 	"github.com/chromedp/cdproto/cdp"
 	"github.com/chromedp/cdproto/network"
 	"github.com/chromedp/cdproto/page"
@@ -423,10 +420,6 @@ return {html: node.outerHTML, title: document.title, url: location.href, links: 
 		return nil, fmt.Errorf("convert Markdown: %w", err)
 	}
 	return newDocument(md, pageData.Links, pageData.Title, pageData.URL, status, "lightpanda")
-}
-
-func newConverter() *converter.Converter {
-	return converter.NewConverter(converter.WithPlugins(base.NewBasePlugin(), commonmark.NewCommonmarkPlugin(), table.NewTablePlugin()))
 }
 
 func newDocument(md string, hrefs []string, title, source string, status int, engine string) (*Document, error) {
