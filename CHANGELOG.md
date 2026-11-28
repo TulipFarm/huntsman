@@ -3,6 +3,12 @@
 All notable changes to Huntsman. Versions follow [Semantic Versioning](https://semver.org), and each release is
 published as `ghcr.io/tulipfarm/huntsman:<version>`.
 
+## [0.5.1](https://github.com/TulipFarm/huntsman/releases/tag/v0.5.1) - 2026-11-28
+
+### Bug fixes
+
+- **api:** Return HTTP 422 on failed scrapes so proxies preserve error JSON ([#31](https://github.com/TulipFarm/huntsman/pull/31))
+
 ## [0.5.0](https://github.com/TulipFarm/huntsman/releases/tag/v0.5.0) - 2026-11-28
 
 ### Features
