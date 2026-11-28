@@ -15,15 +15,89 @@ func newConverter() *converter.Converter {
 	conv := converter.NewConverter(
 		converter.WithPlugins(
 			base.NewBasePlugin(),
-			commonmark.NewCommonmarkPlugin(),
+			commonmark.NewCommonmarkPlugin(
+				commonmark.WithLinkEmptyContentBehavior(commonmark.LinkBehaviorSkip),
+			),
 			table.NewTablePlugin(
 				table.WithCellPaddingBehavior(table.CellPaddingBehaviorMinimal),
 				table.WithSkipEmptyRows(true),
 			),
 		),
 	)
+	conv.Register.PreRenderer(cleanLinks, converter.PriorityEarly)
 	conv.Register.PreRenderer(unwrapLayoutTables, converter.PriorityEarly)
 	return conv
+}
+
+// cleanLinks removes skip-navigation anchors, fills empty links from aria-label
+// or title (such as card overlay links), and drops links that still have no text.
+func cleanLinks(_ converter.Context, doc *html.Node) {
+	var anchors []*html.Node
+	var collect func(*html.Node)
+	collect = func(n *html.Node) {
+		if n.Type == html.ElementNode && n.DataAtom == atom.A {
+			anchors = append(anchors, n)
+		}
+		for c := n.FirstChild; c != nil; c = c.NextSibling {
+			collect(c)
+		}
+	}
+	collect(doc)
+
+	for _, a := range anchors {
+		if a.Parent == nil {
+			continue
+		}
+		if isSkipLink(a) {
+			a.Parent.RemoveChild(a)
+			continue
+		}
+		if hasVisibleContent(a) {
+			continue
+		}
+		label := strings.TrimSpace(attr(a, "aria-label"))
+		if label == "" {
+			if title := strings.TrimSpace(attr(a, "title")); title != "" {
+				label = title
+				removeAttr(a, "title")
+			}
+		}
+		if label != "" {
+			a.AppendChild(&html.Node{Type: html.TextNode, Data: label})
+		} else {
+			a.Parent.RemoveChild(a)
+		}
+	}
+}
+
+func removeAttr(n *html.Node, key string) {
+	dst := n.Attr[:0]
+	for _, a := range n.Attr {
+		if a.Namespace != "" || a.Key != key {
+			dst = append(dst, a)
+		}
+	}
+	n.Attr = dst
+}
+
+func isSkipLink(a *html.Node) bool {
+	href := strings.TrimSpace(attr(a, "href"))
+	if !strings.HasPrefix(href, "#") && !strings.Contains(href, "#") {
+		return false
+	}
+	text := strings.ToLower(strings.Join(strings.Fields(nodeText(a)), " "))
+	return strings.HasPrefix(text, "skip to ")
+}
+
+func nodeText(n *html.Node) string {
+	if n.Type == html.TextNode {
+		return n.Data
+	}
+	var b strings.Builder
+	for c := n.FirstChild; c != nil; c = c.NextSibling {
+		b.WriteString(nodeText(c))
+	}
+	return b.String()
 }
 
 // unwrapLayoutTables converts HTML tables used for page layout (such as nested
