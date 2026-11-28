@@ -37,6 +37,18 @@ function normalize(raw: unknown) {
   }
 }
 
+const STATUS_ERRORS: Record<number, string> = {
+  401: 'That site blocked the request (HTTP 401).',
+  403: 'That site blocked the request (HTTP 403).',
+  404: 'Page not found (HTTP 404).',
+  429: 'That site rate-limited the request (HTTP 429). Try again in a moment.',
+  504: 'That site timed out before responding (HTTP 504). Try again in a moment.',
+};
+
+function statusError(statusCode: number) {
+  return STATUS_ERRORS[statusCode] ?? `That site returned HTTP ${statusCode}.`;
+}
+
 // Without JavaScript the form posts here directly, so answer it with plain text instead of JSON.
 function reply(body: Record<string, unknown>, status: number, asText: boolean) {
   if (asText) {
@@ -108,17 +120,7 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
 
   const statusCode = body.data.metadata?.statusCode ?? null;
   if (statusCode !== null && statusCode >= 400) {
-    const label =
-      statusCode === 401 || statusCode === 403
-        ? `That site blocked the request (HTTP ${statusCode}).`
-        : statusCode === 404
-          ? 'Page not found (HTTP 404).'
-          : statusCode === 429
-            ? 'That site rate-limited the request (HTTP 429). Try again in a moment.'
-            : statusCode === 504
-              ? 'That site timed out before responding (HTTP 504). Try again in a moment.'
-              : `That site returned HTTP ${statusCode}.`;
-    return reply({ error: label, statusCode }, 422, asText);
+    return reply({ error: statusError(statusCode), statusCode }, 422, asText);
   }
 
   const markdown = body.data.markdown ?? '';
