@@ -3,6 +3,19 @@
 All notable changes to Huntsman. Versions follow [Semantic Versioning](https://semver.org), and each release is
 published as `ghcr.io/tulipfarm/huntsman:<version>`.
 
+## [0.5.0](https://github.com/TulipFarm/huntsman/releases/tag/v0.5.0) - 2026-11-28
+
+### Features
+
+- Return HTML and Markdown token counts and show savings in playground ([#30](https://github.com/TulipFarm/huntsman/pull/30))
+
+### Bug fixes
+
+- Surface non-200 scrape responses as errors in playground and fallback ([#26](https://github.com/TulipFarm/huntsman/pull/26))
+- **site:** Return real scrape error reasons instead of 502 fallback ([#27](https://github.com/TulipFarm/huntsman/pull/27))
+- Remove table column padding and unwrap layout tables ([#28](https://github.com/TulipFarm/huntsman/pull/28))
+- Resolve aria-label/title on empty links and drop empty and skip links ([#29](https://github.com/TulipFarm/huntsman/pull/29))
+
 ## [0.4.0](https://github.com/TulipFarm/huntsman/releases/tag/v0.4.0) - 2026-11-25
 
 ### Features
