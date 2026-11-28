@@ -170,7 +170,7 @@ const sample: [string, string?][][] = [
         body: JSON.stringify({ url }),
         signal: controller.signal,
       });
-      const fallback = res.status === 429 ? 'Too many scrapes. Wait a few seconds and try again.' : 'Something went wrong. Try again.';
+      const fallback = res.status === 429 ? 'Too many scrapes. Wait a few seconds and try again.' : 'Couldn’t scrape that page.';
       const data = (await res.json().catch(() => ({ error: fallback }))) as Result;
       if (!res.ok || data.error) throw new Error(data.error ?? fallback);
       if (data.statusCode !== null && data.statusCode >= 400) {

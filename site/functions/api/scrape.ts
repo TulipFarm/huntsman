@@ -37,16 +37,48 @@ function normalize(raw: unknown) {
   }
 }
 
-const STATUS_ERRORS: Record<number, string> = {
-  401: 'That site blocked the request (HTTP 401).',
-  403: 'That site blocked the request (HTTP 403).',
-  404: 'Page not found (HTTP 404).',
-  429: 'That site rate-limited the request (HTTP 429). Try again in a moment.',
-  504: 'That site timed out before responding (HTTP 504). Try again in a moment.',
+const STATUS_ERRORS: Record<number, { error: string; retryable: boolean }> = {
+  401: { error: 'That site requires sign-in (HTTP 401).', retryable: false },
+  403: { error: 'That site blocked the request (HTTP 403).', retryable: false },
+  404: { error: 'Page not found (HTTP 404).', retryable: false },
+  429: { error: 'That site rate-limited the request (HTTP 429). Try again in a moment.', retryable: true },
+  504: { error: 'That site timed out before responding (HTTP 504). Try again in a moment.', retryable: true },
 };
 
 function statusError(statusCode: number) {
-  return STATUS_ERRORS[statusCode] ?? `That site returned HTTP ${statusCode}.`;
+  return (
+    STATUS_ERRORS[statusCode] ?? {
+      error: `That site returned HTTP ${statusCode}.`,
+      retryable: statusCode >= 500,
+    }
+  );
+}
+
+function scrapeFailure(raw: string | undefined, targetUrl: string) {
+  let host = targetUrl;
+  try {
+    host = new URL(targetUrl).hostname.replace(/^www\./, '');
+  } catch {}
+  const lower = (raw ?? '').toLowerCase();
+  if (lower.includes('robotsblocked') || lower.includes('robots.txt')) {
+    return { error: `${host} blocks automated scraping in robots.txt.`, retryable: false };
+  }
+  if (lower.includes('private') || lower.includes('loopback') || lower.includes('link-local')) {
+    return { error: 'Private and local network addresses cannot be scraped.', retryable: false };
+  }
+  if (lower.includes('unsupported content type')) {
+    return { error: `${host} did not return a readable HTML or PDF page.`, retryable: false };
+  }
+  if (lower.includes('deadline exceeded') || lower.includes('timeout')) {
+    return { error: `${host} timed out before finishing. Try again in a moment.`, retryable: true };
+  }
+  if (lower.includes('empty markdown')) {
+    return { error: `${host} returned no readable content.`, retryable: false };
+  }
+  return {
+    error: raw ? `Couldn’t scrape ${host}: ${raw}` : `Couldn’t scrape ${host}.`,
+    retryable: false,
+  };
 }
 
 // Without JavaScript the form posts here directly, so answer it with plain text instead of JSON.
@@ -112,15 +144,17 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
   const ms = Math.round(performance.now() - started);
   const body = (await res.json().catch(() => null)) as ScrapeResponse | null;
 
-  if (res.status === 202) return reply({ error: 'That page took longer than 30 seconds to load.' }, 504, asText);
+  if (res.status === 202) {
+    return reply({ error: 'That page took longer than 30 seconds to load. Try again in a moment.', retryable: true }, 422, asText);
+  }
   if (!res.ok || !body?.success || !body.data) {
-    const error = body?.error ? `Huntsman couldn’t scrape that page: ${body.error}` : 'Huntsman couldn’t scrape that page.';
-    return reply({ error }, res.status >= 500 ? 502 : 422, asText);
+    // Return 422 rather than 502 so Cloudflare Pages passes our JSON error body through untouched.
+    return reply(scrapeFailure(body?.error, url), 422, asText);
   }
 
   const statusCode = body.data.metadata?.statusCode ?? null;
   if (statusCode !== null && statusCode >= 400) {
-    return reply({ error: statusError(statusCode), statusCode }, 422, asText);
+    return reply({ ...statusError(statusCode), statusCode }, 422, asText);
   }
 
   const markdown = body.data.markdown ?? '';
