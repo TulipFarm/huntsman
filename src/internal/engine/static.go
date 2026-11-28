@@ -149,7 +149,7 @@ func (b *Browser) fetchStatic(ctx context.Context, r Request) (*Document, error)
 	if err != nil {
 		return nil, fmt.Errorf("convert Markdown: %w", err)
 	}
-	return newDocument(string(md), hrefs, title, resp.Request.URL.String(), resp.StatusCode, "http")
+	return newDocument(string(md), hrefs, title, resp.Request.URL.String(), resp.StatusCode, "http", len(raw))
 }
 
 func walk(n *html.Node, visit func(*html.Node)) {

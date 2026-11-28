@@ -233,6 +233,10 @@ func TestStaticFetch(t *testing.T) {
 		len(doc.Links) != 1 || doc.Links[0] != server.URL+"/next" {
 		t.Fatalf("static page not converted: %+v", doc)
 	}
+	if doc.Metadata.MarkdownTokens <= 0 || doc.Metadata.HTMLTokens <= doc.Metadata.MarkdownTokens {
+		t.Fatalf("expected htmlTokens > markdownTokens > 0, got html=%d md=%d",
+			doc.Metadata.HTMLTokens, doc.Metadata.MarkdownTokens)
+	}
 	for _, unwanted := range []string{"UnwantedNav", "CookieText", "ScriptText", "FooterText"} {
 		if strings.Contains(doc.Markdown, unwanted) {
 			t.Fatalf("%s leaked into %s", unwanted, doc.Markdown)

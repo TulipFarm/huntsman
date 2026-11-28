@@ -393,12 +393,13 @@ func (b *Browser) render(ctx context.Context, r Request) (_ *Document, err error
 	script := fmt.Sprintf(`(() => {
 const source = document.body || document.documentElement;
 if (!source) throw new Error("page has no body");
+const rawHtmlLen = (document.documentElement || source).outerHTML.length;
 const node = source.cloneNode(true);
 node.querySelectorAll('script,style,noscript,template,meta').forEach(n => n.remove());
 const exclude = %s, keep = %s;
 if (exclude) node.querySelectorAll(exclude).forEach(n => { if (!n.querySelector(keep)) n.remove(); });
 const links = Array.from(document.querySelectorAll('a[href]')).map(a => a.href).filter(u => /^https?:\/\//.test(u));
-return {html: node.outerHTML, title: document.title, url: location.href, links: links};
+return {html: node.outerHTML, rawHtmlLen: rawHtmlLen, title: document.title, url: location.href, links: links};
 })()`, exclude, keep)
 	pageData, err := chromedp.Run(tab, chromedp.Evaluate[extraction](script))
 	if err != nil {
@@ -419,10 +420,17 @@ return {html: node.outerHTML, title: document.title, url: location.href, links: 
 	if err != nil {
 		return nil, fmt.Errorf("convert Markdown: %w", err)
 	}
-	return newDocument(md, pageData.Links, pageData.Title, pageData.URL, status, "lightpanda")
+	return newDocument(md, pageData.Links, pageData.Title, pageData.URL, status, "lightpanda", pageData.RawHTMLLen)
 }
 
-func newDocument(md string, hrefs []string, title, source string, status int, engine string) (*Document, error) {
+func estimateTokens(bytes int) int {
+	if bytes <= 0 {
+		return 0
+	}
+	return (bytes + 3) / 4
+}
+
+func newDocument(md string, hrefs []string, title, source string, status int, engine string, rawHTMLBytes int) (*Document, error) {
 	if strings.TrimSpace(md) == "" {
 		return nil, errors.New("page produced empty Markdown")
 	}
@@ -440,7 +448,13 @@ func newDocument(md string, hrefs []string, title, source string, status int, en
 		}
 	}
 	return &Document{Markdown: md, Links: links, Metadata: Metadata{
-		Title: title, SourceURL: source, StatusCode: status, FetchedAt: time.Now().UTC(), Engine: engine,
+		Title:          title,
+		SourceURL:      source,
+		StatusCode:     status,
+		FetchedAt:      time.Now().UTC(),
+		Engine:         engine,
+		HTMLTokens:     estimateTokens(rawHTMLBytes),
+		MarkdownTokens: estimateTokens(len(md)),
 	}}, nil
 }
 
@@ -459,10 +473,11 @@ func waitForDocument(tab context.Context) error {
 }
 
 type extraction struct {
-	HTML  string   `json:"html"`
-	Title string   `json:"title"`
-	URL   string   `json:"url"`
-	Links []string `json:"links"`
+	HTML       string   `json:"html"`
+	RawHTMLLen int      `json:"rawHtmlLen"`
+	Title      string   `json:"title"`
+	URL        string   `json:"url"`
+	Links      []string `json:"links"`
 }
 
 // listen hands each event to handle until the stream ends with its context.

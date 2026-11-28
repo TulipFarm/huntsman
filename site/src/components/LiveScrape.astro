@@ -75,6 +75,9 @@ const sample: [string, string?][][] = [
     statusCode: number | null;
     links: number;
     chars: number;
+    tokens: number;
+    htmlTokens: number | null;
+    savedPct: number | null;
     truncated: boolean;
     markdown: string;
     error?: string;
@@ -108,6 +111,14 @@ const sample: [string, string?][][] = [
   };
 
   const number = new Intl.NumberFormat('en');
+
+  function formatTokens(data: Result) {
+    const md = `${number.format(data.tokens)} tokens`;
+    if (!data.htmlTokens) return md;
+    const html = `${number.format(data.htmlTokens)} as HTML`;
+    if (data.savedPct !== null) return `${md} · ${html} (${data.savedPct}% fewer)`;
+    return `${md} · ${html}`;
+  }
 
   // Colors Markdown by line with text nodes only, so scraped content can never become HTML.
   function paint(source: string) {
@@ -179,11 +190,10 @@ const sample: [string, string?][][] = [
 
       text = data.markdown;
       const facts = [
-        data.statusCode ? `HTTP ${data.statusCode}` : null,
+        formatTokens(data),
         data.cached ? 'from cache' : `${number.format(data.ms)} ms`,
-        `${number.format(data.chars)} characters`,
         `${number.format(data.links)} links`,
-      ].filter(Boolean);
+      ];
       setState('done');
       const title = document.createElement('span');
       title.className = 'title';
