@@ -84,11 +84,13 @@ type Document struct {
 }
 
 type Metadata struct {
-	Title      string    `json:"title"`
-	SourceURL  string    `json:"sourceURL"`
-	StatusCode int       `json:"statusCode"`
-	FetchedAt  time.Time `json:"fetchedAt"`
-	Engine     string    `json:"engine"`
+	Title          string    `json:"title"`
+	SourceURL      string    `json:"sourceURL"`
+	StatusCode     int       `json:"statusCode"`
+	FetchedAt      time.Time `json:"fetchedAt"`
+	Engine         string    `json:"engine"`
+	HTMLTokens     int       `json:"htmlTokens,omitempty"`
+	MarkdownTokens int       `json:"markdownTokens,omitempty"`
 }
 
 type Job struct {

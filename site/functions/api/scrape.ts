@@ -97,7 +97,13 @@ type ScrapeResponse = {
   data?: {
     markdown?: string;
     links?: string[];
-    metadata?: { title?: string; statusCode?: number; engine?: string };
+    metadata?: {
+      title?: string;
+      statusCode?: number;
+      engine?: string;
+      htmlTokens?: number;
+      markdownTokens?: number;
+    };
   };
 };
 
@@ -158,6 +164,11 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
   }
 
   const markdown = body.data.markdown ?? '';
+  const tokens = body.data.metadata?.markdownTokens ?? Math.ceil(markdown.length / 4);
+  const htmlTokens = body.data.metadata?.htmlTokens ?? null;
+  const savedPct =
+    htmlTokens !== null && htmlTokens > tokens ? Math.round((1 - tokens / htmlTokens) * 100) : null;
+
   return reply(
     {
       url,
@@ -168,6 +179,9 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
       engine: body.data.metadata?.engine ?? '',
       links: body.data.links?.length ?? 0,
       chars: markdown.length,
+      tokens,
+      htmlTokens,
+      savedPct,
       truncated: markdown.length > MAX_MARKDOWN,
       markdown: markdown.slice(0, MAX_MARKDOWN),
     },
