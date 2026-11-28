@@ -106,6 +106,21 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
     return reply({ error }, res.status >= 500 ? 502 : 422, asText);
   }
 
+  const statusCode = body.data.metadata?.statusCode ?? null;
+  if (statusCode !== null && statusCode >= 400) {
+    const label =
+      statusCode === 401 || statusCode === 403
+        ? `That site blocked the request (HTTP ${statusCode}).`
+        : statusCode === 404
+          ? 'Page not found (HTTP 404).'
+          : statusCode === 429
+            ? 'That site rate-limited the request (HTTP 429). Try again in a moment.'
+            : statusCode === 504
+              ? 'That site timed out before responding (HTTP 504). Try again in a moment.'
+              : `That site returned HTTP ${statusCode}.`;
+    return reply({ error: label, statusCode }, 422, asText);
+  }
+
   const markdown = body.data.markdown ?? '';
   return reply(
     {
@@ -113,7 +128,7 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
       ms,
       cached: Boolean(body.cached),
       title: body.data.metadata?.title ?? '',
-      statusCode: body.data.metadata?.statusCode ?? null,
+      statusCode,
       engine: body.data.metadata?.engine ?? '',
       links: body.data.links?.length ?? 0,
       chars: markdown.length,
